@@ -1,0 +1,12 @@
+type User {
+  email: String
+  id: String
+}
+
+type Error {
+  message: String!
+}
+
+type Success {
+  message: String!
+}

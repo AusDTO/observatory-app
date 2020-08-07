@@ -1,0 +1,44 @@
+type Mutation {
+  register(
+    email: String
+    password: String
+    name: String
+    agency: String
+    role: String
+  ): RegisterResult
+  resendConfirmationEmail(email: String!): SendEmailResult
+}
+
+type Query {
+  bye: String
+}
+
+type ConfirmationEmailSent {
+  message: String!
+}
+
+type EmailNotSentError {
+  message: String!
+}
+
+type FieldError {
+  path: String!
+  message: String!
+}
+
+type FieldErrors {
+  errors: [FieldError!]
+}
+
+type UserAlreadyExistsError {
+  path: String!
+  message: String!
+}
+
+type UserRegistered {
+  message: String!
+}
+
+union RegisterResult = FieldErrors | UserRegistered | UserAlreadyExistsError
+
+union SendEmailResult = ConfirmationEmailSent | EmailNotSentError
