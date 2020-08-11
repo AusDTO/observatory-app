@@ -11,6 +11,10 @@ interface RegisterData {
   password: string;
 }
 
+interface ResendEmailData {
+  email: string;
+}
+
 type ApiError = {
   message: string;
   path: string;

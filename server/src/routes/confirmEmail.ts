@@ -18,5 +18,5 @@ export const confirmEmail = async (
 
     //delete redis key once it has been used
     await redis_client.del(id);
-  } else res.send("Link has expired or no longer exists");
+  } else res.redirect(`${FRONT_END_URL}/invalid-confirmation`);
 };

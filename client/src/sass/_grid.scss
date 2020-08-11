@@ -254,6 +254,10 @@ $AU-grid-12-gutter-width: 24px !default; //gutter space
   display: block;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .ml-1 {
   @include AU-space(margin-left, 1unit);
 }

@@ -4,7 +4,8 @@ import { Register } from "./components/pages/register/register";
 import { Login } from "./components/pages/login";
 import { Confirmation } from "./components/pages/confirmation/confirmation";
 import { Activated } from "./components/pages/activation/activated";
-import { ResendConfirmation } from "./components/pages/activation/resend-confirmation";
+import { ResendConfirmationEmail } from "./components/pages/resendConfirmation/resend-confirmation";
+import { InvalidConfirmation } from "./components/pages/activation/invalid";
 
 const App = (props: any) => {
   return (
@@ -15,9 +16,14 @@ const App = (props: any) => {
         <Route path="/confirmation" exact component={Confirmation} />
         <Route path="/activated" exact component={Activated} />
         <Route
+          path="/invalid-confirmation"
+          exact
+          component={InvalidConfirmation}
+        />
+        <Route
           path="/resend-confirmation"
           exact
-          component={ResendConfirmation}
+          component={ResendConfirmationEmail}
         />
         <Route path="/" render={() => <div>404</div>} />
       </Switch>

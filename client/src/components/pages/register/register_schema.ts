@@ -28,6 +28,7 @@ export const validationSchema = yup.object().shape({
   agency: yup.string().required("Enter an agency").min(2),
   role: yup.string().required("Enter your role").min(2),
 });
+
 export const REGISTER_SCHEMA = gql`
   mutation RegisterUser(
     $email: String!

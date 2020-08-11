@@ -70,7 +70,6 @@ export const Register: React.FC<Props> = ({ history }) => {
           setState({
             ...state,
             apiError: true,
-            submitted: true,
             apiErrorList: errorList,
           });
           break;
@@ -84,7 +83,6 @@ export const Register: React.FC<Props> = ({ history }) => {
           setState({
             ...state,
             apiError: true,
-            submitted: true,
             apiErrorList: [{ message, path }],
           });
           break;
@@ -114,7 +112,6 @@ export const Register: React.FC<Props> = ({ history }) => {
               validationSchema={validationSchema}
               onSubmit={(data, errors) => {
                 handleRegisterUser(data);
-                setState({ ...state, submitted: true });
               }}
             >
               {({ values, errors, touched, handleSubmit }) => (
@@ -127,8 +124,8 @@ export const Register: React.FC<Props> = ({ history }) => {
                     setState({
                       ...state,
                       isErrors: true,
-                      submitted: false,
                       apiError: false,
+                      apiErrorList: [],
                     });
                     document.title = "Errors | Sign up form";
                     const timeout = setTimeout(() => {
@@ -145,7 +142,7 @@ export const Register: React.FC<Props> = ({ history }) => {
                     }, 500);
                   }}
                 >
-                  {state.apiErrorList.length > 0 && (
+                  {state.apiError && state.apiErrorList.length > 0 && (
                     <PageAlert type="error" className="max-42">
                       <>
                         <h3 id="api-error-heading">There was an error</h3>

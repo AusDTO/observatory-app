@@ -2,15 +2,24 @@ import React, { useState } from "react";
 import DefaultLayout from "../../layouts/DefaultLayout";
 import { RouteComponentProps } from "react-router-dom";
 import { Formik, Form } from "formik";
-import * as yup from "yup";
 
 import SubscribeField from "../../form/SearchField";
 import { Aubtn } from "../../../types/auds";
 import SEO from "../seo";
+import { useMutation } from "@apollo/client";
+import {
+  RESEND_CONFIRMATION_SCHEMA,
+  InitialValues,
+  validationSchema,
+} from "./resendConfirmationSchema";
+import {
+  ResendConfirmation,
+  ResendConfirmationVariables,
+} from "../../../graphql/ResendConfirmation";
 
 interface Props extends RouteComponentProps {}
 
-export const ResendConfirmation: React.FC<Props> = () => {
+export const ResendConfirmationEmail: React.FC<Props> = () => {
   const [state, setState] = useState<RegisterState>({
     isErrors: false,
     submitted: false,
@@ -18,20 +27,20 @@ export const ResendConfirmation: React.FC<Props> = () => {
     apiErrorList: [],
   });
 
-  const InitialValues = {
-    email: "",
-  };
-
   const [isSaving, setSaving] = useState<boolean>(false);
 
-  const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email("Enter a valid email")
-      .required("Enter an email")
-      .max(255)
-      .matches(/.gov.au$/, "Only government emails are allowed to apply"),
-  });
+  const [
+    resendEmail,
+    { loading: mutationLoading, error: mutationError },
+  ] = useMutation<ResendConfirmation, ResendConfirmationVariables>(
+    RESEND_CONFIRMATION_SCHEMA
+  );
+
+  const handleResendEmail = async (formData: ResendEmailData) => {
+    const { email } = formData;
+    const result = await resendEmail({ variables: { email } });
+    console.log(result);
+  };
 
   return (
     <DefaultLayout>
@@ -39,19 +48,19 @@ export const ResendConfirmation: React.FC<Props> = () => {
         <SEO title="Resend confirmation" />
 
         <div className="container-fluid au-body">
+          <h2>Resend confirmation</h2>
           <p>
-            It seems the link is broken or expired. Enter your email below and
-            we will send you a new confirmation link
+            Enter your email below and we will send you a new confirmation link
           </p>
           <Formik
             initialValues={InitialValues}
             validationSchema={validationSchema}
             onSubmit={(data, errors) => {
-              console.log(data);
+              handleResendEmail(data);
             }}
           >
             {({ values, errors, touched, handleSubmit }) => (
-              <Form id="resend-confirmation">
+              <Form id="resend-confirmation" noValidate>
                 <div className="au-search au-search--dark au-form-group max-30">
                   <SubscribeField
                     id="email"
