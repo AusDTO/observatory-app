@@ -1,6 +1,7 @@
 import React from "react";
 import DefaultLayout from "../../layouts/DefaultLayout";
 import { RouteComponentProps, Router, Redirect } from "react-router-dom";
+import SEO from "../seo";
 
 interface Props extends RouteComponentProps {}
 
@@ -15,11 +16,15 @@ export const Confirmation: React.FC<Props> = ({ history, location }) => {
   }
   return (
     <DefaultLayout>
-      <div className="container-fluid au-body">
-        <h2>One more step...</h2>
-        We have sent a confirmation to your email. Use the link found there to
-        finish signing up.
-      </div>
+      <>
+        <SEO title="Confirm registration" />
+
+        <div className="container-fluid au-body">
+          <h2>One more step...</h2>
+          We have sent a confirmation to your email. Use the link found there to
+          finish signing up.
+        </div>
+      </>
     </DefaultLayout>
   );
 };

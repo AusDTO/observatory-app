@@ -4,6 +4,7 @@ import DefaultLayout from "../layouts/DefaultLayout";
 import TextField from "../form/TextField";
 import * as yup from "yup";
 import { AuFormGroup, Aubtn } from "../../types/auds";
+import SEO from "./seo";
 
 export const Login: React.FC = () => {
   const InitialValues = {
@@ -23,6 +24,7 @@ export const Login: React.FC = () => {
   return (
     <DefaultLayout>
       <div className="container-fluid">
+        <SEO title="Sign in" />
         <Formik
           initialValues={InitialValues}
           validationSchema={validationSchema}

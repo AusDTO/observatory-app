@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Register } from "./components/pages/register/register";
 import { Login } from "./components/pages/login";
-import { ExchangeRates } from "./components/pages/test";
 import { Confirmation } from "./components/pages/confirmation/confirmation";
 import { Activated } from "./components/pages/activation/activated";
 import { ResendConfirmation } from "./components/pages/activation/resend-confirmation";

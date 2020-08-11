@@ -1,15 +1,20 @@
 import React from "react";
 import DefaultLayout from "../../layouts/DefaultLayout";
-import { RouteComponentProps, Router, Redirect } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
+import SEO from "../seo";
 
 interface Props extends RouteComponentProps {}
 
-export const Activated: React.FC<Props> = ({ history, location }) => {
+export const Activated: React.FC<Props> = () => {
   return (
     <DefaultLayout>
-      <div className="container-fluid au-body">
-        <p>Congratulations, your account has been activated.</p>
-      </div>
+      <>
+        <SEO title="Account activated!" />
+
+        <div className="container-fluid au-body">
+          <p>Congratulations, your account has been activated.</p>
+        </div>
+      </>
     </DefaultLayout>
   );
 };

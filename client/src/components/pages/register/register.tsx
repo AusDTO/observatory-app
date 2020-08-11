@@ -16,11 +16,10 @@ import {
   RegisterUserVariables,
   RegisterUser_register_UserAlreadyExistsError,
   RegisterUser_register_FieldErrors,
-  RegisterUser_register_FieldErrors_errors,
 } from "../../../graphql/RegisterUser";
 import { RouteComponentProps } from "react-router-dom";
 import { formatApiError } from "../../util/formatError";
-import { cpuUsage } from "process";
+import SEO from "../seo";
 
 interface Props extends RouteComponentProps {}
 export const Register: React.FC<Props> = ({ history }) => {
@@ -95,120 +94,128 @@ export const Register: React.FC<Props> = ({ history }) => {
 
   return (
     <DefaultLayout>
-      <div className="container-fluid">
-        <div className="au-body">
-          <div>
-            <h3>Create your observatory reports account</h3>
-            <p>
-              This tool is currently in its Alpha phase, meaning access is
-              limited to agencies with Observatory subscriptions only
-            </p>
-            <p>
-              To connect your Google Analytics account to the Observatory please
-              contact us
-            </p>
-          </div>
-          <Formik
-            initialValues={InitialValues}
-            validationSchema={validationSchema}
-            onSubmit={(data, errors) => {
-              handleRegisterUser(data);
-              setState({ ...state, submitted: true });
-            }}
-          >
-            {({ values, errors, touched, handleSubmit }) => (
-              <Form
-                noValidate
-                onSubmit={(e) => {
-                  handleSubmit(e);
-                  if (Object.keys(errors).length < 1) return;
+      <>
+        <SEO title="Register" />
+        <div className="container-fluid">
+          <div className="au-body">
+            <div>
+              <h3>Create your observatory reports account</h3>
+              <p>
+                This tool is currently in its Alpha phase, meaning access is
+                limited to agencies with Observatory subscriptions only
+              </p>
+              <p>
+                To connect your Google Analytics account to the Observatory
+                please contact us
+              </p>
+            </div>
+            <Formik
+              initialValues={InitialValues}
+              validationSchema={validationSchema}
+              onSubmit={(data, errors) => {
+                handleRegisterUser(data);
+                setState({ ...state, submitted: true });
+              }}
+            >
+              {({ values, errors, touched, handleSubmit }) => (
+                <Form
+                  noValidate
+                  onSubmit={(e) => {
+                    handleSubmit(e);
+                    if (Object.keys(errors).length < 1) return;
 
-                  setState({
-                    ...state,
-                    isErrors: true,
-                    submitted: false,
-                    apiError: false,
-                  });
-                  document.title = "Errors | Sign up form";
-                  const timeout = setTimeout(() => {
-                    const errorSum = document.getElementById(
-                      "error-heading"
-                    ) as any;
-                    if (errorSum && errorSum.focus()) {
-                      errorSum.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start",
-                      });
-                    }
-                    clearTimeout(timeout);
-                  }, 500);
-                }}
-              >
-                {state.apiErrorList.length > 0 && (
-                  <PageAlert type="error" className="max-42">
-                    <>
-                      <h3 id="api-error-heading">There was an error</h3>
-                      <ul>{formatApiError(state.apiErrorList)}</ul>
-                    </>
-                  </PageAlert>
-                )}
-                {state.isErrors && Object.keys(errors).length > 0 ? (
-                  <PageAlert type="error" className="max-42">
-                    <>
-                      <h3 tabIndex={0} id="error-heading">
-                        There has been an error
-                      </h3>
-                      <ul>
-                        {Object.keys(errors).map((error, i: number) => {
-                          const errorCast = error as RegisterErrorName;
-                          return (
-                            <li key={i}>
-                              <a href={`#${error}`}>{errors[errorCast]}</a>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </>
-                  </PageAlert>
-                ) : (
-                  ""
-                )}
-                <TextField id="name" label="Your name" width="lg" required />
-                <TextField id="email" label="Work email" width="lg" required />
-                <TextField
-                  id="password"
-                  type="password"
-                  hint="Minimum 8 characters, including one uppercase, one lowercase, one number and one special case character"
-                  label="Create a password"
-                  width="lg"
-                  required
-                />
-                <SelectField
-                  id="agency"
-                  label="Agency"
-                  options={[
-                    { value: "", text: "Choose one" },
-                    { value: "DTA", text: "Digital Transformation Agency" },
-                  ]}
-                />
-                <TextField
-                  id="role"
-                  label="What is your role?"
-                  width="lg"
-                  required
-                />
-                <AuFormGroup>
-                  <Aubtn type="submit" disabled={saving}>
-                    {saving ? "Submitting" : "Subscribe"}
-                  </Aubtn>
-                </AuFormGroup>
-                {/* <pre>{JSON.stringify(values, null, 2)}</pre>
+                    setState({
+                      ...state,
+                      isErrors: true,
+                      submitted: false,
+                      apiError: false,
+                    });
+                    document.title = "Errors | Sign up form";
+                    const timeout = setTimeout(() => {
+                      const errorSum = document.getElementById(
+                        "error-heading"
+                      ) as any;
+                      if (errorSum && errorSum.focus()) {
+                        errorSum.scrollIntoView({
+                          behavior: "smooth",
+                          block: "start",
+                        });
+                      }
+                      clearTimeout(timeout);
+                    }, 500);
+                  }}
+                >
+                  {state.apiErrorList.length > 0 && (
+                    <PageAlert type="error" className="max-42">
+                      <>
+                        <h3 id="api-error-heading">There was an error</h3>
+                        <ul>{formatApiError(state.apiErrorList)}</ul>
+                      </>
+                    </PageAlert>
+                  )}
+                  {state.isErrors && Object.keys(errors).length > 0 ? (
+                    <PageAlert type="error" className="max-42">
+                      <>
+                        <h3 tabIndex={0} id="error-heading">
+                          There has been an error
+                        </h3>
+                        <ul>
+                          {Object.keys(errors).map((error, i: number) => {
+                            const errorCast = error as RegisterErrorName;
+                            return (
+                              <li key={i}>
+                                <a href={`#${error}`}>{errors[errorCast]}</a>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </>
+                    </PageAlert>
+                  ) : (
+                    ""
+                  )}
+                  <TextField id="name" label="Your name" width="lg" required />
+                  <TextField
+                    id="email"
+                    label="Work email"
+                    width="lg"
+                    required
+                  />
+                  <TextField
+                    id="password"
+                    type="password"
+                    hint="Minimum 8 characters, including one uppercase, one lowercase, one number and one special case character"
+                    label="Create a password"
+                    width="lg"
+                    required
+                  />
+                  <SelectField
+                    id="agency"
+                    label="Agency"
+                    options={[
+                      { value: "", text: "Choose one" },
+                      { value: "DTA", text: "Digital Transformation Agency" },
+                    ]}
+                  />
+                  <TextField
+                    id="role"
+                    label="What is your role?"
+                    width="lg"
+                    required
+                  />
+                  <AuFormGroup>
+                    <Aubtn type="submit" disabled={saving}>
+                      {saving ? "Submitting" : "Subscribe"}
+                    </Aubtn>
+                  </AuFormGroup>
+                  {/* <pre>{JSON.stringify(values, null, 2)}</pre>
                 <pre>{JSON.stringify(errors, null, 2)}</pre> */}
-              </Form>
-            )}
-          </Formik>
+                </Form>
+              )}
+            </Formik>
+          </div>
         </div>
-      </div>
+      </>
     </DefaultLayout>
   );
 };
