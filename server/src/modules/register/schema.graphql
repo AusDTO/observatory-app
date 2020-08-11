@@ -1,12 +1,12 @@
 type Mutation {
   register(
-    email: String
-    password: String
-    name: String
-    agency: String
-    role: String
-  ): RegisterResult
-  resendConfirmationEmail(email: String!): SendEmailResult
+    email: String!
+    password: String!
+    name: String!
+    agency: String!
+    role: String!
+  ): RegisterResult!
+  resendConfirmationEmail(email: String!): SendEmailResult!
 }
 
 type Query {
@@ -22,17 +22,17 @@ type EmailNotSentError {
 }
 
 type FieldError {
-  path: String!
   message: String!
+  path: String!
 }
 
 type FieldErrors {
-  errors: [FieldError!]
+  errors: [FieldError!]!
 }
 
 type UserAlreadyExistsError {
-  path: String!
   message: String!
+  path: String!
 }
 
 type UserRegistered {

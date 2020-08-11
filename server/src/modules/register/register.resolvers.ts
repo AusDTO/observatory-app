@@ -54,15 +54,15 @@ export const resolvers: ResolverMap = {
         return {
           __typename: "UserAlreadyExistsError",
           message: `The user has been created, but the email is yet to be verified. Please check ${userAlreadyExists.email} for a confirmation link`,
-          path: "Email",
+          path: "email",
         };
       }
 
       if (userAlreadyExists) {
         return {
           __typename: "UserAlreadyExistsError",
-          message: `The user with email ${email} alrady exists`,
-          path: "Email",
+          message: `The user with email ${email} already exists`,
+          path: "email",
         };
       }
 

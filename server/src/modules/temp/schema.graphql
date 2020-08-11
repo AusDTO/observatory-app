@@ -1,4 +1,4 @@
 type Query {
-  getuser: User
-  register: String
+  getuser(id: String!, email: String!): User
+  HelloWorld: String
 }

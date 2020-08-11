@@ -10,6 +10,8 @@ import Redis from "ioredis";
 import { confirmEmail } from "./routes/confirmEmail";
 import * as session from "express-session";
 import * as connect_redis from "connect-redis";
+import "dotenv/config";
+import { FRONT_END_URL } from "./util/variables";
 
 const PORT: number | string = process.env.PORT || 4000;
 
@@ -68,7 +70,7 @@ export const startServer = async () => {
   server.applyMiddleware({
     app,
     path: "/api",
-    cors: { credentials: true, origin: "http://localhost:3000" }, //FIX user env var
+    cors: { credentials: true, origin: FRONT_END_URL }, //FIX user env var
   });
 
   //connection to database

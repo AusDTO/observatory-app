@@ -2,10 +2,10 @@ import { ResolverMap } from "../../types/graphql-util";
 
 export const resolvers: ResolverMap = {
   Query: {
-    getuser: () => ({
-      username: "hello",
-      password: "secreddt",
+    getuser: (_, args) => ({
+      id: args.id,
+      email: args.email,
     }),
-    register: () => "Registered",
+    HelloWorld: () => "Hello WOrld!",
   },
 };

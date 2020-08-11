@@ -67,3 +67,13 @@
 .au-text-input--invalid {
   background-color: #fff !important;
 }
+
+#resend-confirmation {
+  @include AU-space(margin-top, 3.5unit);
+  position: relative;
+  label {
+    position: absolute;
+    top: -30px;
+    background: inherit !important;
+  }
+}

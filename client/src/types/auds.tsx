@@ -19,6 +19,7 @@ import AUfooter, { AUfooterEnd, AUfooterNav } from "../auds/react/footer";
 import AUbutton from "../auds/react/buttons";
 import AUsearchbox from "../auds/react/searchbox";
 import { AUcallout } from "../auds/react/callout";
+import AUpageAlert from "../auds/react/page-alerts";
 
 export const AuFormGroup: any = AUformGroup;
 export const AuErrorText: any = AUerrorText;
@@ -40,6 +41,7 @@ export const FooterEnd: any = AUfooterEnd;
 export const Aubtn: any = AUbutton;
 export const AuSearchBox: any = AUsearchbox;
 export const AuCallout: any = AUcallout;
+export const AuPageAlert: any = AUpageAlert;
 
 interface LabelProps {
   text?: string;

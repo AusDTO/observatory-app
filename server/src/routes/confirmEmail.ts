@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../entity/User";
 import { Redis } from "ioredis";
+import { FRONT_END_URL } from "../util/variables";
 
 export const confirmEmail = async (
   req: Request,
@@ -13,7 +14,7 @@ export const confirmEmail = async (
 
   if (userID !== null) {
     User.update({ id: userID }, { verified: true });
-    res.send("OKAY");
+    res.redirect(`${FRONT_END_URL}/activated`);
 
     //delete redis key once it has been used
     await redis_client.del(id);

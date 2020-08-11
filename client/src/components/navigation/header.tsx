@@ -1,5 +1,5 @@
 import React from "react";
-import { Brand, AUHeader, Aubtn } from "../../types/auds";
+import { Brand, AUHeader } from "../../types/auds";
 import { Link } from "react-router-dom";
 
 interface Props {}
