@@ -24,6 +24,13 @@ export const RESEND_CONFIRMATION_SCHEMA = gql`
 
       ... on EmailNotSentError {
         message
+        path
+      }
+      ... on FieldErrors {
+        errors {
+          message
+          path
+        }
       }
     }
   }

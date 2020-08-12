@@ -182,3 +182,22 @@ h1 {
     text-decoration: underline;
   }
 }
+
+.au-header {
+  padding: 2.5rem 0 1rem 0 !important;
+  padding: 40px 0 16px 0 !important;
+}
+
+.header-buttons {
+  display: flex;
+  @include AU-space(margin-top, 1.5unit);
+
+  .au-btn + .au-btn {
+    @include AU-space(margin-left, 1unit);
+  }
+
+  @include AU-media(md) {
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+}

@@ -23,7 +23,7 @@ type ApiError = {
 
 type RegisterState = {
   isErrors: boolean;
-  submitted: boolean;
+  submitted?: boolean;
   apiError: boolean;
   apiErrorList: Array<ApiError>;
 };

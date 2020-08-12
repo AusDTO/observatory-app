@@ -22,7 +22,7 @@ afterAll(async () => {
 });
 
 describe("Confirmation link", () => {
-  it("Returns OKAY when going to confirmation link", async () => {
+  it("Returns welcome url when going to confirmation link", async () => {
     const confirmUrl = await CreateConfirmationLink(
       process.env.TEST_HOST_2 as string,
       userID,
@@ -35,12 +35,21 @@ describe("Confirmation link", () => {
     expect(userid).toEqual(userID);
 
     const response = await node_fetch(confirmUrl);
-    const text = await response.text();
 
-    expect(text).toEqual("OKAY");
+    const responseUrl = response.url;
+
+    expect(responseUrl).toEqual("http://localhost:3000/welcome");
 
     //check if redis_key deleted
     const checkDeletedId = await redis_client.get(redis_key);
     expect(checkDeletedId).toBeFalsy();
+  });
+
+  it("returns invalid url when invalid link passed", async () => {
+    const invalidUrl =
+      "http://localhost:4000/confirm/be8ef73a-ljk8a5d-4399dfd4920b";
+    const response = await node_fetch(invalidUrl);
+    const responseUrl = response.url;
+    expect(responseUrl).toEqual("http://localhost:3000/invalid-confirmation");
   });
 });

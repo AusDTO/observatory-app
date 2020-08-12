@@ -11,7 +11,8 @@
 .max-42,
 .au-label,
 .au-hint-text {
-  @include AU-space(max-width, 42unit);
+  max-width: 42rem !important;
+  max-width: 672px !important;
 }
 
 .max-30 {

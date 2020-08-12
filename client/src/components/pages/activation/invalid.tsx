@@ -12,6 +12,7 @@ export const InvalidConfirmation: React.FC<Props> = () => {
         <SEO title="Invalid link" />
 
         <div className="container-fluid au-body">
+          <h2>Invalid confirmation link</h2>
           <p>The link has expired or is not valid.</p>
           <p>You can try:</p>
           <ul>

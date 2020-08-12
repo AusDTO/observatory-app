@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import DefaultLayout from "../layouts/DefaultLayout";
-import TextField from "../form/TextField";
+import DefaultLayout from "../../layouts/DefaultLayout";
+import TextField from "../../form/TextField";
 import * as yup from "yup";
-import { AuFormGroup, Aubtn } from "../../types/auds";
-import SEO from "./seo";
+import { AuFormGroup, Aubtn } from "../../../types/auds";
+import SEO from "../seo";
 
 export const Login: React.FC = () => {
   const InitialValues = {

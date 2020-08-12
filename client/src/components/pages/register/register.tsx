@@ -16,6 +16,7 @@ import {
   RegisterUserVariables,
   RegisterUser_register_UserAlreadyExistsError,
   RegisterUser_register_FieldErrors,
+  RegisterUser_register_UserRegistered,
 } from "../../../graphql/RegisterUser";
 import { RouteComponentProps } from "react-router-dom";
 import { formatApiError } from "../../util/formatError";
@@ -60,6 +61,7 @@ export const Register: React.FC<Props> = ({ history }) => {
       switch (__typename) {
         case "UserRegistered":
           history.push("/confirmation", { name, email });
+          break;
 
         case "FieldErrors":
           const errorList: Array<ApiError> = [];
@@ -97,7 +99,7 @@ export const Register: React.FC<Props> = ({ history }) => {
         <div className="container-fluid">
           <div className="au-body">
             <div>
-              <h3>Create your observatory reports account</h3>
+              <h2>Create your observatory reports account</h2>
               <p>
                 This tool is currently in its Alpha phase, meaning access is
                 limited to agencies with Observatory subscriptions only
@@ -117,6 +119,7 @@ export const Register: React.FC<Props> = ({ history }) => {
               {({ values, errors, touched, handleSubmit }) => (
                 <Form
                   noValidate
+                  className="mb-2"
                   onSubmit={(e) => {
                     handleSubmit(e);
                     if (Object.keys(errors).length < 1) return;

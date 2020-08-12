@@ -15,9 +15,21 @@ export interface ResendConfirmation_resendConfirmationEmail_ConfirmationEmailSen
 export interface ResendConfirmation_resendConfirmationEmail_EmailNotSentError {
   __typename: "EmailNotSentError";
   message: string;
+  path: string;
 }
 
-export type ResendConfirmation_resendConfirmationEmail = ResendConfirmation_resendConfirmationEmail_ConfirmationEmailSent | ResendConfirmation_resendConfirmationEmail_EmailNotSentError;
+export interface ResendConfirmation_resendConfirmationEmail_FieldErrors_errors {
+  __typename: "FieldError";
+  message: string;
+  path: string;
+}
+
+export interface ResendConfirmation_resendConfirmationEmail_FieldErrors {
+  __typename: "FieldErrors";
+  errors: ResendConfirmation_resendConfirmationEmail_FieldErrors_errors[];
+}
+
+export type ResendConfirmation_resendConfirmationEmail = ResendConfirmation_resendConfirmationEmail_ConfirmationEmailSent | ResendConfirmation_resendConfirmationEmail_EmailNotSentError | ResendConfirmation_resendConfirmationEmail_FieldErrors;
 
 export interface ResendConfirmation {
   resendConfirmationEmail: ResendConfirmation_resendConfirmationEmail;

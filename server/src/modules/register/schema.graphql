@@ -18,6 +18,7 @@ type ConfirmationEmailSent {
 }
 
 type EmailNotSentError {
+  path: String!
   message: String!
 }
 
@@ -41,4 +42,4 @@ type UserRegistered {
 
 union RegisterResult = FieldErrors | UserRegistered | UserAlreadyExistsError
 
-union SendEmailResult = ConfirmationEmailSent | EmailNotSentError
+union SendEmailResult = FieldErrors | ConfirmationEmailSent | EmailNotSentError

@@ -26,6 +26,15 @@ const validationSchema = yup.object().shape({
   role: yup.string().required().min(2),
 });
 
+const resendValidationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Enter an email")
+    .required()
+    .max(255)
+    .matches(/.gov.au$/, "Only government emails are allowed to apply"),
+});
+
 export const resolvers: ResolverMap = {
   Query: {
     bye: async () => {
@@ -93,11 +102,20 @@ export const resolvers: ResolverMap = {
       args: IResendConfirmation,
       { redis_client, url }
     ) => {
-      const { email } = args;
+      //check valid email passed in
+      try {
+        await resendValidationSchema.validate(args, { abortEarly: false });
+      } catch (errors) {
+        return {
+          __typename: "FieldErrors",
+          errors: formatYupError(errors),
+        };
+      }
 
+      const { email } = args;
       const userExists = await User.findOne({
         where: { email },
-        select: ["id", "email", "verified"],
+        select: ["id", "email", "verified", "name"],
       });
 
       //Check if user exists in data
@@ -107,7 +125,11 @@ export const resolvers: ResolverMap = {
           userExists.id,
           redis_client
         );
+        const name = userExists.name;
         console.log(newConfirmationlink);
+
+        await sendConfirmationEmail(email, name, newConfirmationlink);
+
         //Resend confirmation link
         return {
           __typename: "ConfirmationEmailSent",
@@ -116,6 +138,7 @@ export const resolvers: ResolverMap = {
       }
       return {
         __typename: "EmailNotSentError",
+        path: "email",
         message: "There was an error sending the email",
       };
     },

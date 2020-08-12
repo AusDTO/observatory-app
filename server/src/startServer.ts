@@ -76,7 +76,9 @@ export const startServer = async () => {
   //connection to database
   await connection.create();
 
-  app.get("/confirm/:id", (req, res) => confirmEmail(req, res, redis_client));
+  app.get("/confirm/:id", (req, res, next) =>
+    confirmEmail(req, res, next, redis_client)
+  );
 
   app.listen({ port: PORT }, () =>
     console.log(`🚀 Server ready at port http:localhost:${PORT}/api`)

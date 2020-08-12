@@ -1,20 +1,25 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Register } from "./components/pages/register/register";
-import { Login } from "./components/pages/login";
+import { Login } from "./components/pages/login/login";
 import { Confirmation } from "./components/pages/confirmation/confirmation";
 import { Activated } from "./components/pages/activation/activated";
 import { ResendConfirmationEmail } from "./components/pages/resendConfirmation/resend-confirmation";
 import { InvalidConfirmation } from "./components/pages/activation/invalid";
+import { AlreadyActivated } from "./components/pages/activation/alreadyActive";
+import { Home } from "./components/pages/home";
 
 const App = (props: any) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={Register} />
+        <Route path="/" exact component={Home} />
+        <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
         <Route path="/confirmation" exact component={Confirmation} />
-        <Route path="/activated" exact component={Activated} />
+        <Route path="/welcome" exact component={Activated} />
+        <Route path="/already-active" exact component={AlreadyActivated} />
+
         <Route
           path="/invalid-confirmation"
           exact

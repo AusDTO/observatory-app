@@ -10,24 +10,27 @@ const Header: React.FC<Props> = () => {
       <AUHeader alt>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-9">
+            <div className="col-md-8">
               <Brand
                 title={
                   <>
-                    Observatory service{" "}
-                    <span className="header__badge"> alpha</span>
+                    ObservatoryApp <span className="header__badge"> alpha</span>
                   </>
                 }
-                subline="Insights"
                 link="/"
                 brandImage="https://observatory.service.gov.au/coat-of-arms.svg"
                 brandImageAlt="The Australian Government Coat of Arms"
               />
             </div>
-            <div className="col-md-3">
-              <Link to="/login" className="au-btn au-btn--secondary">
-                Sign in
-              </Link>
+            <div className="col-md-4">
+              <div className="header-buttons">
+                <Link to="/login" className="au-btn au-btn--secondary">
+                  Log in
+                </Link>
+                <Link to="/register" className="au-btn">
+                  Get started
+                </Link>
+              </div>
             </div>
           </div>
         </div>

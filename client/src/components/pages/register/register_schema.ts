@@ -2,11 +2,11 @@ import * as yup from "yup";
 import { gql } from "@apollo/client";
 
 export const InitialValues = {
-  name: "raj",
-  email: "raj@gov.au",
-  agency: "asdsad",
-  role: "asdas",
-  password: "asdas@!3@!@#EASD143qwed",
+  name: "",
+  email: "",
+  agency: "",
+  role: "",
+  password: "",
 };
 
 export const validationSchema = yup.object().shape({
