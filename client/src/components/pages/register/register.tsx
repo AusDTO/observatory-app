@@ -57,7 +57,7 @@ export const Register: React.FC<Props> = ({ history }) => {
     if (result.data && result.data.register) {
       const apiData = result.data.register;
       const { __typename } = apiData;
-      // console.log(result.data.register);
+
       switch (__typename) {
         case "UserRegistered":
           history.push("/confirmation", { name, email });

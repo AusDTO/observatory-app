@@ -1,6 +1,9 @@
 import { v4 as uuid } from "uuid";
 import { Redis } from "ioredis";
 
+// stores redis key value of id: userID
+// returns express server endpoint SERVER_URL/confirm/:id
+// when link clicked, the link is invalidated and user is verified.
 export const CreateConfirmationLink = async (
   url: string,
   userId: string,

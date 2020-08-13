@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { User } from "../entity/User";
 import { Redis } from "ioredis";
-import { FRONT_END_URL } from "../util/variables";
+import { FRONT_END_URL } from "../util/constants";
 
 export const confirmEmail = async (
   req: Request,
@@ -13,7 +13,6 @@ export const confirmEmail = async (
 
   const userID = await redis_client.get(id);
   const user = await User.findOne({ where: { id: userID } });
-  console.log(user);
 
   //invalid confirmation link
   if (!user) {

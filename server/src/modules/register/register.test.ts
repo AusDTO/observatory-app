@@ -3,8 +3,10 @@ import { request } from "graphql-request";
 
 import { connection } from "../../util/createConnection";
 import { testData } from "../../util/testData";
+import { TestClient } from "../../util/testClient";
 
 const { email, password, name, agency, role } = testData;
+const client = new TestClient();
 
 beforeAll(async () => {
   await connection.create();
@@ -14,56 +16,9 @@ afterAll(async () => {
   await connection.close();
 });
 
-const resendConfirmationMutation = (email: string) => {
-  return `mutation {
-    resendConfirmationEmail(email:"${email}"){
-      __typename
-      ...on ConfirmationEmailSent {
-        message
-      }
-      
-      ...on EmailNotSentError {
-        message
-      }
-    }
-  }`;
-};
-
-const registerMutation = (
-  email: string,
-  password: string,
-  name: string,
-  agency: string,
-  role: string
-) => {
-  return `
-    mutation {
-      register(email: "${email}", password: "${password}", name: "${name}", agency: "${agency}", role: "${role}" ) {
-        __typename
-        ... on UserRegistered {
-          message
-        }
-        ... on FieldErrors {
-          errors {
-           message
-            path
-          }
-        }
-        ... on UserAlreadyExistsError {
-          message
-          path
-        }
-      }
-    }
-  `;
-};
-
 describe("Register a new user", () => {
   test("Register new user", async () => {
-    const result = await request(
-      process.env.TEST_HOST as string,
-      registerMutation(email, password, name, agency, role)
-    );
+    const result = await client.register(email, password, name, agency, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("UserRegistered");
@@ -75,20 +30,14 @@ describe("Register a new user", () => {
   });
 
   test("Can't create dupe user", async () => {
-    const result = await request(
-      process.env.TEST_HOST as string,
-      registerMutation(email, password, name, agency, role)
-    );
+    const result = await client.register(email, password, name, agency, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("UserAlreadyExistsError");
   });
 
   test("Register invalid email", async () => {
-    const result = await request(
-      process.env.TEST_HOST as string,
-      registerMutation("bla", password, name, agency, role)
-    );
+    const result = await client.register("bla", password, name, agency, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("FieldErrors");
@@ -101,9 +50,12 @@ describe("Register a new user", () => {
   });
 
   test("Register non gov.au email", async () => {
-    const result = await request(
-      process.env.TEST_HOST as string,
-      registerMutation("bla@bla.com", password, name, agency, role)
+    const result = await client.register(
+      "bla@bla.com",
+      password,
+      name,
+      agency,
+      role
     );
 
     const { register } = result;
@@ -117,10 +69,7 @@ describe("Register a new user", () => {
   });
 
   test("Register invalid password", async () => {
-    const result = await request(
-      process.env.TEST_HOST as string,
-      registerMutation(email, "3", name, agency, role)
-    );
+    const result = await client.register(email, "3", name, agency, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("FieldErrors");
@@ -133,10 +82,7 @@ describe("Register a new user", () => {
   });
 
   test("Register invalid password and invalid email", async () => {
-    const result = await request(
-      process.env.TEST_HOST as string,
-      registerMutation("bla", "bla", name, agency, role)
-    );
+    const result = await client.register("bla", "bla", name, agency, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("FieldErrors");
@@ -148,11 +94,6 @@ describe("Register a new user", () => {
 
 describe("Confirmation email", () => {
   test("Verified is false when initially creating ", async () => {
-    await request(
-      process.env.TEST_HOST as string,
-      registerMutation(email, password, name, agency, role)
-    );
-
     const users = await User.findOne({
       where: { email },
       select: ["verified", "id"],
@@ -162,15 +103,7 @@ describe("Confirmation email", () => {
   });
 
   test("Resend confirmation link", async () => {
-    await request(
-      process.env.TEST_HOST as string,
-      registerMutation(email, password, name, agency, role)
-    );
-
-    const result = await request(
-      process.env.TEST_HOST as string,
-      resendConfirmationMutation(email)
-    );
+    const result = await client.resendConfrimation(email);
 
     const { resendConfirmationEmail } = result;
 
@@ -178,10 +111,7 @@ describe("Confirmation email", () => {
   });
 
   test("Test blank agency", async () => {
-    const result = await request(
-      process.env.TEST_HOST as string,
-      registerMutation(email, password, name, "s", role)
-    );
+    const result = await client.register(email, password, name, "s", role);
 
     const { register } = result;
     expect(register.__typename).toEqual("FieldErrors");

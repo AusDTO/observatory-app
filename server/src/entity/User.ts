@@ -29,6 +29,9 @@ export class User extends BaseEntity {
   @Column("boolean", { default: false })
   verified: boolean;
 
+  @Column("boolean", { default: false })
+  locked: boolean;
+
   @Column("varchar", { length: 255 })
   role: string;
 

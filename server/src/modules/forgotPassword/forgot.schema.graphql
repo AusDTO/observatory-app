@@ -1,0 +1,11 @@
+type Query {
+  random: String
+}
+
+type Mutation {
+  sendForgotPasswordEmail(email: String): SendForgotPasswordEmailResult;
+  resetPassword(newPassword: String, key: String):
+}
+
+union SendForgotPasswordEmailResult = Error | Success | FieldErrors;
+union ResetPasswordResult = Error | Success | FieldErrors;

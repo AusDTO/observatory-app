@@ -46,7 +46,6 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
     const { email } = formData;
     const result = await resendEmail({ variables: { email } });
     setSaving(false);
-    console.log(result.data);
 
     if (result.data) {
       const serverResult = result.data.resendConfirmationEmail;

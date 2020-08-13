@@ -11,7 +11,7 @@ import { confirmEmail } from "./routes/confirmEmail";
 import * as session from "express-session";
 import * as connect_redis from "connect-redis";
 import "dotenv/config";
-import { FRONT_END_URL } from "./util/variables";
+import { FRONT_END_URL, REDIS_PREFIX } from "./util/constants";
 
 const PORT: number | string = process.env.PORT || 4000;
 
@@ -48,6 +48,7 @@ export const startServer = async () => {
       redis_client,
       url: req.protocol + "://" + req.get("host"),
       session: req.session,
+      req: req,
     }),
   });
 
@@ -55,8 +56,8 @@ export const startServer = async () => {
   app.use(
     session({
       name: "sid",
-      store: new RedisStore({ client: redis_client }),
-      secret: "SESSION_SECRET", //FIX use env var
+      store: new RedisStore({ client: redis_client, prefix: REDIS_PREFIX }),
+      secret: "SECRET", //FIX use env var
       resave: false,
       saveUninitialized: false, //Don't create cookie until we store data on the user
       cookie: {

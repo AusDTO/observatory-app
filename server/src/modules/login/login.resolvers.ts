@@ -2,8 +2,7 @@ import { ResolverMap } from "../../types/graphql-util";
 import { User } from "../../entity/User";
 import * as bcrypt from "bcrypt";
 import { IUserType } from "../../types/schema";
-import { createMiddleware } from "../../util/createMiddleware";
-import middleware from "./middleware";
+import { USER_SESSION_PREFIX } from "../../util/constants";
 
 const ErrorMessage = (message: string) => ({
   __typename: "Error",
@@ -15,14 +14,13 @@ export const resolvers: ResolverMap = {
     bye2: async (parent, args, { redis_client, url }) => {
       return "hello";
     },
-    me: createMiddleware(
-      middleware,
-      async (_, __, { session }) =>
-        await User.findOne({ where: { id: session.userId } })
-    ),
   },
   Mutation: {
-    login: async (parent: any, { email, password }: IUserType, { session }) => {
+    login: async (
+      parent: any,
+      { email, password }: IUserType,
+      { session, redis_client, req }
+    ) => {
       const user = await User.findOne({ where: { email } });
 
       if (!user) {
@@ -35,6 +33,10 @@ export const resolvers: ResolverMap = {
         return ErrorMessage("Invalid credentials");
       }
 
+      if (user.locked) {
+        return ErrorMessage("Your account has been locked");
+      }
+
       if (!user.verified) {
         return ErrorMessage(
           "Please check your email for a confirmation link. We need to verify you as a user."
@@ -43,6 +45,18 @@ export const resolvers: ResolverMap = {
 
       //express-session will store this in a cookie
       session.userId = user.id;
+
+      console.log(req.sessionID);
+
+      //add this session to the userID
+      if (req.sessionID) {
+        await redis_client.lpush(
+          `${USER_SESSION_PREFIX}${user.id}`,
+          req.sessionID
+        );
+      }
+      //store all sessions of the user
+      // await redis_client.lpush(userid, )
 
       return {
         __typename: "Success",

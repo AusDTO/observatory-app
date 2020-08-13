@@ -11,3 +11,12 @@ export interface IUserType {
 export interface IResendConfirmation {
   email: string;
 }
+
+export interface IForgotPasswordSendEmailType {
+  email: string;
+}
+
+export interface IResetPasswordType {
+  newPassword: string;
+  key: string;
+}
