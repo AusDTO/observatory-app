@@ -7,28 +7,21 @@ import {
 import { removeSessions } from "../../util/removeAllUserSessions";
 import { CreateForgotPasswordLink } from "../../util/forgotPassword/createForgotPasswordLink";
 import { sendForgotPasswordEmail } from "../../util/forgotPassword/sendForgotPasswordEmail";
-import { REDIS_FORGOT_PREFIX } from "../../util/constants";
+import {
+  REDIS_FORGOT_PASSWORD_PREFIX,
+  basicApiMessage,
+} from "../../util/constants";
 import * as yup from "yup";
+import * as bcrypt from "bcrypt";
 import { formatYupError } from "../../util/formatYupError";
+import { emailValidator, passwordValidator } from "../../util/yup";
 
 const forgotPasswordEmailValidationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Enter an email")
-    .required()
-    .max(255)
-    .matches(/.gov.au$/, "Only government emails are allowed to apply"),
+  email: emailValidator,
 });
 
 const resetPasswordValidationSchema = yup.object().shape({
-  newPassword: yup
-    .string()
-    .required("Enter a password")
-    .max(255)
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      "Must contain 8 characters, one uppercase, one lowercase, one number and one special case character"
-    ),
+  newPassword: passwordValidator,
   key: yup.string().required("Invalid"),
 });
 
@@ -64,10 +57,10 @@ export const resolvers: ResolverMap = {
 
       //enters a user that does not exist
       if (!user) {
-        return {
-          __typename: "Error",
-          message: "If email exists, we have sent a resent link.",
-        };
+        return basicApiMessage(
+          "Error",
+          "If email exists, we have sent a resent link."
+        );
       }
 
       //remove sessions for the user: i.e. log them out
@@ -76,45 +69,52 @@ export const resolvers: ResolverMap = {
       //create forgotpassword link
       const forgotLink = await CreateForgotPasswordLink(user.id, redis_client);
 
+      console.log(forgotLink);
       //send forgot password email
-      await sendForgotPasswordEmail(email, user.name, forgotLink);
+      // await sendForgotPasswordEmail(email, user.name, forgotLink);
 
-      return {
-        __typename: "Success",
-        message: "If email exists, we have sent a resent link.",
-      };
+      return basicApiMessage(
+        "Success",
+        "If email exists, we have sent a resent link."
+      );
     },
 
-    resetPassword: async (
-      _,
-      { newPassword, key }: IResetPasswordType,
-      { redis_client }
-    ) => {
+    //post to this resolver from FRONT_END_URL/reset-password/key
+    resetPassword: async (_, args: IResetPasswordType, { redis_client }) => {
+      try {
+        await resetPasswordValidationSchema.validate(args, {
+          abortEarly: false,
+        });
+      } catch (errors) {
+        return {
+          __typename: "FieldErrors",
+          errors: formatYupError(errors),
+        };
+      }
+      const { newPassword, key } = args;
+
       //get user id
-      const userId = await redis_client.get(`${REDIS_FORGOT_PREFIX}${key}`);
+      const userId = await redis_client.get(
+        `${REDIS_FORGOT_PASSWORD_PREFIX}${key}`
+      );
 
       if (!userId) {
-        return {
-          __typename: "Error",
-          message: "Not found",
-        };
+        return basicApiMessage("Error", "Expired key or not found");
       }
 
       const user = await User.findOne({ where: { id: userId } });
 
       if (!user) {
-        return {
-          __typename: "Error",
-          message: "Not found",
-        };
+        return basicApiMessage("Error", "User not found");
       }
 
-      //update password
-      await User.update({ id: user.id }, { password: newPassword });
-      return {
-        __typeName: "Success",
-        message: "Password changed successfully",
-      };
+      //Have to hash since @beforeUpdate doesn't work for some reason
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      await User.update({ id: user.id }, { password: hashedPassword }); // Update password
+
+      await redis_client.del(`${REDIS_FORGOT_PASSWORD_PREFIX}${key}`); // delete key
+
+      return basicApiMessage("Success", "Password changed successfuly");
     },
   },
 };

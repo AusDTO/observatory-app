@@ -19,6 +19,7 @@ export const resolvers: ResolverMap = {
     logout: async (_, __, { session, redis_client }) => {
       const { userId } = session;
       if (userId) {
+        //remove all sessions associated with this userId
         await removeSessions(userId, redis_client);
         return true;
       } else return false;

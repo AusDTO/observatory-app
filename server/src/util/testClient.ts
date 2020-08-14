@@ -18,6 +18,58 @@ export class TestClient {
     };
   }
 
+  async resetPassword(newPassword: string, key: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `mutation {
+          resetPassword(newPassword: "${newPassword}", key: "${key}") {
+            __typename
+            ...on FieldErrors {
+              errors {
+                path
+                message
+              }
+            }
+            
+            ...on Error {
+              message
+            }
+            
+            ...on Success {
+              message
+            }
+          }
+        }`,
+      },
+    });
+  }
+
+  async sendForgotPassword(email: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `mutation {
+        sendForgotPasswordEmail(email: "${email}") {
+          __typename
+          ...on FieldErrors {
+            errors {
+              path
+              message
+            }
+          }
+          ...on Error {
+            message
+          }
+          ...on Success {
+            message
+          }
+        }
+      }`,
+      },
+    });
+  }
+
   async getUser() {
     return rp.post(this.url, {
       ...this.options,

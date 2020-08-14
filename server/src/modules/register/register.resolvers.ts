@@ -5,34 +5,19 @@ import * as yup from "yup";
 import { formatYupError } from "../../util/formatYupError";
 import { CreateConfirmationLink } from "../../util/createConfirmation/createConfirmationLink";
 import { sendConfirmationEmail } from "../../util/sendConfirmationEmail/sendEmail";
+import { emailValidator, passwordValidator } from "../../util/yup";
+import { basicApiMessage } from "../../util/constants";
 
 const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Enter an email")
-    .required()
-    .max(255)
-    .matches(/.gov.au$/, "Only government emails are allowed to apply"),
-  password: yup
-    .string()
-    .required("Enter a password")
-    .max(255)
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      "Must contain 8 characters, one uppercase, one lowercase, one number and one special case character"
-    ),
+  email: emailValidator,
+  password: passwordValidator,
   name: yup.string().required().min(2),
   agency: yup.string().required().min(2),
   role: yup.string().required().min(2),
 });
 
 const resendValidationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Enter an email")
-    .required()
-    .max(255)
-    .matches(/.gov.au$/, "Only government emails are allowed to apply"),
+  email: emailValidator,
 });
 
 export const resolvers: ResolverMap = {
@@ -54,6 +39,7 @@ export const resolvers: ResolverMap = {
 
       const { email, password, name, agency, role } = args;
 
+      //try to find a user with passed in email
       const userAlreadyExists = await User.findOne({
         where: { email },
         select: ["email", "verified"],
@@ -86,16 +72,12 @@ export const resolvers: ResolverMap = {
         redis_client
       );
 
-      //email the user the link:::
-
+      //email the user the link using notify
       await sendConfirmationEmail(email, name, confirmationLink);
 
       console.log(confirmationLink);
 
-      return {
-        __typename: "UserRegistered",
-        message: "Created",
-      };
+      return basicApiMessage("UserRegistered", "User created");
     },
     resendConfirmationEmail: async (
       parent: any,

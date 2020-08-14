@@ -6,4 +6,4 @@ type Mutation {
   login(email: String, password: String): LoginResult
 }
 
-union LoginResult = Success | Error
+union LoginResult = Success | Error | FieldErrors

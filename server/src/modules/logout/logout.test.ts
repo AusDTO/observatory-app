@@ -32,7 +32,7 @@ describe("Logout user", () => {
 
     await client.logout();
 
-    //shouldn't be able to get the user once we've logged out
+    //shouldn't be able to get the user once we've logged out, since cookie is destroyed
     const response2 = await client.getUser();
     let { getUser } = response2.data;
 
@@ -51,6 +51,8 @@ describe("Logout user", () => {
     expect(await client1.getUser()).toEqual(await client2.getUser());
 
     await client1.logout();
+
+    //both sessions should be logged out and therefore equal when we request authenticated space
     expect(await client1.getUser()).toEqual(await client2.getUser());
   });
 });

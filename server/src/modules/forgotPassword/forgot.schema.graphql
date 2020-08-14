@@ -3,9 +3,9 @@ type Query {
 }
 
 type Mutation {
-  sendForgotPasswordEmail(email: String): SendForgotPasswordEmailResult;
-  resetPassword(newPassword: String, key: String):
+  sendForgotPasswordEmail(email: String): SendForgotPasswordEmailResult
+  resetPassword(newPassword: String, key: String): ResetPasswordResult
 }
 
-union SendForgotPasswordEmailResult = Error | Success | FieldErrors;
-union ResetPasswordResult = Error | Success | FieldErrors;
+union SendForgotPasswordEmailResult = Error | Success | FieldErrors
+union ResetPasswordResult = Error | Success | FieldErrors

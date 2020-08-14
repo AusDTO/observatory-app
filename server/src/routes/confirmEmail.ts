@@ -20,14 +20,14 @@ export const confirmEmail = async (
     return next();
   }
 
-  //If user is already verified
+  //If user is already verified delete key and redirect to welcome
   if (user && user.verified) {
     await redis_client.del(id);
     res.redirect(`${FRONT_END_URL}/welcome`);
     return next();
   }
 
-  //user is not verified
+  //user is not verified, they'll become verified
   if (!user.verified) {
     User.update({ id: user.id }, { verified: true });
     res.redirect(`${FRONT_END_URL}/welcome`);

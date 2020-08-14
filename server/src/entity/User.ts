@@ -5,6 +5,8 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  BeforeUpdate,
+  AfterUpdate,
 } from "typeorm";
 import * as bcrypt from "bcrypt";
 

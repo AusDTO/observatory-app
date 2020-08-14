@@ -39,7 +39,7 @@ describe("Login user", () => {
   });
 
   test("Test invalid credentials", async () => {
-    const result = await client.login(email, "wrong_passowrd");
+    const result = await client.login(email, "123!@#PASSword");
 
     const { login } = result.data;
     const { message } = login;

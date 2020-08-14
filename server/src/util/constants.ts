@@ -5,4 +5,9 @@ export const FRONT_END_URL =
 export const REDIS_PREFIX = "sess:";
 export const USER_SESSION_PREFIX = "userSessionID:";
 
-export const REDIS_FORGOT_PREFIX = "forgotPassword:";
+export const REDIS_FORGOT_PASSWORD_PREFIX = "forgotPassword:";
+
+export const basicApiMessage = (__typename: string, message: string) => ({
+  __typename,
+  message,
+});
