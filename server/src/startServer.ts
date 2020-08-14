@@ -12,6 +12,8 @@ import * as session from "express-session";
 import * as connect_redis from "connect-redis";
 import "dotenv/config";
 import { FRONT_END_URL, REDIS_PREFIX } from "./util/constants";
+import * as rateLimit from "express-rate-limit";
+import * as RedisRateLimitStore from "rate-limit-redis";
 
 const PORT: number | string = process.env.PORT || 4000;
 
@@ -21,6 +23,15 @@ const REDIS_PORT = 6379;
 
 export const startServer = async () => {
   const redis_client = new Redis({ port: REDIS_PORT });
+
+  const limiter = rateLimit({
+    store: new RedisRateLimitStore({
+      client: redis_client,
+      prefix: "rateLimit:",
+    }),
+    windowMs: 5 * 60 * 1000, // 5 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+  });
 
   // Merge all graphql schema files
   const typesArray = loadFilesSync(path.join(__dirname, "./modules"), {
@@ -63,10 +74,12 @@ export const startServer = async () => {
       cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        maxAge: 50000, //1000 * 60 * 60 * 24 * 7,  7 days
+        maxAge: 1000 * 60 * 60, //1000 * 60 * 60 * 24 * 7,  7 days
       },
     })
   );
+
+  app.use(limiter);
 
   server.applyMiddleware({
     app,

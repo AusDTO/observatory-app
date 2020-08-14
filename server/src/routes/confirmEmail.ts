@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { User } from "../entity/User";
 import { Redis } from "ioredis";
-import { FRONT_END_URL } from "../util/constants";
+import {
+  FRONT_END_URL,
+  REDIS_CONFIRMATION_EMAIL_PREFIX,
+} from "../util/constants";
 
 export const confirmEmail = async (
   req: Request,
@@ -11,7 +14,9 @@ export const confirmEmail = async (
 ) => {
   const { id } = req.params;
 
-  const userID = await redis_client.get(id);
+  const userID = await redis_client.get(
+    `${REDIS_CONFIRMATION_EMAIL_PREFIX}${id}`
+  );
   const user = await User.findOne({ where: { id: userID } });
 
   //invalid confirmation link
@@ -22,7 +27,7 @@ export const confirmEmail = async (
 
   //If user is already verified delete key and redirect to welcome
   if (user && user.verified) {
-    await redis_client.del(id);
+    await redis_client.del(`${REDIS_CONFIRMATION_EMAIL_PREFIX}${id}`);
     res.redirect(`${FRONT_END_URL}/welcome`);
     return next();
   }
@@ -33,6 +38,6 @@ export const confirmEmail = async (
     res.redirect(`${FRONT_END_URL}/welcome`);
 
     //delete redis key once it has been used
-    await redis_client.del(id);
+    await redis_client.del(`${REDIS_CONFIRMATION_EMAIL_PREFIX}${id}`);
   }
 };

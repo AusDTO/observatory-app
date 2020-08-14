@@ -67,7 +67,6 @@ describe("Reset password", () => {
 
     const user = await User.findOne({ id: userId });
     expect(user?.email).toEqual(email);
-    console.log(user?.id);
 
     await client.resetPassword(newPassword, key);
 
@@ -105,20 +104,5 @@ describe("Reset password", () => {
     const { __typename, message } = result.data.resetPassword;
     expect(__typename).toEqual("Error");
     expect(message).toEqual("Expired key or not found");
-  });
-
-  test("Key for invalid user", async () => {
-    const resetPasswordLink = await CreateForgotPasswordLink(
-      "asdfasfasdfas",
-      redis_client
-    );
-
-    const splitLink = resetPasswordLink.split("/");
-    const key = splitLink[splitLink.length - 1];
-
-    const result = await client.resetPassword("Password123!@#", key);
-    const { __typename, message } = result.data.resetPassword;
-    expect(__typename).toEqual("Error");
-    expect(message).toEqual("User not found");
   });
 });

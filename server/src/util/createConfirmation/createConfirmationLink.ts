@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { Redis } from "ioredis";
+import { REDIS_CONFIRMATION_EMAIL_PREFIX } from "../constants";
 
 // stores redis key value of id: userID
 // returns express server endpoint SERVER_URL/confirm/:id
@@ -12,6 +13,11 @@ export const CreateConfirmationLink = async (
   const id = uuid();
   //Redis takes seconds, this gets seconds in the last 24 hours.
   const timeToExpiry: number = 60 * 60 * 24;
-  await redis.set(id, userId, "ex", timeToExpiry);
+  await redis.set(
+    `${REDIS_CONFIRMATION_EMAIL_PREFIX}${id}`,
+    userId,
+    "ex",
+    timeToExpiry
+  );
   return `${url}/confirm/${id}`;
 };

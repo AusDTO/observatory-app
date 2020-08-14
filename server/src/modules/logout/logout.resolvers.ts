@@ -1,13 +1,5 @@
 import { ResolverMap } from "../../types/graphql-util";
-import { User } from "../../entity/User";
-import { IUserType } from "../../types/schema";
-import { USER_SESSION_PREFIX, REDIS_PREFIX } from "../../util/constants";
 import { removeSessions } from "../../util/removeAllUserSessions";
-
-const ErrorMessage = (message: string) => ({
-  __typename: "Error",
-  message,
-});
 
 export const resolvers: ResolverMap = {
   Query: {

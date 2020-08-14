@@ -5,6 +5,7 @@ import { CreateConfirmationLink } from "./createConfirmationLink";
 import node_fetch from "node-fetch";
 
 import { testData } from "../../util/testData";
+import { REDIS_CONFIRMATION_EMAIL_PREFIX } from "../constants";
 let userID: string;
 const redis_client = new Redis();
 
@@ -31,7 +32,9 @@ describe("Confirmation link", () => {
 
     const urlSplit = confirmUrl.split("/");
     const redis_key = urlSplit[urlSplit.length - 1];
-    const userid = await redis_client.get(redis_key);
+    const userid = await redis_client.get(
+      `${REDIS_CONFIRMATION_EMAIL_PREFIX}${redis_key}`
+    );
     expect(userid).toEqual(userID);
 
     const response = await node_fetch(confirmUrl);
@@ -41,7 +44,9 @@ describe("Confirmation link", () => {
     expect(responseUrl).toEqual("http://localhost:3000/welcome");
 
     //check if redis_key deleted
-    const checkDeletedId = await redis_client.get(redis_key);
+    const checkDeletedId = await redis_client.get(
+      `${REDIS_CONFIRMATION_EMAIL_PREFIX}${redis_key}`
+    );
     expect(checkDeletedId).toBeFalsy();
   });
 
