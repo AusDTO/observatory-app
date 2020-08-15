@@ -15,13 +15,18 @@ interface ResendEmailData {
   email: string;
 }
 
+interface loginData {
+  email: string;
+  password: string;
+}
+
 type ApiError = {
   message: string;
   path: string;
   // map: (any) => any;
 };
 
-type RegisterState = {
+type FormSubmitState = {
   isErrors: boolean;
   submitted?: boolean;
   apiError: boolean;
@@ -29,3 +34,5 @@ type RegisterState = {
 };
 
 type RegisterErrorName = "name" | "email" | "agency" | "role" | "password";
+
+type LoginErrorName = "password" | "email";

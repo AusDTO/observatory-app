@@ -2,25 +2,83 @@ import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import DefaultLayout from "../../layouts/DefaultLayout";
 import TextField from "../../form/TextField";
-import * as yup from "yup";
 import { AuFormGroup, Aubtn } from "../../../types/auds";
 import SEO from "../seo";
+import { useMutation } from "@apollo/client";
+import {
+  LOGIN_MUTATION,
+  InitialValues,
+  validationSchema,
+} from "./login_schema";
+import {
+  LoginUser_login_FieldErrors,
+  LoginUser_login_Error,
+} from "../../../graphql/LoginUser";
+import { RouteComponentProps } from "react-router-dom";
+import PageAlert from "../../blocks/page-alert";
+import { formatApiError } from "../../util/formatError";
 
-export const Login: React.FC = () => {
-  const InitialValues = {
-    email: "",
-    password: "",
+interface Props extends RouteComponentProps {}
+export const Login: React.FC<Props> = ({ history }) => {
+  const [state, setState] = useState<FormSubmitState>({
+    isErrors: false,
+    submitted: false,
+    apiError: false,
+    apiErrorList: [],
+  });
+
+  const [saving, setSaving] = useState<boolean>(false);
+
+  const [login, { data }] = useMutation(LOGIN_MUTATION);
+
+  const handleLogin = async (data: loginData) => {
+    setSaving(true);
+
+    const { email, password } = data;
+    const result = await login({
+      variables: {
+        email,
+        password,
+      },
+    });
+
+    if (result.data && result.data.login) {
+      const apiResult = result.data.login;
+      const { __typename } = apiResult;
+
+      switch (__typename) {
+        case "FieldErrors":
+          const errorList: Array<ApiError> = [];
+          const { errors } = apiResult as LoginUser_login_FieldErrors;
+          errors?.map((error) =>
+            errorList.push({ path: error.path, message: error.message })
+          );
+          setState({
+            ...state,
+            apiError: true,
+            apiErrorList: errorList,
+          });
+          break;
+
+        case "Error":
+          const { message, path } = apiResult as LoginUser_login_Error;
+          setState({
+            ...state,
+            apiError: true,
+            apiErrorList: [{ message, path }],
+          });
+          break;
+
+        case "Success":
+          history.push("/me");
+          console.log("SUCCESS");
+          break;
+      }
+    }
+
+    setSaving(false);
   };
 
-  const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email("Enter a valid email")
-      .required("Enter an email")
-      .max(255)
-      .matches(/.gov.au$/, "Only government emails are allowed to apply"),
-    password: yup.string().required("Enter a password").max(255),
-  });
   return (
     <DefaultLayout>
       <div className="container-fluid">
@@ -29,11 +87,66 @@ export const Login: React.FC = () => {
           initialValues={InitialValues}
           validationSchema={validationSchema}
           onSubmit={(data, errors) => {
-            console.log(data);
+            handleLogin(data);
           }}
         >
-          {({ values, errors, touched, handleSubmit }) => (
-            <Form>
+          {({ values, errors, touched, handleSubmit, submitForm }) => (
+            <Form
+              noValidate
+              onSubmit={(e) => {
+                handleSubmit(e);
+                if (Object.keys(errors).length < 1) return;
+
+                setState({
+                  ...state,
+                  isErrors: true,
+                  apiError: false,
+                  apiErrorList: [],
+                });
+                document.title = "Errors | Sign up form";
+                const timeout = setTimeout(() => {
+                  const errorSum = document.getElementById(
+                    "error-heading"
+                  ) as any;
+                  if (errorSum && errorSum.focus()) {
+                    errorSum.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                  clearTimeout(timeout);
+                }, 500);
+              }}
+            >
+              {state.apiError && state.apiErrorList.length > 0 && (
+                <PageAlert type="error" className="max-42">
+                  <>
+                    <h3 id="api-error-heading">There was an error</h3>
+                    <ul>{formatApiError(state.apiErrorList)}</ul>
+                  </>
+                </PageAlert>
+              )}
+              {state.isErrors && Object.keys(errors).length > 0 ? (
+                <PageAlert type="error" className="max-42">
+                  <>
+                    <h3 tabIndex={0} id="error-heading">
+                      There has been an error
+                    </h3>
+                    <ul>
+                      {Object.keys(errors).map((error, i: number) => {
+                        const errorCast = error as LoginErrorName;
+                        return (
+                          <li key={i}>
+                            <a href={`#${error}`}>{errors[errorCast]}</a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
+                </PageAlert>
+              ) : (
+                ""
+              )}
               <TextField id="email" label="Email" width="lg" required />
               <TextField
                 id="password"
@@ -44,7 +157,9 @@ export const Login: React.FC = () => {
               />
 
               <AuFormGroup>
-                <Aubtn>Sign in</Aubtn>
+                <Aubtn disabled={saving} type="submit" onClick={submitForm}>
+                  {saving ? "Signing in" : "Sign in"}
+                </Aubtn>
               </AuFormGroup>
 
               <pre>{JSON.stringify(values, null, 2)}</pre>

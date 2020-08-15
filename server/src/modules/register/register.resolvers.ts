@@ -27,7 +27,7 @@ export const resolvers: ResolverMap = {
     },
   },
   Mutation: {
-    register: async (parent: any, args: IUserType, { redis_client, url }) => {
+    register: async (__, args: IUserType, { redis_client, url }) => {
       try {
         await validationSchema.validate(args, { abortEarly: false });
       } catch (errors) {
@@ -80,7 +80,7 @@ export const resolvers: ResolverMap = {
       return basicApiMessage("UserRegistered", "User created");
     },
     resendConfirmationEmail: async (
-      parent: any,
+      __,
       args: IResendConfirmation,
       { redis_client, url }
     ) => {
@@ -100,7 +100,7 @@ export const resolvers: ResolverMap = {
         select: ["id", "email", "verified", "name"],
       });
 
-      //Check if user exists in data
+      //Check if user exists in database
       if (userExists && !userExists.verified) {
         const newConfirmationlink = await CreateConfirmationLink(
           url,

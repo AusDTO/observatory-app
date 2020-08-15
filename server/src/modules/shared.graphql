@@ -5,6 +5,7 @@ type User {
 
 type Error {
   message: String!
+  path: String!
 }
 
 type Success {

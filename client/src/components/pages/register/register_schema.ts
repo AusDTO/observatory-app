@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { gql } from "@apollo/client";
+import { passwordValidation, emailValidation } from "../../util/yup";
 
 export const InitialValues = {
   name: "",
@@ -10,20 +11,8 @@ export const InitialValues = {
 };
 
 export const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Enter a valid email")
-    .required("Enter an email")
-    .max(255)
-    .matches(/.gov.au$/, "Only government emails are allowed to apply"),
-  password: yup
-    .string()
-    .required("Enter a password")
-    .max(255)
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      "Your password needs to be stronger"
-    ),
+  email: emailValidation,
+  password: passwordValidation,
   name: yup.string().required("Enter a name").min(2),
   agency: yup.string().required("Enter an agency").min(2),
   role: yup.string().required("Enter your role").min(2),

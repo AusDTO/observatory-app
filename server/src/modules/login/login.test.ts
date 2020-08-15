@@ -44,7 +44,7 @@ describe("Login user", () => {
     const { login } = result.data;
     const { message } = login;
     expect(login.__typename).toEqual("Error");
-    expect(message).toEqual("Invalid credentials");
+    expect(message).toEqual("Email or password is invalid");
   });
 
   test("Cookie is set", async () => {

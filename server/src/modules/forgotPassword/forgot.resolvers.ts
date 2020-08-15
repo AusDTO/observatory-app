@@ -9,6 +9,7 @@ import { CreateForgotPasswordLink } from "../../util/forgotPassword/createForgot
 import { sendForgotPasswordEmail } from "../../util/forgotPassword/sendForgotPasswordEmail";
 import {
   REDIS_FORGOT_PASSWORD_PREFIX,
+  basicApiErrorMessage,
   basicApiMessage,
 } from "../../util/constants";
 import * as yup from "yup";
@@ -99,13 +100,13 @@ export const resolvers: ResolverMap = {
       );
 
       if (!userId) {
-        return basicApiMessage("Error", "Expired key or not found");
+        return basicApiErrorMessage("Expired key or not found", "error");
       }
 
       const user = await User.findOne({ where: { id: userId } });
 
       if (!user) {
-        return basicApiMessage("Error", "User not found");
+        return basicApiErrorMessage("User not found", "Error");
       }
 
       //Have to hash since @beforeUpdate doesn't work for some reason

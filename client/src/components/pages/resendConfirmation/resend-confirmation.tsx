@@ -15,7 +15,6 @@ import {
 import {
   ResendConfirmation,
   ResendConfirmationVariables,
-  ResendConfirmation_resendConfirmationEmail_ConfirmationEmailSent,
   ResendConfirmation_resendConfirmationEmail_EmailNotSentError,
   ResendConfirmation_resendConfirmationEmail_FieldErrors,
 } from "../../../graphql/ResendConfirmation";
@@ -25,7 +24,7 @@ import { formatApiError } from "../../util/formatError";
 interface Props extends RouteComponentProps {}
 
 export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
-  const [state, setState] = useState<RegisterState>({
+  const [state, setState] = useState<FormSubmitState>({
     isErrors: false,
     submitted: false,
     apiError: false,
@@ -103,7 +102,7 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
               handleResendEmail(data);
             }}
           >
-            {({ values, errors, touched, handleSubmit }) => (
+            {({ values, errors, touched, handleSubmit, submitForm }) => (
               <Form
                 id="resend-confirmation"
                 noValidate
@@ -169,6 +168,7 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
                     <Aubtn
                       type="submit"
                       disabled={isSaving}
+                      onClick={submitForm}
                       className="au-btn--medium"
                     >
                       {isSaving ? "Submitting" : "Resend"}

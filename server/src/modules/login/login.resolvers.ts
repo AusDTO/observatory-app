@@ -2,7 +2,11 @@ import { ResolverMap } from "../../types/graphql-util";
 import { User } from "../../entity/User";
 import * as bcrypt from "bcrypt";
 import { IUserType } from "../../types/schema";
-import { USER_SESSION_PREFIX, basicApiMessage } from "../../util/constants";
+import {
+  USER_SESSION_PREFIX,
+  basicApiErrorMessage,
+  basicApiMessage,
+} from "../../util/constants";
 import * as yup from "yup";
 import { emailValidator, passwordValidator } from "../../util/yup";
 import { formatYupError } from "../../util/formatYupError";
@@ -33,24 +37,24 @@ export const resolvers: ResolverMap = {
       const user = await User.findOne({ where: { email } });
 
       if (!user) {
-        return basicApiMessage("Error", "Invalid credentials");
+        return basicApiErrorMessage("Email or password is invalid", "error");
       }
 
       //compare password to db
       const validPassword = await bcrypt.compare(password, user.password);
 
       if (!validPassword) {
-        return basicApiMessage("Error", "Invalid credentials");
+        return basicApiErrorMessage("Email or password is invalid", "error");
       }
 
       if (user.locked) {
-        return basicApiMessage("Error", "Your account has been locked");
+        return basicApiErrorMessage("Your account has been locked", "error");
       }
 
       if (!user.verified) {
-        return basicApiMessage(
-          "Error",
-          "Please check your email for a confirmation link. We need to verify you as a user."
+        return basicApiErrorMessage(
+          "Please check your email for a confirmation link. We need to verify you as a user.",
+          "error"
         );
       }
 

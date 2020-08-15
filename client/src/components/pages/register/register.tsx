@@ -24,7 +24,7 @@ import SEO from "../seo";
 
 interface Props extends RouteComponentProps {}
 export const Register: React.FC<Props> = ({ history }) => {
-  const [state, setState] = useState<RegisterState>({
+  const [state, setState] = useState<FormSubmitState>({
     isErrors: false,
     submitted: false,
     apiError: false,
@@ -116,7 +116,7 @@ export const Register: React.FC<Props> = ({ history }) => {
                 handleRegisterUser(data);
               }}
             >
-              {({ values, errors, touched, handleSubmit }) => (
+              {({ values, errors, touched, handleSubmit, submitForm }) => (
                 <Form
                   noValidate
                   className="mb-2"
@@ -204,12 +204,10 @@ export const Register: React.FC<Props> = ({ history }) => {
                     required
                   />
                   <AuFormGroup>
-                    <Aubtn type="submit" disabled={saving}>
+                    <Aubtn type="submit" onClick={submitForm} disabled={saving}>
                       {saving ? "Submitting" : "Subscribe"}
                     </Aubtn>
                   </AuFormGroup>
-                  {/* <pre>{JSON.stringify(values, null, 2)}</pre>
-                <pre>{JSON.stringify(errors, null, 2)}</pre> */}
                 </Form>
               )}
             </Formik>

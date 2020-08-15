@@ -8,6 +8,7 @@ import { ResendConfirmationEmail } from "./components/pages/resendConfirmation/r
 import { InvalidConfirmation } from "./components/pages/activation/invalid";
 import { AlreadyActivated } from "./components/pages/activation/alreadyActive";
 import { Home } from "./components/pages/home";
+import { MePage } from "./components/pages/me/me";
 
 const App = (props: any) => {
   return (
@@ -19,6 +20,7 @@ const App = (props: any) => {
         <Route path="/confirmation" exact component={Confirmation} />
         <Route path="/welcome" exact component={Activated} />
         <Route path="/already-active" exact component={AlreadyActivated} />
+        <Route path="/me" exact component={MePage} />
 
         <Route
           path="/invalid-confirmation"
