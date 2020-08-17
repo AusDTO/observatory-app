@@ -7,17 +7,12 @@
 // GraphQL query operation: GetUser
 // ====================================================
 
-export interface GetUser_getuser {
+export interface GetUser_getUser {
   __typename: "User";
   email: string | null;
   id: string | null;
 }
 
 export interface GetUser {
-  getuser: GetUser_getuser | null;
-}
-
-export interface GetUserVariables {
-  id: string;
-  email: string;
+  getUser: GetUser_getUser | null;
 }

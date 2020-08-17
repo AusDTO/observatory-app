@@ -9,6 +9,8 @@ import { InvalidConfirmation } from "./components/pages/activation/invalid";
 import { AlreadyActivated } from "./components/pages/activation/alreadyActive";
 import { Home } from "./components/pages/home";
 import { MePage } from "./components/pages/me/me";
+import { ProtectedRoute } from "./components/util/protectedRoute";
+import { TestRoute } from "./components/pages/testPrivate";
 
 const App = (props: any) => {
   return (
@@ -21,6 +23,7 @@ const App = (props: any) => {
         <Route path="/welcome" exact component={Activated} />
         <Route path="/already-active" exact component={AlreadyActivated} />
         <Route path="/me" exact component={MePage} />
+        <ProtectedRoute path="/test-private" component={TestRoute} />
 
         <Route
           path="/invalid-confirmation"

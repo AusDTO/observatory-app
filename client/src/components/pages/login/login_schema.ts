@@ -1,7 +1,5 @@
 import * as yup from "yup";
 import {
-  emailValidation,
-  passwordValidation,
   passwordValidationFunction,
   emailValidationFunction,
 } from "../../util/yup";

@@ -42,6 +42,8 @@ export const Login: React.FC<Props> = ({ history }) => {
       },
     });
 
+    setSaving(false);
+
     if (result.data && result.data.login) {
       const apiResult = result.data.login;
       const { __typename } = apiResult;
@@ -71,12 +73,9 @@ export const Login: React.FC<Props> = ({ history }) => {
 
         case "Success":
           history.push("/me");
-          console.log("SUCCESS");
           break;
       }
     }
-
-    setSaving(false);
   };
 
   return (
@@ -161,9 +160,6 @@ export const Login: React.FC<Props> = ({ history }) => {
                   {saving ? "Signing in" : "Sign in"}
                 </Aubtn>
               </AuFormGroup>
-
-              <pre>{JSON.stringify(values, null, 2)}</pre>
-              <pre>{JSON.stringify(errors, null, 2)}</pre>
             </Form>
           )}
         </Formik>

@@ -1,10 +1,23 @@
 import React from "react";
-import { Brand, AUHeader } from "../../types/auds";
+import { Brand, AUHeader, Aubtn } from "../../types/auds";
 import { Link } from "react-router-dom";
+import { gql, useMutation } from "@apollo/client";
 
-interface Props {}
+interface Props {
+  isAdmin?: boolean;
+}
 
-const Header: React.FC<Props> = () => {
+const Header: React.FC<Props> = ({ isAdmin }) => {
+  const LOGOUT_MUTATION = gql`
+    mutation LogoutUser {
+      logout
+    }
+  `;
+
+  const [logout, { data, loading, error }] = useMutation(LOGOUT_MUTATION);
+
+  const handleLogout = () => {};
+
   return (
     <>
       <AUHeader alt>
@@ -24,12 +37,18 @@ const Header: React.FC<Props> = () => {
             </div>
             <div className="col-md-4">
               <div className="header-buttons">
-                <Link to="/login" className="au-btn au-btn--secondary">
-                  Log in
-                </Link>
-                <Link to="/register" className="au-btn">
-                  Get started
-                </Link>
+                {!isAdmin ? (
+                  <>
+                    <Link to="/login" className="au-btn au-btn--secondary">
+                      Log in
+                    </Link>
+                    <Link to="/register" className="au-btn">
+                      Get started
+                    </Link>
+                  </>
+                ) : (
+                  <Aubtn>Logout</Aubtn>
+                )}
               </div>
             </div>
           </div>

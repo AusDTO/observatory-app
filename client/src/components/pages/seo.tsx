@@ -1,5 +1,5 @@
 import React from "react";
-import Helmet from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 interface SeoProps {
   description?: string;
@@ -22,6 +22,7 @@ const SEO: React.FC<SeoProps> = ({
       htmlAttributes={{
         lang,
       }}
+      defer={false}
       title={title}
       titleTemplate={`%s | ObservatoryApp`}
       meta={[
