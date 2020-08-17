@@ -17,8 +17,12 @@ interface ResendEmailData {
   email: string;
 }
 
-interface RestPasswordData {
+interface ResetPasswordEmailData {
   email: string;
+}
+
+interface ResetPasswordData {
+  password: string;
 }
 
 interface loginData {

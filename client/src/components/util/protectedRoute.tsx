@@ -22,7 +22,6 @@ export const ProtectedRoute: React.FC<Props> = ({ component, path }) => {
       // loading screen
       return null;
     }
-    console.log(data);
     if (!data.getUser) {
       // user not logged in
       return <Redirect to="/login" />;

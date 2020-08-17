@@ -1,11 +1,12 @@
 import { Redis } from "ioredis";
-import { Request } from "express";
+import { Request, Response } from "express";
 
 export interface Context {
   redis_client: Redis;
   url: string;
   session: Session;
   req: Request;
+  res: Response;
 }
 
 export type Resolver = (

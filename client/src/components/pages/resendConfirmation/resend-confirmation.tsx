@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { Formik, Form } from "formik";
 
 import SubscribeField from "../../form/SearchField";
-import { Aubtn } from "../../../types/auds";
+import { Aubtn, AuFormGroup } from "../../../types/auds";
 import SEO from "../seo";
 import { useMutation, gql } from "@apollo/client";
 import {
@@ -25,6 +25,7 @@ import {
   ResendEmailData,
   ApiError,
 } from "../../../types/types";
+import TextField from "../../form/TextField";
 
 interface Props extends RouteComponentProps {}
 
@@ -109,7 +110,6 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
           >
             {({ values, errors, touched, handleSubmit, submitForm }) => (
               <Form
-                id="resend-confirmation"
                 noValidate
                 onSubmit={(e) => {
                   handleSubmit(e);
@@ -162,24 +162,23 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
                 ) : (
                   ""
                 )}
-                <div className="au-search au-search--dark au-form-group max-30">
-                  <SubscribeField
-                    id="email"
-                    type="search"
-                    label="Enter email"
-                    dark={false}
-                  />
-                  <div className="au-search__btn">
-                    <Aubtn
-                      type="submit"
-                      disabled={isSaving}
-                      onClick={submitForm}
-                      className="au-btn--medium"
-                    >
-                      {isSaving ? "Submitting" : "Resend"}
-                    </Aubtn>
-                  </div>
-                </div>
+                <TextField
+                  id="email"
+                  width="xl"
+                  type="search"
+                  dark={false}
+                  label="Enter email"
+                />
+                <AuFormGroup>
+                  <Aubtn
+                    type="submit"
+                    disabled={isSaving}
+                    onClick={submitForm}
+                    className="au-btn--medium"
+                  >
+                    {isSaving ? "Submitting" : "Resend"}
+                  </Aubtn>
+                </AuFormGroup>
               </Form>
             )}
           </Formik>

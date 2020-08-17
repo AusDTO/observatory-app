@@ -8,11 +8,12 @@ export const resolvers: ResolverMap = {
     },
   },
   Mutation: {
-    logout: async (_, __, { session, redis_client }) => {
+    logout: async (_, __, { session, redis_client, res }) => {
       const { userId } = session;
       if (userId) {
         //remove all sessions associated with this userId
         await removeSessions(userId, redis_client);
+        res.clearCookie("sid");
         return true;
       } else return false;
     },

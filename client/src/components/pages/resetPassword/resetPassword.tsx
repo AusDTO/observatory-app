@@ -11,25 +11,22 @@ import PageAlert from "../../blocks/page-alert";
 import { formatApiError } from "../../util/formatError";
 import {
   FormSubmitState,
+  ResendEmailData,
   ApiError,
-  ResetPasswordEmailData,
+  ResetPasswordData,
 } from "../../../types/types";
-import {
-  InitialValues,
-  validationSchema,
-  FORGOT_PASSWORD_SCHEMA,
-} from "./forgotPassowrd_schema";
 import TextField from "../../form/TextField";
+import { InitialValues, validationSchema } from "./resetPassword_schema";
 import {
-  SendPasswordResetEmail,
-  SendPasswordResetEmailVariables,
-  SendPasswordResetEmail_sendForgotPasswordEmail_FieldErrors,
-  SendPasswordResetEmail_sendForgotPasswordEmail_Error,
-} from "../../../graphql/SendPasswordResetEmail";
+  ResetPassword,
+  ResetPasswordVariables,
+  ResetPassword_resetPassword_FieldErrors,
+  ResetPassword_resetPassword_Error,
+} from "../../../graphql/ResetPassword";
 
 interface Props extends RouteComponentProps {}
 
-export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
+export const ResetPasswordPage: React.FC<Props> = ({ history }) => {
   const [state, setState] = useState<FormSubmitState>({
     isErrors: false,
     submitted: false,
@@ -38,9 +35,9 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
   });
 
   const [isSaving, setSaving] = useState<boolean>(false);
-  const FORGOT_PASSWORD_SCHEMA = gql`
-    mutation SendPasswordResetEmail($email: String) {
-      sendForgotPasswordEmail(email: $email) {
+  const RESET_PASSWORD_SCHEMA = gql`
+    mutation ResetPassword($newPassword: String, $key: String) {
+      resetPassword(newPassword: $newPassword, key: $key) {
         __typename
         ... on FieldErrors {
           errors {
@@ -50,8 +47,8 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
         }
 
         ... on Error {
-          path
           message
+          path
         }
 
         ... on Success {
@@ -62,20 +59,20 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
   `;
 
   const [
-    sendForgotPasswordEmail,
+    resetPassword,
     { loading: mutationLoading, error: mutationError },
-  ] = useMutation<SendPasswordResetEmail, SendPasswordResetEmailVariables>(
-    FORGOT_PASSWORD_SCHEMA
-  );
+  ] = useMutation<ResetPassword, ResetPasswordVariables>(RESET_PASSWORD_SCHEMA);
 
-  const handleResetPassword = async (formData: ResetPasswordEmailData) => {
+  const handleResetPassword = async (formData: ResetPasswordData) => {
     setSaving(true);
-    const { email } = formData;
-    const result = await sendForgotPasswordEmail({ variables: { email } });
+    const { password } = formData;
+    const result = await resetPassword({
+      variables: { newPassword: password },
+    });
     setSaving(false);
 
     if (result.data) {
-      const serverResult = result.data.sendForgotPasswordEmail;
+      const serverResult = result.data.resetPassword;
       const { __typename } = serverResult;
 
       switch (__typename) {
@@ -83,7 +80,7 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
           const errorList: Array<ApiError> = [];
           const {
             errors,
-          } = serverResult as SendPasswordResetEmail_sendForgotPasswordEmail_FieldErrors;
+          } = serverResult as ResetPassword_resetPassword_FieldErrors;
           errors?.map((error) =>
             errorList.push({ path: error.path, message: error.message })
           );
@@ -97,12 +94,17 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
         case "Error":
           const {
             message,
-          } = serverResult as SendPasswordResetEmail_sendForgotPasswordEmail_Error;
-          history.push("/password-reset-email", { email });
+            path,
+          } = serverResult as ResetPassword_resetPassword_Error;
+          setState({
+            ...state,
+            apiError: true,
+            apiErrorList: [{ path, message }],
+          });
           break;
 
         case "Success":
-          history.push("/password-reset-email", { email });
+          history.push("/login");
           break;
       }
     }
@@ -114,11 +116,8 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
         <SEO title="Reset password" />
 
         <div className="container-fluid au-body">
-          <h2>Reset password</h2>
-          <p>
-            Enter your gov.au email below and we will send you a link to reset
-            your password.
-          </p>
+          <h2>Create a new password</h2>
+          <p>You can now create a new password for your account.</p>
           <Formik
             initialValues={InitialValues}
             validationSchema={validationSchema}
@@ -172,7 +171,7 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
                       <ul>
                         {
                           <li>
-                            <a href={`#email`}>{errors["email"]}</a>
+                            <a href={`#password`}>{errors["password"]}</a>
                           </li>
                         }
                       </ul>
@@ -181,13 +180,12 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
                 ) : (
                   ""
                 )}
-
                 <TextField
-                  id="email"
-                  type="email"
+                  id="password"
                   width="xl"
-                  label="Enter email"
+                  type="password"
                   dark={false}
+                  label="Password"
                 />
                 <AuFormGroup>
                   <Aubtn

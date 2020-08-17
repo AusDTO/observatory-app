@@ -99,7 +99,7 @@ export const resolvers: ResolverMap = {
       );
 
       if (!userId) {
-        return basicApiErrorMessage("Expired key or not found", "error");
+        return basicApiErrorMessage("Expired key or not found", "Error");
       }
 
       const user = await User.findOne({ where: { id: userId } });

@@ -35,9 +35,9 @@ export const confirmEmail = async (
   //user is not verified, they'll become verified
   if (!user.verified) {
     User.update({ id: user.id }, { verified: true });
-    res.redirect(`${FRONT_END_URL}/welcome`);
-
     //delete redis key once it has been used
     await redis_client.del(`${REDIS_CONFIRMATION_EMAIL_PREFIX}${id}`);
+
+    res.redirect(`${FRONT_END_URL}/welcome`);
   }
 };

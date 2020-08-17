@@ -60,6 +60,7 @@ export const startServer = async () => {
       url: req.protocol + "://" + req.get("host"),
       session: req.session,
       req: req,
+      res,
     }),
   });
 

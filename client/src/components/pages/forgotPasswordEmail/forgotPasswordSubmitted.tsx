@@ -22,7 +22,7 @@ export const PasswordResetEmailSent: React.FC<Props> = ({
   return (
     <DefaultLayout>
       <>
-        <SEO title="Confirm registration" />
+        <SEO title="Check your email" />
 
         <div className="container-fluid au-body">
           <h2>Check your email</h2>

@@ -13,9 +13,9 @@ export const InitialValues = {
 export const validationSchema = yup.object().shape({
   email: emailValidation,
   password: passwordValidation,
-  name: yup.string().required("Enter a name").min(2),
-  agency: yup.string().required("Enter an agency").min(2),
-  role: yup.string().required("Enter your role").min(2),
+  name: yup.string().required("Name is required").min(2),
+  agency: yup.string().required("Agency is required").min(2),
+  role: yup.string().required("Role is required").min(2),
 });
 
 export const REGISTER_SCHEMA = gql`

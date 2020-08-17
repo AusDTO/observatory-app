@@ -7,6 +7,7 @@ import {
   AuHintText,
   AuSelect,
 } from "../../types/auds";
+import { SelectOptionType } from "../../types/types";
 
 interface SelectFieldProps {
   id: string;

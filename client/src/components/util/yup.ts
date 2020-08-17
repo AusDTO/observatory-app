@@ -3,13 +3,13 @@ import * as yup from "yup";
 export const emailValidation = yup
   .string()
   .email("Enter a valid email")
-  .required("Enter an email")
+  .required("Email is required")
   .max(255)
   .matches(/.gov.au$/, "Only government emails are allowed to apply");
 
 export const passwordValidation = yup
   .string()
-  .required("Enter a password")
+  .required("Password is required")
   .max(255)
   .matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
