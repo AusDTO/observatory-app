@@ -58,9 +58,9 @@ export const resolvers: ResolverMap = {
 
       //enters a user that does not exist
       if (!user) {
-        return basicApiMessage(
-          "Error",
-          "If email exists, we have sent a resent link."
+        return basicApiErrorMessage(
+          "If email exists, we have sent a resent link.",
+          "email"
         );
       }
 
@@ -71,8 +71,7 @@ export const resolvers: ResolverMap = {
       const forgotLink = await CreateForgotPasswordLink(user.id, redis_client);
 
       console.log(forgotLink);
-      //send forgot password email
-      // await sendForgotPasswordEmail(email, user.name, forgotLink);
+      await sendForgotPasswordEmail(email, user.name, forgotLink);
 
       return basicApiMessage(
         "Success",

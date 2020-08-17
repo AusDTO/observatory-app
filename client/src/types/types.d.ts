@@ -1,3 +1,5 @@
+import { match, RouteComponentProps } from "react-router-dom";
+
 type SelectOptionType = {
   value?: string;
   text: string;
@@ -12,6 +14,10 @@ interface RegisterData {
 }
 
 interface ResendEmailData {
+  email: string;
+}
+
+interface RestPasswordData {
   email: string;
 }
 

@@ -21,6 +21,12 @@ import {
 import { RouteComponentProps } from "react-router-dom";
 import { formatApiError } from "../../util/formatError";
 import SEO from "../seo";
+import {
+  FormSubmitState,
+  RegisterData,
+  ApiError,
+  RegisterErrorName,
+} from "../../../types/types";
 
 interface Props extends RouteComponentProps {}
 export const Register: React.FC<Props> = ({ history }) => {

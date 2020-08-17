@@ -1,22 +1,31 @@
 import React from "react";
 import { Brand, AUHeader, Aubtn } from "../../types/auds";
-import { Link } from "react-router-dom";
-import { gql, useMutation } from "@apollo/client";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
+import { gql, useMutation, ApolloClient } from "@apollo/client";
+import { LogoutUser } from "../../graphql/LogoutUser";
 
-interface Props {
+interface Props extends RouteComponentProps {
   isAdmin?: boolean;
 }
 
-const Header: React.FC<Props> = ({ isAdmin }) => {
+const Header: React.FC<Props> = ({ isAdmin, history }) => {
   const LOGOUT_MUTATION = gql`
     mutation LogoutUser {
       logout
     }
   `;
 
-  const [logout, { data, loading, error }] = useMutation(LOGOUT_MUTATION);
+  const [logout, { data, loading, error, client }] = useMutation<LogoutUser>(
+    LOGOUT_MUTATION
+  );
 
-  const handleLogout = () => {};
+  const handleLogout = async () => {
+    const result = await logout();
+    await client.resetStore();
+    if (result.data && result.data.logout) {
+      history.push("/");
+    }
+  };
 
   return (
     <>
@@ -47,7 +56,7 @@ const Header: React.FC<Props> = ({ isAdmin }) => {
                     </Link>
                   </>
                 ) : (
-                  <Aubtn>Logout</Aubtn>
+                  <Aubtn onClick={handleLogout}>Logout</Aubtn>
                 )}
               </div>
             </div>
@@ -58,4 +67,4 @@ const Header: React.FC<Props> = ({ isAdmin }) => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

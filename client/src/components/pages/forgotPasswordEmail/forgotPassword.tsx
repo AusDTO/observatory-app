@@ -4,31 +4,34 @@ import { RouteComponentProps } from "react-router-dom";
 import { Formik, Form } from "formik";
 
 import SubscribeField from "../../form/SearchField";
-import { Aubtn } from "../../../types/auds";
+import { Aubtn, AuFormGroup } from "../../../types/auds";
 import SEO from "../seo";
 import { useMutation, gql } from "@apollo/client";
-import {
-  RESEND_CONFIRMATION_SCHEMA,
-  InitialValues,
-  validationSchema,
-} from "./resendConfirmationSchema";
-import {
-  ResendConfirmation,
-  ResendConfirmationVariables,
-  ResendConfirmation_resendConfirmationEmail_EmailNotSentError,
-  ResendConfirmation_resendConfirmationEmail_FieldErrors,
-} from "../../../graphql/ResendConfirmation";
+
 import PageAlert from "../../blocks/page-alert";
 import { formatApiError } from "../../util/formatError";
 import {
   FormSubmitState,
   ResendEmailData,
   ApiError,
+  RestPasswordData,
 } from "../../../types/types";
+import {
+  InitialValues,
+  validationSchema,
+  FORGOT_PASSWORD_SCHEMA,
+} from "./forgotPassowrd_schema";
+import TextField from "../../form/TextField";
+import {
+  SendPasswordResetEmail,
+  SendPasswordResetEmailVariables,
+  SendPasswordResetEmail_sendForgotPasswordEmail_FieldErrors,
+  SendPasswordResetEmail_sendForgotPasswordEmail_Error,
+} from "../../../graphql/SendPasswordResetEmail";
 
 interface Props extends RouteComponentProps {}
 
-export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
+export const ResetPasswordPage: React.FC<Props> = ({ history }) => {
   const [state, setState] = useState<FormSubmitState>({
     isErrors: false,
     submitted: false,
@@ -37,22 +40,44 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
   });
 
   const [isSaving, setSaving] = useState<boolean>(false);
+  const FORGOT_PASSWORD_SCHEMA = gql`
+    mutation SendPasswordResetEmail($email: String) {
+      sendForgotPasswordEmail(email: $email) {
+        __typename
+        ... on FieldErrors {
+          errors {
+            path
+            message
+          }
+        }
+
+        ... on Error {
+          path
+          message
+        }
+
+        ... on Success {
+          message
+        }
+      }
+    }
+  `;
 
   const [
-    resendEmail,
+    sendForgotPasswordEmail,
     { loading: mutationLoading, error: mutationError },
-  ] = useMutation<ResendConfirmation, ResendConfirmationVariables>(
-    RESEND_CONFIRMATION_SCHEMA
+  ] = useMutation<SendPasswordResetEmail, SendPasswordResetEmailVariables>(
+    FORGOT_PASSWORD_SCHEMA
   );
 
-  const handleResendEmail = async (formData: ResendEmailData) => {
+  const handleResetPassword = async (formData: RestPasswordData) => {
     setSaving(true);
     const { email } = formData;
-    const result = await resendEmail({ variables: { email } });
+    const result = await sendForgotPasswordEmail({ variables: { email } });
     setSaving(false);
 
     if (result.data) {
-      const serverResult = result.data.resendConfirmationEmail;
+      const serverResult = result.data.sendForgotPasswordEmail;
       const { __typename } = serverResult;
 
       switch (__typename) {
@@ -60,7 +85,7 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
           const errorList: Array<ApiError> = [];
           const {
             errors,
-          } = serverResult as ResendConfirmation_resendConfirmationEmail_FieldErrors;
+          } = serverResult as SendPasswordResetEmail_sendForgotPasswordEmail_FieldErrors;
           errors?.map((error) =>
             errorList.push({ path: error.path, message: error.message })
           );
@@ -71,20 +96,15 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
           });
           break;
 
-        case "EmailNotSentError":
+        case "Error":
           const {
             message,
-            path,
-          } = serverResult as ResendConfirmation_resendConfirmationEmail_EmailNotSentError;
-          setState({
-            ...state,
-            apiError: true,
-            apiErrorList: [{ path, message }],
-          });
+          } = serverResult as SendPasswordResetEmail_sendForgotPasswordEmail_Error;
+          history.push("/password-reset-email", { email });
           break;
 
-        case "ConfirmationEmailSent":
-          history.push("/confirmation", { email, name: "there" });
+        case "Success":
+          history.push("/password-reset-email", { email });
           break;
       }
     }
@@ -93,18 +113,19 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
   return (
     <DefaultLayout>
       <>
-        <SEO title="Resend confirmation" />
+        <SEO title="Reset password" />
 
         <div className="container-fluid au-body">
-          <h2>Resend confirmation</h2>
+          <h2>Reset password</h2>
           <p>
-            Enter your email below and we will send you a new confirmation link
+            Enter your gov.au email below and we will send you a link to reset
+            your password.
           </p>
           <Formik
             initialValues={InitialValues}
             validationSchema={validationSchema}
             onSubmit={(data, errors) => {
-              handleResendEmail(data);
+              handleResetPassword(data);
             }}
           >
             {({ values, errors, touched, handleSubmit, submitForm }) => (
@@ -162,24 +183,24 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
                 ) : (
                   ""
                 )}
-                <div className="au-search au-search--dark au-form-group max-30">
-                  <SubscribeField
-                    id="email"
-                    type="search"
-                    label="Enter email"
-                    dark={false}
-                  />
-                  <div className="au-search__btn">
-                    <Aubtn
-                      type="submit"
-                      disabled={isSaving}
-                      onClick={submitForm}
-                      className="au-btn--medium"
-                    >
-                      {isSaving ? "Submitting" : "Resend"}
-                    </Aubtn>
-                  </div>
-                </div>
+
+                <TextField
+                  id="email"
+                  type="search"
+                  width="xl"
+                  label="Enter email"
+                  dark={false}
+                />
+                <AuFormGroup>
+                  <Aubtn
+                    type="submit"
+                    disabled={isSaving}
+                    onClick={submitForm}
+                    className="au-btn--medium"
+                  >
+                    {isSaving ? "Submitting" : "Reset"}
+                  </Aubtn>
+                </AuFormGroup>
               </Form>
             )}
           </Formik>

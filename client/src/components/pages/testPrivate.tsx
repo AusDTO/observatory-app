@@ -1,14 +1,14 @@
 import React from "react";
-import DefaultLayout from "../layouts/DefaultLayout";
 import { RouteComponentProps, Router, Redirect, Link } from "react-router-dom";
 import SEO from "./seo";
 import { Aubtn } from "../../types/auds";
+import AdminLayout from "../layouts/AdminLayout";
 
 interface Props extends RouteComponentProps {}
 
-export const TestRoute: React.FC<Props> = ({ history, location }) => {
+export const TestRoute: React.FC<Props> = () => {
   return (
-    <DefaultLayout>
+    <AdminLayout>
       <>
         <SEO title="Home" />
 
@@ -20,6 +20,6 @@ export const TestRoute: React.FC<Props> = ({ history, location }) => {
           </Link>
         </div>
       </>
-    </DefaultLayout>
+    </AdminLayout>
   );
 };

@@ -11,18 +11,18 @@ export const ProtectedRoute: React.FC<Props> = ({ component, path }) => {
     query GetUser {
       getUser {
         email
-        id
       }
     }
   `;
 
-  const { data, loading, error } = useQuery<GetUser>(GET_USER_QUERY);
+  const { data, loading, error, client } = useQuery<GetUser>(GET_USER_QUERY);
 
   const renderRoute = () => {
     if (!data || loading) {
       // loading screen
       return null;
     }
+    console.log(data);
     if (!data.getUser) {
       // user not logged in
       return <Redirect to="/login" />;

@@ -4,14 +4,9 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetUser
+// GraphQL mutation operation: LogoutUser
 // ====================================================
 
-export interface GetUser_getUser {
-  __typename: "User";
-  email: string | null;
-}
-
-export interface GetUser {
-  getUser: GetUser_getUser | null;
+export interface LogoutUser {
+  logout: boolean | null;
 }

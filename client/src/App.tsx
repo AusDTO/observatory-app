@@ -11,6 +11,8 @@ import { Home } from "./components/pages/home";
 import { MePage } from "./components/pages/me/me";
 import { ProtectedRoute } from "./components/util/protectedRoute";
 import { TestRoute } from "./components/pages/testPrivate";
+import { ResetPasswordPage } from "./components/pages/forgotPasswordEmail/forgotPassword";
+import { PasswordResetEmailSent } from "./components/pages/forgotPasswordEmail/forgotPasswordSubmitted";
 
 const App = (props: any) => {
   return (
@@ -23,6 +25,12 @@ const App = (props: any) => {
         <Route path="/welcome" exact component={Activated} />
         <Route path="/already-active" exact component={AlreadyActivated} />
         <Route path="/me" exact component={MePage} />
+        <Route path="/forgot-password" exact component={ResetPasswordPage} />
+        <Route
+          path="/password-reset-email"
+          exact
+          component={PasswordResetEmailSent}
+        />
         <ProtectedRoute path="/test-private" component={TestRoute} />
 
         <Route

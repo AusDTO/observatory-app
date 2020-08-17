@@ -14,9 +14,15 @@ import {
   LoginUser_login_FieldErrors,
   LoginUser_login_Error,
 } from "../../../graphql/LoginUser";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 import PageAlert from "../../blocks/page-alert";
 import { formatApiError } from "../../util/formatError";
+import {
+  FormSubmitState,
+  loginData,
+  ApiError,
+  LoginErrorName,
+} from "../../../types/types";
 
 interface Props extends RouteComponentProps {}
 export const Login: React.FC<Props> = ({ history }) => {
@@ -29,12 +35,14 @@ export const Login: React.FC<Props> = ({ history }) => {
 
   const [saving, setSaving] = useState<boolean>(false);
 
-  const [login, { data }] = useMutation(LOGIN_MUTATION);
+  const [login, { data, client }] = useMutation(LOGIN_MUTATION);
 
   const handleLogin = async (data: loginData) => {
     setSaving(true);
 
     const { email, password } = data;
+
+    // API call
     const result = await login({
       variables: {
         email,
@@ -47,6 +55,7 @@ export const Login: React.FC<Props> = ({ history }) => {
     if (result.data && result.data.login) {
       const apiResult = result.data.login;
       const { __typename } = apiResult;
+      await client.resetStore();
 
       switch (__typename) {
         case "FieldErrors":
@@ -72,7 +81,8 @@ export const Login: React.FC<Props> = ({ history }) => {
           break;
 
         case "Success":
-          history.push("/me");
+          await client.resetStore();
+          history.push("/test-private");
           break;
       }
     }
@@ -80,8 +90,13 @@ export const Login: React.FC<Props> = ({ history }) => {
 
   return (
     <DefaultLayout>
-      <div className="container-fluid">
+      <div className="container-fluid au-body">
         <SEO title="Sign in" />
+        <h2>Login to ObservatoryApp</h2>
+        <p>
+          If you do not have an account, you can{" "}
+          <Link to="/register">create one now.</Link>
+        </p>
         <Formik
           initialValues={InitialValues}
           validationSchema={validationSchema}
@@ -163,6 +178,9 @@ export const Login: React.FC<Props> = ({ history }) => {
             </Form>
           )}
         </Formik>
+        <AuFormGroup>
+          <Link to="/forgot-password">Forgot your password?</Link>
+        </AuFormGroup>
       </div>
     </DefaultLayout>
   );
