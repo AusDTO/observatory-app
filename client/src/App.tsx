@@ -20,26 +20,29 @@ const App = (props: any) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={Home} />
+        <ProtectedRoute path="/" exact component={TestRoute} />
+        <Route path="/home" exact component={Home} />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
         <Route path="/confirmation" exact component={Confirmation} />
         <Route path="/welcome" exact component={Activated} />
         <Route path="/already-active" exact component={AlreadyActivated} />
         <Route path="/me" exact component={MePage} />
-        <Route path="/forgot-password" exact component={PasswordResetEmailPage} />
+        <Route
+          path="/forgot-password"
+          exact
+          component={PasswordResetEmailPage}
+        />
         <Route
           path="/password-reset-email"
           exact
           component={PasswordResetEmailSent}
         />
         <Route
-          path="/reset-password"
+          path="/reset-password/:key"
           exact={true}
           component={ResetPasswordPage}
         />
-        <ProtectedRoute path="/test-private" component={TestRoute} />
-
         <Route
           path="/invalid-confirmation"
           exact

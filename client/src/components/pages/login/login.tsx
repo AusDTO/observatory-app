@@ -82,7 +82,7 @@ export const Login: React.FC<Props> = ({ history }) => {
 
         case "Success":
           await client.resetStore();
-          history.push("/test-private");
+          history.push("/");
           break;
       }
     }

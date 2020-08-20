@@ -7,8 +7,10 @@ import {
   CreateDateColumn,
   BeforeUpdate,
   AfterUpdate,
+  ManyToOne,
 } from "typeorm";
 import * as bcrypt from "bcrypt";
+import { Agency } from "./Agency";
 
 // extending BaseEntity allows us to do things like User.create({})
 @Entity("users")
@@ -36,6 +38,9 @@ export class User extends BaseEntity {
 
   @Column("varchar", { length: 255 })
   role: string;
+
+  @ManyToOne((_type) => Agency, (agency) => agency.id)
+  agency_code: Agency;
 
   @CreateDateColumn()
   createdDate: Date;

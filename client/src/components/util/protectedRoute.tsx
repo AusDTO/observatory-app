@@ -24,7 +24,7 @@ export const ProtectedRoute: React.FC<Props> = ({ component, path }) => {
     }
     if (!data.getUser) {
       // user not logged in
-      return <Redirect to="/login" />;
+      return <Redirect to="/home" />;
     }
 
     const Component = component as any;

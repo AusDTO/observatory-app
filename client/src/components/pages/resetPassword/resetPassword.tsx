@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DefaultLayout from "../../layouts/DefaultLayout";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Redirect } from "react-router-dom";
 import { Formik, Form } from "formik";
 
 import { Aubtn, AuFormGroup } from "../../../types/auds";
 import SEO from "../seo";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation, gql, useQuery, useLazyQuery } from "@apollo/client";
 
 import PageAlert from "../../blocks/page-alert";
 import { formatApiError } from "../../util/formatError";
 import {
   FormSubmitState,
-  ResendEmailData,
   ApiError,
   ResetPasswordData,
 } from "../../../types/types";
 import TextField from "../../form/TextField";
-import { InitialValues, validationSchema } from "./resetPassword_schema";
+import {
+  InitialValues,
+  validationSchema,
+  RESET_PASSWORD_SCHEMA,
+} from "./resetPassword_schema";
 import {
   ResetPassword,
   ResetPasswordVariables,
@@ -24,9 +27,11 @@ import {
   ResetPassword_resetPassword_Error,
 } from "../../../graphql/ResetPassword";
 
-interface Props extends RouteComponentProps {}
+interface Props extends RouteComponentProps<{ key: string }> {} // key
 
-export const ResetPasswordPage: React.FC<Props> = ({ history }) => {
+export const ResetPasswordPage: React.FC<Props> = ({ history, match }) => {
+  const { key } = match.params; //key parameter
+
   const [state, setState] = useState<FormSubmitState>({
     isErrors: false,
     submitted: false,
@@ -35,28 +40,6 @@ export const ResetPasswordPage: React.FC<Props> = ({ history }) => {
   });
 
   const [isSaving, setSaving] = useState<boolean>(false);
-  const RESET_PASSWORD_SCHEMA = gql`
-    mutation ResetPassword($newPassword: String, $key: String) {
-      resetPassword(newPassword: $newPassword, key: $key) {
-        __typename
-        ... on FieldErrors {
-          errors {
-            path
-            message
-          }
-        }
-
-        ... on Error {
-          message
-          path
-        }
-
-        ... on Success {
-          message
-        }
-      }
-    }
-  `;
 
   const [
     resetPassword,
@@ -67,12 +50,13 @@ export const ResetPasswordPage: React.FC<Props> = ({ history }) => {
     setSaving(true);
     const { password } = formData;
     const result = await resetPassword({
-      variables: { newPassword: password },
+      variables: { newPassword: password, key },
     });
     setSaving(false);
 
     if (result.data) {
       const serverResult = result.data.resetPassword;
+      console.log(serverResult);
       const { __typename } = serverResult;
 
       switch (__typename) {

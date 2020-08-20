@@ -1,4 +1,0 @@
-type Query {
-  getuser(id: String!, email: String!): User
-  HelloWorld: String
-}

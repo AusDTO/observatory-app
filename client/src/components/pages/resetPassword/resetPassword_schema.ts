@@ -32,3 +32,9 @@ export const RESET_PASSWORD_SCHEMA = gql`
     }
   }
 `;
+
+export const IS_RESET_LINK_VALID_QUERY = gql`
+  query ResetLinkValid($key: String!) {
+    isResetLinkValid(key: $key)
+  }
+`;

@@ -20,3 +20,7 @@ export interface IResetPasswordType {
   newPassword: string;
   key: string;
 }
+
+export interface IKeyValidType {
+  key: string;
+}

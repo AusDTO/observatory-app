@@ -11,9 +11,9 @@ export const InitialValues = {
 };
 
 export const validationSchema = yup.object().shape({
+  name: yup.string().required("Name is required").min(2),
   email: emailValidation,
   password: passwordValidation,
-  name: yup.string().required("Name is required").min(2),
   agency: yup.string().required("Agency is required").min(2),
   role: yup.string().required("Role is required").min(2),
 });

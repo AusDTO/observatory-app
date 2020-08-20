@@ -13,11 +13,32 @@ export const TestRoute: React.FC<Props> = () => {
         <SEO title="Home" />
 
         <div className="container-fluid au-body">
-          <h1>PRIVATE</h1>
+          <h1>Welcome back</h1>
 
-          <Link to="/register">
+          {/* <Link to="/register">
             <Aubtn className="mt-1"> Get started</Aubtn>
-          </Link>
+          </Link> */}
+          <h2>Choose a service</h2>
+          <ul>
+            <li>
+              <a href="">Design System</a>
+            </li>
+            <li>
+              <a href="">Observatory</a>
+            </li>
+            <li>
+              <a href="">Hello</a>
+            </li>
+          </ul>
+          <h2>Manage Account </h2>
+          <ul>
+            <li>
+              <a href="">Change password</a>
+            </li>
+            <li>
+              <a href="">Update details</a>
+            </li>
+          </ul>
         </div>
       </>
     </AdminLayout>

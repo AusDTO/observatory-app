@@ -18,6 +18,17 @@ export class TestClient {
     };
   }
 
+  async isResetLinkValid(key: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `query {
+          isResetLinkValid(key: "${key}") 
+        }`,
+      },
+    });
+  }
+
   async resetPassword(newPassword: string, key: string) {
     return rp.post(this.url, {
       ...this.options,

@@ -39,7 +39,7 @@ const Header: React.FC<Props> = ({ isAdmin, history }) => {
                     ObservatoryApp <span className="header__badge"> alpha</span>
                   </>
                 }
-                link="/"
+                link="/home"
                 brandImage="https://observatory.service.gov.au/coat-of-arms.svg"
                 brandImageAlt="The Australian Government Coat of Arms"
               />
