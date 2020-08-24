@@ -3,7 +3,6 @@ type Mutation {
     email: String!
     password: String!
     name: String!
-    agency: String!
     role: String!
   ): RegisterResult!
   resendConfirmationEmail(email: String!): SendEmailResult!

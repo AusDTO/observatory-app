@@ -5,10 +5,10 @@ import middleware from "./middleware";
 
 export const resolvers: ResolverMap = {
   Query: {
-    getUser: createMiddleware(
-      middleware,
-      async (_, __, { session }) =>
-        await User.findOne({ where: { id: session.userId } })
-    ),
+    getUser: createMiddleware(middleware, async (_, __, { session }) => {
+      const user = await User.findOne({ where: { id: session.userId } });
+      console.log(user?.agency);
+      return user;
+    }),
   },
 };

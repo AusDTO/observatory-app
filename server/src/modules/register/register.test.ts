@@ -5,7 +5,7 @@ import { connection } from "../../util/createConnection";
 import { testData } from "../../util/testData";
 import { TestClient } from "../../util/testClient";
 
-const { email, password, name, agency, role } = testData;
+const { email, password, name, role } = testData;
 const client = new TestClient();
 
 beforeAll(async () => {
@@ -18,7 +18,7 @@ afterAll(async () => {
 
 describe("Register a new user", () => {
   test("Register new user", async () => {
-    const result = await client.register(email, password, name, agency, role);
+    const result = await client.register(email, password, name, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("UserRegistered");
@@ -30,14 +30,14 @@ describe("Register a new user", () => {
   });
 
   test("Can't create dupe user", async () => {
-    const result = await client.register(email, password, name, agency, role);
+    const result = await client.register(email, password, name, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("UserAlreadyExistsError");
   });
 
   test("Register invalid email", async () => {
-    const result = await client.register("bla", password, name, agency, role);
+    const result = await client.register("bla", password, name, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("FieldErrors");
@@ -50,13 +50,7 @@ describe("Register a new user", () => {
   });
 
   test("Register non gov.au email", async () => {
-    const result = await client.register(
-      "bla@bla.com",
-      password,
-      name,
-      agency,
-      role
-    );
+    const result = await client.register("bla@bla.com", password, name, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("FieldErrors");
@@ -69,7 +63,7 @@ describe("Register a new user", () => {
   });
 
   test("Register invalid password", async () => {
-    const result = await client.register(email, "3", name, agency, role);
+    const result = await client.register(email, "3", name, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("FieldErrors");
@@ -82,7 +76,7 @@ describe("Register a new user", () => {
   });
 
   test("Register invalid password and invalid email", async () => {
-    const result = await client.register("bla", "bla", name, agency, role);
+    const result = await client.register("bla", "bla", name, role);
 
     const { register } = result;
     expect(register.__typename).toEqual("FieldErrors");
@@ -110,8 +104,8 @@ describe("Confirmation email", () => {
     expect(resendConfirmationEmail.__typename).toEqual("ConfirmationEmailSent");
   });
 
-  test("Test blank agency", async () => {
-    const result = await client.register(email, password, name, "s", role);
+  test("Test blank role", async () => {
+    const result = await client.register(email, password, name, "");
 
     const { register } = result;
     expect(register.__typename).toEqual("FieldErrors");
@@ -120,6 +114,6 @@ describe("Confirmation email", () => {
     const { errors } = register;
     expect(errors).toHaveLength(1);
 
-    expect(errors[0].path).toEqual("agency");
+    expect(errors[0].path).toEqual("role");
   });
 });

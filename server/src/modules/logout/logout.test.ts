@@ -3,13 +3,13 @@ import { connection } from "../../util/createConnection";
 import { testData } from "../../util/testData";
 import { TestClient } from "../../util/testClient";
 
-const { email, password, name, agency, role } = testData;
+const { email, password, name, role } = testData;
 
 const client = new TestClient();
 
 beforeAll(async () => {
   await connection.create();
-  await client.register(email, password, name, agency, role);
+  await client.register(email, password, name, role);
 });
 
 afterAll(async () => {

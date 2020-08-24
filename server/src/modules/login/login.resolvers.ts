@@ -47,10 +47,6 @@ export const resolvers: ResolverMap = {
         return basicApiErrorMessage("Email or password is invalid", "error");
       }
 
-      if (user.locked) {
-        return basicApiErrorMessage("Your account has been locked", "error");
-      }
-
       if (!user.verified) {
         return basicApiErrorMessage(
           "Please check your email for a confirmation link. We need to verify you as a user.",

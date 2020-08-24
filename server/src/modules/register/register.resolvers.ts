@@ -7,12 +7,12 @@ import { CreateConfirmationLink } from "../../util/createConfirmation/createConf
 import { sendConfirmationEmail } from "../../util/sendConfirmationEmail/sendEmail";
 import { emailValidator, passwordValidator } from "../../util/yup";
 import { basicApiMessage } from "../../util/constants";
+import { Agency } from "../../entity/Agency";
 
 const validationSchema = yup.object().shape({
   email: emailValidator,
   password: passwordValidator,
   name: yup.string().required().min(2),
-  agency: yup.string().required().min(2),
   role: yup.string().required().min(2),
 });
 
@@ -37,7 +37,7 @@ export const resolvers: ResolverMap = {
         };
       }
 
-      const { email, password, name, agency, role } = args;
+      const { email, password, name, role } = args;
 
       //try to find a user with passed in email
       const userAlreadyExists = await User.findOne({
@@ -61,11 +61,18 @@ export const resolvers: ResolverMap = {
         };
       }
 
-      //password is hashed in database
-      const user = User.create({ email, password, name, agency, role });
+      const agency = await Agency.findOne({ where: { name: "ATO" } });
 
+      //password is hashed in database
+      const user = User.create({ email, password, name, role });
+      if (agency) {
+        user.agency = agency;
+      }
+
+      console.log(user);
       //need to do user.save() to add to database.
       await user.save();
+
       const confirmationLink = await CreateConfirmationLink(
         url,
         user.id,

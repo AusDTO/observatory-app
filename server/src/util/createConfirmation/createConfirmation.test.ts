@@ -9,11 +9,11 @@ import { REDIS_CONFIRMATION_EMAIL_PREFIX } from "../constants";
 let userID: string;
 const redis_client = new Redis();
 
-const { email, password, name, agency, role } = testData;
+const { email, password, name, role } = testData;
 beforeAll(async () => {
   await connection.create();
 
-  const user = User.create({ email, password, name, agency, role });
+  const user = User.create({ email, password, name, role });
   await user.save();
   userID = user.id;
 });

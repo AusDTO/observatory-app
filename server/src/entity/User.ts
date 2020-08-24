@@ -5,9 +5,8 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  BeforeUpdate,
-  AfterUpdate,
   ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import * as bcrypt from "bcrypt";
 import { Agency } from "./Agency";
@@ -27,20 +26,16 @@ export class User extends BaseEntity {
   @Column("text")
   password: string;
 
-  @Column("text")
-  agency: string;
-
   @Column("boolean", { default: false })
   verified: boolean;
-
-  @Column("boolean", { default: false })
-  locked: boolean;
 
   @Column("varchar", { length: 255 })
   role: string;
 
-  @ManyToOne((_type) => Agency, (agency) => agency.id)
-  agency_code: Agency;
+  // Many users belong to one agency
+  @ManyToOne(() => Agency, (agency: Agency) => agency.users)
+  @JoinColumn({ name: "agency_id" })
+  agency: Agency;
 
   @CreateDateColumn()
   createdDate: Date;

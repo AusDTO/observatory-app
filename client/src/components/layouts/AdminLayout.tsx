@@ -10,7 +10,7 @@ interface Props {
 const AdminLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
-      <Header isAdmin={true} />
+      <Header isAdmin={true} logoUrl="/" />
       <main>{children}</main>
     </>
   );

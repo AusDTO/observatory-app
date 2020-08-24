@@ -42,6 +42,5 @@ export interface RegisterUserVariables {
   email: string;
   password?: string | null;
   name?: string | null;
-  agency?: string | null;
   role?: string | null;
 }

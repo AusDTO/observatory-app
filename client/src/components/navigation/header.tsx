@@ -6,9 +6,10 @@ import { LogoutUser } from "../../graphql/LogoutUser";
 
 interface Props extends RouteComponentProps {
   isAdmin?: boolean;
+  logoUrl?: string;
 }
 
-const Header: React.FC<Props> = ({ isAdmin, history }) => {
+const Header: React.FC<Props> = ({ isAdmin, history, logoUrl }) => {
   const LOGOUT_MUTATION = gql`
     mutation LogoutUser {
       logout
@@ -39,7 +40,7 @@ const Header: React.FC<Props> = ({ isAdmin, history }) => {
                     ObservatoryApp <span className="header__badge"> alpha</span>
                   </>
                 }
-                link="/home"
+                link={logoUrl ? "/" : "/home"}
                 brandImage="https://observatory.service.gov.au/coat-of-arms.svg"
                 brandImageAlt="The Australian Government Coat of Arms"
               />

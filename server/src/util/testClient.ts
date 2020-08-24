@@ -143,17 +143,11 @@ export class TestClient {
     );
   }
 
-  async register(
-    email: string,
-    password: string,
-    name: string,
-    agency: string,
-    role: string
-  ) {
+  async register(email: string, password: string, name: string, role: string) {
     return request(
       this.url,
       `mutation {
-        register(email: "${email}", password: "${password}", name: "${name}", agency: "${agency}", role: "${role}" ) {
+        register(email: "${email}", password: "${password}", name: "${name}", role: "${role}" ) {
           __typename
           ... on UserRegistered {
             message

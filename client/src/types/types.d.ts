@@ -8,7 +8,6 @@ type SelectOptionType = {
 interface RegisterData {
   name: string;
   email: string;
-  agency: string;
   role: string;
   password: string;
 }
@@ -43,6 +42,6 @@ type FormSubmitState = {
   apiErrorList: Array<ApiError>;
 };
 
-type RegisterErrorName = "name" | "email" | "agency" | "role" | "password";
+type RegisterErrorName = "name" | "email" | "role" | "password";
 
 type LoginErrorName = "password" | "email";

@@ -53,9 +53,9 @@ export const Register: React.FC<Props> = ({ history }) => {
    */
   const handleRegisterUser = async (formData: RegisterData) => {
     setSaving(true);
-    const { email, password, agency, role, name } = formData;
+    const { email, password, role, name } = formData;
     const result = await addUser({
-      variables: { email, password, agency, role, name },
+      variables: { email, password, role, name },
     });
     setSaving(false);
 
@@ -194,14 +194,6 @@ export const Register: React.FC<Props> = ({ history }) => {
                     label="Create a password"
                     width="lg"
                     required
-                  />
-                  <SelectField
-                    id="agency"
-                    label="Agency"
-                    options={[
-                      { value: "", text: "Choose one" },
-                      { value: "DTA", text: "Digital Transformation Agency" },
-                    ]}
                   />
                   <TextField
                     id="role"

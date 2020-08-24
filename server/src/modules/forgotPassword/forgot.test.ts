@@ -6,7 +6,7 @@ import { TestClient } from "../../util/testClient";
 import { CreateForgotPasswordLink } from "../../util/forgotPassword/createForgotPasswordLink";
 import { REDIS_FORGOT_PASSWORD_PREFIX } from "../../util/constants";
 
-const { email, password, name, agency, role } = testData;
+const { email, password, name, role } = testData;
 let userID: string;
 const newPassword = "123!@#PASSword";
 
@@ -19,7 +19,6 @@ beforeAll(async () => {
     email,
     password,
     name,
-    agency,
     role,
     verified: true,
   });
