@@ -112,7 +112,7 @@ describe("Confirmation email", () => {
 
     // There should only be one error since email is valid
     const { errors } = register;
-    expect(errors).toHaveLength(1);
+    expect(errors).toHaveLength(2);
 
     expect(errors[0].path).toEqual("role");
   });

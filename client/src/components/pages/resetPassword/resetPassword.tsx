@@ -56,7 +56,7 @@ export const ResetPasswordPage: React.FC<Props> = ({ history, match }) => {
 
     if (result.data) {
       const serverResult = result.data.resetPassword;
-      console.log(serverResult);
+
       const { __typename } = serverResult;
 
       switch (__typename) {

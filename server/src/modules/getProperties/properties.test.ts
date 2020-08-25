@@ -34,20 +34,10 @@ afterAll(async () => {
 
 describe("Send forgot password email", () => {
   test("Invalid email", async () => {
-    const response = await client.sendForgotPassword("bla@bla.com");
-    const { __typename } = response.data.sendForgotPasswordEmail;
-    expect(__typename).toEqual("FieldErrors");
-  });
+    await client.login(email, password);
 
-  test("User not existing", async () => {
-    const response = await client.sendForgotPassword("bla@bla.gov.au");
-    const { __typename } = response.data.sendForgotPasswordEmail;
-    expect(__typename).toEqual("Error");
-  });
+    const res = await client.getProperties();
 
-  test("User exists", async () => {
-    const response = await client.sendForgotPassword(email);
-    const { __typename } = response.data.sendForgotPasswordEmail;
-    expect(__typename).toEqual("Success");
+    // console.log(res);
   });
 });

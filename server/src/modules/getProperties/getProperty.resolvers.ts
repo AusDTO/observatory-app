@@ -6,7 +6,7 @@ import { Property } from "../../entity/Property";
 export const resolvers: ResolverMap = {
   Query: {
     getUserProperties: async (_, __, { session }) => {
-      //validate if passed in
+      //use session data
       const { agencyId, userId } = session;
 
       const user = await User.findOne({

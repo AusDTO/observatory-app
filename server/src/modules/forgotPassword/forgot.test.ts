@@ -1,10 +1,11 @@
 import Redis from "ioredis";
 import { User } from "../../entity/User";
 import { connection } from "../../util/createConnection";
-import { testUser } from "../../util/testData";
+import { testUser, testAgency } from "../../util/testData";
 import { TestClient } from "../../util/testClient";
 import { CreateForgotPasswordLink } from "../../util/forgotPassword/createForgotPasswordLink";
 import { REDIS_FORGOT_PASSWORD_PREFIX } from "../../util/constants";
+import { Agency } from "../../entity/Agency";
 
 const { email, password, name, role } = testUser;
 let userID: string;
@@ -15,6 +16,10 @@ const redis_client = new Redis();
 
 beforeAll(async () => {
   await connection.create();
+  const { emailHost, name } = testAgency;
+  const agency = Agency.create({ emailHost, name });
+  await agency.save();
+
   const user = User.create({
     email,
     password,
@@ -22,6 +27,7 @@ beforeAll(async () => {
     role,
     verified: true,
   });
+  user.agency = agency as Agency;
   await user.save();
   userID = user.id;
 });

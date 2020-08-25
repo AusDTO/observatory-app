@@ -69,7 +69,6 @@ export const resolvers: ResolverMap = {
         user.agency = agency;
       }
 
-      console.log(user);
       //need to do user.save() to add to database.
       await user.save();
 
@@ -115,7 +114,6 @@ export const resolvers: ResolverMap = {
           redis_client
         );
         const name = userExists.name;
-        console.log(newConfirmationlink);
 
         await sendConfirmationEmail(email, name, newConfirmationlink);
 

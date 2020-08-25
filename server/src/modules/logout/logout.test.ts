@@ -1,7 +1,8 @@
 import { User } from "../../entity/User";
 import { connection } from "../../util/createConnection";
-import { testUser } from "../../util/testData";
+import { testUser, testAgency } from "../../util/testData";
 import { TestClient } from "../../util/testClient";
+import { Agency } from "../../entity/Agency";
 
 const { email, password, name, role } = testUser;
 
@@ -9,7 +10,20 @@ const client = new TestClient();
 
 beforeAll(async () => {
   await connection.create();
-  await client.register(email, password, name, role);
+
+  const { emailHost, name } = testAgency;
+  const agency = Agency.create({ emailHost, name });
+  await agency.save();
+
+  const user = User.create({
+    email,
+    password,
+    name,
+    role,
+    verified: true,
+  });
+  user.agency = agency as Agency;
+  await user.save();
 });
 
 afterAll(async () => {
@@ -18,7 +32,6 @@ afterAll(async () => {
 
 describe("Logout user", () => {
   test("Removes cookie after logging out of single session", async () => {
-    await User.update({ email }, { verified: true });
     const result = await client.login(email, password);
 
     const { login } = result.data;
