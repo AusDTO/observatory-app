@@ -4,12 +4,12 @@ import { User } from "../../entity/User";
 import { CreateConfirmationLink } from "./createConfirmationLink";
 import node_fetch from "node-fetch";
 
-import { testData } from "../../util/testData";
+import { testUser } from "../../util/testData";
 import { REDIS_CONFIRMATION_EMAIL_PREFIX } from "../constants";
 let userID: string;
 const redis_client = new Redis();
 
-const { email, password, name, role } = testData;
+const { email, password, name, role } = testUser;
 beforeAll(async () => {
   await connection.create();
 

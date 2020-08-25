@@ -23,3 +23,7 @@ export interface IResetPasswordType {
 export interface IKeyValidType {
   key: string;
 }
+
+export interface IAgencyIdType {
+  agency_id: string;
+}

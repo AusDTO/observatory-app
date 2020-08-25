@@ -16,7 +16,7 @@ import * as rateLimit from "express-rate-limit";
 import * as RedisRateLimitStore from "rate-limit-redis";
 import { Agency } from "./entity/Agency";
 import { User } from "./entity/User";
-import { testData } from "./util/testData";
+import { testUser } from "./util/testData";
 
 const PORT: number | string = process.env.PORT || 4000;
 
@@ -94,25 +94,6 @@ export const startServer = async () => {
   //connection to database
   await connection.create();
 
-  // test queries
-  // const { email, password, name, role } = testData;
-
-  // const agencyName = "DTA";
-  // const agency1 = Agency.create({ name: agencyName, emailHost: "@dta.gov.au" });
-  // await agency1.save();
-
-  // const user1 = User.create({ email, password, name, role });
-  // user1.agency = agency1;
-  // await user1.save();
-  // const user2 = User.create({
-  //   email: "hello@bla.gov.au",
-  //   password,
-  //   name,
-  //   role,
-  // });
-  // await user2.save();
-
-  // console.log(user1);
   app.get("/confirm/:id", (req, res, next) =>
     confirmEmail(req, res, next, redis_client)
   );

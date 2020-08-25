@@ -1,12 +1,12 @@
 import Redis from "ioredis";
 import { User } from "../../entity/User";
 import { connection } from "../../util/createConnection";
-import { testData } from "../../util/testData";
+import { testUser } from "../../util/testData";
 import { TestClient } from "../../util/testClient";
 import { CreateForgotPasswordLink } from "../../util/forgotPassword/createForgotPasswordLink";
 import { REDIS_FORGOT_PASSWORD_PREFIX } from "../../util/constants";
 
-const { email, password, name, role } = testData;
+const { email, password, name, role } = testUser;
 let userID: string;
 const newPassword = "123!@#PASSword";
 

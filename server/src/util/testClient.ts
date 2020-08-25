@@ -18,6 +18,34 @@ export class TestClient {
     };
   }
 
+  async getProperties() {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `query {
+          getUserProperties {
+            __typename
+            ...on Error {
+              message
+              path
+            }
+            ...on PropertyList {
+              properties {
+                domain
+                ua_id
+                service_name
+              }
+            }
+            ...on NoProperties {
+              message
+            }
+          }
+        }        
+        `,
+      },
+    });
+  }
+
   async isResetLinkValid(key: string) {
     return rp.post(this.url, {
       ...this.options,

@@ -61,7 +61,7 @@ export const resolvers: ResolverMap = {
         };
       }
 
-      const agency = await Agency.findOne({ where: { name: "ATO" } });
+      const agency = await Agency.findOne({ where: { name: "DTA" } }); //FIX
 
       //password is hashed in database
       const user = User.create({ email, password, name, role });

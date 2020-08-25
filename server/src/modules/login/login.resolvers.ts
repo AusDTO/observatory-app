@@ -34,7 +34,10 @@ export const resolvers: ResolverMap = {
       }
 
       const { email, password } = args;
-      const user = await User.findOne({ where: { email } });
+      const user = await User.findOne({
+        where: { email },
+        relations: ["agency"],
+      });
 
       if (!user) {
         return basicApiErrorMessage("Email or password is invalid", "error");
@@ -56,6 +59,8 @@ export const resolvers: ResolverMap = {
 
       //express-session will store this in a cookie
       session.userId = user.id;
+
+      session.agencyId = user.agency.id;
 
       //add this session to the userID
       if (req.sessionID) {

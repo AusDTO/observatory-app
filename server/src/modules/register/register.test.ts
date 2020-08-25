@@ -2,10 +2,10 @@ import { User } from "../../entity/User";
 import { request } from "graphql-request";
 
 import { connection } from "../../util/createConnection";
-import { testData } from "../../util/testData";
+import { testUser } from "../../util/testData";
 import { TestClient } from "../../util/testClient";
 
-const { email, password, name, role } = testData;
+const { email, password, name, role } = testUser;
 const client = new TestClient();
 
 beforeAll(async () => {
