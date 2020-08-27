@@ -27,3 +27,7 @@ export interface IKeyValidType {
 export interface IAgencyIdType {
   agency_id: string;
 }
+
+export interface IGetPropertyType {
+  propertyId: string;
+}

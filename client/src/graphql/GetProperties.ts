@@ -18,6 +18,7 @@ export interface GetProperties_getUserProperties_PropertyList_properties {
   domain: string;
   ua_id: string;
   service_name: string;
+  id: string;
 }
 
 export interface GetProperties_getUserProperties_PropertyList {
@@ -33,5 +34,5 @@ export interface GetProperties_getUserProperties_NoProperties {
 export type GetProperties_getUserProperties = GetProperties_getUserProperties_Error | GetProperties_getUserProperties_PropertyList | GetProperties_getUserProperties_NoProperties;
 
 export interface GetProperties {
-  getUserProperties: GetProperties_getUserProperties;
+  getUserProperties: GetProperties_getUserProperties | null;
 }

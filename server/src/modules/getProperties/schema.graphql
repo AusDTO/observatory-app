@@ -1,19 +1,13 @@
 type Query {
-  getUserProperties: GetPropertyResult
-}
-
-type Property {
-  ua_id: String!
-  domain: String!
-  service_name: String!
+  getUserProperties: GetPropertiesResult
 }
 
 type PropertyList {
-  properties: [Property]!
+  properties: [Property!]!
 }
 
 type NoProperties {
   message: String!
 }
 
-union GetPropertyResult = PropertyList | Error | NoProperties
+union GetPropertiesResult = PropertyList | Error | NoProperties

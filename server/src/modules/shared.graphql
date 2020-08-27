@@ -11,3 +11,17 @@ type Error {
 type Success {
   message: String!
 }
+
+type Property {
+  id: String!
+  ua_id: String!
+  domain: String!
+  service_name: String!
+  agency: Agency
+}
+
+type Agency {
+  id: String!
+  name: String!
+  emailHost: String!
+}

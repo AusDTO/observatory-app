@@ -1,8 +1,9 @@
 import React from "react";
 import { Brand, AUHeader, Aubtn } from "../../types/auds";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
-import { gql, useMutation, ApolloClient } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { LogoutUser } from "../../graphql/LogoutUser";
+import coatOfArms from "./coat-of-arms.svg";
 
 interface Props extends RouteComponentProps {
   isAdmin?: boolean;
@@ -30,7 +31,7 @@ const Header: React.FC<Props> = ({ isAdmin, history, logoUrl }) => {
 
   return (
     <>
-      <AUHeader alt>
+      <AUHeader dark>
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-8">
@@ -41,7 +42,7 @@ const Header: React.FC<Props> = ({ isAdmin, history, logoUrl }) => {
                   </>
                 }
                 link={logoUrl ? "/" : "/home"}
-                brandImage="https://observatory.service.gov.au/coat-of-arms.svg"
+                brandImage={coatOfArms}
                 brandImageAlt="The Australian Government Coat of Arms"
               />
             </div>
@@ -49,15 +50,20 @@ const Header: React.FC<Props> = ({ isAdmin, history, logoUrl }) => {
               <div className="header-buttons">
                 {!isAdmin ? (
                   <>
-                    <Link to="/login" className="au-btn au-btn--secondary">
+                    <Link
+                      to="/login"
+                      className="au-btn au-btn--dark au-btn--secondary"
+                    >
                       Log in
                     </Link>
-                    <Link to="/register" className="au-btn">
+                    <Link to="/register" className="au-btn au-btn--bright">
                       Get started
                     </Link>
                   </>
                 ) : (
-                  <Aubtn onClick={handleLogout}>Logout</Aubtn>
+                  <Aubtn className="au-btn--bright" onClick={handleLogout}>
+                    Logout
+                  </Aubtn>
                 )}
               </div>
             </div>

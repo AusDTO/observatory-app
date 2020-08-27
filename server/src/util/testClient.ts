@@ -18,6 +18,36 @@ export class TestClient {
     };
   }
 
+  async getProperty(propertyId: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `query {
+          getProperty(propertyId:"${propertyId}") {
+            __typename
+            ...on FieldErrors {
+              errors{
+                message
+                path
+              }
+            }
+            ...on Error {
+              message
+              path
+            }
+            ...on Property {
+              service_name
+              domain
+              ua_id
+              id
+            }
+          }
+        }    
+        `,
+      },
+    });
+  }
+
   async getProperties() {
     return rp.post(this.url, {
       ...this.options,

@@ -1,0 +1,5 @@
+type Query {
+  getProperty(propertyId: String!): GetPropertyResult!
+}
+
+union GetPropertyResult = Property | Error | FieldErrors

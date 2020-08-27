@@ -1,27 +1,27 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Register } from "./components/pages/register/register";
-import { Login } from "./components/pages/login/login";
-import { Confirmation } from "./components/pages/confirmation/confirmation";
-import { Activated } from "./components/pages/activation/activated";
-import { ResendConfirmationEmail } from "./components/pages/resendConfirmation/resend-confirmation";
-import { InvalidConfirmation } from "./components/pages/activation/invalid";
-import { AlreadyActivated } from "./components/pages/activation/alreadyActive";
-import { Home } from "./components/pages/home";
-import { MePage } from "./components/pages/me/me";
+import { Register } from "./views/register/register";
+import { Login } from "./views/login/login";
+import { Confirmation } from "./views/confirmation/confirmation";
+import { Activated } from "./views/activation/activated";
+import { ResendConfirmationEmail } from "./views/resendConfirmation/resend-confirmation";
+import { InvalidConfirmation } from "./views/activation/invalid";
+import { AlreadyActivated } from "./views/activation/alreadyActive";
+import { Home } from "./views/home";
+import { MePage } from "./views/me/me";
 import { ProtectedRoute } from "./components/util/protectedRoute";
 
-import { PasswordResetEmailSent } from "./components/pages/forgotPasswordEmail/forgotPasswordSubmitted";
-import { PasswordResetEmailPage } from "./components/pages/forgotPasswordEmail/forgotPassword";
-import { ResetPasswordPage } from "./components/pages/resetPassword/resetPassword";
-import { ChooseService } from "./components/pages/chooseService/chooseService";
-import { ServiceLandingPage } from "./components/pages/serviceLandingPage/serviceLanding";
+import { PasswordResetEmailSent } from "./views/forgotPasswordEmail/forgotPasswordSubmitted";
+import { PasswordResetEmailPage } from "./views/forgotPasswordEmail/forgotPassword";
+import { ResetPasswordPage } from "./views/resetPassword/resetPassword";
+import { ServiceLandingController } from "./controller/serviceLandingController/serviceLandingController";
+import { ChooseServiceController } from "./controller/chooseServiceController/chooseServiceController";
 
 const App = (props: any) => {
   return (
     <BrowserRouter>
       <Switch>
-        <ProtectedRoute path="/" exact component={ChooseService} />
+        <ProtectedRoute path="/" exact component={ChooseServiceController} />
         <Route path="/home" exact component={Home} />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
@@ -45,9 +45,9 @@ const App = (props: any) => {
           component={ResetPasswordPage}
         />
         <ProtectedRoute
-          path="/service/:uaid"
+          path="/service/:propertyId"
           exact={true}
-          component={ServiceLandingPage}
+          component={ServiceLandingController}
         />
         <Route
           path="/invalid-confirmation"

@@ -1,7 +1,4 @@
 import { startServer } from "../startServer";
-import { testAgency, testProperies } from "./testData";
-import { Agency } from "../entity/Agency";
-import { Property } from "../entity/Property";
 
 export const setup = async () => {
   await startServer();

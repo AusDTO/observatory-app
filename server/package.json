@@ -24,7 +24,7 @@
     "@types/express-session": "^1.17.0",
     "@types/node-fetch": "^2.5.7",
     "@types/request-promise": "^4.1.46",
-    "@types/yup": "^0.29.3",
+    "@types/yup": "^0.29.6",
     "apollo-server-express": "^2.16.0",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
@@ -46,7 +46,7 @@
     "tslint-config-prettier": "^1.18.0",
     "typeorm": "0.2.25",
     "uuid": "^8.2.0",
-    "yup": "^0.29.1"
+    "yup": "^0.29.3"
   },
   "scripts": {
     "watch": "NODE_ENV=development nodemon --exec ts-node src/index.ts",

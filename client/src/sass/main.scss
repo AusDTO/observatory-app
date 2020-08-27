@@ -77,7 +77,7 @@ h1 {
 .header__badge {
   @include AU-space(padding, 2px 0.5unit);
   @include AU-space(margin-left, 0.5unit);
-  border: solid 2px $AU-color-foreground-text;
+  border: solid 2px $AU-colordark-foreground-text;
   border-radius: 2em;
   font-size: 12px;
   font-size: 0.75rem;
@@ -148,9 +148,6 @@ h1 {
     text-decoration: underline;
   }
 }
-.au-header__brand .au-header__brand-image {
-  filter: invert(1);
-}
 
 .au-search {
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
@@ -199,5 +196,16 @@ h1 {
   @include AU-media(md) {
     justify-content: flex-end;
     margin-top: 0;
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+h1.au-header__heading {
+  margin-top: 0;
+  @include AU-media(md) {
+    @include AU-space(margin-top, 0.5unit);
   }
 }
