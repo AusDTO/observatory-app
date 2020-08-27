@@ -4,15 +4,19 @@ import SEO from "../seo";
 import AdminLayout from "../../components/layouts/AdminLayout";
 import { GetProperty_getProperty_Property } from "../../graphql/GetProperty";
 import PageAlert from "../../components/blocks/page-alert";
+import { ApiError } from "../../types/types";
+import { formatApiError } from "../../components/util/formatError";
 
 interface Props {
   apiErrorMessage?: string;
   property?: GetProperty_getProperty_Property;
+  apiErrors?: ApiError[];
 } // key
 
 export const ServiceLandingPage: React.FC<Props> = ({
   apiErrorMessage,
   property,
+  apiErrors,
 }) => {
   const renderProperty = () => {
     if (apiErrorMessage) {
@@ -34,6 +38,13 @@ export const ServiceLandingPage: React.FC<Props> = ({
           <dt className="bold">UA_ID:</dt>
           <dd>{ua_id}</dd>
         </dl>
+      );
+    }
+    if (apiErrors) {
+      return (
+        <PageAlert type="error" className="max-42">
+          <>{formatApiError(apiErrors)}</>
+        </PageAlert>
       );
     }
   };

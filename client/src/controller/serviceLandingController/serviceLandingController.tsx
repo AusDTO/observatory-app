@@ -9,9 +9,11 @@ import {
   GetPropertyVariables,
   GetProperty_getProperty_Error,
   GetProperty_getProperty_Property,
+  GetProperty_getProperty_FieldErrors,
 } from "../../graphql/GetProperty";
 import { GET_PROPERTY_SCHEMA } from "./service_landing.schema";
 import { ServiceLandingPage } from "../../views/serviceLandingPage/serviceLanding";
+import { ApiError } from "../../types/types";
 
 interface Props extends RouteComponentProps<{ propertyId: string }> {} // key
 
@@ -30,6 +32,10 @@ export const ServiceLandingController: React.FC<Props> = ({
     return <ServiceLandingPage />;
   }
 
+  let apiErrorMessage: string | undefined = undefined;
+  let property: GetProperty_getProperty_Property | undefined = undefined;
+  let apiErrors: ApiError[] | undefined = undefined;
+
   if (data && data.getProperty) {
     const apiResult = data.getProperty;
     const { __typename } = apiResult;
@@ -37,15 +43,26 @@ export const ServiceLandingController: React.FC<Props> = ({
     switch (__typename) {
       case "Error":
         const { message } = apiResult as GetProperty_getProperty_Error;
-        return <ServiceLandingPage apiErrorMessage={message} />;
+        apiErrorMessage = message;
+        break;
 
       case "FieldErrors":
+        const { errors } = apiResult as GetProperty_getProperty_FieldErrors;
+        apiErrors = errors;
+        //FIX THIS ERROR
         break;
+
       case "Property":
-        const property = apiResult as GetProperty_getProperty_Property;
-        return <ServiceLandingPage property={property} />;
+        property = apiResult as GetProperty_getProperty_Property;
+        break;
     }
   }
 
-  return <ServiceLandingPage />;
+  return (
+    <ServiceLandingPage
+      apiErrors={apiErrors}
+      property={property}
+      apiErrorMessage={apiErrorMessage}
+    />
+  );
 };

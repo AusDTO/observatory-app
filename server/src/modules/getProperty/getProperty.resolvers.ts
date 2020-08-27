@@ -7,7 +7,7 @@ import { basicApiErrorMessage } from "../../util/constants";
 import { User } from "../../entity/User";
 
 const propertyIDValidationSchema = yup.object().shape({
-  propertyId: yup.string().required().uuid(),
+  propertyId: yup.string().required().uuid("We could not find the property"),
 });
 
 export const resolvers: ResolverMap = {
