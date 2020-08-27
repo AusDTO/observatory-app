@@ -10,6 +10,11 @@ export const testAgency = {
   emailHost: "@dta.gov.au",
 };
 
+export const testAgency2 = {
+  name: "ATO",
+  emailHost: "@ato.gov.au",
+};
+
 export const testProperies = [
   {
     domain: "www.dta.gov.au",

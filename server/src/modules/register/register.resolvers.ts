@@ -8,6 +8,7 @@ import { sendConfirmationEmail } from "../../util/sendConfirmationEmail/sendEmai
 import { emailValidator, passwordValidator } from "../../util/yup";
 import { basicApiMessage } from "../../util/constants";
 import { Agency } from "../../entity/Agency";
+import { getAgencyCodeFromEmail } from "../../util/getAgencyCodeFromEmail";
 
 const validationSchema = yup.object().shape({
   email: emailValidator,
@@ -61,12 +62,17 @@ export const resolvers: ResolverMap = {
         };
       }
 
-      const agency = await Agency.findOne({ where: { name: "DTA" } }); //FIX
-
-      //password is hashed in database
+      //password is hashed in database in the beforeUpdate() function
       const user = User.create({ email, password, name, role });
-      if (agency) {
-        user.agency = agency;
+
+      const agencyName = getAgencyCodeFromEmail(email); //FIX: write test for this
+      if (agencyName) {
+        const agency = await Agency.findOne({ where: { name: agencyName } });
+
+        //If there is an agency found, add it to the user
+        if (agency) {
+          user.agency = agency;
+        }
       }
 
       //need to do user.save() to add to database.

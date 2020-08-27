@@ -19,7 +19,10 @@ export const resolvers: ResolverMap = {
       }
 
       if (!agencyId) {
-        return basicApiErrorMessage("Not authenticated", "user");
+        return basicApiErrorMessage(
+          "Your agency has not been added to ObservatoryApp",
+          "Agency"
+        );
       }
 
       const properties = await Property.find({
@@ -27,7 +30,7 @@ export const resolvers: ResolverMap = {
         select: ["ua_id", "domain", "service_name"],
       });
 
-      if (properties.length < 0) {
+      if (properties.length < 1) {
         return basicApiMessage(
           "NoProperties",
           "Properties have not been found for your agency"

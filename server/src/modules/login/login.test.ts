@@ -42,7 +42,6 @@ describe("Login user", () => {
   test("Test login with verified user", async () => {
     //first verify the user
     await User.update({ email }, { verified: true });
-    // console.log(await User.findOne({ where: { email } }));
     const result = await client.login(email, password);
 
     const { login } = result.data;

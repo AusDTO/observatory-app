@@ -31,17 +31,16 @@ export class Property extends BaseEntity {
   @CreateDateColumn()
   createdDate: Date;
 }
+// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-12345','www.designsystem.gov.au','Design system','227da47e-cc53-472a-9e67-8fee3ec2c157');
 
-// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-12345','www.fake.gov.au','fake service','227da47e-cc53-472a-9e67-8fee3ec2c157');
+// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-543221','www.observatory.service.gov.au','Observatory website','227da47e-cc53-472a-9e67-8fee3ec2c157');
 
-// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-543221','www.bla.gov.au','bla service','227da47e-cc53-472a-9e67-8fee3ec2c157');
+// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-1234567','www.dta.gov.au','Dta webiste','227da47e-cc53-472a-9e67-8fee3ec2c157');
 
-// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-1234567','www.hello.gov.au','hello service','227da47e-cc53-472a-9e67-8fee3ec2c157');
+// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-12345342','www.data.gov.au','Data gov au','227da47e-cc53-472a-9e67-8fee3ec2c157');
 
-// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-12345342','www.basketbll.gov.au','basketball service','227da47e-cc53-472a-9e67-8fee3ec2c157');
+// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-123453242','www.ato.gov.au','ATO website','9dd8b05d-92f9-4627-a7e1-be9cb6cf3072');
 
-// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-12345342','www.basketbll.gov.au','basketball service','9dd8b05d-92f9-4627-a7e1-be9cb6cf3072')
+// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-98734534','www.business.gov.au','Business gov au website','9dd8b05d-92f9-4627-a7e1-be9cb6cf3072');
 
-// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-98734534','www.ato.gov.au','ATO','9dd8b05d-92f9-4627-a7e1-be9cb6cf3072')
-
-//insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-987324534','www.business.gov.au','ATO','9dd8b05d-92f9-4627-a7e1-be9cb6cf3072')
+// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-9873234534','www.beta.ato.gov.au','Tax website beta','9dd8b05d-92f9-4627-a7e1-be9cb6cf3072');

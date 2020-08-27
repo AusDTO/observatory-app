@@ -2,7 +2,7 @@ import React from "react";
 import { AuPageAlert } from "../../types/auds";
 
 interface Props {
-  type: string;
+  type: "error" | "warning" | "success" | "info";
   children: React.ReactElement;
   className?: string;
 }

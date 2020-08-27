@@ -57,10 +57,11 @@ export const resolvers: ResolverMap = {
         );
       }
 
-      console.log(user.agency.id);
       //express-session will store this in a cookie
       session.userId = user.id;
-      // session.agencyId = user.agency.id;
+      if (user.agency) {
+        session.agencyId = user.agency.id;
+      }
 
       //add this session to the userID
       if (req.sessionID) {

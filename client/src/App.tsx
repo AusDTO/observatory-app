@@ -10,17 +10,18 @@ import { AlreadyActivated } from "./components/pages/activation/alreadyActive";
 import { Home } from "./components/pages/home";
 import { MePage } from "./components/pages/me/me";
 import { ProtectedRoute } from "./components/util/protectedRoute";
-import { TestRoute } from "./components/pages/testPrivate";
 
 import { PasswordResetEmailSent } from "./components/pages/forgotPasswordEmail/forgotPasswordSubmitted";
 import { PasswordResetEmailPage } from "./components/pages/forgotPasswordEmail/forgotPassword";
 import { ResetPasswordPage } from "./components/pages/resetPassword/resetPassword";
+import { ChooseService } from "./components/pages/chooseService/chooseService";
+import { ServiceLandingPage } from "./components/pages/serviceLandingPage/serviceLanding";
 
 const App = (props: any) => {
   return (
     <BrowserRouter>
       <Switch>
-        <ProtectedRoute path="/" exact component={TestRoute} />
+        <ProtectedRoute path="/" exact component={ChooseService} />
         <Route path="/home" exact component={Home} />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
@@ -42,6 +43,11 @@ const App = (props: any) => {
           path="/reset-password/:key"
           exact={true}
           component={ResetPasswordPage}
+        />
+        <ProtectedRoute
+          path="/service/:uaid"
+          exact={true}
+          component={ServiceLandingPage}
         />
         <Route
           path="/invalid-confirmation"

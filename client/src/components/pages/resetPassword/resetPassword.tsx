@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 
 import { Aubtn, AuFormGroup } from "../../../types/auds";
 import SEO from "../seo";
-import { useMutation, gql, useQuery, useLazyQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import PageAlert from "../../blocks/page-alert";
 import { formatApiError } from "../../util/formatError";
