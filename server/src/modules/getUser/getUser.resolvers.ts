@@ -11,7 +11,6 @@ export const resolvers: ResolverMap = {
         where: { id: session.userId },
         relations: ["agency"],
       });
-      console.log(user);
       return user;
     }),
   },

@@ -14,11 +14,11 @@ import "dotenv/config";
 import { FRONT_END_URL, REDIS_PREFIX } from "./util/constants";
 import * as rateLimit from "express-rate-limit";
 import * as RedisRateLimitStore from "rate-limit-redis";
-import { Agency } from "./entity/Agency";
 import { User } from "./entity/User";
-import { testUser } from "./util/testData";
 
-const PORT: number | string = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
+console.log("=========");
+console.log(PORT);
 
 const RedisStore = connect_redis(session);
 
@@ -33,13 +33,14 @@ export const startServer = async () => {
       prefix: "rateLimit:",
     }),
     windowMs: 5 * 60 * 1000, // 5 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
+    max: 500, // limit each IP to 100 requests per windowMs
   });
 
   // Merge all graphql schema files
   const typesArray = loadFilesSync(path.join(__dirname, "./modules"), {
     extensions: ["graphql"],
   });
+  console.log(typesArray);
   const typeDefs: DocumentNode = mergeTypeDefs(typesArray);
 
   // Find and get all resolvers

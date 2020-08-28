@@ -54,7 +54,6 @@ export const ChooseServiceController: React.FC<Props> = () => {
         properties = result.properties;
     }
   }
-  console.log("parent");
   return (
     <ChooseServicePage
       properties={properties}

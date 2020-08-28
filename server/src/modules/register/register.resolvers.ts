@@ -23,7 +23,7 @@ const resendValidationSchema = yup.object().shape({
 
 export const resolvers: ResolverMap = {
   Query: {
-    bye: async () => {
+    bye: () => {
       return "hello";
     },
   },
