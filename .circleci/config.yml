@@ -1,0 +1,98 @@
+version: 2.1
+
+jobs:
+  build:
+    parameters:
+      directory:
+        type: string
+      environment:
+        type: string
+    docker:
+      - image: circleci/node:12
+    working_directory: ~/application/<< parameters.directory >>
+    steps:
+      - checkout:
+          path: ~/application
+      - run: npm test
+      - run:
+          environment:
+            NODE_ENV: production
+            BUILD_ENV: << parameters.environment >>
+          command: npm run build
+      - persist_to_workspace:
+          root: ~/application
+          paths:
+            - ./<< parameters.directory >>/
+
+  deploy:
+    parameters:
+      application:
+        type: string
+      cf-api:
+        type: string
+      cf-password:
+        type: string
+      cf-manifest:
+        type: string
+    docker:
+      - image: govau/cf-cli
+    working_directory: ~/application
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/application
+      - run: cf login -a << parameters.cf-api >> -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p << parameters.cf-password >>
+      - run: cf zero-downtime-push << parameters.application >> -f << parameters.cf-manifest >>
+
+workflows:
+  version: 2
+
+  staging:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              directory:
+                - server
+                - client
+              environment:
+                - staging
+      - deploy:
+          filters:
+            branches:
+              only: development
+          requires:
+            - build
+          cf-api: $CF_API_STAGING
+          cf-password: $CF_PASSWORD_STAGING
+          cf-manifest: manifest-staging.yml
+          matrix:
+            parameters:
+              application:
+                - career-pathways-server
+                - career-pathways-client
+
+  production:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              directory:
+                - server
+                - client
+              environment:
+                - production
+      - deploy:
+          filters:
+            branches:
+              only: master
+          requires:
+            - build
+          cf-api: $CF_API_PROD
+          cf-password: $CF_PASSWORD_PROD
+          cf-manifest: manifest-production.yml
+          matrix:
+            parameters:
+              application:
+                - career-pathways-server
+                - career-pathways-client
