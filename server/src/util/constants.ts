@@ -4,6 +4,7 @@ export const FRONT_END_URL =
     ? "http://localhost:3000"
     : "http://localhost:3000";
 
+export const RESOLVER_FILE_TYPE = ENVIRONMENT === "production" ? "js" : "ts";
 export const REDIS_PREFIX = "sess:";
 export const USER_SESSION_PREFIX = "userSessionID:";
 

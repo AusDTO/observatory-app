@@ -1,5 +1,3 @@
 type Query {
-  isLoggedIn: String
   HelloWorld: String
-  isResetLinkValid(key: String!): Boolean! #FIX: MAY NEED TO MAKE THIS A MUTATION
 }

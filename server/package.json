@@ -53,7 +53,7 @@
   "scripts": {
     "start": "NODE_ENV=production PORT=5000 node ./dist/index.js",
     "watch": "NODE_ENV=development nodemon --exec ts-node src/index.ts",
-    "build": "rimraf ./dist && tsc && copyfiles **/*.graphql dist/modules",
+    "build": "rimraf ./dist && tsc && copyfiles -u 2 **/*.graphql dist/modules",
     "test-server": "NODE_ENV=test ts-node src/index.ts",
     "test": "NODE_ENV=test jest --force-exit --verbose false --runInBand --detectOpenHandles"
   },

@@ -11,14 +11,15 @@ import { confirmEmail } from "./routes/confirmEmail";
 import * as session from "express-session";
 import * as connect_redis from "connect-redis";
 import "dotenv/config";
-import { FRONT_END_URL, REDIS_PREFIX } from "./util/constants";
+import {
+  FRONT_END_URL,
+  REDIS_PREFIX,
+  RESOLVER_FILE_TYPE,
+} from "./util/constants";
 import * as rateLimit from "express-rate-limit";
 import * as RedisRateLimitStore from "rate-limit-redis";
-import { User } from "./entity/User";
 
 const PORT = process.env.PORT || 4000;
-console.log("=========");
-console.log(PORT);
 
 const RedisStore = connect_redis(session);
 
@@ -40,12 +41,12 @@ export const startServer = async () => {
   const typesArray = loadFilesSync(path.join(__dirname, "./modules"), {
     extensions: ["graphql"],
   });
-  console.log(typesArray);
+
   const typeDefs: DocumentNode = mergeTypeDefs(typesArray);
 
   // Find and get all resolvers
   const resolversArray = loadFilesSync(
-    path.join(__dirname, "./modules/**/*.resolvers.ts")
+    path.join(__dirname, `./modules/**/*.resolvers.${RESOLVER_FILE_TYPE}`)
   );
 
   const resolvers: any = await mergeResolvers(resolversArray);
@@ -58,6 +59,8 @@ export const startServer = async () => {
 
   // generate apollo server
   const server = new ApolloServer({
+    playground: true,
+    introspection: true,
     schema,
     context: ({ req, res }) => ({
       redis_client,

@@ -1,13 +1,16 @@
+require("dotenv").config();
+const fs = require("fs");
+
 const productionDatabase = {
   name: "production",
   type: "postgres",
-  host: "localhost",
+  host: process.env.PROD_DB_HOST,
   port: 5432,
-  username: "raj",
-  password: "",
-  database: "observatory",
+  username: process.env.PROD_DB_USER,
+  password: process.env.PROD_DB_PASSWORD,
+  database: process.env.PROD_DB_NAME,
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: ["dist/entity/**/*"],
   migrations: ["dist/migration/**/*"],
   subscribers: ["dist/subscriber/**/*"],
@@ -15,6 +18,15 @@ const productionDatabase = {
     entitiesDir: "dist/entity",
     migrationsDir: "dist/migration",
     subscribersDir: "dist/subscriber",
+  },
+  extra: {
+    ssl: true,
+  },
+  ssl: {
+    rejectUnauthorized: false,
+    ca: fs.readFileSync("./server-ca.pem", "utf-8"),
+    cert: fs.readFileSync("./client-cert.pem", "utf-8"),
+    key: fs.readFileSync("./client-key.pem", "utf-8"),
   },
 };
 
@@ -58,7 +70,6 @@ const testDatabase = {
     subscribersDir: "src/subscriber",
   },
 };
-console.log("src/entity/**/*");
 
 function getDatabase() {
   if (process.env.NODE_ENV === "development") return developmentDatabase;

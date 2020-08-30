@@ -9,23 +9,24 @@ const loginValidationSchema = yup.object().shape({
 
 export const resolvers: ResolverMap = {
   Query: {
-    isLoggedIn: () => "Hello WOrld!",
-    isResetLinkValid: async (_, args: IKeyValidType, { redis_client }) => {
-      try {
-        await loginValidationSchema.validate(args, { abortEarly: false });
-      } catch (errors) {
-        return false;
-      }
+    //   isLoggedIn: () => "Hello WOrld!",
+    //   isResetLinkValid: async (_, args: IKeyValidType, { redis_client }) => {
+    //     try {
+    //       await loginValidationSchema.validate(args, { abortEarly: false });
+    //     } catch (errors) {
+    //       return false;
+    //     }
 
-      const { key } = args;
+    //     const { key } = args;
 
-      const keyStoredInRedis = `${REDIS_FORGOT_PASSWORD_PREFIX}${key}`; //need to add prefix because that's how it is stored
+    //     const keyStoredInRedis = `${REDIS_FORGOT_PASSWORD_PREFIX}${key}`; //need to add prefix because that's how it is stored
 
-      const result = await redis_client.get(keyStoredInRedis);
+    //     const result = await redis_client.get(keyStoredInRedis);
 
-      if (!result) return false;
+    //     if (!result) return false;
 
-      return true;
-    },
+    //     return true;
+    //   },
+    HelloWorld: () => "Helloworld",
   },
 };
