@@ -15,18 +15,31 @@ import {
   FRONT_END_URL,
   REDIS_PREFIX,
   RESOLVER_FILE_TYPE,
+  ENVIRONMENT,
+  CORS_OPTIONS,
 } from "./util/constants";
 import * as rateLimit from "express-rate-limit";
 import * as RedisRateLimitStore from "rate-limit-redis";
+import cfenv from "cfenv";
 
 const PORT = process.env.PORT || 4000;
+const REDIS_PORT = 6379;
+
+let appEnv: any;
+if (ENVIRONMENT === "production") {
+  appEnv = cfenv.getAppEnv();
+}
+
+const { hostname, port, password } =
+  ENVIRONMENT === "production" && appEnv.services["redis"][0].credentials;
 
 const RedisStore = connect_redis(session);
 
-const REDIS_PORT = 6379;
-
 export const startServer = async () => {
-  const redis_client = new Redis({ port: REDIS_PORT });
+  const redis_client =
+    ENVIRONMENT === "production"
+      ? new Redis({ host: hostname, port, password })
+      : new Redis({ port: REDIS_PORT });
 
   const limiter = rateLimit({
     store: new RedisRateLimitStore({
@@ -34,7 +47,7 @@ export const startServer = async () => {
       prefix: "rateLimit:",
     }),
     windowMs: 5 * 60 * 1000, // 5 minutes
-    max: 500, // limit each IP to 100 requests per windowMs
+    max: 200, // limit each IP to 200 requests per windowMs
   });
 
   // Merge all graphql schema files
@@ -92,7 +105,7 @@ export const startServer = async () => {
   server.applyMiddleware({
     app,
     path: "/api",
-    cors: { credentials: true, origin: FRONT_END_URL }, //FIX user env var
+    cors: { credentials: true, origin: CORS_OPTIONS }, //FIX user env var
   });
 
   //connection to database

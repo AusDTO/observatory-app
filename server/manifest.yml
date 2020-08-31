@@ -1,0 +1,11 @@
+---
+applications:
+  - name: observatory-app-server
+    buildpack: nodejs_buildpack
+    memory: 256M
+    instances: 1
+    command: node dist/index.js
+    services:
+      - observatoryApp_Redis
+---
+
