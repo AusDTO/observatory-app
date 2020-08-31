@@ -6,11 +6,15 @@ import node_fetch from "node-fetch";
 
 import { testUser } from "../../util/testData";
 import { REDIS_CONFIRMATION_EMAIL_PREFIX } from "../constants";
+import * as mockttp from "mockttp";
+
 let userID: string;
 const redis_client = new Redis();
+const mockServer = mockttp.getLocal();
 
 const { email, password, name, role } = testUser;
 beforeAll(async () => {
+  await mockServer.start(3000);
   await connection.create();
 
   const user = User.create({ email, password, name, role });
@@ -20,6 +24,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await connection.close();
+  await mockServer.stop();
 });
 
 describe("Confirmation link", () => {
