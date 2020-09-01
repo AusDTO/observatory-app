@@ -5,6 +5,8 @@ applications:
     memory: 256M
     instances: 1
     command: node dist/index.js
+    env:
+      NODE_ENV: production
     services:
       - observatoryApp_Redis
       - observatoryApp_uups

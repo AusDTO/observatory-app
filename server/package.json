@@ -54,7 +54,7 @@
     "yup": "^0.29.3"
   },
   "scripts": {
-    "start": "NODE_ENV=production PORT=5000 node ./dist/index.js",
+    "start": "NODE_ENV=production node ./dist/index.js",
     "watch": "NODE_ENV=development nodemon --exec ts-node src/index.ts",
     "build": "rimraf ./dist && tsc && copyfiles -u 2 **/*.graphql dist/modules",
     "test-server": "NODE_ENV=test ts-node src/index.ts",
