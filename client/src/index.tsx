@@ -8,7 +8,7 @@ import { HelmetProvider } from "react-helmet-async";
 
 const client = new ApolloClient({
   uri:
-    process.env.NODE_ENV !== "production"
+    process.env.REACT_APP_ENVIRONMENT !== "production"
       ? "http://localhost:4000/api"
       : "/api", //FIX needs to be conditional
   cache: new InMemoryCache(),
