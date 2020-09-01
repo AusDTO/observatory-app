@@ -19,7 +19,7 @@ import {
 } from "./util/constants";
 import * as rateLimit from "express-rate-limit";
 import * as RedisRateLimitStore from "rate-limit-redis";
-import cfenv from "cfenv";
+var cfenv = require("cfenv");
 
 const PORT = process.env.PORT || 4000;
 const REDIS_PORT = 6379;
