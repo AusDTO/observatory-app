@@ -9,6 +9,6 @@ applications:
       - observatoryApp_Redis
       - observatoryApp_uups
     routes:
-      - route: observatory-app.y.cld.gov.au/api
+      - route: observatory-app.apps.y.cld.gov.au/api
 ---
 
