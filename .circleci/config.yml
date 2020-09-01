@@ -97,7 +97,7 @@ jobs:
           name: Make deploy directory
           command: |
             mkdir front-end-deploy
-            mv build/ .deploy/ ./front-end-deploy
+            mv build/ manifest.yml ./front-end-deploy
       - persist_to_workspace:
           root: ~/app-ui/client
           paths:
@@ -114,7 +114,6 @@ jobs:
           command: |
             cd ~/app-ui/client
             cd front-end-deploy
-            mv .deploy/manifest.yml ./
             cf login -a $CF_API_STAGING -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD_STAGING
             cf zero-downtime-push observatory-app -f manifest.yml
 
