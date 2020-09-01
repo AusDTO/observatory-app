@@ -87,6 +87,7 @@ jobs:
           command: |
             npm i
             npm run pancake
+            npm run build
       - save_cache:
           name: Save node_modules to cache
           key: v3-dependency-cache-{{ checksum "package.json" }}

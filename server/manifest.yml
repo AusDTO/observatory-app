@@ -7,5 +7,8 @@ applications:
     command: node dist/index.js
     services:
       - observatoryApp_Redis
+      - observatoryApp_uups
+    routes:
+      - route: observatory-app.y.cld.gov.au/api
 ---
 

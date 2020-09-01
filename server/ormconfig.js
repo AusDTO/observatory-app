@@ -1,34 +1,40 @@
 require("dotenv").config();
 const fs = require("fs");
+var cfenv = require("cfenv");
 
-const productionDatabase = {
-  name: "production",
-  type: "postgres",
-  host: process.env.PROD_DB_HOST,
-  port: 5432,
-  username: process.env.PROD_DB_USER,
-  password: process.env.PROD_DB_PASSWORD,
-  database: process.env.PROD_DB_NAME,
-  synchronize: true,
-  logging: false,
-  entities: ["dist/entity/**/*"],
-  migrations: ["dist/migration/**/*"],
-  subscribers: ["dist/subscriber/**/*"],
-  cli: {
-    entitiesDir: "dist/entity",
-    migrationsDir: "dist/migration",
-    subscribersDir: "dist/subscriber",
-  },
-  extra: {
-    ssl: true,
-  },
-  ssl: {
-    rejectUnauthorized: false,
-    ca: fs.readFileSync("./server-ca.pem", "utf-8"),
-    cert: fs.readFileSync("./client-cert.pem", "utf-8"),
-    key: fs.readFileSync("./client-key.pem", "utf-8"),
-  },
-};
+var appEnv;
+var productionDatabase;
+if (process.env.NODE_ENV === "production") {
+  appEnv = cfenv.getAppEnv();
+  productionDatabase = {
+    name: "production",
+    type: "postgres",
+    host: appEnv.services["user-provided"][0].DB_HOST,
+    port: 5432,
+    username: appEnv.services["user-provided"][0].credentials.DB_USER,
+    password: appEnv.services["user-provided"][0].credentials.DB_PASSWORD,
+    database: appEnv.services["user-provided"][0].credentials.DB_NAME,
+    synchronize: true,
+    logging: false,
+    entities: ["dist/entity/**/*"],
+    migrations: ["dist/migration/**/*"],
+    subscribers: ["dist/subscriber/**/*"],
+    cli: {
+      entitiesDir: "dist/entity",
+      migrationsDir: "dist/migration",
+      subscribersDir: "dist/subscriber",
+    },
+    extra: {
+      ssl: true,
+    },
+    ssl: {
+      rejectUnauthorized: false,
+      ca: fs.readFileSync("./server-ca.pem", "utf-8"),
+      cert: fs.readFileSync("./client-cert.pem", "utf-8"),
+      key: fs.readFileSync("./client-key.pem", "utf-8"),
+    },
+  };
+}
 
 const developmentDatabase = {
   name: "development",

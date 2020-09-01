@@ -12,7 +12,6 @@ import * as session from "express-session";
 import * as connect_redis from "connect-redis";
 import "dotenv/config";
 import {
-  FRONT_END_URL,
   REDIS_PREFIX,
   RESOLVER_FILE_TYPE,
   ENVIRONMENT,
