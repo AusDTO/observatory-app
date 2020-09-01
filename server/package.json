@@ -56,7 +56,7 @@
   "scripts": {
     "start": "NODE_ENV=production node ./dist/index.js",
     "watch": "NODE_ENV=development nodemon --exec ts-node src/index.ts",
-    "build": "rimraf ./dist && tsc && copyfiles -u 2 **/*.graphql dist/modules",
+    "build": "rimraf ./dist && tsc && copyfiles -u 2 **/*.graphql dist/modules && copyfiles ./ormconfig.js dist/",
     "test-server": "NODE_ENV=test ts-node src/index.ts",
     "test": "NODE_ENV=test jest --force-exit --coverage --verbose false --runInBand --detectOpenHandles"
   },
