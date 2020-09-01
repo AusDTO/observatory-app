@@ -3,38 +3,47 @@ const fs = require("fs");
 var cfenv = require("cfenv");
 
 var appEnv;
-var productionDatabase;
+var prodUsername = "";
+var prodPassword = "";
+var prodDatabase = "";
+var prodHost = "";
+
 if (process.env.NODE_ENV === "production") {
   appEnv = cfenv.getAppEnv();
-  productionDatabase = {
-    name: "production",
-    type: "postgres",
-    host: appEnv.services["user-provided"][0].DB_HOST,
-    port: 5432,
-    username: appEnv.services["user-provided"][0].credentials.DB_USER,
-    password: appEnv.services["user-provided"][0].credentials.DB_PASSWORD,
-    database: appEnv.services["user-provided"][0].credentials.DB_NAME,
-    synchronize: true,
-    logging: false,
-    entities: ["dist/entity/**/*"],
-    migrations: ["dist/migration/**/*"],
-    subscribers: ["dist/subscriber/**/*"],
-    cli: {
-      entitiesDir: "dist/entity",
-      migrationsDir: "dist/migration",
-      subscribersDir: "dist/subscriber",
-    },
-    extra: {
-      ssl: true,
-    },
-    ssl: {
-      rejectUnauthorized: false,
-      ca: fs.readFileSync("./server-ca.pem", "utf-8"),
-      cert: fs.readFileSync("./client-cert.pem", "utf-8"),
-      key: fs.readFileSync("./client-key.pem", "utf-8"),
-    },
-  };
+  prodUsername = appEnv.services["user-provided"][0].credentials.DB_USER;
+  prodPassword = appEnv.services["user-provided"][0].credentials.DB_PASSWORD;
+  prodDatabase = appEnv.services["user-provided"][0].credentials.DB_NAME;
+  prodHost = appEnv.services["user-provided"][0].DB_HOST;
 }
+
+const productionDatabase = {
+  name: "production",
+  type: "postgres",
+  host: prodHost,
+  port: 5432,
+  username: prodUsername,
+  password: prodPassword,
+  database: prodDatabase,
+  synchronize: true,
+  logging: false,
+  entities: ["dist/entity/**/*"],
+  migrations: ["dist/migration/**/*"],
+  subscribers: ["dist/subscriber/**/*"],
+  cli: {
+    entitiesDir: "dist/entity",
+    migrationsDir: "dist/migration",
+    subscribersDir: "dist/subscriber",
+  },
+  extra: {
+    ssl: true,
+  },
+  ssl: {
+    rejectUnauthorized: false,
+    ca: fs.readFileSync("./server-ca.pem", "utf-8"),
+    cert: fs.readFileSync("./client-cert.pem", "utf-8"),
+    key: fs.readFileSync("./client-key.pem", "utf-8"),
+  },
+};
 
 const developmentDatabase = {
   name: "development",
