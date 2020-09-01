@@ -13,7 +13,7 @@ import {
   basicApiMessage,
 } from "../../util/constants";
 import * as yup from "yup";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import { formatYupError } from "../../util/formatYupError";
 import { emailValidator, passwordValidator } from "../../util/yup";
 
@@ -109,7 +109,7 @@ export const resolvers: ResolverMap = {
       }
 
       //Have to hash since @beforeUpdate doesn't work for some reason
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      const hashedPassword = bcrypt.hashSync(newPassword, 10);
       await User.update({ id: user.id }, { password: hashedPassword }); // Update password
 
       await redis_client.del(`${REDIS_FORGOT_PASSWORD_PREFIX}${key}`); // delete key

@@ -8,7 +8,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import { Agency } from "./Agency";
 
 // extending BaseEntity allows us to do things like User.create({})
@@ -43,6 +43,6 @@ export class User extends BaseEntity {
   // type orm decorator. This function calls right before this object is inserted into database
   @BeforeInsert()
   async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
+    this.password = bcrypt.hashSync(this.password, 10);
   }
 }
