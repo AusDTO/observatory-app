@@ -5,43 +5,43 @@ var cfenv = require("cfenv");
 var appEnv;
 var prodUsername = "";
 var prodPassword = "";
-var prodDatabase = "";
+var prodDatabaseName = "";
 var prodHost = "";
+var prodPort = "";
 
 if (process.env.NODE_ENV === "production") {
   appEnv = cfenv.getAppEnv();
-  prodUsername = appEnv.services["user-provided"][0].credentials.DB_USER;
-  prodPassword = appEnv.services["user-provided"][0].credentials.DB_PASSWORD;
-  prodDatabase = appEnv.services["user-provided"][0].credentials.DB_NAME;
-  prodHost = appEnv.services["user-provided"][0].DB_HOST;
+  var postgres = "production" && appEnv.services["postgres"][0].credentials;
+  prodUsername = postgres.username;
+  prodPassword = postgres.password;
+  prodHost = postgres.hostname;
+  prodPort = postgres.port;
+  prodDatabaseName = postgres.dbname;
 }
+
+console.log("==================ENV=======");
+console.log(process.env.NODE_ENV);
+console.log("==================ENV=======");
+
+console.log(prodDatabaseName);
 
 const productionDatabase = {
   name: "production",
   type: "postgres",
   host: prodHost,
-  port: 5432,
+  port: prodPort,
   username: prodUsername,
   password: prodPassword,
-  database: prodDatabase,
+  database: prodDatabaseName,
   synchronize: true,
   logging: false,
-  entities: ["dist/entity/**/*"],
-  migrations: ["dist/migration/**/*"],
-  subscribers: ["dist/subscriber/**/*"],
+  entities: ["./entity/**/*"],
+  migrations: ["./migration/**/*"],
+  subscribers: ["./subscriber/**/*"],
   cli: {
-    entitiesDir: "dist/entity",
-    migrationsDir: "dist/migration",
-    subscribersDir: "dist/subscriber",
-  },
-  extra: {
-    ssl: true,
-  },
-  ssl: {
-    rejectUnauthorized: false,
-    ca: fs.readFileSync("./server-ca.pem", "utf-8"),
-    cert: fs.readFileSync("./client-cert.pem", "utf-8"),
-    key: fs.readFileSync("./client-key.pem", "utf-8"),
+    entitiesDir: "./entity",
+    migrationsDir: "./migration",
+    subscribersDir: "./subscriber",
   },
 };
 

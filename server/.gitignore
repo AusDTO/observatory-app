@@ -105,3 +105,4 @@ dist
 
 dump.rdb
 *.pem
+cloudsql-admin.json

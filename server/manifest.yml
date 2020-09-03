@@ -1,16 +1,16 @@
 ---
 applications:
   - name: observatory-app-server
-    buildpack: nodejs_buildpack
+    buildpacks:
+      - nodejs_buildpack
+    command: node dist/index.js
     memory: 256M
     instances: 1
-    command: node dist/index.js
     env:
       NODE_ENV: production
     services:
       - observatoryApp_Redis
       - observatoryApp_uups
+      - observatoryApp_pg
     routes:
       - route: observatory-app.apps.y.cld.gov.au/api
----
-
