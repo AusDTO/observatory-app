@@ -40,14 +40,14 @@ export const startServer = async () => {
       ? new Redis({ host: hostname, port, password })
       : new Redis({ port: REDIS_PORT });
 
-  const limiter = rateLimit({
-    store: new RedisRateLimitStore({
-      client: redis_client,
-      prefix: "rateLimit:",
-    }),
-    windowMs: 5 * 60 * 1000, // 5 minutes
-    max: 200, // limit each IP to 200 requests per windowMs
-  });
+  // const limiter = rateLimit({
+  //   store: new RedisRateLimitStore({
+  //     client: redis_client,
+  //     prefix: "rateLimit:",
+  //   }),
+  //   windowMs: 5 * 60 * 1000, // 5 minutes
+  //   max: 200, // limit each IP to 200 requests per windowMs
+  // });
 
   // Merge all graphql schema files
   const typesArray = loadFilesSync(path.join(__dirname, "./modules"), {
@@ -71,8 +71,8 @@ export const startServer = async () => {
 
   // generate apollo server
   const server = new ApolloServer({
-    playground: true,
     introspection: true,
+    playground: true,
     schema,
     context: ({ req, res }) => ({
       redis_client,
@@ -84,6 +84,7 @@ export const startServer = async () => {
   });
 
   const app = express();
+
   app.use(
     session({
       name: "sid",
@@ -99,22 +100,25 @@ export const startServer = async () => {
     })
   );
 
-  app.use(limiter);
+  // app.use(limiter);
 
   server.applyMiddleware({
-    app,
     path: "/api",
+    app,
     cors: { credentials: true, origin: CORS_OPTIONS }, //FIX user env var
   });
 
-  //connection to database
   await connection.create();
 
   app.get("/confirm/:id", (req, res, next) =>
     confirmEmail(req, res, next, redis_client)
   );
 
-  app.listen({ port: PORT }, () =>
+  app.get("/blabla", (req, res, next) => {
+    res.send("hello");
+  });
+
+  app.listen(PORT, () =>
     console.log(`🚀 Server ready at port http:localhost:${PORT}/api`)
   );
 };

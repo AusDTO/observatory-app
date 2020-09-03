@@ -33,13 +33,13 @@ const productionDatabase = {
   database: prodDatabaseName,
   synchronize: true,
   logging: false,
-  entities: ["./entity/**/*"],
-  migrations: ["./migration/**/*"],
-  subscribers: ["./subscriber/**/*"],
+  entities: [__dirname + "/entity/**/*"],
+  migrations: [__dirname + "migration/**/*"],
+  subscribers: [__dirname + "/subscriber/**/*"],
   cli: {
-    entitiesDir: "./entity",
-    migrationsDir: "./migration",
-    subscribersDir: "./subscriber",
+    entitiesDir: __dirname + "/entity",
+    migrationsDir: __dirname + "/migration",
+    subscribersDir: __dirname + "/subscriber",
   },
 };
 
