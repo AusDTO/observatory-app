@@ -51,7 +51,7 @@ jobs:
           name: Move assets into deploy directory
           command: |
             mkdir api-deploy
-            mv dist/ manifest.yml package.json ormconfig.js client-cert.pem client-key.pem server-ca.pem package-lock.json node_modules/ ./api-deploy
+            mv dist/ manifest.yml package.json ormconfig.js package-lock.json node_modules/ ./api-deploy
       - persist_to_workspace:
           root: ~/app-server/server
           paths:
