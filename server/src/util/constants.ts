@@ -8,7 +8,10 @@ export const FRONT_END_URL =
     ? "http://localhost:3000"
     : "https://observatory-app.apps.y.cld.gov.au";
 
-export const CORS_OPTIONS = ENVIRONMENT === "production" ? "*" : FRONT_END_URL;
+export const CORS_OPTIONS =
+  ENVIRONMENT === "production"
+    ? "https://observatory-app.apps.y.cld.gov.au"
+    : FRONT_END_URL;
 
 export const RESOLVER_FILE_TYPE = ENVIRONMENT === "production" ? "js" : "ts";
 export const REDIS_PREFIX = "sess:";

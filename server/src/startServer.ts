@@ -20,6 +20,7 @@ import {
 import * as rateLimit from "express-rate-limit";
 import * as RedisRateLimitStore from "rate-limit-redis";
 var cfenv = require("cfenv");
+import * as cors from "cors";
 
 const PORT = process.env.PORT || 4000;
 const REDIS_PORT = 6379;
@@ -99,13 +100,19 @@ export const startServer = async () => {
       },
     })
   );
+  var corsOptions = {
+    origin: CORS_OPTIONS,
+    credentials: true, // <-- REQUIRED backend setting
+  };
+
+  app.use(cors(corsOptions));
 
   // app.use(limiter);
 
   server.applyMiddleware({
     path: "/api",
     app,
-    cors: { credentials: true, origin: CORS_OPTIONS }, //FIX user env var
+    cors: false,
   });
 
   await connection.create();
