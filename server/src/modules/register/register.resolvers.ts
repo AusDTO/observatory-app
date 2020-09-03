@@ -85,8 +85,8 @@ export const resolvers: ResolverMap = {
       );
 
       //email the user the link using notify
-      await sendConfirmationEmail(email, name, confirmationLink);
-
+      // await sendConfirmationEmail(email, name, confirmationLink);
+      console.log("CONFIRMATION=============");
       console.log(confirmationLink);
 
       return basicApiMessage("UserRegistered", "User created");
