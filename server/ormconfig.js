@@ -32,6 +32,7 @@ const productionDatabase = {
   password: prodPassword,
   database: prodDatabaseName,
   synchronize: true,
+  dropSchema: true,
   logging: false,
   entities: [__dirname + "/entity/**/*"],
   migrations: [__dirname + "migration/**/*"],
