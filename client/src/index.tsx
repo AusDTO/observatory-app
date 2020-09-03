@@ -10,7 +10,7 @@ const client = new ApolloClient({
   uri:
     process.env.REACT_APP_ENVIRONMENT !== "production"
       ? "http://localhost:4000/api"
-      : "https://observatory-app.apps.y.cld.gov.au/api", //FIX needs to be conditional
+      : "https://observatory-app-server.apps.y.cld.gov.au/api", //FIX needs to be conditional
   cache: new InMemoryCache(),
   credentials: "include", // FIX CORS
 });
