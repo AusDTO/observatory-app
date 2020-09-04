@@ -9,8 +9,8 @@ import { HelmetProvider } from "react-helmet-async";
 const client = new ApolloClient({
   uri:
     process.env.REACT_APP_ENVIRONMENT !== "production"
-      ? "http://localhost:4000/api"
-      : "https://observatory-app.apps.y.cld.gov.au/api", //FIX needs to be conditional
+      ? "http://localhost:4000/graphql"
+      : "https://observatory-app.apps.y.cld.gov.au/graphql", //FIX needs to be conditional
   cache: new InMemoryCache(),
   credentials: "include", // FIX CORS
 });

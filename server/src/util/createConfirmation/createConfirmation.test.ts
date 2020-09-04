@@ -57,7 +57,7 @@ describe("Confirmation link", () => {
 
   it("returns invalid url when invalid link passed", async () => {
     const invalidUrl =
-      "http://localhost:4000/confirm/be8ef73a-ljk8a5d-4399dfd4920b";
+      "http://localhost:4000/api/confirm/be8ef73a-ljk8a5d-4399dfd4920b";
     const response = await node_fetch(invalidUrl);
     const responseUrl = response.url;
     expect(responseUrl).toEqual("http://localhost:3000/invalid-confirmation");

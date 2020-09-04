@@ -13,3 +13,4 @@ applications:
       - observatoryApp_pg
     routes:
       - route: observatory-app.apps.y.cld.gov.au/api
+      - route: observatory-app.apps.y.cld.gov.au/graphql

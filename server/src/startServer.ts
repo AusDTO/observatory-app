@@ -109,18 +109,17 @@ export const startServer = async () => {
   // app.use(limiter);
 
   server.applyMiddleware({
-    path: "/api",
     app,
     cors: false,
   });
 
   await connection.create();
 
-  app.get("/confirm/:id", (req, res, next) =>
+  app.get("/api/confirm/:id", (req, res, next) =>
     confirmEmail(req, res, next, redis_client)
   );
 
-  app.get("/blabla", (req, res, next) => {
+  app.get("/api/blabla", (req, res, next) => {
     res.send("hello");
   });
 
