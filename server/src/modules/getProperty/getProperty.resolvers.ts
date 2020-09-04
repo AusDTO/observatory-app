@@ -45,7 +45,6 @@ export const resolvers: ResolverMap = {
       if (!property || !property.agency) {
         return basicApiErrorMessage("Property not found", "property");
       }
-      // console.log(property);
 
       //check if user has access to this property data
       if (property.agency.id !== agencyId) {

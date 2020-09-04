@@ -1,18 +1,20 @@
 import {
   Column,
   BaseEntity,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
   Entity,
   OneToMany,
   JoinColumn,
+  BeforeInsert,
+  PrimaryColumn,
 } from "typeorm";
 import { User } from "./User";
+import { v4 as uuid } from "uuid";
 
 // extending BaseEntity allows us to do things like User.create({})
 @Entity()
 export class Agency extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid") id: string;
+  @PrimaryColumn("uuid") id: string;
 
   @Column("varchar", { length: 255, unique: true })
   name: string;
@@ -26,6 +28,11 @@ export class Agency extends BaseEntity {
 
   @OneToMany(() => User, (user) => user.agency)
   users: Array<User>;
+
+  @BeforeInsert()
+  addId() {
+    this.id = uuid();
+  }
 }
 
 // insert into agency (name,"emailHost") values('ATO','@ato.gov.au');

@@ -6,11 +6,15 @@ import node_fetch from "node-fetch";
 
 import { testUser } from "../../util/testData";
 import { REDIS_CONFIRMATION_EMAIL_PREFIX } from "../constants";
+import * as mockttp from "mockttp";
+
 let userID: string;
 const redis_client = new Redis();
+const mockServer = mockttp.getLocal();
 
 const { email, password, name, role } = testUser;
 beforeAll(async () => {
+  await mockServer.start(3000);
   await connection.create();
 
   const user = User.create({ email, password, name, role });
@@ -20,6 +24,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await connection.close();
+  await mockServer.stop();
 });
 
 describe("Confirmation link", () => {
@@ -52,7 +57,7 @@ describe("Confirmation link", () => {
 
   it("returns invalid url when invalid link passed", async () => {
     const invalidUrl =
-      "http://localhost:4000/confirm/be8ef73a-ljk8a5d-4399dfd4920b";
+      "http://localhost:4000/api/confirm/be8ef73a-ljk8a5d-4399dfd4920b";
     const response = await node_fetch(invalidUrl);
     const responseUrl = response.url;
     expect(responseUrl).toEqual("http://localhost:3000/invalid-confirmation");

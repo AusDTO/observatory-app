@@ -6,7 +6,7 @@ import { formatYupError } from "../../util/formatYupError";
 import { CreateConfirmationLink } from "../../util/createConfirmation/createConfirmationLink";
 import { sendConfirmationEmail } from "../../util/sendConfirmationEmail/sendEmail";
 import { emailValidator, passwordValidator } from "../../util/yup";
-import { basicApiMessage } from "../../util/constants";
+import { basicApiMessage, ENVIRONMENT } from "../../util/constants";
 import { Agency } from "../../entity/Agency";
 import { getAgencyCodeFromEmail } from "../../util/getAgencyCodeFromEmail";
 
@@ -23,7 +23,7 @@ const resendValidationSchema = yup.object().shape({
 
 export const resolvers: ResolverMap = {
   Query: {
-    bye: async () => {
+    bye: () => {
       return "hello";
     },
   },
@@ -87,7 +87,9 @@ export const resolvers: ResolverMap = {
       //email the user the link using notify
       await sendConfirmationEmail(email, name, confirmationLink);
 
-      console.log(confirmationLink);
+      if (ENVIRONMENT !== "production") {
+        console.log(confirmationLink);
+      }
 
       return basicApiMessage("UserRegistered", "User created");
     },

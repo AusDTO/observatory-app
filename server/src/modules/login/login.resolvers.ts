@@ -1,6 +1,6 @@
 import { ResolverMap } from "../../types/graphql-util";
 import { User } from "../../entity/User";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import { IUserType } from "../../types/schema";
 import {
   USER_SESSION_PREFIX,
@@ -44,7 +44,7 @@ export const resolvers: ResolverMap = {
       }
 
       //compare password to db
-      const validPassword = await bcrypt.compare(password, user.password);
+      const validPassword = bcrypt.compareSync(password, user.password);
 
       if (!validPassword) {
         return basicApiErrorMessage("Email or password is invalid", "error");

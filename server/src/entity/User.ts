@@ -3,18 +3,19 @@ import {
   Column,
   BeforeInsert,
   BaseEntity,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  PrimaryColumn,
 } from "typeorm";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import { Agency } from "./Agency";
+import { v4 as uuid } from "uuid";
 
 // extending BaseEntity allows us to do things like User.create({})
 @Entity("users")
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid") id: string;
+  @PrimaryColumn("uuid") id: string;
 
   @Column("varchar", { length: 255 })
   name: string;
@@ -43,6 +44,11 @@ export class User extends BaseEntity {
   // type orm decorator. This function calls right before this object is inserted into database
   @BeforeInsert()
   async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
+    this.password = bcrypt.hashSync(this.password, 10);
+  }
+
+  @BeforeInsert()
+  addId() {
+    this.id = uuid();
   }
 }

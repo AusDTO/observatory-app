@@ -1,0 +1,16 @@
+---
+applications:
+  - name: observatory-app-server
+    buildpack: nodejs_buildpack
+    command: npm run start
+    memory: 512M
+    instances: 1
+    env:
+      NODE_ENV: production
+    services:
+      - observatoryApp_Redis
+      - observatoryApp_ups
+      - observatoryApp_pg
+    routes:
+      - route: observatory-app.apps.y.cld.gov.au/api
+      - route: observatory-app.apps.y.cld.gov.au/graphql

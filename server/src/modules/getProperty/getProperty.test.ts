@@ -107,7 +107,7 @@ describe("Test accessing properties", () => {
     const { __typename, errors } = result.data.getProperty;
 
     expect(__typename).toEqual("FieldErrors");
-    expect(errors[0].message).toEqual("propertyId must be a valid UUID");
+    expect(errors[0].message).toEqual("We could not find the property");
   });
 
   test("Property doesn't exist error", async () => {

@@ -9,7 +9,7 @@
 
 export interface GetUser_getUser {
   __typename: "User";
-  email: string | null;
+  email: string;
 }
 
 export interface GetUser {

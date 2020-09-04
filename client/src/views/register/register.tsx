@@ -9,7 +9,7 @@ import {
   REGISTER_SCHEMA,
 } from "./register_schema";
 import PageAlert from "../../components/blocks/page-alert";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   RegisterUser,
   RegisterUserVariables,
@@ -38,10 +38,10 @@ export const Register: React.FC<Props> = ({ history }) => {
   const [saving, setSaving] = useState<boolean>(false);
 
   //call addUser when we want to mutate
-  const [
-    addUser,
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation<RegisterUser, RegisterUserVariables>(REGISTER_SCHEMA);
+  const [addUser, { error: mutationError }] = useMutation<
+    RegisterUser,
+    RegisterUserVariables
+  >(REGISTER_SCHEMA);
 
   // if (mutationLoading) return <p>Loading...</p>;
   if (mutationError) return <p>Error :(</p>;

@@ -7,9 +7,12 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { HelmetProvider } from "react-helmet-async";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/api", //FIX needs to be conditional
+  uri:
+    process.env.REACT_APP_ENVIRONMENT !== "production"
+      ? "http://localhost:4000/graphql"
+      : "/graphql", //FIX needs to be conditional
   cache: new InMemoryCache(),
-  credentials: "include", // FIX CORS
+  credentials: "same-origin", // FIX CORS
 });
 
 ReactDOM.render(

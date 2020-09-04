@@ -1,0 +1,1 @@
+echo "NOTIFY_TEST_KEY=$NOTIFY_TEST_KEY" >> .env

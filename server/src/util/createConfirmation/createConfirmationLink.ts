@@ -19,5 +19,5 @@ export const CreateConfirmationLink = async (
     "ex",
     timeToExpiry
   );
-  return `${url}/confirm/${id}`;
+  return `${url}/api/confirm/${id}`;
 };

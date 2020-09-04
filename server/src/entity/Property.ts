@@ -6,13 +6,16 @@ import {
   Entity,
   ManyToOne,
   JoinColumn,
+  PrimaryColumn,
+  BeforeInsert,
 } from "typeorm";
 import { Agency } from "./Agency";
+import { v4 as uuid } from "uuid";
 
 // extending BaseEntity allows us to do things like User.create({})
 @Entity()
 export class Property extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid") id: string;
+  @PrimaryColumn("uuid") id: string;
 
   @Column("varchar", { length: 255, unique: true })
   ua_id: string;
@@ -30,6 +33,11 @@ export class Property extends BaseEntity {
 
   @CreateDateColumn()
   createdDate: Date;
+
+  @BeforeInsert()
+  addId() {
+    this.id = uuid();
+  }
 }
 // insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-12345','www.designsystem.gov.au','Design system','227da47e-cc53-472a-9e67-8fee3ec2c157');
 
