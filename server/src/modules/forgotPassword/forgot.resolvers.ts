@@ -70,7 +70,6 @@ export const resolvers: ResolverMap = {
       //create forgotpassword link
       const forgotLink = await CreateForgotPasswordLink(user.id, redis_client);
 
-      console.log(forgotLink);
       await sendForgotPasswordEmail(email, user.name, forgotLink);
 
       return basicApiMessage(

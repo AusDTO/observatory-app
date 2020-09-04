@@ -26,19 +26,22 @@ const PORT = process.env.PORT || 4000;
 const REDIS_PORT = 6379;
 
 let appEnv: any;
+let sessionSecret = "SecretKey";
 if (ENVIRONMENT === "production") {
   appEnv = cfenv.getAppEnv();
+  sessionSecret =
+    appEnv.services["user-provided"][0].credentials.SESSION_SECRET;
 }
 
-const { hostname, port, password } =
-  ENVIRONMENT === "production" && appEnv.services["redis"][0].credentials;
+const { url } =
+  ENVIRONMENT === "production" && appEnv.services["redis"][0].credentials; //redis connection url
 
 const RedisStore = connect_redis(session);
 
 export const startServer = async () => {
   const redis_client =
     ENVIRONMENT === "production"
-      ? new Redis({ host: hostname, port, password })
+      ? new Redis(url)
       : new Redis({ port: REDIS_PORT });
 
   // const limiter = rateLimit({
@@ -90,7 +93,7 @@ export const startServer = async () => {
     session({
       name: "sid",
       store: new RedisStore({ client: redis_client, prefix: REDIS_PREFIX }),
-      secret: "SECRET", //FIX use env var
+      secret: sessionSecret, //FIX use env var
       resave: false,
       saveUninitialized: false, //Don't create cookie until we store data on the user
       cookie: {
@@ -100,12 +103,8 @@ export const startServer = async () => {
       },
     })
   );
-  var corsOptions = {
-    origin: CORS_OPTIONS,
-    credentials: true, // <-- REQUIRED backend setting
-  };
 
-  app.use(cors(corsOptions));
+  app.use(cors({ origin: CORS_OPTIONS, credentials: true }));
 
   // app.use(limiter);
 
