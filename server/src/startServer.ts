@@ -99,6 +99,7 @@ export const startServer = async () => {
       cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
+        domain: "observatory-app.apps.y.cld.gov.au/",
         maxAge: 1000 * 60 * 60 * 24 * 7, //1000 * 60 * 60 * 24 * 7,  7 days
       },
     })
