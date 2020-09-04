@@ -12,7 +12,7 @@ const client = new ApolloClient({
       ? "http://localhost:4000/graphql"
       : "/graphql", //FIX needs to be conditional
   cache: new InMemoryCache(),
-  credentials: "include", // FIX CORS
+  credentials: "same-origin", // FIX CORS
 });
 
 ReactDOM.render(
