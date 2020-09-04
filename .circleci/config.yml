@@ -127,7 +127,7 @@ workflows:
             - build-and-test-server
           filters:
             branches:
-              only: development
+              only: master
 
       - build-and-test-front-end
       - deploy-front-end-staging:
@@ -135,4 +135,4 @@ workflows:
             - build-and-test-front-end
           filters:
             branches:
-              only: development
+              only: master
