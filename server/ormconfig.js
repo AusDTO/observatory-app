@@ -19,10 +19,6 @@ if (process.env.NODE_ENV === "production") {
   prodDatabaseName = postgres.dbname;
 }
 
-console.log("==================ENV=======");
-console.log(process.env.NODE_ENV);
-console.log("==================ENV=======");
-
 const productionDatabase = {
   name: "production",
   type: "postgres",

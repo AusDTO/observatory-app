@@ -88,6 +88,7 @@ export const startServer = async () => {
   });
 
   const app = express();
+  app.set("trust proxy", 1);
 
   app.use(
     session({
@@ -99,10 +100,6 @@ export const startServer = async () => {
       cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        domain:
-          process.env.NODE_ENV === "production"
-            ? "observatory-app.apps.y.cld.gov.au/"
-            : undefined,
         maxAge: 1000 * 60 * 60 * 24 * 7, //1000 * 60 * 60 * 24 * 7,  7 days
       },
     })

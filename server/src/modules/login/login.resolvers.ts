@@ -63,11 +63,6 @@ export const resolvers: ResolverMap = {
         session.agencyId = user.agency.id;
       }
 
-      console.log("==================session================");
-      console.log(session);
-      console.log("-------------REQUEST--------");
-      console.log(req);
-
       //add this session to the userID
       if (req.sessionID) {
         //add prefix so its easier to see keys in redis
