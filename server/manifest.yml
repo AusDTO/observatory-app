@@ -9,5 +9,7 @@ applications:
       NODE_ENV: production
     services:
       - observatoryApp_Redis
-      - observatoryApp_uups
+      - observatoryApp_ups
       - observatoryApp_pg
+    routes:
+      - route: observatory-app.apps.y.cld.gov.au/api
