@@ -104,12 +104,11 @@ export const startServer = async () => {
     })
   );
 
-  app.use(cors({ origin: CORS_OPTIONS, credentials: true }));
-
   // app.use(limiter);
 
   server.applyMiddleware({
     app,
+    cors: { origin: CORS_OPTIONS, credentials: true },
   });
 
   await connection.create();
