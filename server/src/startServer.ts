@@ -110,7 +110,6 @@ export const startServer = async () => {
 
   server.applyMiddleware({
     app,
-    cors: false,
   });
 
   await connection.create();
