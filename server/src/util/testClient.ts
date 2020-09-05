@@ -1,5 +1,6 @@
 import request from "graphql-request";
 import * as rp from "request-promise";
+import node_fetch from "node-fetch";
 
 //Test client class for graphql requests
 export class TestClient {
@@ -16,6 +17,15 @@ export class TestClient {
       jar: rp.jar(),
       withCredentials: true,
     };
+  }
+
+  async loginAdminUser(email: string, password: string) {
+    const body = { email, password };
+    return node_fetch("http://localhost:4000/api/admin/login", {
+      method: "post",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   async getProperty(propertyId: string) {

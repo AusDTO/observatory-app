@@ -40,6 +40,8 @@ export class User extends BaseEntity {
 
   @CreateDateColumn()
   createdDate: Date;
+  @Column("boolean", { default: false })
+  isAdmin: Boolean;
 
   // type orm decorator. This function calls right before this object is inserted into database
   @BeforeInsert()

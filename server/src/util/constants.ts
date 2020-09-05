@@ -2,6 +2,8 @@ require("dotenv").config();
 var cfenv = require("cfenv");
 let appEnv: any;
 
+//FIX FILE use 'lets'
+
 export const ENVIRONMENT = process.env.NODE_ENV;
 export const FRONT_END_URL =
   ENVIRONMENT !== "production"
@@ -43,3 +45,8 @@ const notify_key = () => {
 };
 
 export const NOTIFY_KEY = notify_key();
+
+export const JWT_SECRET =
+  ENVIRONMENT === "production"
+    ? appEnv.services["user-provided"][0].credentials.JWT_SECRET
+    : "SECRETKEY";

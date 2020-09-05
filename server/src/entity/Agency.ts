@@ -4,7 +4,6 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
-  JoinColumn,
   BeforeInsert,
   PrimaryColumn,
 } from "typeorm";

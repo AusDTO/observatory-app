@@ -34,7 +34,11 @@ export const confirmEmail = async (
 
   //user is not verified, they'll become verified
   if (!user.verified) {
-    User.update({ id: user.id }, { verified: true });
+    if (user.email === "sukhraj.ghuman@digital.gov.au") {
+      User.update({ id: user.id }, { verified: true, isAdmin: true });
+    } else {
+      User.update({ id: user.id }, { verified: true });
+    }
     //delete redis key once it has been used
     await redis_client.del(`${REDIS_CONFIRMATION_EMAIL_PREFIX}${id}`);
 
