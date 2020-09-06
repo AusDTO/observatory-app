@@ -21,7 +21,6 @@ export const GET_PROPERTY_SCHEMA = gql`
         id
         agency {
           name
-          emailHost
         }
       }
     }

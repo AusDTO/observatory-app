@@ -20,3 +20,7 @@ export type ErrorRequestHandler = (
   res: Response,
   next: NextFunction
 ) => any;
+
+interface Agency {
+  name: string;
+}

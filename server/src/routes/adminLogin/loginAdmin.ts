@@ -16,7 +16,7 @@ loginAdminRouter.post("/login", async (req, res, next) => {
   try {
     await loginValidationSchema.validate(req.body, { abortEarly: false });
   } catch (errors) {
-    res.status(400).json({ fieldErrors: errors.errors });
+    res.status(400).json({ fieldErrors: errors.errors, statusCode: 400 });
     return next();
   }
 
@@ -58,7 +58,7 @@ loginAdminRouter.post("/login", async (req, res, next) => {
   }
 
   var token = jwt.sign({ isAdmin: true }, JWT_SECRET, {
-    expiresIn: "600s",
+    expiresIn: "6000s",
   });
 
   res.status(200).json({ statusCode: 200, accessToken: token });

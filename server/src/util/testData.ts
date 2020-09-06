@@ -7,12 +7,10 @@ export const testUser = {
 
 export const testAgency = {
   name: "DTA",
-  emailHost: "@dta.gov.au",
 };
 
 export const testAgency2 = {
   name: "ATO",
-  emailHost: "@ato.gov.au",
 };
 
 export const testProperies = [

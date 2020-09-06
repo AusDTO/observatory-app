@@ -11,8 +11,7 @@ const client = new TestClient();
 beforeAll(async () => {
   await connection.create();
 
-  const { emailHost, name } = testAgency;
-  const agency = Agency.create({ emailHost, name });
+  const agency = Agency.create({ name });
   await agency.save();
 
   const user = User.create({

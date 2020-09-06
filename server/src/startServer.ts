@@ -21,8 +21,8 @@ var cfenv = require("cfenv");
 import * as bodyParser from "body-parser";
 import loginAdminRouter from "./routes/adminLogin/loginAdmin";
 
-import agencyRouter from "./routes/Agency/adminAddPropety";
-import { verifyToken } from "./util/verifyToken";
+import agencyRouter from "./routes/agency/adminAddPropety";
+import { verifyToken } from "./util/verifyToken/verifyToken";
 
 const PORT = process.env.PORT || 4000;
 const REDIS_PORT = 6379;

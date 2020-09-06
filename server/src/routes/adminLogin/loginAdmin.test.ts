@@ -60,7 +60,20 @@ describe("Test invalid fields", () => {
   test("Test invalid email", async () => {
     const response = await client.loginAdminUser("bla", password);
     const data = await response.json();
-    console.log(data);
+    expect(data.statusCode).toEqual(400);
     expect(data).toHaveProperty("fieldErrors");
+  });
+
+  test("Test invalid password", async () => {
+    const response = await client.loginAdminUser(email, "asdfasd");
+    const data = await response.json();
+    expect(data.statusCode).toEqual(400);
+    expect(data).toHaveProperty("fieldErrors");
+  });
+
+  test("User does not exist returns 401", async () => {
+    const response = await client.loginAdminUser("blabla@lba.gov.au", password);
+    const data = await response.json();
+    expect(data.statusCode).toEqual(401);
   });
 });
