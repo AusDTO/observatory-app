@@ -19,6 +19,27 @@ export class TestClient {
     };
   }
 
+  async addAgency(bodyData: any, token: string) {
+    return node_fetch("http://localhost:4000/api/agency/add", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: bodyData,
+    });
+  }
+
+  async getAgencies(token: string) {
+    return node_fetch("http://localhost:4000/api/agency/view", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   async loginAdminUser(email: string, password: string) {
     const body = { email, password };
     return node_fetch("http://localhost:4000/api/admin/login", {

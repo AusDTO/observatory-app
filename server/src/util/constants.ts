@@ -61,4 +61,4 @@ if (ENVIRONMENT === "production") {
 export const ADMIN_EMAILS: Array<String> =
   ENVIRONMENT === "production"
     ? appEnv.services["user-provided"][0].credentials.ADMIN_EMAILS
-    : ["sukhraj.ghuman@digital.gov.au", "bla@bla.gov.au"];
+    : ["sukhraj.ghuman@digital.gov.au", "bla@dta.gov.au"];

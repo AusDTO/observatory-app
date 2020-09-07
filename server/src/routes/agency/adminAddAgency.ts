@@ -65,7 +65,7 @@ agencyRouter.post(
 
     res.status(200).json({
       statusCode: 200,
-      message: `${agencies.length} added successfully`,
+      message: `${agencies.length} entries for agency data added successfully`,
     });
   }
 );

@@ -25,3 +25,30 @@ export const testProperies = [
     ua_id: "UA-654321", //FIX check UAID length
   },
 ];
+
+export const agencyListOneItem = [
+  {
+    name: "DTA",
+  },
+];
+
+export const agencyListTwoItems = [
+  {
+    name: "DCOMMs",
+  },
+  {
+    name: "ATO",
+  },
+];
+
+export const agencyListDuplicateItems = [
+  {
+    name: "DHS",
+  },
+  {
+    name: "Home affairs",
+  },
+  {
+    name: "DHS",
+  },
+];
