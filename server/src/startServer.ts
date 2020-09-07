@@ -22,7 +22,7 @@ var cfenv = require("cfenv");
 import * as bodyParser from "body-parser";
 import loginAdminRouter from "./routes/adminLogin/loginAdmin";
 
-import agencyRouter from "./routes/agency/adminAddAgency";
+import agencyRouter from "./routes/agency/agencyRoutes";
 import { verifyToken } from "./util/verifyToken/verifyToken";
 
 const PORT = process.env.PORT || 4000;

@@ -1,3 +1,5 @@
+import { IAgency } from "../types/other";
+
 export const testUser = {
   email: "sukhraj.ghuman@dta.gov.au",
   password: "Password123!@#",
@@ -26,13 +28,13 @@ export const testProperies = [
   },
 ];
 
-export const agencyListOneItem = [
+export const agencyListOneItem: Array<IAgency> = [
   {
     name: "DTA",
   },
 ];
 
-export const agencyListTwoItems = [
+export const agencyListTwoItems: Array<IAgency> = [
   {
     name: "DCOMMs",
   },
@@ -41,7 +43,7 @@ export const agencyListTwoItems = [
   },
 ];
 
-export const agencyListDuplicateItems = [
+export const agencyListDuplicateItems: Array<IAgency> = [
   {
     name: "DHS",
   },

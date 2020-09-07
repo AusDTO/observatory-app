@@ -12,9 +12,11 @@ import { ADMIN_EMAILS } from "../../util/constants";
 import { connection } from "../../util/createConnection";
 import { getConnection, getRepository } from "typeorm";
 import { Agency } from "../../entity/Agency";
+import { v4 as uuid } from "uuid";
 
 const client = new TestClient();
 let adminEmail = ADMIN_EMAILS[0] as string;
+let accessToken: string;
 
 const { password, name, role } = testUser;
 beforeAll(async () => {
@@ -28,14 +30,14 @@ beforeAll(async () => {
   user2.verified = true;
   user2.isAdmin = true;
   await user2.save();
+
+  const loginResponse = await client.loginAdminUser(adminEmail, password);
+  const data = await loginResponse.json();
+  accessToken = data.accessToken;
 });
 
 afterAll(async () => {
   await connection.close();
-});
-
-afterEach(async () => {
-  await getConnection().getRepository(Agency).delete({});
 });
 
 beforeEach(async () => {
@@ -44,10 +46,6 @@ beforeEach(async () => {
 
 describe("Confirmation link", () => {
   test("returns null array when no agencies added", async () => {
-    const loginResponse = await client.loginAdminUser(adminEmail, password);
-    const { accessToken, statusCode } = await loginResponse.json();
-
-    expect(statusCode).toEqual(200);
     const response = await client.getAgencies(accessToken);
 
     const data = (await response.json()) as Array<any>;
@@ -55,9 +53,6 @@ describe("Confirmation link", () => {
   });
 
   test("Adding agency with good data, and then trying to add dupe agency", async () => {
-    const loginResponse = await client.loginAdminUser(adminEmail, password);
-    const { accessToken } = await loginResponse.json();
-
     const bodyData = JSON.stringify(agencyListOneItem);
     const response = await client.addAgency(bodyData, accessToken);
     const { statusCode, message } = await response.json();
@@ -79,10 +74,6 @@ describe("Confirmation link", () => {
   });
 
   test("Add 2 agencies successfully", async () => {
-    // FIX SHOULD LOGIN ONCE IN DESCRIBE BLOCK?
-    const loginResponse = await client.loginAdminUser(adminEmail, password);
-    const { accessToken } = await loginResponse.json();
-
     const bodyData = JSON.stringify(agencyListTwoItems);
     const response = await client.addAgency(bodyData, accessToken);
     const { statusCode, message } = await response.json();
@@ -97,9 +88,6 @@ describe("Confirmation link", () => {
   });
 
   test("Adding duplicated agencies removes duplicates", async () => {
-    const loginResponse = await client.loginAdminUser(adminEmail, password);
-    const { accessToken } = await loginResponse.json();
-
     const bodyData = JSON.stringify(agencyListDuplicateItems);
     const response = await client.addAgency(bodyData, accessToken);
     const { message, statusCode } = await response.json();
@@ -117,9 +105,6 @@ describe("Confirmation link", () => {
   });
 
   test("invalid body data", async () => {
-    const loginResponse = await client.loginAdminUser(adminEmail, password);
-    const { accessToken } = await loginResponse.json();
-
     const bodyData = JSON.stringify({ d: "hello" });
     const response = await client.addAgency(bodyData, accessToken);
     const { statusCode, message } = await response.json();
@@ -131,5 +116,34 @@ describe("Confirmation link", () => {
     const getAgenciesData = await getAgenciesResponse.json();
 
     expect(getAgenciesData).toHaveLength(0);
+  });
+
+  test("Deleting an agency", async () => {
+    const bodyData = JSON.stringify([{ name: "Random agency" }]);
+    await client.addAgency(bodyData, accessToken);
+    const getAgencies = await client.getAgencies(accessToken);
+    const getAgenciesData = await getAgencies.json();
+
+    // const id = agency?.id as string;
+
+    expect(getAgenciesData).toHaveLength(1);
+
+    const { id, name } = getAgenciesData[0];
+
+    const deleteResponse = await client.deleteAgency(id, accessToken);
+    const { statusCode, message } = await deleteResponse.json();
+
+    expect(statusCode).toEqual(200);
+    expect(message).toContain(name);
+  });
+
+  test("Deleting agency that doesn't exist", async () => {
+    const id = uuid();
+    const deleteResponse = await client.deleteAgency(id, accessToken);
+    const { statusCode, message } = await deleteResponse.json();
+
+    expect(statusCode).toEqual(400);
+
+    expect(message).toContain("doesn't exist");
   });
 });

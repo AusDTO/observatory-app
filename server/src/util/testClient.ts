@@ -19,6 +19,16 @@ export class TestClient {
     };
   }
 
+  async deleteAgency(id: string, token: string) {
+    return node_fetch(`http://localhost:4000/api/agency/delete/${id}`, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   async addAgency(bodyData: any, token: string) {
     return node_fetch("http://localhost:4000/api/agency/add", {
       method: "post",
