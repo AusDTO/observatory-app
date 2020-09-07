@@ -16,22 +16,19 @@ import {
   RESOLVER_FILE_TYPE,
   ENVIRONMENT,
   CORS_OPTIONS,
+  sessionSecret,
 } from "./util/constants";
-import * as rateLimit from "express-rate-limit";
-import * as RedisRateLimitStore from "rate-limit-redis";
 var cfenv = require("cfenv");
-import * as cors from "cors";
+import * as bodyParser from "body-parser";
+import loginAdminRouter from "./routes/adminLogin/loginAdmin";
+
+import agencyRouter from "./routes/agency/agencyRoutes";
+import { verifyToken } from "./util/verifyToken/verifyToken";
 
 const PORT = process.env.PORT || 4000;
 const REDIS_PORT = 6379;
 
 let appEnv: any;
-let sessionSecret = "SecretKey";
-if (ENVIRONMENT === "production") {
-  appEnv = cfenv.getAppEnv();
-  sessionSecret =
-    appEnv.services["user-provided"][0].credentials.SESSION_SECRET;
-}
 
 const { url } =
   ENVIRONMENT === "production" && appEnv.services["redis"][0].credentials; //redis connection url
@@ -44,16 +41,6 @@ export const startServer = async () => {
       ? new Redis(url)
       : new Redis({ port: REDIS_PORT });
 
-  // const limiter = rateLimit({
-  //   store: new RedisRateLimitStore({
-  //     client: redis_client,
-  //     prefix: "rateLimit:",
-  //   }),
-  //   windowMs: 5 * 60 * 1000, // 5 minutes
-  //   max: 200, // limit each IP to 200 requests per windowMs
-  // });
-
-  // Merge all graphql schema files
   const typesArray = loadFilesSync(path.join(__dirname, "./modules"), {
     extensions: ["graphql"],
   });
@@ -89,12 +76,13 @@ export const startServer = async () => {
 
   const app = express();
   app.set("trust proxy", 1);
+  app.use(bodyParser.json());
 
   app.use(
     session({
       name: "sid",
       store: new RedisStore({ client: redis_client, prefix: REDIS_PREFIX }),
-      secret: sessionSecret, //FIX use env var
+      secret: sessionSecret,
       resave: false,
       saveUninitialized: false, //Don't create cookie until we store data on the user
       cookie: {
@@ -118,9 +106,11 @@ export const startServer = async () => {
     confirmEmail(req, res, next, redis_client)
   );
 
-  app.get("/api/blabla", (req, res, next) => {
-    res.send("hello");
-  });
+  app.use("/api/admin", loginAdminRouter);
+
+  //Error handling middleware
+
+  app.use("/api/agency", verifyToken, agencyRouter);
 
   app.listen(PORT, () =>
     console.log(`🚀 Server ready at port http:localhost:${PORT}/api`)

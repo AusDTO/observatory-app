@@ -4,7 +4,6 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
-  JoinColumn,
   BeforeInsert,
   PrimaryColumn,
 } from "typeorm";
@@ -18,10 +17,6 @@ export class Agency extends BaseEntity {
 
   @Column("varchar", { length: 255, unique: true })
   name: string;
-
-  // the string is the typescript type of it
-  @Column("varchar", { length: 255 })
-  emailHost: string;
 
   @CreateDateColumn()
   createdDate: Date;

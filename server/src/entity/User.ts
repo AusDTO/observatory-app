@@ -40,11 +40,18 @@ export class User extends BaseEntity {
 
   @CreateDateColumn()
   createdDate: Date;
+  @Column("boolean", { default: false })
+  isAdmin: Boolean;
 
   // type orm decorator. This function calls right before this object is inserted into database
   @BeforeInsert()
   async hashPassword() {
     this.password = bcrypt.hashSync(this.password, 10);
+  }
+
+  @BeforeInsert()
+  async lowercaseEmail() {
+    this.email = this.email.toLowerCase();
   }
 
   @BeforeInsert()

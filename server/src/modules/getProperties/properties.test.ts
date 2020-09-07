@@ -19,8 +19,7 @@ const propertiesTestData = testProperies;
 beforeAll(async () => {
   await connection.create();
   //FIX. REFACTOR, shouldn't have to include this code in every test file,
-  const { emailHost } = testAgency;
-  const agency = Agency.create({ emailHost, name: testAgency.name });
+  const agency = Agency.create({ name: testAgency.name });
   await agency.save();
 
   const user = User.create({
@@ -43,7 +42,6 @@ beforeAll(async () => {
 
   const agency2Data = testAgency2;
   const agency2 = Agency.create({
-    emailHost: agency2Data.emailHost,
     name: agency2Data.name,
   });
   await agency2.save();
