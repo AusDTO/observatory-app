@@ -58,7 +58,7 @@ loginAdminRouter.post("/login", async (req, res, next) => {
   }
 
   var token = jwt.sign({ isAdmin: true }, JWT_SECRET, {
-    expiresIn: "6000s",
+    expiresIn: "7200s",
   });
 
   res.status(200).json({ statusCode: 200, accessToken: token });
