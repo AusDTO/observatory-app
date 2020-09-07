@@ -16,24 +16,19 @@ import {
   RESOLVER_FILE_TYPE,
   ENVIRONMENT,
   CORS_OPTIONS,
+  sessionSecret,
 } from "./util/constants";
 var cfenv = require("cfenv");
 import * as bodyParser from "body-parser";
 import loginAdminRouter from "./routes/adminLogin/loginAdmin";
 
-import agencyRouter from "./routes/agency/adminAddPropety";
+import agencyRouter from "./routes/agency/adminAddAgency";
 import { verifyToken } from "./util/verifyToken/verifyToken";
 
 const PORT = process.env.PORT || 4000;
 const REDIS_PORT = 6379;
 
 let appEnv: any;
-let sessionSecret = "SecretKey";
-if (ENVIRONMENT === "production") {
-  appEnv = cfenv.getAppEnv();
-  sessionSecret =
-    appEnv.services["user-provided"][0].credentials.SESSION_SECRET;
-}
 
 const { url } =
   ENVIRONMENT === "production" && appEnv.services["redis"][0].credentials; //redis connection url
@@ -87,7 +82,7 @@ export const startServer = async () => {
     session({
       name: "sid",
       store: new RedisStore({ client: redis_client, prefix: REDIS_PREFIX }),
-      secret: sessionSecret, //FIX use env var
+      secret: sessionSecret,
       resave: false,
       saveUninitialized: false, //Don't create cookie until we store data on the user
       cookie: {

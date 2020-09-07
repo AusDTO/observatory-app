@@ -50,6 +50,11 @@ export class User extends BaseEntity {
   }
 
   @BeforeInsert()
+  async lowercaseEmail() {
+    this.email = this.email.toLowerCase();
+  }
+
+  @BeforeInsert()
   addId() {
     this.id = uuid();
   }

@@ -21,6 +21,13 @@ export type ErrorRequestHandler = (
   next: NextFunction
 ) => any;
 
-interface Agency {
+interface IAgency {
   name: string;
+}
+
+declare module "yup" {
+  // tslint:disable-next-line
+  interface ArraySchema<T> {
+    unique(mapper: (a: T) => T, message?: any): ArraySchema<T>;
+  }
 }
