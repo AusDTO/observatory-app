@@ -28,7 +28,7 @@ const agencyFieldSchema = yup.object().shape({
     }),
 });
 
-const agencyValidationSchema = yup.array().of(agencyFieldSchema);
+const agencyArraySchema = yup.array().of(agencyFieldSchema);
 
 /**
  * Accepts Array<IAgency>
@@ -38,7 +38,9 @@ agencyRouter.post(
   "/add",
   async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body as Array<IAgency>;
-    //do unique items in array
+
+    //takes out duplicated items in array
+    //FIX could use middleware for next two code blocks
     const uniqueData = _.uniqBy(data, "name");
     if (uniqueData.length < 1) {
       return res.status(400).json({
@@ -49,7 +51,7 @@ agencyRouter.post(
     }
 
     try {
-      await agencyValidationSchema.validate(uniqueData, { abortEarly: false });
+      await agencyArraySchema.validate(uniqueData, { abortEarly: false });
     } catch (errors) {
       return res
         .status(400)

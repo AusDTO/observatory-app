@@ -44,7 +44,7 @@ beforeEach(async () => {
   await getConnection().getRepository(Agency).delete({});
 });
 
-describe("Confirmation link", () => {
+describe("Agency crud operations", () => {
   test("returns null array when no agencies added", async () => {
     const response = await client.getAgencies(accessToken);
 

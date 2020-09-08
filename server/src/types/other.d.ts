@@ -25,6 +25,13 @@ interface IAgency {
   name: string;
 }
 
+interface IProperty {
+  ua_id: string;
+  domain: string;
+  service_name: string;
+  agencyId: string;
+}
+
 declare module "yup" {
   // tslint:disable-next-line
   interface ArraySchema<T> {

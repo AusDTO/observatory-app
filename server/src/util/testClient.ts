@@ -19,6 +19,17 @@ export class TestClient {
     };
   }
 
+  async addProperty(token: string, bodyData: any) {
+    return node_fetch("http://localhost:4000/api/property/add", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: bodyData,
+    });
+  }
+
   async deleteAgency(id: string, token: string) {
     return node_fetch(`http://localhost:4000/api/agency/delete/${id}`, {
       method: "delete",
