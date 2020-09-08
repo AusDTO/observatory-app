@@ -29,6 +29,9 @@ const PORT = process.env.PORT || 4000;
 const REDIS_PORT = 6379;
 
 let appEnv: any;
+if (ENVIRONMENT == "production") {
+  appEnv = cfenv.getAppEnv();
+}
 
 const { url } =
   ENVIRONMENT === "production" && appEnv.services["redis"][0].credentials; //redis connection url
