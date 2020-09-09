@@ -5,7 +5,6 @@ import { Agency } from "../../entity/Agency";
 import * as _ from "lodash";
 import { IAgency } from "../../types/other";
 import { validateReqUUID } from "../../util/middleware/validReqUuid";
-// import * as _ from "lodash"
 
 const agencyRouter = express.Router();
 

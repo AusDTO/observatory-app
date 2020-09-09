@@ -1,7 +1,6 @@
 import {
   Column,
   BaseEntity,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
   Entity,
   ManyToOne,
@@ -11,7 +10,6 @@ import {
 } from "typeorm";
 import { Agency } from "./Agency";
 import { v4 as uuid } from "uuid";
-import { ENVIRONMENT } from "../util/constants";
 
 // extending BaseEntity allows us to do things like User.create({})
 @Entity()
