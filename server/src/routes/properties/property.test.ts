@@ -112,7 +112,6 @@ beforeEach(async () => {
   const manager = getManager();
   await manager.clear(Property);
   await getConnection().getRepository(Property).delete({});
-  await getConnection().getRepository(Property).clear();
 });
 
 describe("Test property crud operations", () => {
@@ -156,44 +155,51 @@ describe("Test property crud operations", () => {
     const getPropsData: any = await getPropertiesRes.json();
 
     const props = await Property.find({ relations: ["agency"] });
-    console.log(props);
+
     expect(props[0].agency.id).toEqual(agencyID);
 
     expect(props).toHaveLength(2);
   });
 
-  // test("Duplicated UAID throws errror", async () => {
-  //   const bodyData = JSON.stringify(propertyListDuplicateUAID);
-  //   const response = await client.addProperty(accessToken, bodyData);
+  test("Duplicated UAID throws errror", async () => {
+    const bodyData = JSON.stringify(propertyListDuplicateUAID);
+    const response = await client.addProperty(accessToken, bodyData);
 
-  //   const { statusCode, message } = await response.json();
+    const { statusCode, message } = await response.json();
 
-  //   expect(message).toEqual(
-  //     "You have entered two or more rows that have the same UAID. The UAID must be unique. No data was entered"
-  //   );
+    expect(message).toEqual(
+      "You have entered two or more rows that have the same UAID. The UAID must be unique. No data was entered"
+    );
 
-  //   expect(statusCode).toEqual(400);
+    expect(statusCode).toEqual(400);
 
-  //   const getProperties = await client.viewProperties(accessToken);
+    const getProperties = await client.viewProperties(accessToken);
+    const getPropertiesRes = await getProperties.json();
+    console.log("+++++++=");
+    console.log("+++++++=");
+    console.log(getPropertiesRes);
+    console.log("+++++++=");
+    console.log("+++++++=");
+    const props = await Property.find({ relations: ["agency"] });
+    console.log(props);
 
-  //   const getPropertiesRes = await getProperties.json();
+    expect(getPropertiesRes).toHaveLength(0);
+  });
 
-  //   expect(getPropertiesRes).toHaveLength(0);
-  // });
+  test("Invalid body data throws error", async () => {
+    const bodyData = JSON.stringify(invalidJSON);
+    const response = await client.addProperty(accessToken, bodyData);
 
-  // test("Invalid body data throws error", async () => {
-  //   const bodyData = JSON.stringify(invalidJSON);
-  //   const response = await client.addProperty(accessToken, bodyData);
+    const { statusCode, fieldErrors } = await response.json();
+    expect(fieldErrors[0]).toContain("ua_id is a required field");
+    expect(statusCode).toEqual(400);
+    const getProperties = await client.viewProperties(accessToken);
 
-  //   const { statusCode, fieldErrors } = await response.json();
-  //   expect(fieldErrors[0]).toContain("ua_id is a required field");
-  //   expect(statusCode).toEqual(400);
-  //   const getProperties = await client.viewProperties(accessToken);
+    const getPropertiesRes = await getProperties.json();
+    console.log(getPropertiesRes);
 
-  //   const getPropertiesRes = await getProperties.json();
-
-  //   expect(getPropertiesRes).toHaveLength(0);
-  // });
+    expect(getPropertiesRes).toHaveLength(0);
+  });
 
   // test("Test editing data", async () => {
   //   //Add property

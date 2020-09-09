@@ -28,9 +28,7 @@ export class Property extends BaseEntity {
   service_name: string;
 
   // Many properties belong to one agency
-  @ManyToOne((_type) => Agency, (agency) => agency.id, {
-    onDelete: ENVIRONMENT === "test" ? "CASCADE" : "NO ACTION",
-  })
+  @ManyToOne((_type) => Agency, (agency) => agency.id)
   @JoinColumn({ name: "agency_id" })
   agency: Agency;
 
