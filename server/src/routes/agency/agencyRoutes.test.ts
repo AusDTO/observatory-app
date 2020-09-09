@@ -1,5 +1,4 @@
 import { User } from "../../entity/User";
-import node_fetch from "node-fetch";
 
 import {
   testUser,
@@ -10,7 +9,7 @@ import {
 import { TestClient } from "../../util/testClient";
 import { ADMIN_EMAILS } from "../../util/constants";
 import { connection } from "../../util/createConnection";
-import { getConnection, getRepository } from "typeorm";
+import { getConnection, getManager } from "typeorm";
 import { Agency } from "../../entity/Agency";
 import { v4 as uuid } from "uuid";
 
@@ -44,7 +43,7 @@ beforeEach(async () => {
   await getConnection().getRepository(Agency).delete({});
 });
 
-describe("Confirmation link", () => {
+describe("Agency crud operations", () => {
   test("returns null array when no agencies added", async () => {
     const response = await client.getAgencies(accessToken);
 

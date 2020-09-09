@@ -19,6 +19,38 @@ export class TestClient {
     };
   }
 
+  async editProperty(token: string, propertyId: string, bodyData: any) {
+    return node_fetch(`http://localhost:4000/api/property/edit/${propertyId}`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: bodyData,
+    });
+  }
+
+  async viewProperties(token: string) {
+    return node_fetch("http://localhost:4000/api/property/view", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  async addProperty(token: string, bodyData: any) {
+    return node_fetch("http://localhost:4000/api/property/add", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: bodyData,
+    });
+  }
+
   async deleteAgency(id: string, token: string) {
     return node_fetch(`http://localhost:4000/api/agency/delete/${id}`, {
       method: "delete",

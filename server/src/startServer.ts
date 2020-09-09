@@ -24,6 +24,7 @@ import loginAdminRouter from "./routes/adminLogin/loginAdmin";
 
 import agencyRouter from "./routes/agency/agencyRoutes";
 import { verifyToken } from "./util/verifyToken/verifyToken";
+import propertyRouter from "./routes/properties/propertyRoutes";
 
 const PORT = process.env.PORT || 4000;
 const REDIS_PORT = 6379;
@@ -114,6 +115,7 @@ export const startServer = async () => {
   //Error handling middleware
 
   app.use("/api/agency", verifyToken, agencyRouter);
+  app.use("/api/property", verifyToken, propertyRouter);
 
   app.listen(PORT, () =>
     console.log(`🚀 Server ready at port http:localhost:${PORT}/api`)
