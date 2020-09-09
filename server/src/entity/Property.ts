@@ -11,6 +11,7 @@ import {
 } from "typeorm";
 import { Agency } from "./Agency";
 import { v4 as uuid } from "uuid";
+import { ENVIRONMENT } from "../util/constants";
 
 // extending BaseEntity allows us to do things like User.create({})
 @Entity()
@@ -27,7 +28,9 @@ export class Property extends BaseEntity {
   service_name: string;
 
   // Many properties belong to one agency
-  @ManyToOne((_type) => Agency, (agency) => agency.id)
+  @ManyToOne((_type) => Agency, (agency) => agency.id, {
+    onDelete: ENVIRONMENT === "test" ? "CASCADE" : "NO ACTION",
+  })
   @JoinColumn({ name: "agency_id" })
   agency: Agency;
 

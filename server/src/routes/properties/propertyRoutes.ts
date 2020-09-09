@@ -1,44 +1,16 @@
 import * as express from "express";
-import * as yup from "yup";
 import { Request, Response, NextFunction } from "express";
 import { Property } from "../../entity/Property";
 import { IProperty } from "../../types/other";
 import * as _ from "lodash";
 import { Agency } from "../../entity/Agency";
+import {
+  propertyArraySchema,
+  ua_id_schema,
+  updatePropertyField,
+} from "./property_schemas";
 
 const propertyRouter = express.Router();
-
-const propertyField = yup.object().shape({
-  ua_id: yup
-    .string()
-    .required()
-    .matches(
-      /UA-[0-9]+$/,
-      "You have entered a UAID that is not valid, check your data and try again"
-    ),
-  domain: yup.string().required(),
-  service_name: yup.string().required(),
-  agencyId: yup
-    .string()
-    .required()
-    .uuid("Not a valid uuid was entered for agency ID")
-    .test({
-      name: "Agency exists",
-      message: "Agency doesn't exist",
-      test: async function (this, value) {
-        const agencyExists = await Agency.findOne({ id: value });
-
-        return agencyExists !== undefined
-          ? true
-          : this.createError({
-              message: `Agency with ID *${value}* does not exist. The data was not posted`,
-              path: "Agency Id", // Fieldname
-            });
-      },
-    }),
-});
-
-const propertyArraySchema = yup.array().of(propertyField);
 
 /**
  * Accepts Array<IProperty> as body params
@@ -50,13 +22,14 @@ propertyRouter.post(
 
     // takes out duplicated items in array
     // FIX could use middleware for next two code blocks
+    // FIX check if unique based on upper/lowercase?
     const uniqueData = _.uniqBy(bodyData, "ua_id");
 
-    if (uniqueData.length < 1) {
+    if (uniqueData.length !== bodyData.length) {
       return res.status(400).json({
         statusCode: 400,
         message:
-          "There were no unique items found in the data you have posted.",
+          "You have entered two or more rows that have the same UAID. The UAID must be unique. No data was entered",
       });
     }
 
@@ -81,12 +54,13 @@ propertyRouter.post(
         domain,
       });
       propertyToInsert.agency = agency as Agency;
+
       await propertyToInsert.save();
     });
 
     res.status(200).json({
       statusCode: 200,
-      message: `${properties.length} entries for agency data added successfully`,
+      message: `${properties.length} entries for property data added successfully`,
     });
   }
 );
@@ -99,7 +73,7 @@ propertyRouter.get(
   }
 );
 
-propertyRouter.put(
+propertyRouter.delete(
   "/delete",
   (req: Request, res: Response, next: NextFunction) => {
     res.send("hello2");
@@ -107,8 +81,62 @@ propertyRouter.put(
 );
 
 propertyRouter.put(
-  "/edit:id",
-  (req: Request, res: Response, next: NextFunction) => {}
+  "/edit/:ua_id_param",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { ua_id_param } = req.params;
+    //validate query param
+    try {
+      await ua_id_schema.validate(ua_id_param, { abortEarly: true });
+    } catch (errors) {
+      return res
+        .status(400)
+        .json({ fieldErrors: errors.errors, statusCode: 400 });
+    }
+
+    //Find the property that needs updating
+    const propertyToUpdate = await Property.findOne(
+      { ua_id: ua_id_param },
+      { relations: ["agency"] }
+    );
+
+    if (!propertyToUpdate) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: "Property with that UAID was not found",
+      });
+    }
+
+    //validate
+    try {
+      await updatePropertyField.validate(req.body, { abortEarly: true });
+    } catch (errors) {
+      return res
+        .status(400)
+        .json({ fieldErrors: errors.errors, statusCode: 400 });
+    }
+
+    const {
+      agencyId: newAgencyId,
+      service_name: newServiceName,
+      domain: newDomain,
+      ua_id: newUAID,
+    } = req.body;
+
+    const newAgency = await Agency.findOne({ where: { id: newAgencyId } });
+
+    const s = await Property.update(
+      { ua_id: ua_id_param },
+      {
+        agency: newAgency ? newAgency : propertyToUpdate.agency,
+        ua_id: newUAID ? newUAID : propertyToUpdate.ua_id,
+        domain: newDomain ? newDomain : propertyToUpdate.domain,
+        service_name: newServiceName
+          ? newServiceName
+          : propertyToUpdate.service_name,
+      }
+    );
+    res.send("OKAY");
+  }
 );
 
 export default propertyRouter;
