@@ -29,7 +29,7 @@ propertyRouter.post(
       return res.status(400).json({
         statusCode: 400,
         message:
-          "You have entered two or more rows that have the same UAID. The UAID must be unique. No data was entered",
+          "You have either entered rows with duplicate UAIDs, or are not passing an array of objects",
       });
     }
 
@@ -106,7 +106,7 @@ propertyRouter.put(
       });
     }
 
-    //validate
+    //validate the body
     try {
       await updatePropertyField.validate(req.body, { abortEarly: true });
     } catch (errors) {
@@ -124,7 +124,7 @@ propertyRouter.put(
 
     const newAgency = await Agency.findOne({ where: { id: newAgencyId } });
 
-    const s = await Property.update(
+    await Property.update(
       { ua_id: ua_id_param },
       {
         agency: newAgency ? newAgency : propertyToUpdate.agency,
@@ -135,7 +135,7 @@ propertyRouter.put(
           : propertyToUpdate.service_name,
       }
     );
-    res.send("OKAY");
+    res.status(200).json({ statusCode: 200, message: `Property with` });
   }
 );
 

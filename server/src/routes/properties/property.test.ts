@@ -168,20 +168,14 @@ describe("Test property crud operations", () => {
     const { statusCode, message } = await response.json();
 
     expect(message).toEqual(
-      "You have entered two or more rows that have the same UAID. The UAID must be unique. No data was entered"
+      "You have either entered rows with duplicate UAIDs, or are not passing an array of objects"
     );
 
     expect(statusCode).toEqual(400);
 
     const getProperties = await client.viewProperties(accessToken);
     const getPropertiesRes = await getProperties.json();
-    console.log("+++++++=");
-    console.log("+++++++=");
-    console.log(getPropertiesRes);
-    console.log("+++++++=");
-    console.log("+++++++=");
     const props = await Property.find({ relations: ["agency"] });
-    console.log(props);
 
     expect(getPropertiesRes).toHaveLength(0);
   });
@@ -196,34 +190,42 @@ describe("Test property crud operations", () => {
     const getProperties = await client.viewProperties(accessToken);
 
     const getPropertiesRes = await getProperties.json();
-    console.log(getPropertiesRes);
 
     expect(getPropertiesRes).toHaveLength(0);
   });
 
-  // test("Test editing data", async () => {
-  //   //Add property
-  //   const bodyData = JSON.stringify({
-  //     ua_id: "UA-91234",
-  //     domain: "domainname.gov.au",
-  //     service_name: "hello service",
-  //     agencyId: agency2ID,
-  //   });
-  //   await client.addProperty(accessToken, bodyData);
+  test("Test editing data", async () => {
+    //Add property
+    const bodyData = JSON.stringify([
+      {
+        ua_id: "UA-91234",
+        domain: "domainname.gov.au",
+        service_name: "hello service",
+        agencyId: agency2ID,
+      },
+    ]);
+    await client.addProperty(accessToken, bodyData);
 
-  //   const getProperties = await client.viewProperties(accessToken);
-  //   const getPropertiesRes = await getProperties.json();
+    const getProperties = await client.viewProperties(accessToken);
+    const getPropertiesRes = await getProperties.text();
 
-  // await client.editProperty(accessToken, getPropertiesRes[0].id, {
-  //   ua_id: "UA-1239853",
-  //   service_name: "Bye",
-  //   domain: "http://www.xyz.gov.au",
-  //   agencyId: agency2ID,
-  // });
+    const props = await Property.find({ relations: ["agency"] });
+    const propertyId = props[0].ua_id;
 
-  // const getProperties2 = await client.viewProperties(accessToken);
-  // const getPropertiesRes2 = await getProperties2.json();
+    const editData = JSON.stringify({
+      service_name: "Bye",
+      domain: "http://www.xyz.gov.au",
+    });
 
-  // console.log(getPropertiesRes2);
-  // });
+    const res = await client.editProperty(accessToken, propertyId, editData);
+    const { statusCode } = await res.json();
+    expect(statusCode).toEqual(200);
+    const getProperties2 = await client.viewProperties(accessToken);
+    const getPropertiesRes2 = await getProperties2.json();
+
+    const { ua_id, service_name } = getPropertiesRes2[0];
+
+    expect(ua_id).toEqual("UA-91234");
+    expect(service_name).toEqual("Bye");
+  });
 });

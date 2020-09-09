@@ -7,8 +7,10 @@ export const ua_id_schema = yup
   .matches(
     /UA-[0-9]+$/,
     "You have entered a UAID that is not valid, check your data and try again"
-  )
-  .test({
+  );
+
+export const propertyField = yup.object().shape({
+  ua_id: ua_id_schema.required().test({
     name: "Check dupe property",
     message: "Property already exists",
     test: async function (this, value) {
@@ -21,10 +23,7 @@ export const ua_id_schema = yup
             path: "Property Id", // Fieldname
           });
     },
-  });
-
-export const propertyField = yup.object().shape({
-  ua_id: ua_id_schema.required(),
+  }),
   domain: yup.string().required(),
   service_name: yup.string().required(),
   agencyId: yup
