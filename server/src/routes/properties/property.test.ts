@@ -228,4 +228,94 @@ describe("Test property crud operations", () => {
     expect(ua_id).toEqual("UA-91234");
     expect(service_name).toEqual("Bye");
   });
+
+  test("Test editing data invalid property", async () => {
+    //Add property
+    const bodyData = JSON.stringify([
+      {
+        ua_id: "UA-91234",
+        domain: "domainname.gov.au",
+        service_name: "hello service",
+        agencyId: agency2ID,
+      },
+    ]);
+    await client.addProperty(accessToken, bodyData);
+
+    const getProperties = await client.viewProperties(accessToken);
+    const getPropertiesRes = await getProperties.text();
+
+    const props = await Property.find({ relations: ["agency"] });
+    const propertyId = props[0].ua_id;
+
+    const editData = JSON.stringify({
+      service_name: "Bye",
+      domain: "http://www.xyz.gov.au",
+    });
+
+    const res = await client.editProperty(
+      accessToken,
+      "UA-123123123123123",
+      editData
+    );
+    const { statusCode } = await res.json();
+    expect(statusCode).toEqual(404);
+  });
+
+  test("Test editing data invalid agency", async () => {
+    //Add property
+    const bodyData = JSON.stringify([
+      {
+        ua_id: "UA-91234",
+        domain: "domainname.gov.au",
+        service_name: "hello service",
+        agencyId: agency2ID,
+      },
+    ]);
+    await client.addProperty(accessToken, bodyData);
+
+    const getProperties = await client.viewProperties(accessToken);
+    const getPropertiesRes = await getProperties.text();
+
+    const props = await Property.find({ relations: ["agency"] });
+    const propertyId = props[0].ua_id;
+
+    const editData = JSON.stringify({
+      service_name: "Bye",
+      domain: "http://www.xyz.gov.au",
+      agencyId: "2ffbde1c-e63e-45fe-9971-79705b06d604",
+    });
+
+    const res = await client.editProperty(accessToken, propertyId, editData);
+    const { statusCode } = await res.json();
+    expect(statusCode).toEqual(400);
+  });
+
+  test("Test editing data invalid service name", async () => {
+    //Add property
+    const bodyData = JSON.stringify([
+      {
+        ua_id: "UA-91234",
+        domain: "domainname.gov.au",
+        service_name: "Bla",
+        agencyId: agency2ID,
+      },
+    ]);
+    await client.addProperty(accessToken, bodyData);
+
+    const getProperties = await client.viewProperties(accessToken);
+    const getPropertiesRes = await getProperties.text();
+
+    const props = await Property.find({ relations: ["agency"] });
+    const propertyId = props[0].ua_id;
+
+    const editData = JSON.stringify({
+      service_name: "",
+      domain: "http://www.xyz.gov.au",
+      agencyId: "2ffbde1c-e63e-45fe-9971-79705b06d604",
+    });
+
+    const res = await client.editProperty(accessToken, propertyId, editData);
+    const { statusCode } = await res.json();
+    expect(statusCode).toEqual(400);
+  });
 });

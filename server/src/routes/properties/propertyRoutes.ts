@@ -119,23 +119,34 @@ propertyRouter.put(
       agencyId: newAgencyId,
       service_name: newServiceName,
       domain: newDomain,
-      ua_id: newUAID,
     } = req.body;
 
     const newAgency = await Agency.findOne({ where: { id: newAgencyId } });
 
+    const agency = newAgency ? newAgency : propertyToUpdate.agency;
+    const ua_id = propertyToUpdate.ua_id;
+    const domain = newDomain ? newDomain : propertyToUpdate.domain;
+    const service_name = newServiceName
+      ? newServiceName
+      : propertyToUpdate.service_name;
+
     await Property.update(
       { ua_id: ua_id_param },
       {
-        agency: newAgency ? newAgency : propertyToUpdate.agency,
-        ua_id: newUAID ? newUAID : propertyToUpdate.ua_id,
-        domain: newDomain ? newDomain : propertyToUpdate.domain,
-        service_name: newServiceName
-          ? newServiceName
-          : propertyToUpdate.service_name,
+        agency,
+        domain,
+        service_name,
       }
     );
-    res.status(200).json({ statusCode: 200, message: `Property with` });
+    res.status(200).json({
+      statusCode: 200,
+      message: `Property updated: ${{
+        agency,
+        ua_id,
+        domain,
+        service_name,
+      }}`,
+    });
   }
 );
 

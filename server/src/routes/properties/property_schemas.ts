@@ -47,7 +47,6 @@ export const propertyField = yup.object().shape({
 });
 
 export const updatePropertyField = yup.object().shape({
-  ua_id: ua_id_schema,
   domain: yup.string(),
   service_name: yup.string(),
   agencyId: yup
