@@ -73,10 +73,36 @@ propertyRouter.get(
   }
 );
 
+//FIX ADD TEST FOR THIS
 propertyRouter.delete(
-  "/delete",
-  (req: Request, res: Response, next: NextFunction) => {
-    res.send("hello2");
+  "/delete/:ua_id_param",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { ua_id_param } = req.params;
+    try {
+      await ua_id_schema.validate(ua_id_param, { abortEarly: true });
+    } catch (errors) {
+      return res
+        .status(400)
+        .json({ fieldErrors: errors.errors, statusCode: 400 });
+    }
+
+    const propertyExists = await Property.findOne({
+      where: { ua_id: ua_id_param },
+    });
+
+    if (!propertyExists) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Property with that UAID doesn't exist",
+      });
+    }
+
+    await Property.delete({ ua_id: ua_id_param });
+
+    return res.status(200).json({
+      statusCode: 200,
+      message: `Deleted property ${propertyExists.service_name}`,
+    });
   }
 );
 
