@@ -48,21 +48,31 @@ beforeEach(async () => {
 });
 
 describe("Agency adds user", () => {
-  test("Adding agency adds agency to existing users with same email", async () => {
+  test("Adding agency adds agency to existing users with same email but not to users with another email host", async () => {
     const { email, password, name, role, emailHost } = testUser;
 
-    const user = User.create({
+    const user1 = User.create({
       email,
       password,
       name,
       role,
       emailHost,
     });
-    user.verified = true;
-    await user.save();
-    const userId = user.id;
 
-    expect(user.agency).toBeFalsy();
+    const user2 = User.create({
+      email: "test@test.gov.au",
+      password,
+      name,
+      role,
+      emailHost: "@test.gov.au",
+    });
+
+    await user1.save();
+    await user2.save();
+    const userId = user1.id;
+    const user2Id = user2.id;
+
+    expect(user1.agency).toBeFalsy();
 
     const bodyData = JSON.stringify(agencyListOneItem);
     await client.addAgency(bodyData, accessToken);
@@ -71,13 +81,17 @@ describe("Agency adds user", () => {
 
     const agencies = await Agency.find();
 
-    const userAfterUpdating = await User.findOne({
+    const user1AfterUpdating = await User.findOne({
       where: { id: userId },
       relations: ["agency"],
     });
 
-    console.log(userAfterUpdating);
+    const user2AfterUpdating = await User.findOne({
+      where: { id: user2Id },
+      relations: ["agency"],
+    });
 
-    expect(userAfterUpdating?.agency.name).toEqual(agencyListOneItem[0].name);
+    expect(user1AfterUpdating?.agency.name).toEqual(agencyListOneItem[0].name);
+    expect(user2AfterUpdating?.agency).toBeFalsy();
   });
 });
