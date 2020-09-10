@@ -65,9 +65,11 @@ describe("Agency adds user", () => {
     expect(user.agency).toBeFalsy();
 
     const bodyData = JSON.stringify(agencyListOneItem);
-    const res = await client.addAgency(bodyData, accessToken);
+    await client.addAgency(bodyData, accessToken);
+    await client.getAgencies(accessToken);
+    const b = await client.getAgencies(accessToken);
 
-    console.log(await Agency.find());
+    const agencies = await Agency.find();
 
     const userAfterUpdating = await User.findOne({
       where: { id: userId },
@@ -76,6 +78,6 @@ describe("Agency adds user", () => {
 
     console.log(userAfterUpdating);
 
-    // expect(userAfterUpdating?.agency.name).toEqual(agencyListOneItem[0].name);
+    expect(userAfterUpdating?.agency.name).toEqual(agencyListOneItem[0].name);
   });
 });

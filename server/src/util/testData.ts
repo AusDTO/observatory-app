@@ -41,7 +41,7 @@ export const agencyListOneItem: Array<IAgency> = [
 export const agencyListTwoItems: Array<IAgency> = [
   {
     name: "DCOMMs",
-    emailHosts: ["@comms.gov.au", "@bla.bla.gov.au", "@ba.ba.gov.au"],
+    emailHosts: ["@comms.gov.au", "@ca.gov.au", "@ba.gov.au"],
   },
   {
     name: "ATO",

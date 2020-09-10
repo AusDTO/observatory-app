@@ -20,6 +20,8 @@ let accessToken: string;
 const { password, name, role, emailHost } = testUser;
 beforeAll(async () => {
   await connection.create();
+  await getConnection().getRepository(Agency).delete({});
+
   const user2 = User.create({
     email: adminEmail,
     password,
@@ -39,6 +41,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await getConnection().getRepository(User).delete({});
+  await getConnection().getRepository(Agency).delete({});
 
   await connection.close();
 });
@@ -47,127 +50,100 @@ beforeEach(async () => {
   await getConnection().getRepository(Agency).delete({});
 });
 
+afterEach(async () => {
+  await getConnection().getRepository(Agency).delete({});
+});
+
 describe("Agency crud operations", () => {
-  test("returns null array when no agencies added", async () => {
-    const response = await client.getAgencies(accessToken);
+  describe("Single agenices", () => {
+    test("returns null array when no agencies added", async () => {
+      const response = await client.getAgencies(accessToken);
 
-    const data = (await response.json()) as Array<any>;
-    expect(data.length).toEqual(0);
+      const data = (await response.json()) as Array<any>;
+      expect(data.length).toEqual(0);
+    });
+
+    test("Adding agency with good data, and then trying to add dupe agency", async () => {
+      const bodyData = JSON.stringify(agencyListOneItem);
+      const response = await client.addAgency(bodyData, accessToken);
+      const { statusCode, message } = await response.json();
+      expect(statusCode).toEqual(200);
+      expect(message).toEqual(
+        `${agencyListOneItem.length} entries for agency data added successfully`
+      );
+
+      const getAgenciesResponse = await client.getAgencies(accessToken);
+      await getAgenciesResponse.json();
+      const a = await Agency.find();
+
+      expect(a).toHaveLength(1);
+      expect(a[0].emailHosts).toHaveLength(2);
+
+      const response2 = await client.addAgency(bodyData, accessToken);
+      const data = await response2.json();
+
+      expect(data.statusCode).toEqual(400);
+      expect(data.fieldErrors[0]).toContain("data was not posted successfully");
+    });
   });
 
-  test("Adding agency with good data, and then trying to add dupe agency", async () => {
-    const bodyData = JSON.stringify(agencyListOneItem);
-    const response = await client.addAgency(bodyData, accessToken);
-    const { statusCode, message } = await response.json();
-    expect(statusCode).toEqual(200);
-    expect(message).toEqual(
-      `${agencyListOneItem.length} entries for agency data added successfully`
-    );
+  describe("invalid data", () => {
+    test("invalid body data", async () => {
+      const bodyData = JSON.stringify({ d: "hello" });
+      const response = await client.addAgency(bodyData, accessToken);
+      const { statusCode, message } = await response.json();
 
-    const getAgenciesResponse = await client.getAgencies(accessToken);
-    await getAgenciesResponse.json();
-    const a = await Agency.find();
+      expect(statusCode).toEqual(400);
+      expect(message).toContain("no unique items");
 
-    expect(a).toHaveLength(1);
-    expect(a[0].emailHosts).toHaveLength(2);
+      const getAgenciesResponse = await client.getAgencies(accessToken);
+      await getAgenciesResponse.json();
+      const getAgenciesData = await Agency.find();
 
-    const response2 = await client.addAgency(bodyData, accessToken);
-    const data = await response2.json();
+      expect(getAgenciesData).toHaveLength(0);
+    });
 
-    expect(data.statusCode).toEqual(400);
-    expect(data.fieldErrors[0]).toContain("data was not posted successfully");
-  });
+    test("Deleting an agency", async () => {
+      const bodyData = JSON.stringify([
+        { name: "Random agency", emailHosts: ["@bla.gov.au"] },
+      ]);
+      await client.addAgency(bodyData, accessToken);
+      const getAgencies = await client.getAgencies(accessToken);
+      await getAgencies.json();
+      const getAgenciesData = await Agency.find();
+      // const id = agency?.id as string;
 
-  test("Add 2 agencies successfully", async () => {
-    const bodyData = JSON.stringify(agencyListTwoItems);
-    const response = await client.addAgency(bodyData, accessToken);
-    const { statusCode, message } = await response.json();
-    expect(statusCode).toEqual(200);
-    expect(message).toEqual(
-      `${agencyListTwoItems.length} entries for agency data added successfully`
-    );
-    const getAgenciesResponse = await client.getAgencies(accessToken);
-    const getAgenciesData = await getAgenciesResponse.json();
+      expect(getAgenciesData).toHaveLength(1);
 
-    const a = await Agency.find();
+      const { id, name } = getAgenciesData[0];
 
-    // expect(a[0].emailHosts).toHaveLength(3);
-    expect(a).toHaveLength(2);
-  });
+      const deleteResponse = await client.deleteAgency(id, accessToken);
+      const { statusCode, message } = await deleteResponse.json();
 
-  test("Adding duplicated agencies removes duplicates", async () => {
-    const bodyData = JSON.stringify(agencyListDuplicateItems);
-    const response = await client.addAgency(bodyData, accessToken);
-    const { message, statusCode } = await response.json();
-    expect(statusCode).toEqual(200);
-    expect(message).toEqual(
-      `${
-        agencyListDuplicateItems.length - 1
-      } entries for agency data added successfully`
-    );
+      expect(statusCode).toEqual(200);
+      expect(message).toContain(name);
+    });
 
-    const getAgenciesResponse = await client.getAgencies(accessToken);
-    await getAgenciesResponse.json();
-    const getAgenciesData = await Agency.find();
+    test("Adding agency with invalid email host", async () => {
+      const bodyData = JSON.stringify([
+        { name: "Random agency", emailHosts: ["@bla.com.au"] },
+      ]);
 
-    expect(getAgenciesData).toHaveLength(2);
-  });
+      const res = await client.addAgency(bodyData, accessToken);
 
-  test("invalid body data", async () => {
-    const bodyData = JSON.stringify({ d: "hello" });
-    const response = await client.addAgency(bodyData, accessToken);
-    const { statusCode, message } = await response.json();
+      const resData = await res.json();
 
-    expect(statusCode).toEqual(400);
-    expect(message).toContain("no unique items");
+      expect(resData.statusCode).toEqual(400);
+    });
 
-    const getAgenciesResponse = await client.getAgencies(accessToken);
-    await getAgenciesResponse.json();
-    const getAgenciesData = await Agency.find();
+    test("Deleting agency that doesn't exist", async () => {
+      const id = uuid();
+      const deleteResponse = await client.deleteAgency(id, accessToken);
+      const { statusCode, message } = await deleteResponse.json();
 
-    expect(getAgenciesData).toHaveLength(0);
-  });
+      expect(statusCode).toEqual(400);
 
-  test("Deleting an agency", async () => {
-    const bodyData = JSON.stringify([
-      { name: "Random agency", emailHosts: ["@bla.gov.au"] },
-    ]);
-    await client.addAgency(bodyData, accessToken);
-    const getAgencies = await client.getAgencies(accessToken);
-    await getAgencies.json();
-    const getAgenciesData = await Agency.find();
-    // const id = agency?.id as string;
-
-    expect(getAgenciesData).toHaveLength(1);
-
-    const { id, name } = getAgenciesData[0];
-
-    const deleteResponse = await client.deleteAgency(id, accessToken);
-    const { statusCode, message } = await deleteResponse.json();
-
-    expect(statusCode).toEqual(200);
-    expect(message).toContain(name);
-  });
-
-  test("Adding agency with invalid email host", async () => {
-    const bodyData = JSON.stringify([
-      { name: "Random agency", emailHosts: ["@bla.com.au"] },
-    ]);
-
-    const res = await client.addAgency(bodyData, accessToken);
-
-    const resData = await res.json();
-
-    expect(resData.statusCode).toEqual(400);
-  });
-
-  test("Deleting agency that doesn't exist", async () => {
-    const id = uuid();
-    const deleteResponse = await client.deleteAgency(id, accessToken);
-    const { statusCode, message } = await deleteResponse.json();
-
-    expect(statusCode).toEqual(400);
-
-    expect(message).toContain("doesn't exist");
+      expect(message).toContain("doesn't exist");
+    });
   });
 });
