@@ -9,6 +9,11 @@ export const resolvers: ResolverMap = {
       //use session data
       const { agencyId, userId } = session;
 
+      console.log("====================");
+
+      console.log(agencyId);
+      console.log("====================");
+
       const user = await User.findOne({
         where: { id: userId },
         relations: ["agency"],

@@ -23,6 +23,7 @@ export type ErrorRequestHandler = (
 
 interface IAgency {
   name: string;
+  emailHosts: string[];
 }
 
 interface IProperty {

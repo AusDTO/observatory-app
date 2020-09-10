@@ -3,7 +3,7 @@ import { connection } from "../../util/createConnection";
 import { testUser } from "../../util/testData";
 import { TestClient } from "../../util/testClient";
 
-const { email, password, name, role } = testUser;
+const { email, password, name, role, emailHost } = testUser;
 const emailUser2 = "test@bla.gov.au";
 
 const client = new TestClient();
@@ -16,6 +16,7 @@ beforeAll(async () => {
     password,
     name,
     role,
+    emailHost: "@bla.gov.au",
   });
   await user2.save();
 
@@ -24,6 +25,7 @@ beforeAll(async () => {
     password,
     name,
     role,
+    emailHost,
   });
   user.isAdmin = true;
   await user.save();

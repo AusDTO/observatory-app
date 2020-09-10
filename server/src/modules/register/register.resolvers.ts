@@ -8,7 +8,11 @@ import { sendConfirmationEmail } from "../../util/sendConfirmationEmail/sendEmai
 import { emailValidator, passwordValidator } from "../../util/yup";
 import { basicApiMessage, ENVIRONMENT } from "../../util/constants";
 import { Agency } from "../../entity/Agency";
-import { getAgencyCodeFromEmail } from "../../util/getAgencyCodeFromEmail";
+import {
+  getAgencyCodeFromEmail,
+  getEmailHost,
+} from "../../util/getAgencyCodeFromEmail";
+import { getManager, getRepository } from "typeorm";
 
 const validationSchema = yup.object().shape({
   email: emailValidator,
@@ -62,17 +66,21 @@ export const resolvers: ResolverMap = {
         };
       }
 
+      const emailHost = getEmailHost(email);
+
       //password is hashed in database in the beforeUpdate() function
-      const user = User.create({ email, password, name, role });
+      const user = User.create({ email, password, name, role, emailHost });
 
-      const agencyName = getAgencyCodeFromEmail(email); //FIX: write test for this
-      if (agencyName) {
-        const agency = await Agency.findOne({ where: { name: agencyName } });
+      //find associated agency
+      const agency = await getRepository(Agency)
+        .createQueryBuilder("agency")
+        .where("agency.emailHosts like :emailHost", {
+          emailHost: `%${emailHost}%`,
+        })
+        .getOne();
 
-        //If there is an agency found, add it to the user
-        if (agency) {
-          user.agency = agency;
-        }
+      if (agency) {
+        user.agency = agency;
       }
 
       //need to do user.save() to add to database.

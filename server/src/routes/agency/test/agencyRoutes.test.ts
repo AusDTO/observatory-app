@@ -1,23 +1,23 @@
-import { User } from "../../entity/User";
+import { User } from "../../../entity/User";
 
 import {
   testUser,
   agencyListOneItem,
   agencyListTwoItems,
   agencyListDuplicateItems,
-} from "../../util/testData";
-import { TestClient } from "../../util/testClient";
-import { ADMIN_EMAILS } from "../../util/constants";
-import { connection } from "../../util/createConnection";
+} from "../../../util/testData";
+import { TestClient } from "../../../util/testClient";
+import { ADMIN_EMAILS } from "../../../util/constants";
+import { connection } from "../../../util/createConnection";
 import { getConnection, getManager } from "typeorm";
-import { Agency } from "../../entity/Agency";
+import { Agency } from "../../../entity/Agency";
 import { v4 as uuid } from "uuid";
 
 const client = new TestClient();
 let adminEmail = ADMIN_EMAILS[0] as string;
 let accessToken: string;
 
-const { password, name, role } = testUser;
+const { password, name, role, emailHost } = testUser;
 beforeAll(async () => {
   await connection.create();
   const user2 = User.create({
@@ -25,6 +25,7 @@ beforeAll(async () => {
     password,
     role,
     name,
+    emailHost,
   });
   user2.verified = true;
   user2.isAdmin = true;
@@ -33,9 +34,12 @@ beforeAll(async () => {
   const loginResponse = await client.loginAdminUser(adminEmail, password);
   const data = await loginResponse.json();
   accessToken = data.accessToken;
+  await getConnection().getRepository(User).delete({});
 });
 
 afterAll(async () => {
+  await getConnection().getRepository(User).delete({});
+
   await connection.close();
 });
 
@@ -61,9 +65,11 @@ describe("Agency crud operations", () => {
     );
 
     const getAgenciesResponse = await client.getAgencies(accessToken);
-    const getAgenciesData = await getAgenciesResponse.json();
+    await getAgenciesResponse.json();
+    const a = await Agency.find();
 
-    expect(getAgenciesData).toHaveLength(1);
+    expect(a).toHaveLength(1);
+    expect(a[0].emailHosts).toHaveLength(2);
 
     const response2 = await client.addAgency(bodyData, accessToken);
     const data = await response2.json();
@@ -83,7 +89,10 @@ describe("Agency crud operations", () => {
     const getAgenciesResponse = await client.getAgencies(accessToken);
     const getAgenciesData = await getAgenciesResponse.json();
 
-    expect(getAgenciesData).toHaveLength(2);
+    const a = await Agency.find();
+
+    // expect(a[0].emailHosts).toHaveLength(3);
+    expect(a).toHaveLength(2);
   });
 
   test("Adding duplicated agencies removes duplicates", async () => {
@@ -98,7 +107,8 @@ describe("Agency crud operations", () => {
     );
 
     const getAgenciesResponse = await client.getAgencies(accessToken);
-    const getAgenciesData = await getAgenciesResponse.json();
+    await getAgenciesResponse.json();
+    const getAgenciesData = await Agency.find();
 
     expect(getAgenciesData).toHaveLength(2);
   });
@@ -112,17 +122,20 @@ describe("Agency crud operations", () => {
     expect(message).toContain("no unique items");
 
     const getAgenciesResponse = await client.getAgencies(accessToken);
-    const getAgenciesData = await getAgenciesResponse.json();
+    await getAgenciesResponse.json();
+    const getAgenciesData = await Agency.find();
 
     expect(getAgenciesData).toHaveLength(0);
   });
 
   test("Deleting an agency", async () => {
-    const bodyData = JSON.stringify([{ name: "Random agency" }]);
+    const bodyData = JSON.stringify([
+      { name: "Random agency", emailHosts: ["@bla.gov.au"] },
+    ]);
     await client.addAgency(bodyData, accessToken);
     const getAgencies = await client.getAgencies(accessToken);
-    const getAgenciesData = await getAgencies.json();
-
+    await getAgencies.json();
+    const getAgenciesData = await Agency.find();
     // const id = agency?.id as string;
 
     expect(getAgenciesData).toHaveLength(1);
@@ -134,6 +147,18 @@ describe("Agency crud operations", () => {
 
     expect(statusCode).toEqual(200);
     expect(message).toContain(name);
+  });
+
+  test("Adding agency with invalid email host", async () => {
+    const bodyData = JSON.stringify([
+      { name: "Random agency", emailHosts: ["@bla.com.au"] },
+    ]);
+
+    const res = await client.addAgency(bodyData, accessToken);
+
+    const resData = await res.json();
+
+    expect(resData.statusCode).toEqual(400);
   });
 
   test("Deleting agency that doesn't exist", async () => {

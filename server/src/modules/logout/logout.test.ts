@@ -3,16 +3,17 @@ import { connection } from "../../util/createConnection";
 import { testUser, testAgency } from "../../util/testData";
 import { TestClient } from "../../util/testClient";
 import { Agency } from "../../entity/Agency";
+import { getConnection } from "typeorm";
 
-const { email, password, name, role } = testUser;
+const { email, password, name, role, emailHost } = testUser;
 
 const client = new TestClient();
 
 beforeAll(async () => {
   await connection.create();
 
-  const { name } = testAgency;
-  const agency = Agency.create({ name });
+  const { name, emailHosts } = testAgency;
+  const agency = Agency.create({ name, emailHosts });
   await agency.save();
 
   const user = User.create({
@@ -20,6 +21,7 @@ beforeAll(async () => {
     password,
     name,
     role,
+    emailHost,
     verified: true,
   });
   user.agency = agency as Agency;
@@ -27,6 +29,8 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+  await getConnection().getRepository(User).delete({});
+  await getConnection().getRepository(Agency).delete({});
   await connection.close();
 });
 

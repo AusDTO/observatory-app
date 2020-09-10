@@ -2,8 +2,10 @@ import { User } from "../../entity/User";
 import { request } from "graphql-request";
 
 import { connection } from "../../util/createConnection";
-import { testUser } from "../../util/testData";
+import { testUser, testAgency } from "../../util/testData";
 import { TestClient } from "../../util/testClient";
+import { Agency } from "../../entity/Agency";
+import { getConnection } from "typeorm";
 
 const { email, password, name, role } = testUser;
 const client = new TestClient();
@@ -13,11 +15,13 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+  await getConnection().getRepository(User).delete({});
+  await getConnection().getRepository(Agency).delete({});
   await connection.close();
 });
 
 describe("Register a new user", () => {
-  test("Register new user", async () => {
+  test("Register new user valid data", async () => {
     const result = await client.register(email, password, name, role);
 
     const { register } = result;
@@ -115,5 +119,28 @@ describe("Confirmation email", () => {
     expect(errors).toHaveLength(2);
 
     expect(errors[0].path).toEqual("role");
+  });
+
+  test("Automatically adding agency to email domain works", async () => {
+    const testEmail = "abc@dta.gov.au";
+    const agency1 = Agency.create({
+      name: testAgency.name,
+      emailHosts: testAgency.emailHosts,
+    });
+    await agency1.save();
+    const agency1Id = agency1.id;
+
+    const result = await client.register(testEmail, password, name, role);
+
+    const { register } = result;
+    expect(register.__typename).toEqual("UserRegistered");
+
+    const getUser = await User.findOne({
+      where: { email: testEmail },
+      relations: ["agency"],
+    });
+
+    expect(getUser?.agency.id).toEqual(agency1Id);
+    expect(getUser?.agency.name).toEqual(agency1.name);
   });
 });

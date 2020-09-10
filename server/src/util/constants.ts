@@ -39,7 +39,7 @@ const notify_key = () => {
   if (ENVIRONMENT === "test") {
     return process.env.NOTIFY_TEST_KEY;
   }
-  if (ENVIRONMENT === "development") return process.env.NOTIFY_DEV_KEY;
+  if (ENVIRONMENT === "development") return process.env.NOTIFY_TEST_KEY;
   if (ENVIRONMENT === "production")
     return appEnv.services["user-provided"][0].credentials.NOTIFY_LIVE_KEY;
 };
