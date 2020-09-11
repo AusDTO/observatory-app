@@ -36,7 +36,7 @@ const invalidJSON = [
   },
 ];
 
-const { password, name, role } = testUser;
+const { password, name, role, emailHost } = testUser;
 beforeAll(async () => {
   await connection.create();
   const user1 = User.create({
@@ -44,6 +44,7 @@ beforeAll(async () => {
     password,
     role,
     name,
+    emailHost,
   });
   user1.verified = true;
   user1.isAdmin = true;
@@ -51,11 +52,15 @@ beforeAll(async () => {
 
   const agency2 = Agency.create({
     name: "agency2222222",
+    emailHosts: testAgency.emailHosts,
   });
   await agency2.save();
   agency2ID = agency2.id;
 
-  const agency1 = Agency.create({ name: "agency1111" });
+  const agency1 = Agency.create({
+    name: "agency1111",
+    emailHosts: testAgency.emailHosts,
+  });
   const agencyAdd = await agency1.save();
 
   agencyID = agencyAdd.id;

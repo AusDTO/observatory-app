@@ -7,7 +7,9 @@ export const resolvers: ResolverMap = {
   Query: {
     getUserProperties: async (_, __, { session }) => {
       //use session data
-      const { agencyId, userId } = session;
+      const { userId } = session;
+
+      let agencyId = session.agencyId;
 
       const user = await User.findOne({
         where: { id: userId },
@@ -18,11 +20,18 @@ export const resolvers: ResolverMap = {
         return basicApiErrorMessage("Not authenticated", "user");
       }
 
-      if (!agencyId) {
+      if (!agencyId && !user.agency) {
         return basicApiErrorMessage(
           "Your agency has not been added to ObservatoryApp",
           "Agency"
         );
+      }
+
+      //This case is for when agency is added while user is logged in and makes this request
+      if (!agencyId && user.agency) {
+        console.log("ASSIGNING HERE");
+        agencyId = user.agency.id;
+        session.agencyId = user.agency.id;
       }
 
       const properties = await Property.find({

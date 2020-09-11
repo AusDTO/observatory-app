@@ -14,17 +14,18 @@ let adminUserID: string;
 const redis_client = new Redis();
 const mockServer = mockttp.getLocal();
 
-const { email, password, name, role } = testUser;
+const { email, password, name, role, emailHost } = testUser;
 beforeAll(async () => {
   await mockServer.start(3000);
   await connection.create();
 
-  const user = User.create({ email, password, name, role });
+  const user = User.create({ email, password, name, role, emailHost });
   const user2 = User.create({
     email: adminEmail,
     password,
     role,
     name,
+    emailHost,
   });
   await user2.save();
   await user.save();

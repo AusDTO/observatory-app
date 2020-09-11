@@ -25,6 +25,18 @@ const agencyFieldSchema = yup.object().shape({
             });
       },
     }),
+  emailHosts: yup
+    .array()
+    .of(
+      yup
+        .string()
+        .required()
+        .matches(
+          /^@.*gov.au$/,
+          "Only government emails are allowed to to be added as hosts. Make sure you write in the form of @example.gov.au."
+        )
+    )
+    .required(),
 });
 
 const agencyArraySchema = yup.array().of(agencyFieldSchema);
@@ -61,7 +73,11 @@ agencyRouter.post(
 
     // let errors;
     agencies.forEach(async (agency) => {
-      const agencyToInsert = Agency.create({ name: agency.name });
+      const { name, emailHosts } = agency;
+      const agencyToInsert = Agency.create({
+        name,
+        emailHosts,
+      });
       await agencyToInsert.save();
     });
 
