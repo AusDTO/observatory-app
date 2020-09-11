@@ -105,8 +105,8 @@ agencyRouter.delete(
     const agencyExists = await Agency.findOne({ where: { id } });
 
     if (!agencyExists) {
-      return res.status(400).json({
-        statusCode: 400,
+      return res.status(404).json({
+        statusCode: 404,
         message: "Agency with that ID doesn't exist",
       });
     }

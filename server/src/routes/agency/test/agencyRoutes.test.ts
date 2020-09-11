@@ -141,7 +141,7 @@ describe("Agency crud operations", () => {
       const deleteResponse = await client.deleteAgency(id, accessToken);
       const { statusCode, message } = await deleteResponse.json();
 
-      expect(statusCode).toEqual(400);
+      expect(statusCode).toEqual(404);
 
       expect(message).toContain("doesn't exist");
     });
