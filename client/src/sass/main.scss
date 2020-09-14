@@ -209,3 +209,42 @@ h1.au-header__heading {
     @include AU-space(margin-top, 0.5unit);
   }
 }
+
+.blue-green-gradient {
+  background: linear-gradient(
+    89.2deg,
+    #c1f8ff 0%,
+    #c1f8ff 0.01%,
+    rgba(45, 255, 104, 0.24) 100%
+  );
+  padding: 16px 0 !important;
+  padding: 1rem 0 !important;
+}
+
+.bg-alt-grey {
+  background: #fcfcfc;
+}
+
+.au-body.au-body--alt {
+  background: #fcfcfc !important;
+}
+
+.font-weight-500 {
+  font-weight: 500 !important;
+}
+
+.question-image {
+  position: absolute;
+  top: -30px;
+  max-width: 230px !important;
+}
+
+.border-right-0 {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.border-left-0 {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}

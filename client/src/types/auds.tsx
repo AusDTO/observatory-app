@@ -21,6 +21,7 @@ import AUsearchbox from "../auds/react/searchbox";
 import { AUcallout } from "../auds/react/callout";
 import AUpageAlert from "../auds/react/page-alerts";
 import AUctaLink from "../auds/react/cta-link";
+import AUdirectionLink from "../auds/react/direction-links";
 
 export const AuFormGroup: any = AUformGroup;
 export const AuErrorText: any = AUerrorText;
@@ -44,6 +45,7 @@ export const AuSearchBox: any = AUsearchbox;
 export const AuCallout: any = AUcallout;
 export const AuPageAlert: any = AUpageAlert;
 export const AuCtaLink: any = AUctaLink;
+export const AuDirectionLink: any = AUdirectionLink;
 
 interface LabelProps {
   text?: string;

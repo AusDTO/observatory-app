@@ -14,10 +14,12 @@ import {
 import { GET_PROPERTY_SCHEMA } from "./service_landing.schema";
 import { ServiceLandingPage } from "../../views/serviceLandingPage/serviceLanding";
 import { ApiError } from "../../types/types";
+import { NotFound } from "../../views/404-logged-in/404";
+import { formatApiError } from "../../components/util/formatError";
 
 interface Props extends RouteComponentProps<{ propertyId: string }> {} // key
 
-export const ServiceLandingController: React.FC<Props> = ({
+export const ServiceLandingController: (arg0: Props) => any = ({
   history,
   match,
 }) => {
@@ -29,7 +31,7 @@ export const ServiceLandingController: React.FC<Props> = ({
   );
 
   if (loading) {
-    return <ServiceLandingPage />;
+    return null; //FIX
   }
 
   let apiErrorMessage: string | undefined = undefined;
@@ -44,25 +46,24 @@ export const ServiceLandingController: React.FC<Props> = ({
       case "Error":
         const { message } = apiResult as GetProperty_getProperty_Error;
         apiErrorMessage = message;
-        break;
+        return (
+          <NotFound title="There was an error">
+            <p>{message}</p>
+          </NotFound>
+        );
 
       case "FieldErrors":
         const { errors } = apiResult as GetProperty_getProperty_FieldErrors;
         apiErrors = errors;
-        //FIX THIS ERROR
-        break;
+        return (
+          <NotFound title="There was an error">
+            <p>{formatApiError(errors)}</p>
+          </NotFound>
+        );
 
       case "Property":
         property = apiResult as GetProperty_getProperty_Property;
-        break;
+        return <ServiceLandingPage property={property} />;
     }
   }
-
-  return (
-    <ServiceLandingPage
-      apiErrors={apiErrors}
-      property={property}
-      apiErrorMessage={apiErrorMessage}
-    />
-  );
 };
