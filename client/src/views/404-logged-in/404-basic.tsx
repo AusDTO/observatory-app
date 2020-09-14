@@ -9,7 +9,7 @@ interface Props {
   title: string;
 }
 
-export const NotFound: React.FC<Props> = ({ children, title }) => {
+export const NotFoundBasic: React.FC<Props> = ({ children, title }) => {
   return (
     <AdminLayout>
       <>
@@ -20,20 +20,6 @@ export const NotFound: React.FC<Props> = ({ children, title }) => {
           <PageAlert type={"warning"} className="max-42">
             <>{children}</>
           </PageAlert>
-
-          <h2>Did you want to?</h2>
-          <AuLinkList
-            items={[
-              {
-                link: "/",
-                text: "Services landing page",
-              },
-              {
-                link: "/",
-                text: "Make a query",
-              },
-            ]}
-          ></AuLinkList>
         </div>
       </>
     </AdminLayout>

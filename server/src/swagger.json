@@ -27,15 +27,11 @@
     },
     {
       "name": "Agency",
-      "description": "Access to Petstore orders"
+      "description": "Manage agencies in the ObservatoryApp"
     },
     {
       "name": "Property",
-      "description": "Operations about user",
-      "externalDocs": {
-        "description": "Find out more about our store",
-        "url": "http://swagger.io"
-      }
+      "description": "Manage properties in the ObservatoryApp"
     }
   ],
   "paths": {

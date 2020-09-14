@@ -100,114 +100,107 @@ export const Register: React.FC<Props> = ({ history }) => {
     <DefaultLayout>
       <>
         <SEO title="Register" />
-        <div className="container-fluid">
-          <div className="au-body">
-            <div>
-              <h2>Create your observatory reports account</h2>
-              <p>
-                This tool is currently in its Alpha phase, meaning access is
-                limited to agencies with Observatory subscriptions only
-              </p>
-              <p>
-                To connect your Google Analytics account to the Observatory
-                please contact us
-              </p>
-            </div>
-            <Formik
-              initialValues={InitialValues}
-              validationSchema={validationSchema}
-              onSubmit={(data, errors) => {
-                handleRegisterUser(data);
-              }}
-            >
-              {({ values, errors, touched, handleSubmit, submitForm }) => (
-                <Form
-                  noValidate
-                  className="mb-2"
-                  onSubmit={(e) => {
-                    handleSubmit(e);
-                    if (Object.keys(errors).length < 1) return;
-
-                    setState({
-                      ...state,
-                      isErrors: true,
-                      apiError: false,
-                      apiErrorList: [],
-                    });
-                    document.title = "Errors | Sign up form";
-                    const timeout = setTimeout(() => {
-                      const errorSum = document.getElementById(
-                        "error-heading"
-                      ) as any;
-                      if (errorSum && errorSum.focus()) {
-                        errorSum.scrollIntoView({
-                          behavior: "smooth",
-                          block: "start",
-                        });
-                      }
-                      clearTimeout(timeout);
-                    }, 500);
-                  }}
-                >
-                  {state.apiError && state.apiErrorList.length > 0 && (
-                    <PageAlert type="error" className="max-42">
-                      <>
-                        <h3 id="api-error-heading">There was an error</h3>
-                        <ul>{formatApiError(state.apiErrorList)}</ul>
-                      </>
-                    </PageAlert>
-                  )}
-                  {state.isErrors && Object.keys(errors).length > 0 ? (
-                    <PageAlert type="error" className="max-42">
-                      <>
-                        <h3 tabIndex={0} id="error-heading">
-                          There has been an error
-                        </h3>
-                        <ul>
-                          {Object.keys(errors).map((error, i: number) => {
-                            const errorCast = error as RegisterErrorName;
-                            return (
-                              <li key={i}>
-                                <a href={`#${error}`}>{errors[errorCast]}</a>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </>
-                    </PageAlert>
-                  ) : (
-                    ""
-                  )}
-                  <TextField id="name" label="Your name" width="lg" required />
-                  <TextField
-                    id="email"
-                    label="Work email"
-                    width="lg"
-                    required
-                  />
-                  <TextField
-                    id="password"
-                    type="password"
-                    hint="Minimum 8 characters, including one uppercase, one lowercase, one number and one special case character"
-                    label="Create a password"
-                    width="lg"
-                    required
-                  />
-                  <TextField
-                    id="role"
-                    label="What is your role?"
-                    width="lg"
-                    required
-                  />
-                  <AuFormGroup>
-                    <Aubtn type="submit" onClick={submitForm} disabled={saving}>
-                      {saving ? "Submitting" : "Subscribe"}
-                    </Aubtn>
-                  </AuFormGroup>
-                </Form>
-              )}
-            </Formik>
+        <div className="container-fluid au-body">
+          <div>
+            <h2>Create your observatory reports account</h2>
+            <p>
+              This tool is currently in its Alpha phase, meaning access is
+              limited to agencies with Observatory subscriptions only
+            </p>
+            <p>
+              To connect your Google Analytics account to the Observatory please
+              contact us
+            </p>
           </div>
+          <Formik
+            initialValues={InitialValues}
+            validationSchema={validationSchema}
+            onSubmit={(data, errors) => {
+              handleRegisterUser(data);
+            }}
+          >
+            {({ values, errors, touched, handleSubmit, submitForm }) => (
+              <Form
+                noValidate
+                className="mb-2"
+                onSubmit={(e) => {
+                  handleSubmit(e);
+                  if (Object.keys(errors).length < 1) return;
+
+                  setState({
+                    ...state,
+                    isErrors: true,
+                    apiError: false,
+                    apiErrorList: [],
+                  });
+                  document.title = "Errors | Sign up form";
+                  const timeout = setTimeout(() => {
+                    const errorSum = document.getElementById(
+                      "error-heading"
+                    ) as any;
+                    if (errorSum && errorSum.focus()) {
+                      errorSum.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }
+                    clearTimeout(timeout);
+                  }, 500);
+                }}
+              >
+                {state.apiError && state.apiErrorList.length > 0 && (
+                  <PageAlert type="error" className="max-42">
+                    <>
+                      <h3 id="api-error-heading">There was an error</h3>
+                      <ul>{formatApiError(state.apiErrorList)}</ul>
+                    </>
+                  </PageAlert>
+                )}
+                {state.isErrors && Object.keys(errors).length > 0 ? (
+                  <PageAlert type="error" className="max-42">
+                    <>
+                      <h3 tabIndex={0} id="error-heading">
+                        There has been an error
+                      </h3>
+                      <ul>
+                        {Object.keys(errors).map((error, i: number) => {
+                          const errorCast = error as RegisterErrorName;
+                          return (
+                            <li key={i}>
+                              <a href={`#${error}`}>{errors[errorCast]}</a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </>
+                  </PageAlert>
+                ) : (
+                  ""
+                )}
+                <TextField id="name" label="Your name" width="lg" required />
+                <TextField id="email" label="Work email" width="lg" required />
+                <TextField
+                  id="password"
+                  type="password"
+                  hint="Minimum 8 characters, including one uppercase, one lowercase, one number and one special case character"
+                  label="Create a password"
+                  width="lg"
+                  required
+                />
+                <TextField
+                  id="role"
+                  label="What is your role?"
+                  width="lg"
+                  required
+                />
+                <AuFormGroup>
+                  <Aubtn type="submit" onClick={submitForm} disabled={saving}>
+                    {saving ? "Submitting" : "Subscribe"}
+                  </Aubtn>
+                </AuFormGroup>
+              </Form>
+            )}
+          </Formik>
         </div>
       </>
     </DefaultLayout>
