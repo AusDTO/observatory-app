@@ -1,0 +1,403 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ObservatoryApp admin api",
+    "description": "This the docs for the Observatory App api",
+    "contact": {
+      "email": "raj.ghuman@dta.gov.au"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/AusDTO/observatory-service/blob/master/LICENSE"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about ObservatoryApp",
+    "url": "https://github.com/AusDTO/observatory-service"
+  },
+  "tags": [
+    {
+      "name": "Admin",
+      "description": "Logging in and getting access to API",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "Agency",
+      "description": "Manage agencies in the ObservatoryApp"
+    },
+    {
+      "name": "Property",
+      "description": "Manage properties in the ObservatoryApp"
+    }
+  ],
+  "paths": {
+    "/api/admin/login": {
+      "post": {
+        "tags": ["Admin"],
+        "summary": "Login in as an admin user and acquire access token",
+        "operationId": "loginAdminUser",
+        "requestBody": {
+          "description": "Logging in admin user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully logged in",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AccessToken" }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid body data passed in or body data not in correct format"
+          },
+          "401": {
+            "description": "User or password does not exist"
+          },
+          "403": {
+            "description": "User has not been verified OR not an admin"
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/api/agency/add": {
+      "post": {
+        "tags": ["Agency"],
+        "summary": "Create an agency",
+        "operationId": "createAgency",
+        "requestBody": {
+          "description": "Create agency in ObservatoryApp",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Agency"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OKAY.Added agencies"
+          },
+          "400": {
+            "description": "Invalid data in body"
+          },
+          "401": {
+            "description": "No token or invalid credentials"
+          },
+          "403": {
+            "description": "JWT token expired"
+          }
+        }
+      }
+    },
+    "/api/agency/view": {
+      "get": {
+        "tags": ["Agency"],
+        "summary": "View all agencies",
+        "operationId": "viewAgencies",
+        "responses": {
+          "200": {
+            "description": "Showing all agencies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Agency"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No token or invalid credentials"
+          },
+          "403": {
+            "description": "JWT token expired"
+          }
+        }
+      }
+    },
+    "/api/agency/delete/{id}": {
+      "delete": {
+        "tags": ["Agency"],
+        "summary": "Delete an agency",
+        "operationId": "deleteAgency",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id oft he agency that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OKAY, deleted agency"
+          },
+          "404": {
+            "description": "Agency doesn't exist"
+          },
+          "401": {
+            "description": "No token or invalid credentials"
+          },
+          "403": {
+            "description": "JWT token expired"
+          }
+        }
+      }
+    },
+    "/api/property/add": {
+      "post": {
+        "tags": ["Property"],
+        "summary": "Create an property",
+        "operationId": "createProperty",
+        "requestBody": {
+          "description": "Create GA property in ObservatoryApp",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Property"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OKAY.Added properties"
+          },
+          "400": {
+            "description": "Invalid data in body"
+          },
+          "401": {
+            "description": "No token or invalid credentials"
+          },
+          "403": {
+            "description": "JWT token expired"
+          }
+        }
+      }
+    },
+    "/api/property/view": {
+      "get": {
+        "tags": ["Property"],
+        "summary": "View all properties.",
+        "operationId": "viewProperties",
+        "responses": {
+          "200": {
+            "description": "Showing all Properties. Will return empty array if no properties exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Property"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No token or invalid credentials"
+          },
+          "403": {
+            "description": "JWT token expired"
+          }
+        }
+      }
+    },
+    "/api/property/edit/{ua_id}": {
+      "put": {
+        "tags": ["Property"],
+        "summary": "Edit a property",
+        "operationId": "editProperty",
+        "parameters": [
+          {
+            "name": "ua_id",
+            "in": "path",
+            "description": "The id of the property to be edited",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Property to be edited",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PropertyEdit"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OKAY. Edited properties"
+          },
+          "400": {
+            "description": "Invalid data in body"
+          },
+          "401": {
+            "description": "No token or invalid credentials"
+          },
+          "403": {
+            "description": "JWT token expired"
+          },
+          "404": {
+            "description": "Property with that UAID doesn't exist"
+          }
+        }
+      }
+    },
+    "/api/property/delete/{ua_id}": {
+      "delete": {
+        "tags": ["Property"],
+        "summary": "Delete a property",
+        "operationId": "deleteProperty",
+        "parameters": [
+          {
+            "name": "ua_id",
+            "in": "path",
+            "description": "The id of he property that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OKAY, deleted agency"
+          },
+          "404": {
+            "description": "Agency doesn't exist"
+          },
+          "401": {
+            "description": "No token or invalid credentials"
+          },
+          "403": {
+            "description": "JWT token expired"
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "abc@agency.gov.au"
+          },
+          "password": {
+            "type": "string",
+            "example": "*&Passw0rd&*77"
+          }
+        }
+      },
+      "Agency": {
+        "type": "object",
+        "required": ["name", "emailHosts"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Digital Transformation Agency"
+          },
+          "emailHosts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["@dta.gov.au", "@digital.gov.au"]
+          }
+        }
+      },
+      "Property": {
+        "type": "object",
+        "required": ["service_name", "domain", "agencyId", "ua_id"],
+        "properties": {
+          "service_name": {
+            "type": "string",
+            "example": "Design System"
+          },
+          "domain": {
+            "type": "string",
+            "example": "https://designsystem.gov.au"
+          },
+          "ua_id": {
+            "type": "string",
+            "example": "UA-ID1231231"
+          },
+          "agencyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2e350601-81e9-409f-866c-92c33ae2445d"
+          }
+        }
+      },
+      "PropertyEdit": {
+        "type": "object",
+        "required": [],
+        "properties": {
+          "service_name": {
+            "type": "string",
+            "example": "Design System"
+          },
+          "domain": {
+            "type": "string",
+            "example": "https://designsystem.gov.au"
+          },
+          "ua_id": {
+            "type": "string",
+            "example": "UA-ID1231231"
+          }
+        }
+      },
+      "AccessToken": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "string",
+            "example": "200"
+          },
+          "accessToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          }
+        }
+      }
+    }
+  }
+}

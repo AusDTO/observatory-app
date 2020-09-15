@@ -17,10 +17,13 @@ import {
   ENVIRONMENT,
   CORS_OPTIONS,
   sessionSecret,
+  swaggerOptions,
 } from "./util/constants";
 var cfenv = require("cfenv");
 import * as bodyParser from "body-parser";
 import loginAdminRouter from "./routes/adminLogin/loginAdmin";
+import * as swaggerUi from "swagger-ui-express";
+const swaggerDocument = require("./swagger.json");
 
 import agencyRouter from "./routes/agency/agencyRoutes";
 import { verifyToken } from "./util/verifyToken/verifyToken";
@@ -105,6 +108,12 @@ export const startServer = async () => {
   });
 
   await connection.create();
+
+  app.use(
+    "/api/docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument, swaggerOptions)
+  );
 
   app.get("/api/confirm/:id", (req, res, next) =>
     confirmEmail(req, res, next, redis_client)

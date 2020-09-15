@@ -166,12 +166,12 @@ propertyRouter.put(
     );
     res.status(200).json({
       statusCode: 200,
-      message: `Property updated: ${{
+      message: `Property updated: ${JSON.stringify({
         agency,
         ua_id,
         domain,
         service_name,
-      }}`,
+      })}`,
     });
   }
 );
