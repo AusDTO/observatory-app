@@ -248,3 +248,15 @@ h1.au-header__heading {
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
 }
+
+.metric-tags {
+  .au-tag {
+    border-color: gray !important;
+    color: gray !important;
+  }
+  li.active a {
+    color: #046b99 !important;
+    border-color: #046b99 !important;
+    border-width: 2px !important;
+  }
+}

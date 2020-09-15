@@ -243,6 +243,10 @@ $AU-grid-12-gutter-width: 24px !default; //gutter space
   margin-top: 2rem !important;
   margin-top: 32px !important;
 }
+.mt-3 {
+  margin-top: 3rem !important;
+  margin-top: 48px !important;
+}
 
 .mt-half {
   @include AU-space(margin-top, 0.5unit);
@@ -300,4 +304,12 @@ $AU-grid-12-gutter-width: 24px !default; //gutter space
   @include AU-media(md) {
     display: block !important;
   }
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-jc-end {
+  justify-content: flex-end;
 }

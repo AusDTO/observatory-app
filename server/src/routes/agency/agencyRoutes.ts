@@ -36,7 +36,27 @@ const agencyFieldSchema = yup.object().shape({
           "Only government emails are allowed to to be added as hosts. Make sure you write in the form of @example.gov.au."
         )
     )
-    .required(),
+    .required()
+    .test({
+      name: "Email host unique",
+      message: "Email host you entered have already been assigned to an agency",
+      test: async function (this, value) {
+        //FIX:URGENT List of email hosts should have it's own table or field, and be validated against that.
+        const agencies = await Agency.find();
+        const emailHostsToPush = value as Array<string>;
+
+        const emailHosts: Array<string> = [];
+
+        agencies.forEach(async (agency) => {
+          emailHosts.push(...agency.emailHosts);
+        });
+
+        const intersection = _.intersection(emailHostsToPush, emailHosts);
+        if (intersection.length > 0) {
+          return false;
+        } else return true;
+      },
+    }),
 });
 
 const agencyArraySchema = yup.array().of(agencyFieldSchema);

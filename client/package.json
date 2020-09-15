@@ -23,6 +23,7 @@
     "@gov.au/searchbox": "latest",
     "@gov.au/select": "latest",
     "@gov.au/skip-link": "latest",
+    "@gov.au/tags": "^4.0.0",
     "@gov.au/text-inputs": "latest",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

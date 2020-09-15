@@ -41,18 +41,22 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
         </ServiceBanner>
         <div className="au-body au-body--alt">
           <div className="container-fluid">
-            <div>
+            <div role="tablist">
               <Aubtn
                 className="border-right-0"
-                as={questionView ? "" : "secondary"}
+                as={questionView ? "primary" : "secondary"}
                 onClick={handleViewChange}
+                role="tab"
+                aria-selected={questionView}
               >
                 Questions
               </Aubtn>
               <Aubtn
-                as={questionView ? "secondary" : ""}
+                as={questionView ? "secondary" : "primary"}
                 className="border-left-0"
                 onClick={handleViewChange}
+                role="tab"
+                aria-selected={!questionView}
               >
                 Metrics
               </Aubtn>
