@@ -59,7 +59,7 @@ beforeAll(async () => {
 
   const agency1 = Agency.create({
     name: "agency1111",
-    emailHosts: testAgency.emailHosts,
+    emailHosts: ["@ato.gov.au"],
   });
   const agencyAdd = await agency1.save();
 
