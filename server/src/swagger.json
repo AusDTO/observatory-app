@@ -73,7 +73,7 @@
         "x-codegen-request-body-name": "body"
       }
     },
-    "/api/agency/add": {
+    "/api/agencies": {
       "post": {
         "tags": ["Agency"],
         "summary": "Create an agency",
@@ -105,9 +105,8 @@
             "description": "JWT token expired"
           }
         }
-      }
-    },
-    "/api/agency/agencies": {
+      },
+
       "get": {
         "tags": ["Agency"],
         "summary": "View all agencies",
@@ -135,7 +134,7 @@
         }
       }
     },
-    "/api/agency/delete/{id}": {
+    "/api/agencies/{id}": {
       "delete": {
         "tags": ["Agency"],
         "summary": "Delete an agency",
@@ -167,7 +166,7 @@
         }
       }
     },
-    "/api/property/add": {
+    "/api/properties": {
       "post": {
         "tags": ["Property"],
         "summary": "Create an property",
@@ -199,9 +198,7 @@
             "description": "JWT token expired"
           }
         }
-      }
-    },
-    "/api/property/view": {
+      },
       "get": {
         "tags": ["Property"],
         "summary": "View all properties.",
@@ -229,7 +226,7 @@
         }
       }
     },
-    "/api/property/edit/{ua_id}": {
+    "/api/properties/{ua_id}": {
       "put": {
         "tags": ["Property"],
         "summary": "Edit a property",
@@ -275,9 +272,7 @@
             "description": "Property with that UAID doesn't exist"
           }
         }
-      }
-    },
-    "/api/property/delete/{ua_id}": {
+      },
       "delete": {
         "tags": ["Property"],
         "summary": "Delete a property",
