@@ -107,7 +107,7 @@
         }
       }
     },
-    "/api/agency/view": {
+    "/api/agency/agencies": {
       "get": {
         "tags": ["Agency"],
         "summary": "View all agencies",
