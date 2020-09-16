@@ -10,28 +10,33 @@ import {
 import { TestClient } from "../../util/testClient";
 import { Agency } from "../../entity/Agency";
 import { Property } from "../../entity/Property";
+import { getConnection } from "typeorm";
 
-const { email, password, name, role } = testUser;
+const { email, password, name, role, emailHost } = testUser;
 
 const client = new TestClient();
 const propertiesTestData = testProperies;
 
 beforeAll(async () => {
   await connection.create();
+
   //FIX. REFACTOR, shouldn't have to include this code in every test file,
-  const { emailHost } = testAgency;
-  const agency = Agency.create({ emailHost, name: testAgency.name });
+  const agency = Agency.create({
+    name: testAgency.name,
+    emailHosts: testAgency.emailHosts,
+  });
   await agency.save();
 
-  const user = User.create({
+  const user1 = User.create({
     email,
     password,
     name,
     role,
+    emailHost,
     verified: true,
   });
 
-  user.agency = agency as Agency;
+  user1.agency = agency as Agency;
 
   propertiesTestData.forEach(async (property) => {
     const propertyToInsert = Property.create({ ...property });
@@ -39,12 +44,12 @@ beforeAll(async () => {
     await Property.save(propertyToInsert);
   });
 
-  await user.save();
+  await user1.save();
 
   const agency2Data = testAgency2;
   const agency2 = Agency.create({
-    emailHost: agency2Data.emailHost,
     name: agency2Data.name,
+    emailHosts: agency2Data.emailHosts,
   });
   await agency2.save();
 
@@ -53,6 +58,7 @@ beforeAll(async () => {
     password,
     name,
     role,
+    emailHost: "@bla.gov.au",
     verified: true,
   });
 
@@ -62,6 +68,9 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+  await getConnection().getRepository(User).delete({});
+  await getConnection().getRepository(Property).delete({});
+  await getConnection().getRepository(Agency).delete({});
   await connection.close();
 });
 

@@ -35,7 +35,7 @@ export const resolvers: ResolverMap = {
 
       const { email, password } = args;
       const user = await User.findOne({
-        where: { email },
+        where: { email: email.toLowerCase() },
         relations: ["agency"],
       });
 

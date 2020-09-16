@@ -1,31 +1,29 @@
 import { User } from "../../entity/User";
 import { connection } from "../../util/createConnection";
-import { testUser, testAgency } from "../../util/testData";
+import { testUser } from "../../util/testData";
 import { TestClient } from "../../util/testClient";
-import { Agency } from "../../entity/Agency";
+import { getConnection } from "typeorm";
 
-const { email, password, name, role } = testUser;
+const { email, password, name, role, emailHost } = testUser;
 
 const client = new TestClient();
 
 beforeAll(async () => {
   await connection.create();
 
-  const { emailHost, name } = testAgency;
-  const agency = Agency.create({ emailHost, name });
-  await agency.save();
-
   const user = User.create({
     email,
     password,
     name,
     role,
+    emailHost,
   });
-  user.agency = agency as Agency;
   await user.save();
 });
 
 afterAll(async () => {
+  await getConnection().getRepository(User).delete({});
+
   await connection.close();
 });
 

@@ -33,18 +33,29 @@ export class User extends BaseEntity {
   @Column("varchar", { length: 255 })
   role: string;
 
+  @Column("varchar", { length: 255 })
+  emailHost: string;
+
   // Many users belong to one agency
-  @ManyToOne(() => Agency, (agency: Agency) => agency.users)
+  @ManyToOne(() => Agency, (agency: Agency) => agency.users, { nullable: true })
   @JoinColumn({ name: "agency_id" })
   agency: Agency;
 
   @CreateDateColumn()
   createdDate: Date;
 
+  @Column("boolean", { default: false })
+  isAdmin: Boolean;
+
   // type orm decorator. This function calls right before this object is inserted into database
   @BeforeInsert()
   async hashPassword() {
     this.password = bcrypt.hashSync(this.password, 10);
+  }
+
+  @BeforeInsert()
+  async lowercaseEmail() {
+    this.email = this.email.toLowerCase();
   }
 
   @BeforeInsert()

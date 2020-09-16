@@ -25,5 +25,4 @@ type Property {
 type Agency {
   id: String!
   name: String!
-  emailHost: String!
 }

@@ -15,3 +15,7 @@ export const getAgencyCodeFromEmail = (email: string) => {
     return agencyCode;
   } else return false;
 };
+
+export const getEmailHost = (email: string) => {
+  return email.split(/(?=@)/g)[1];
+};

@@ -1,5 +1,6 @@
 import request from "graphql-request";
 import * as rp from "request-promise";
+import node_fetch from "node-fetch";
 
 //Test client class for graphql requests
 export class TestClient {
@@ -16,6 +17,88 @@ export class TestClient {
       jar: rp.jar(),
       withCredentials: true,
     };
+  }
+
+  async editProperty(token: string, propertyId: string, bodyData: any) {
+    return node_fetch(`http://localhost:4000/api/properties/${propertyId}`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: bodyData,
+    });
+  }
+
+  async viewProperties(token: string) {
+    return node_fetch("http://localhost:4000/api/properties", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  async addProperty(token: string, bodyData: any) {
+    return node_fetch("http://localhost:4000/api/properties", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: bodyData,
+    });
+  }
+
+  async deleteAgency(id: string, token: string) {
+    return node_fetch(`http://localhost:4000/api/agencies/${id}`, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  async addAgency(bodyData: any, token: string) {
+    return node_fetch("http://localhost:4000/api/agencies", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: bodyData,
+    });
+  }
+
+  async getAgenciesByName(token: string, name: string) {
+    return node_fetch(`http://localhost:4000/api/agencies/${name}`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  async getAgencies(token: string) {
+    return node_fetch("http://localhost:4000/api/agencies", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  async loginAdminUser(email: string, password: string) {
+    const body = { email, password };
+    return node_fetch("http://localhost:4000/api/admin/login", {
+      method: "post",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   async getProperty(propertyId: string) {

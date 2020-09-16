@@ -1,7 +1,6 @@
 import {
   Column,
   BaseEntity,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
   Entity,
   ManyToOne,
@@ -41,11 +40,11 @@ export class Property extends BaseEntity {
 }
 // insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-12345','www.designsystem.gov.au','Design system','227da47e-cc53-472a-9e67-8fee3ec2c157');
 
-// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-543221','www.observatory.service.gov.au','Observatory website','227da47e-cc53-472a-9e67-8fee3ec2c157');
+// insert into property ("id","ua_id","domain", "service_name","agency_id") values('5a1431df-c573-4a2e-a1d9-2ffe9930ccaf','UAID-543221','www.observatory.service.gov.au','Observatory website','53e8f767-ede3-4f88-b3a2-d97eadc9178a');
 
-// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-1234567','www.dta.gov.au','Dta webiste','227da47e-cc53-472a-9e67-8fee3ec2c157');
+// insert into property ("id","ua_id","domain", "service_name","agency_id") values('e6f88668-743c-4fe4-bf56-0c94641d0634','UAID-1234567','www.dta.gov.au','Dta webiste','53e8f767-ede3-4f88-b3a2-d97eadc9178a');
 
-// insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-12345342','www.data.gov.au','Data gov au','227da47e-cc53-472a-9e67-8fee3ec2c157');
+// insert into property ("id","ua_id","domain", "service_name","agency_id") values('9dd8b05d-92f9-4627-a7e1-be9cb6cf3072','UAID-12345342','www.data.gov.au','Data gov au','553ad9f9-eef8-4d84-af02-7c59655bda09');
 
 // insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-123453242','www.ato.gov.au','ATO website','9dd8b05d-92f9-4627-a7e1-be9cb6cf3072');
 

@@ -5,21 +5,32 @@ import { CreateConfirmationLink } from "./createConfirmationLink";
 import node_fetch from "node-fetch";
 
 import { testUser } from "../../util/testData";
-import { REDIS_CONFIRMATION_EMAIL_PREFIX } from "../constants";
+import { REDIS_CONFIRMATION_EMAIL_PREFIX, ADMIN_EMAILS } from "../constants";
 import * as mockttp from "mockttp";
 
 let userID: string;
+let adminEmail = ADMIN_EMAILS[1].toUpperCase() as string;
+let adminUserID: string;
 const redis_client = new Redis();
 const mockServer = mockttp.getLocal();
 
-const { email, password, name, role } = testUser;
+const { email, password, name, role, emailHost } = testUser;
 beforeAll(async () => {
   await mockServer.start(3000);
   await connection.create();
 
-  const user = User.create({ email, password, name, role });
+  const user = User.create({ email, password, name, role, emailHost });
+  const user2 = User.create({
+    email: adminEmail,
+    password,
+    role,
+    name,
+    emailHost,
+  });
+  await user2.save();
   await user.save();
   userID = user.id;
+  adminUserID = user2.id;
 });
 
 afterAll(async () => {
@@ -48,6 +59,9 @@ describe("Confirmation link", () => {
 
     expect(responseUrl).toEqual("http://localhost:3000/welcome");
 
+    const getAdminUser = await User.findOne({ where: { id: userID } });
+
+    expect(getAdminUser?.isAdmin).toEqual(false);
     //check if redis_key deleted
     const checkDeletedId = await redis_client.get(
       `${REDIS_CONFIRMATION_EMAIL_PREFIX}${redis_key}`
@@ -61,5 +75,19 @@ describe("Confirmation link", () => {
     const response = await node_fetch(invalidUrl);
     const responseUrl = response.url;
     expect(responseUrl).toEqual("http://localhost:3000/invalid-confirmation");
+  });
+
+  it("makes user admin if contained in array", async () => {
+    const confirmUrl = await CreateConfirmationLink(
+      process.env.TEST_HOST_2 as string,
+      adminUserID,
+      redis_client
+    );
+
+    const response = await node_fetch(confirmUrl);
+
+    const getAdminUser = await User.findOne({ where: { id: adminUserID } });
+    expect(getAdminUser?.isAdmin).toEqual(true);
+    expect(getAdminUser?.verified).toEqual(true);
   });
 });

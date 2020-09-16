@@ -49,7 +49,7 @@ const developmentDatabase = {
   password: "",
   database: "observatory",
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: ["src/entity/**/*"],
   migrations: ["src/migration/**/*"],
   subscribers: ["src/subscriber/**/*"],
