@@ -72,8 +72,21 @@ export class TestClient {
     });
   }
 
+  async getAgenciesByName(token: string, name: string) {
+    return node_fetch(
+      `http://localhost:4000/api/agency/agencies?name=${name}`,
+      {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+
   async getAgencies(token: string) {
-    return node_fetch("http://localhost:4000/api/agency/view", {
+    return node_fetch("http://localhost:4000/api/agency/agencies", {
       method: "get",
       headers: {
         "Content-Type": "application/json",

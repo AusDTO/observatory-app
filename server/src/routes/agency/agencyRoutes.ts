@@ -109,10 +109,24 @@ agencyRouter.post(
 );
 
 agencyRouter.get(
-  "/view",
+  "/agencies",
   async (req: Request, res: Response, next: NextFunction) => {
-    const data = await Agency.find();
-    return res.status(200).json(data);
+    const { name } = req.query;
+    if (name) {
+      console.log(name);
+      const agency = await Agency.findOne({ where: { name } });
+      console.log(agency);
+      if (agency) {
+        return res.status(200).json(agency);
+      } else {
+        return res.status(404).json({
+          statusCode: 404,
+          message: `Agency with name ${name} not found`,
+        });
+      }
+    }
+    const allAgencies = await Agency.find();
+    return res.status(200).json(allAgencies);
   }
 );
 
