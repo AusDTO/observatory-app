@@ -20,7 +20,7 @@ export class TestClient {
   }
 
   async editProperty(token: string, propertyId: string, bodyData: any) {
-    return node_fetch(`http://localhost:4000/api/property/edit/${propertyId}`, {
+    return node_fetch(`http://localhost:4000/api/properties/${propertyId}`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export class TestClient {
   }
 
   async viewProperties(token: string) {
-    return node_fetch("http://localhost:4000/api/property/view", {
+    return node_fetch("http://localhost:4000/api/properties", {
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export class TestClient {
   }
 
   async addProperty(token: string, bodyData: any) {
-    return node_fetch("http://localhost:4000/api/property/add", {
+    return node_fetch("http://localhost:4000/api/properties", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export class TestClient {
   }
 
   async deleteAgency(id: string, token: string) {
-    return node_fetch(`http://localhost:4000/api/agency/delete/${id}`, {
+    return node_fetch(`http://localhost:4000/api/agencies/${id}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export class TestClient {
   }
 
   async addAgency(bodyData: any, token: string) {
-    return node_fetch("http://localhost:4000/api/agency/add", {
+    return node_fetch("http://localhost:4000/api/agencies", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -73,20 +73,17 @@ export class TestClient {
   }
 
   async getAgenciesByName(token: string, name: string) {
-    return node_fetch(
-      `http://localhost:4000/api/agency/agencies?name=${name}`,
-      {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    return node_fetch(`http://localhost:4000/api/agencies/${name}`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   async getAgencies(token: string) {
-    return node_fetch("http://localhost:4000/api/agency/agencies", {
+    return node_fetch("http://localhost:4000/api/agencies", {
       method: "get",
       headers: {
         "Content-Type": "application/json",

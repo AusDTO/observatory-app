@@ -123,8 +123,8 @@ export const startServer = async () => {
 
   //Error handling middleware
 
-  app.use("/api/agency", verifyToken, agencyRouter);
-  app.use("/api/property", verifyToken, propertyRouter);
+  app.use("/api/agencies", verifyToken, agencyRouter);
+  app.use("/api/properties", verifyToken, propertyRouter);
 
   app.listen(PORT, () =>
     console.log(`🚀 Server ready at port http:localhost:${PORT}/api`)

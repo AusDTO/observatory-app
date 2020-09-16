@@ -16,7 +16,7 @@ const propertyRouter = express.Router();
  * Accepts Array<IProperty> as body params
  */
 propertyRouter.post(
-  "/add",
+  "/",
   async (req: Request, res: Response, next: NextFunction) => {
     const bodyData = req.body as Array<IProperty>;
 
@@ -66,7 +66,7 @@ propertyRouter.post(
 );
 
 propertyRouter.get(
-  "/view",
+  "/",
   async (req: Request, res: Response, next: NextFunction) => {
     const properties = await Property.find({ relations: ["agency"] });
     return res.status(200).json(properties);
@@ -75,7 +75,7 @@ propertyRouter.get(
 
 //FIX ADD TEST FOR THIS
 propertyRouter.delete(
-  "/delete/:ua_id_param",
+  "/:ua_id_param",
   async (req: Request, res: Response, next: NextFunction) => {
     const { ua_id_param } = req.params;
     try {
@@ -107,7 +107,7 @@ propertyRouter.delete(
 );
 
 propertyRouter.put(
-  "/edit/:ua_id_param",
+  "/:ua_id_param",
   async (req: Request, res: Response, next: NextFunction) => {
     const { ua_id_param } = req.params;
     //validate query param

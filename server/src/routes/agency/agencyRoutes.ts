@@ -66,7 +66,7 @@ const agencyArraySchema = yup.array().of(agencyFieldSchema);
  * E.g. [{"name": "DTA"}, {"name":"ATO"}]
  */
 agencyRouter.post(
-  "/add",
+  "/",
   async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body as Array<IAgency>;
 
@@ -109,9 +109,9 @@ agencyRouter.post(
 );
 
 agencyRouter.get(
-  "/agencies",
+  "/:name?",
   async (req: Request, res: Response, next: NextFunction) => {
-    const { name } = req.query;
+    const { name } = req.params;
     if (name) {
       console.log(name);
       const agency = await Agency.findOne({ where: { name } });
@@ -131,7 +131,7 @@ agencyRouter.get(
 );
 
 agencyRouter.delete(
-  "/delete/:id",
+  "/:id",
   validateReqUUID,
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
@@ -155,7 +155,7 @@ agencyRouter.delete(
 );
 
 agencyRouter.put(
-  "/edit/:id",
+  "/:id",
   validateReqUUID,
   (req: Request, res: Response, next: NextFunction) => {
     res.send("valid uuid");
