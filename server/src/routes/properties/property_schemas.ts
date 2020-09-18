@@ -5,7 +5,7 @@ import { Property } from "../../entity/Property";
 export const ua_id_schema = yup
   .string()
   .matches(
-    /(UA|ua)-[0-9]+-?[0-9]*$/,
+    /(UA|ua)-[0-9]+-?[0-9]{1,3}$/,
     "You have entered a UAID that is not valid, check your data and try again"
   );
 
