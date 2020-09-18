@@ -28,3 +28,7 @@ DATASET_ID = 'dta_customers'
 TABLE_ID = 'dta_ga_accounts'
 
 AGENCY_NAME = 'DTA'
+AGENCY_DATA = [{
+            "name": "DTA",
+            "emailHosts": ["@dta.gov.au", "@digital.gov.au"]
+        }]
