@@ -29,6 +29,6 @@ TABLE_ID = 'dta_ga_accounts'
 
 AGENCY_NAME = 'DTA'
 AGENCY_DATA = [{
-            "name": "DTA",
-            "emailHosts": ["@dta.gov.au", "@digital.gov.au"]
+            "name": "DTA Media",
+            "emailHosts": ["m@dta.gov.au", "m@digital.gov.au"]
         }]

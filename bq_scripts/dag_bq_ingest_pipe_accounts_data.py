@@ -10,6 +10,7 @@ import os
 import pathlib
 
 from airflow import models
+from airflow.models import Variable
 from airflow.operators import python_operator
 from airflow.contrib.operators import bigquery_operator
 from airflow.contrib.operators import bigquery_get_data
@@ -35,14 +36,14 @@ default_dag_args = {
     # time a DAG is parsed. See:
     # https://airflow.apache.org/faq.html#what-s-the-deal-with-start-date
     'start_date': datetime.datetime(2020, 9, 20),
-    'retries': 2,
+    'retries': 0,
     'retry_delay': datetime.timedelta(minutes=5)
 }
 
 with models.DAG(
         'bigquery_data_export_rds',
         # schedule_interval=datetime.timedelta(days=1),
-        schedule_interval='0 20 * * *',
+        schedule_interval='@yearly',
         catchup=False,
         default_args=default_dag_args) as dag:
     project_id = models.Variable.get('GCP_PROJECT', 'dta-ga-bigquery')
@@ -71,8 +72,8 @@ with models.DAG(
 
 
     def add_property(**context):
-        data_ops.add_agency(constants.AGENCY_DATA)
-        agency_id = data_ops.get_agencyId_by_name(constants.AGENCY_NAME)
+        data_ops.add_agency(Variable.AGENCY_DATA)
+        agency_id = data_ops.get_agencyId_by_name(Variable.AGENCY_NAME)
         xcom_data = context['ti'].xcom_pull(task_ids='bigquery_data_fetch')
         data_out = prepare_data(xcom_data, agency_id)
         response = requests.post(
