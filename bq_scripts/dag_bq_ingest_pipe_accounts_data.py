@@ -21,7 +21,7 @@ import re
 import six
 import logging
 from requests.exceptions import HTTPError
-import env
+# import env
 import signin
 import constants
 import data_ops
@@ -90,5 +90,5 @@ with models.DAG(
     )
 
     
-bigquery_data_fetch >> post_data_to_rds
+bigquery_data_script >> bigquery_data_fetch >> post_data_to_rds
 
