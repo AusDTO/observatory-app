@@ -28,6 +28,7 @@ const swaggerDocument = require("./swagger.json");
 import agencyRouter from "./routes/agency/agencyRoutes";
 import { verifyToken } from "./util/verifyToken/verifyToken";
 import propertyRouter from "./routes/properties/propertyRoutes";
+import dataOutputRouter from "./routes/dataOutputs/dataRoutes";
 
 const PORT = process.env.PORT || 4000;
 const REDIS_PORT = 6379;
@@ -124,6 +125,7 @@ export const startServer = async () => {
   //Error handling middleware
 
   app.use("/api/agencies", verifyToken, agencyRouter);
+  app.use("/api/output", verifyToken, dataOutputRouter);
   app.use("/api/properties", verifyToken, propertyRouter);
 
   app.listen(PORT, () =>
