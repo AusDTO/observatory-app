@@ -1,13 +1,7 @@
 import * as yup from "yup";
 import { Agency } from "../../entity/Agency";
 import { Property } from "../../entity/Property";
-
-export const ua_id_schema = yup
-  .string()
-  .matches(
-    /(UA|ua)-[0-9]+-?[0-9]{1,3}$/,
-    "You have entered a UAID that is not valid, check your data and try again"
-  );
+import { ua_id_schema } from "../../util/yup";
 
 export const propertyField = yup.object().shape({
   ua_id: ua_id_schema.required().test({

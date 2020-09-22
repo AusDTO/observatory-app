@@ -15,11 +15,19 @@ const dataOutputRouter = express.Router();
  * E.g. [{"name": "DTA"}, {"name":"ATO"}]
  */
 dataOutputRouter.post(
-  "/",
+  "/:ua_id/:type",
   async (req: Request, res: Response, next: NextFunction) => {
-    const { output, type, ua_id } = req.body;
+    const { output } = req.body;
+    const { type, ua_id } = req.params;
+    //validate ua_id
 
     const property = await Property.findOne({ where: { ua_id } });
+    if (!property) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: `Property with ua_id: ${ua_id} not found.`,
+      });
+    }
     console.log(property);
     const outputToInsert = Outputs.create({ output, type, property });
     outputToInsert.save();
