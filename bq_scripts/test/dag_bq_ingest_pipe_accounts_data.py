@@ -73,9 +73,9 @@ with models.DAG(
 
     def add_property(**context):
         # Add agency add
-        data_ops.add_agency(Variable.AGENCY_DATA)
+        # data_ops.add_agency(constants.AGENCY_DATA)
         # Get agency ID
-        agency_id = data_ops.get_agencyId_by_name(Variable.AGENCY_NAME)
+        agency_id = data_ops.get_agencyId_by_name(constants.AGENCY_NAME)
         # Load properties of respective agency into RDS
         xcom_data = context['ti'].xcom_pull(task_ids='bigquery_data_fetch')
         data_out = prepare_data(xcom_data, agency_id)

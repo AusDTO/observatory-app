@@ -22,13 +22,8 @@ def get_agencyId_by_name(agency_name):
     response = requests.get(
         f'{constants.AGENCIES_ENDPOINT}/{agency_name}', headers=header_token)
     responseData = response.json()
-    print(responseData)
-    if(response.status != 200):
-        # handle error, may want to do it another way
-        print("ERROR not found")
-    else:
-        agencyId = responseData.id
-        return agencyId
+    agencyId = responseData['id']
+    return agencyId
 
 
 def get_all_agencies():
@@ -60,3 +55,8 @@ def get_property_by_uaid(ua_id):
     responseData = response.json()
     print(responseData)
     return responseData
+
+
+def delete_property_by_uaid(ua_id):
+    del_res = requests.delete(constants.PROPERTIES_ENDPOINT+ '/' + ua_id, headers=header_token)
+    print(del_res.json())
