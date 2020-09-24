@@ -68,16 +68,40 @@ export const weeklyBasicsValidData = {
   type: "weekly_basics",
   output: [
     {
-      ave_time_on_page: "HELoooooo",
+      timeOnPage: "HELoooooo",
       date: "01/-",
       pageViews: "5000",
       sessions: "2099",
+      bounceRate: "55%",
     },
     {
-      ave_time_on_page: "bla2",
+      timeOnPage: "bla2",
       date: "01/01/20",
       pageViews: "9938",
       sessions: "879345",
+      bounceRate: "55%",
     },
   ],
 };
+
+export const weeklyBasicsInvalidData = [
+  {
+    type: "bla",
+    output: [
+      {
+        timeOnPage: "HELoooooo",
+        date: "01/-",
+        pageViews: "5000",
+        sessions: "2099",
+        bounceRate: "55%",
+      },
+      {
+        timeOnPage: "bla2",
+        date: "01/01/20",
+        pageViews: "9938",
+        sessions: "879345",
+        bounceRate: "55%",
+      },
+    ],
+  },
+];

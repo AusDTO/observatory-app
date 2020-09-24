@@ -5,11 +5,7 @@ import { User } from "../../../entity/User";
 import { ADMIN_EMAILS } from "../../../util/constants";
 import { connection } from "../../../util/createConnection";
 import { TestClient } from "../../../util/testClient";
-import {
-  testUser,
-  testAgency,
-  weeklyBasicsValidData,
-} from "../../../util/testData";
+import { testUser, weeklyBasicsValidData } from "../../../util/testData";
 
 const client = new TestClient();
 let adminEmail = ADMIN_EMAILS[0] as string;
@@ -60,7 +56,7 @@ beforeEach(async () => {
   // await getConnection().getRepository(Property).delete({});
 });
 
-describe("Test inserting OUTPUT data", () => {
+describe("Test inserting BASIC OUTPUT data", () => {
   test("Add valid data", async () => {
     const response = await client.addDataOutput(
       accessToken,
@@ -71,4 +67,6 @@ describe("Test inserting OUTPUT data", () => {
     const { statusCode, message } = await response.json();
     expect(statusCode).toEqual(200);
   });
+
+  test("Invalid output data", async () => {});
 });
