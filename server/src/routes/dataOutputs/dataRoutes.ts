@@ -4,10 +4,17 @@ import { Request, Response, NextFunction } from "express";
 
 import * as _ from "lodash";
 
-import { validateReqUUID } from "../../util/middleware/validReqUuid";
+import {
+  validateReqUAID,
+  validateReqUUID,
+} from "../../util/middleware/validReqUuid";
 import { Outputs } from "../../entity/Output";
 import { Property } from "../../entity/Property";
 import { ArrayBasicData, outputParamSchema } from "./outputSchemas";
+import {
+  ValidateDataOutput,
+  ValidateDataOutputType,
+} from "./validateDataSchemas";
 
 const dataOutputRouter = express.Router();
 
@@ -17,27 +24,13 @@ const dataOutputRouter = express.Router();
  */
 dataOutputRouter.post(
   "/:ua_id",
+  validateReqUAID,
+  ValidateDataOutputType,
+  ValidateDataOutput,
   async (req: Request, res: Response, next: NextFunction) => {
     const { ua_id } = req.params;
-    try {
-      await outputParamSchema.validate(req.params, { abortEarly: true });
-    } catch (errors) {
-      return res.status(400).json({
-        statusCode: 400,
-        fieldErrors: errors.errors,
-      });
-    }
     const { output, type } = req.body;
     //validate ua_id
-
-    try {
-      await ArrayBasicData.validate(req.body, { abortEarly: true });
-    } catch (errors) {
-      return res.status(400).json({
-        statusCode: 404,
-        fieldErrors: errors.errors,
-      });
-    }
 
     const property = await Property.findOne({ where: { ua_id } });
     if (!property) {

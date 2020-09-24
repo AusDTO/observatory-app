@@ -19,6 +19,17 @@ export class TestClient {
     };
   }
 
+  async addDataOutput(token: string, ua_id: string, bodyData: any) {
+    return node_fetch(`http://localhost:4000/api/output/${ua_id}`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: bodyData,
+    });
+  }
+
   async editProperty(token: string, propertyId: string, bodyData: any) {
     return node_fetch(`http://localhost:4000/api/properties/${propertyId}`, {
       method: "put",

@@ -63,3 +63,21 @@ export const agencyListDuplicateItems: Array<IAgency> = [
     emailHosts: ["@dhs.gov.au"],
   },
 ];
+
+export const weeklyBasicsValidData = {
+  type: "weekly_basics",
+  output: [
+    {
+      ave_time_on_page: "HELoooooo",
+      date: "01/-",
+      pageViews: "5000",
+      sessions: "2099",
+    },
+    {
+      ave_time_on_page: "bla2",
+      date: "01/01/20",
+      pageViews: "9938",
+      sessions: "879345",
+    },
+  ],
+};

@@ -12,9 +12,7 @@ export const BasicDataSchema = yup.object().shape({
   date: yup.string().required(),
 });
 
-export const ArrayBasicData = yup.object().shape({
-  output: yup.array().of(BasicDataSchema),
-});
+export const ArrayBasicData = yup.array().of(BasicDataSchema);
 
 export const LeastUsedSchema = yup.object().shape({
   pageViews: yup.string().required(),
@@ -23,9 +21,7 @@ export const LeastUsedSchema = yup.object().shape({
   percentageDecline: yup.string().required(),
 });
 
-export const ArrayLeastUsed = yup.object().shape({
-  output: yup.array().of(LeastUsedSchema),
-});
+export const ArrayLeastUsed = yup.array().of(LeastUsedSchema);
 
 export const dataTypeSchema = yup
   .string()
