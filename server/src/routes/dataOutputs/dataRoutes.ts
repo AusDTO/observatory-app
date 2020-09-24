@@ -29,6 +29,7 @@ dataOutputRouter.post(
   ValidateDataOutput,
   async (req: Request, res: Response, next: NextFunction) => {
     const { ua_id } = req.params;
+
     const { output, type } = req.body;
     //validate ua_id
 
@@ -40,20 +41,21 @@ dataOutputRouter.post(
       });
     }
 
+    // Check if the UA_ID exist
     const outputFind = await Outputs.findOne({ where: { property, type } });
     if (outputFind) {
       return res.status(400).json({
         statusCode: 400,
-        message:
-          "There is already an entry with this type and property ID. Use PUT method instead",
+        message: `There is already an entry with type: ${type} and ua_id: ${ua_id}. Use PUT method instead`,
       });
     }
 
     const outputToInsert = Outputs.create({ output, type, property });
-    const bldd = await outputToInsert.save();
-    console.log(bldd);
+    await outputToInsert.save();
+
     res.status(200).json({
-      status: "POSTED",
+      statusCode: 200,
+      message: `Successfully entered ${output.length} rows of type:${type} for property: ${property.service_name}`,
     });
   }
 );

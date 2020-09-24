@@ -30,6 +30,7 @@ export const validateReqUAID = async (
   next: NextFunction
 ) => {
   const { ua_id } = req.params;
+
   try {
     await ua_id_schema.validate(ua_id, { abortEarly: false });
   } catch (errors) {

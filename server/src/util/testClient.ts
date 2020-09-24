@@ -21,7 +21,7 @@ export class TestClient {
 
   async addDataOutput(token: string, ua_id: string, bodyData: any) {
     return node_fetch(`http://localhost:4000/api/output/${ua_id}`, {
-      method: "put",
+      method: "post",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,

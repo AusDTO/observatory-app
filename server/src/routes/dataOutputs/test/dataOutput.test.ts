@@ -56,19 +56,19 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  const manager = getManager();
-
-  await getConnection().getRepository(Property).delete({});
+  // const manager = getManager();
+  // await getConnection().getRepository(Property).delete({});
 });
 
 describe("Test inserting OUTPUT data", () => {
   test("Add valid data", async () => {
-    // const response = await client.addDataOutput(
-    //   accessToken,
-    //   ua_id,
-    //   weeklyBasicsValidData
-    // );
-    // const json = await response.json();
-    console.log("VALID DATA TEST");
+    const response = await client.addDataOutput(
+      accessToken,
+      ua_id,
+      JSON.stringify(weeklyBasicsValidData)
+    );
+
+    const { statusCode, message } = await response.json();
+    expect(statusCode).toEqual(200);
   });
 });
