@@ -1,11 +1,17 @@
 import { getConnection, getManager } from "typeorm";
 import { Agency } from "../../../entity/Agency";
+import { Outputs } from "../../../entity/Output";
 import { Property } from "../../../entity/Property";
 import { User } from "../../../entity/User";
 import { ADMIN_EMAILS } from "../../../util/constants";
 import { connection } from "../../../util/createConnection";
 import { TestClient } from "../../../util/testClient";
-import { testUser, weeklyBasicsValidData } from "../../../util/testData";
+import {
+  testUser,
+  weeklyBasicsInvalidOutput,
+  weeklyBasicsInvalidType,
+  weeklyBasicsValidData,
+} from "../../../util/testData";
 
 const client = new TestClient();
 let adminEmail = ADMIN_EMAILS[0] as string;
@@ -52,11 +58,11 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  // const manager = getManager();
-  // await getConnection().getRepository(Property).delete({});
+  const manager = getManager();
+  await getConnection().getRepository(Outputs).delete({});
 });
 
-describe("Test inserting BASIC OUTPUT data", () => {
+describe("Test inserting BASIC OUTPUT data, and test can't post same type and property again", () => {
   test("Add valid data", async () => {
     const response = await client.addDataOutput(
       accessToken,
@@ -64,9 +70,40 @@ describe("Test inserting BASIC OUTPUT data", () => {
       JSON.stringify(weeklyBasicsValidData)
     );
 
-    const { statusCode, message } = await response.json();
-    expect(statusCode).toEqual(200);
+    const result = await response.json();
+
+    expect(result.statusCode).toEqual(200);
+
+    const response2 = await client.addDataOutput(
+      accessToken,
+      ua_id,
+      JSON.stringify(weeklyBasicsValidData)
+    );
+    const data = await response2.json();
+    expect(data.statusCode).toEqual(409);
   });
 
-  test("Invalid output data", async () => {});
+  test("Invalid data type", async () => {
+    const response = await client.addDataOutput(
+      accessToken,
+      ua_id,
+      JSON.stringify(weeklyBasicsInvalidType)
+    );
+
+    const { statusCode, message } = await response.json();
+
+    expect(statusCode).toEqual(400);
+  });
+
+  test("Invalid data output", async () => {
+    const response = await client.addDataOutput(
+      accessToken,
+      ua_id,
+      JSON.stringify(weeklyBasicsInvalidOutput)
+    );
+
+    const { statusCode, message } = await response.json();
+
+    expect(statusCode).toEqual(400);
+  });
 });

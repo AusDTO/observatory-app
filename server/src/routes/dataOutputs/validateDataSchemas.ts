@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, response } from "express";
 import {
-  ArrayBasicData,
+  ArrayBasicDataDaily,
   ArrayLeastUsed,
   dataTypeSchema,
 } from "./outputSchemas";
@@ -10,12 +10,13 @@ export const ValidateDataOutputType = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { type } = req.body;
+  const type = req.query.type ? req.query.type : req.body.type;
+
   try {
     await dataTypeSchema.validate(type, { abortEarly: true });
   } catch (errors) {
     return res.status(400).json({
-      statusCode: 404,
+      statusCode: 400,
       fieldErrors: errors.errors,
     });
   }
@@ -27,12 +28,13 @@ export const ValidateDataOutput = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { output, type } = req.body;
+  const { output } = req.body;
+  const type = req.query.type ? req.query.type : req.body.type;
 
   let dataValidator;
   switch (type) {
-    case "weekly_basics":
-      dataValidator = ArrayBasicData;
+    case "exec_weekly":
+      dataValidator = ArrayBasicDataDaily;
       break;
     case "weekly_content_useful":
       dataValidator = ArrayLeastUsed;

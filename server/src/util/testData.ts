@@ -65,7 +65,7 @@ export const agencyListDuplicateItems: Array<IAgency> = [
 ];
 
 export const weeklyBasicsValidData = {
-  type: "weekly_basics",
+  type: "exec_weekly",
   output: [
     {
       timeOnPage: "HELoooooo",
@@ -84,12 +84,33 @@ export const weeklyBasicsValidData = {
   ],
 };
 
-export const weeklyBasicsInvalidData = [
+export const weeklyBasicsInvalidType = [
   {
     type: "bla",
     output: [
       {
         timeOnPage: "HELoooooo",
+        date: "01/-",
+        pageViews: "5000",
+        sessions: "2099",
+        bounceRate: "55%",
+      },
+      {
+        timeOnPage: "bla2",
+        date: "01/01/20",
+        pageViews: "9938",
+        sessions: "879345",
+        bounceRate: "55%",
+      },
+    ],
+  },
+];
+
+export const weeklyBasicsInvalidOutput = [
+  {
+    type: "exec_weekly",
+    output: [
+      {
         date: "01/-",
         pageViews: "5000",
         sessions: "2099",

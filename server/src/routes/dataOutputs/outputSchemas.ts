@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { ua_id_schema } from "../../util/yup";
+import { DataOutputType } from "../../types/schema";
 
 export const outputParamSchema = yup.object().shape({
   ua_id: ua_id_schema,
@@ -13,7 +14,7 @@ export const BasicDataSchemaDaily = yup.object().shape({
   date: yup.string().required(),
 });
 
-export const ArrayBasicData = yup.array().of(BasicDataSchemaDaily);
+export const ArrayBasicDataDaily = yup.array().of(BasicDataSchemaDaily);
 
 export const LeastUsedSchema = yup.object().shape({
   pageViews: yup.string().required(),
@@ -24,7 +25,4 @@ export const LeastUsedSchema = yup.object().shape({
 
 export const ArrayLeastUsed = yup.array().of(LeastUsedSchema);
 
-export const dataTypeSchema = yup
-  .string()
-  .required()
-  .oneOf(["weekly_basics", "weekly_content_useful"]);
+export const dataTypeSchema = yup.mixed<DataOutputType>().required();

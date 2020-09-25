@@ -31,3 +31,5 @@ export interface IAgencyIdType {
 export interface IGetPropertyType {
   propertyId: string;
 }
+
+export type DataOutputType = "exec_weekly" | "exec_daily" | "exec_hourly";

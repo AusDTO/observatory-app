@@ -10,8 +10,8 @@ import {
   Index,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { DataOutputType } from "../types/schema";
 import { Property } from "./Property";
-export type DataOutputType = "weekly_basics" | "weekly_content_useful";
 
 // extending BaseEntity allows us to do things like User.create({})
 @Entity()
@@ -22,7 +22,7 @@ export class Outputs extends BaseEntity {
   @Column("json")
   output: any;
 
-  @Column({ type: "enum", enum: ["weekly_basics", "weekly_content_useful"] })
+  @Column({ type: "enum", enum: ["exec_weekly", "exec_daily", "exec_hourly"] })
   type: DataOutputType;
 
   @CreateDateColumn()
