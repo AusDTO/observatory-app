@@ -63,9 +63,9 @@ with models.DAG(
     def prepare_data(data_, id_):
         output= []
         for datum in data_:
-            domain_name,	agency_name,	agency_dept,	hostname,	service_name,	webproperty_id = datum
+            agency_name, webproperty_id, domain_name,	hostname,	service_name	 = datum
             output.append( {"service_name": service_name,
-                    "domain": domain_name, "ua_id": webproperty_id, "agencyId": id_} )
+                    "domain": hostname, "ua_id": webproperty_id, "agencyId": id_} )
         logging.info(output)
         return output
 
