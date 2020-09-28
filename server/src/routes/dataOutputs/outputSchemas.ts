@@ -6,15 +6,38 @@ export const outputParamSchema = yup.object().shape({
   ua_id: ua_id_schema,
 });
 
-export const BasicDataSchemaDaily = yup.object().shape({
-  pageViews: yup.string().required(),
-  sessions: yup.string().required(),
-  timeOnPage: yup.string().required(),
-  bounceRate: yup.string().required(),
+const pageViewsSchema = yup.string().required();
+const sessionsSchema = yup.string().required();
+const timeOnPageSchema = yup.string().required();
+const bounceRateSchema = yup.string().required();
+
+export const ExecDataSchemaDaily = yup.object().shape({
+  pageViews: pageViewsSchema,
+  sessions: sessionsSchema,
+  timeOnPage: timeOnPageSchema,
+  bounceRate: bounceRateSchema,
   date: yup.string().required(),
 });
 
-export const ArrayBasicDataDaily = yup.array().of(BasicDataSchemaDaily);
+export const ExecDataSchemaWeekly = yup.object().shape({
+  pageViews: pageViewsSchema,
+  sessions: sessionsSchema,
+  timeOnPage: timeOnPageSchema,
+  bounceRate: bounceRateSchema,
+  dateEnding: yup.string().required(),
+});
+
+export const ExecDataSchemaHourly = yup.object().shape({
+  pageViews: pageViewsSchema,
+  sessions: sessionsSchema,
+  timeOnPage: timeOnPageSchema,
+  bounceRate: bounceRateSchema,
+  visit_hour: yup.string().required(),
+});
+
+export const ArrayExecDataDaily = yup.array().of(ExecDataSchemaDaily);
+export const ArrayExecDataWeekly = yup.array().of(ExecDataSchemaWeekly);
+export const ArrayExecDataHourly = yup.array().of(ExecDataSchemaHourly);
 
 export const LeastUsedSchema = yup.object().shape({
   pageViews: yup.string().required(),

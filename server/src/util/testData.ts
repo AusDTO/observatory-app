@@ -64,8 +64,8 @@ export const agencyListDuplicateItems: Array<IAgency> = [
   },
 ];
 
-export const weeklyBasicsValidData = {
-  type: "exec_weekly",
+export const execDailyData = {
+  type: "exec_daily",
   output: [
     {
       timeOnPage: "HELoooooo",
@@ -84,7 +84,7 @@ export const weeklyBasicsValidData = {
   ],
 };
 
-export const weeklyBasicsInvalidType = [
+export const execDailyInvalidType = [
   {
     type: "bla",
     output: [
@@ -106,9 +106,9 @@ export const weeklyBasicsInvalidType = [
   },
 ];
 
-export const weeklyBasicsInvalidOutput = [
+export const execDailyInvalidOutput = [
   {
-    type: "exec_weekly",
+    type: "exec_daily",
     output: [
       {
         date: "01/-",

@@ -53,7 +53,6 @@ dataOutputRouter.post(
 
 dataOutputRouter.get(
   "/:ua_id?",
-  validatePropertyExists,
   async (req: Request, res: Response, next: NextFunction) => {
     const { ua_id } = req.params;
 
@@ -69,6 +68,7 @@ dataOutputRouter.get(
         .where("property.ua_id = :id", { id: ua_id })
         .getMany();
     } else {
+      data = await Outputs.find({ relations: ["property"] });
     }
 
     res.status(200).json(data);
@@ -94,7 +94,7 @@ dataOutputRouter.put(
     // We know it exists since have checked in validatePropertyExists middleware
     const property = (await Property.findOne({ where: { ua_id } })) as Property;
 
-    const updateResult = await getConnection()
+    await getConnection()
       .createQueryBuilder()
       .update(Outputs)
       .set({ output })

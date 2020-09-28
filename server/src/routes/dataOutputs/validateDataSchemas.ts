@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction, response } from "express";
 import {
-  ArrayBasicDataDaily,
-  ArrayLeastUsed,
+  ArrayExecDataDaily,
+  ArrayExecDataHourly,
+  ArrayExecDataWeekly,
   dataTypeSchema,
 } from "./outputSchemas";
 
@@ -34,10 +35,13 @@ export const ValidateDataOutput = async (
   let dataValidator;
   switch (type) {
     case "exec_weekly":
-      dataValidator = ArrayBasicDataDaily;
+      dataValidator = ArrayExecDataWeekly;
       break;
-    case "weekly_content_useful":
-      dataValidator = ArrayLeastUsed;
+    case "exec_daily":
+      dataValidator = ArrayExecDataDaily;
+      break;
+    case "exec_hourly":
+      dataValidator = ArrayExecDataHourly;
       break;
     default:
       dataValidator = null;

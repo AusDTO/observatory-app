@@ -1,6 +1,7 @@
 import request from "graphql-request";
 import * as rp from "request-promise";
 import node_fetch from "node-fetch";
+import { DataOutputType } from "../types/schema";
 
 //Test client class for graphql requests
 export class TestClient {
@@ -17,6 +18,38 @@ export class TestClient {
       jar: rp.jar(),
       withCredentials: true,
     };
+  }
+
+  async fetchOutputData(token: string, ua_id?: string) {
+    return node_fetch(
+      `http://localhost:4000/api/output${ua_id ? "/" + ua_id : ""}`,
+      {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+
+  async editDataOutput(
+    token: string,
+    ua_id: string,
+    type: DataOutputType,
+    bodyData: any
+  ) {
+    return node_fetch(
+      `http://localhost:4000/api/output/${ua_id}?type=${type}`,
+      {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: bodyData,
+      }
+    );
   }
 
   async addDataOutput(token: string, ua_id: string, bodyData: any) {

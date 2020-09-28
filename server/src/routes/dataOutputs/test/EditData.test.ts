@@ -21,6 +21,7 @@ const service_name = "Hello";
 const domain = "http//www.xyz.gov.au";
 
 const { password, name, role, emailHost } = testUser;
+
 beforeAll(async () => {
   await connection.create();
   const user1 = User.create({
@@ -48,62 +49,60 @@ beforeAll(async () => {
   });
   await property.save();
 
+  const dataToInsert = Outputs.create({
+    type: "exec_daily",
+    property,
+    output: execDailyData.output,
+  });
+
+  await dataToInsert.save();
+
   const loginResponse = await client.loginAdminUser(adminEmail, password);
   const data = await loginResponse.json();
   accessToken = data.accessToken;
 });
 
 afterAll(async () => {
+  await getConnection().getRepository(Outputs).delete({});
+  await getConnection().getRepository(Property).delete({});
+  await getConnection().getRepository(Agency).delete({});
   await connection.close();
 });
 
 beforeEach(async () => {
   const manager = getManager();
-  await getConnection().getRepository(Outputs).delete({});
 });
 
-describe("Test inserting BASIC OUTPUT data, and test can't post same type and property again", () => {
-  test("Add valid data", async () => {
-    const response = await client.addDataOutput(
+describe("Edit data suite", () => {
+  test("Editing data", async () => {
+    // console.log(await Outputs.find());
+    const newData = {
+      output: [
+        {
+          timeOnPage: "25minutes20seconds",
+          date: "01/01/2020",
+          pageViews: "999999",
+          sessions: "2099",
+          bounceRate: "55%",
+        },
+      ],
+    };
+
+    const response = await client.editDataOutput(
       accessToken,
       ua_id,
-      JSON.stringify(execDailyData)
+      "exec_daily",
+      JSON.stringify(newData)
     );
 
-    const result = await response.json();
+    const data = await response.json();
 
-    expect(result.statusCode).toEqual(200);
+    expect(data.statusCode).toEqual(200);
 
-    const response2 = await client.addDataOutput(
-      accessToken,
-      ua_id,
-      JSON.stringify(execDailyData)
-    );
-    const data = await response2.json();
-    expect(data.statusCode).toEqual(409);
-  });
+    const res2 = await client.fetchOutputData(accessToken);
 
-  test("Invalid data type", async () => {
-    const response = await client.addDataOutput(
-      accessToken,
-      ua_id,
-      JSON.stringify(execDailyInvalidType)
-    );
+    const data2 = await res2.json();
 
-    const { statusCode, message } = await response.json();
-
-    expect(statusCode).toEqual(400);
-  });
-
-  test("Invalid data output", async () => {
-    const response = await client.addDataOutput(
-      accessToken,
-      ua_id,
-      JSON.stringify(execDailyInvalidOutput)
-    );
-
-    const { statusCode, message } = await response.json();
-
-    expect(statusCode).toEqual(400);
+    expect(data2[0].output[0].timeOnPage).toEqual("25minutes20seconds");
   });
 });
