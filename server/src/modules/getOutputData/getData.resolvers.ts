@@ -43,7 +43,6 @@ export const resolvers: ResolverMap = {
   },
   Query: {
     getOutputData: async (_, args: IGetOutputDataType, { session }) => {
-      console.log(args.type);
       //use session data
       const { userId } = session;
 
@@ -103,38 +102,11 @@ export const resolvers: ResolverMap = {
           `No data of this type was found for property with UA_ID: ${property_ua_id}`
         );
       }
-      console.log({
-        __typename: "ExecDataArray",
-        output: outputData.output,
-      });
 
       return {
         __typename: "ExecDataArray",
         output: outputData.output,
       };
-
-      //This case is for when agency is added while user is logged in and makes this request
-      //   if (!agencyId && user.agency) {
-      //     agencyId = user.agency.id;
-      //     session.agencyId = user.agency.id;
-      //   }
-
-      //   const properties = await Property.find({
-      //     where: { agency: agencyId },
-      //     select: ["id", "ua_id", "domain", "service_name"],
-      //   });
-
-      //   if (properties.length < 1) {
-      //     return basicApiMessage(
-      //       "NoProperties",
-      //       "Properties have not been found for your agency"
-      //     );
-      //   }
-
-      //   return {
-      //     __typename: "PropertyList",
-      //     properties,
-      //   };
     },
   },
 };

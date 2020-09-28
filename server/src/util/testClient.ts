@@ -145,6 +145,50 @@ export class TestClient {
     });
   }
 
+  async getOutputData(type: string, property_ua_id: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `query {
+          getOutputData(type: "${type}", property_ua_id: "${property_ua_id}") {
+            __typename
+        
+            ... on ExecDataArray {
+              output {
+                bounceRate
+                pageViews
+                ...on ExecDaily {
+                  date
+                }
+                ...on ExecWeekly {
+                  dateEnding
+                }
+                ...on ExecHourly {
+                  visit_hour
+                }
+              }
+            }
+            ... on FieldErrors {
+              errors {
+                message
+                path
+              }
+            }
+            ... on NoOutputData {
+              message
+            }
+            ... on Error {
+              message
+            }
+            ... on InvalidProperty {
+              message
+            }
+          }
+        }`,
+      },
+    });
+  }
+
   async getProperty(propertyId: string) {
     return rp.post(this.url, {
       ...this.options,
