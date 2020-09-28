@@ -52,8 +52,27 @@ dataOutputRouter.post(
 );
 
 dataOutputRouter.get(
-  "/:name?",
-  async (req: Request, res: Response, next: NextFunction) => {}
+  "/:ua_id?",
+  validatePropertyExists,
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { ua_id } = req.params;
+
+    //we know property exists because of middleware does the checking
+    let data;
+    if (ua_id) {
+      // const property = await Property.findOne({ where: { ua_id } });
+      data = await getConnection()
+        .createQueryBuilder()
+        .select("property")
+        .from(Property, "property")
+        .leftJoinAndSelect("property.outputs", "outputs")
+        .where("property.ua_id = :id", { id: ua_id })
+        .getMany();
+    } else {
+    }
+
+    res.status(200).json(data);
+  }
 );
 
 dataOutputRouter.delete(
@@ -67,7 +86,8 @@ dataOutputRouter.put(
   ValidateDataOutputType,
   ValidateDataOutput,
   async (req: Request, res: Response, next: NextFunction) => {
-    const type = req.query.type as DataOutputType;
+    //have validated the folowing 3 in the middleware
+    const type = req.query.type as DataOutputType; //query param
     const { ua_id } = req.params;
     const { output } = req.body;
 
@@ -84,7 +104,10 @@ dataOutputRouter.put(
       })
       .execute();
 
-    res.send("SUCCESS");
+    res.status(200).json({
+      statusCode: 200,
+      message: `Updated the ${type} dataset for property: ${property.domain}`,
+    });
   }
 );
 
