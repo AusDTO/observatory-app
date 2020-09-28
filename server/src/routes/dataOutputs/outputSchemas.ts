@@ -16,7 +16,7 @@ export const ExecDataSchemaDaily = yup.object().shape({
   sessions: sessionsSchema,
   timeOnPage: timeOnPageSchema,
   bounceRate: bounceRateSchema,
-  date: yup.string().required(),
+  date: yup.string().required(), //FIX: should be properly formatted date
 });
 
 export const ExecDataSchemaWeekly = yup.object().shape({
