@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import "../../sass/main.scss";
+import Footer from "../navigation/footer";
 import Header from "../navigation/header";
 
 interface Props {
@@ -12,6 +13,7 @@ const AdminLayout: React.FC<Props> = ({ children }) => {
     <>
       <Header isAdmin={true} logoUrl="/" />
       <main>{children}</main>
+      <Footer />
     </>
   );
 };
