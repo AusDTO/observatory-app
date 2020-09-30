@@ -67,3 +67,8 @@ export const swaggerOptions = {
   customCss: `h4,p,span,code,.tablinks{font-size:1.3rem!important}a{text-decoration:underline;color:#00698f}.btn.try-out__btn{display:none}.opblock-tag a span{text-decoration:underline;font-size:1.4rem!important}a{color:#00698f!important;text-decoration:underline}a:hover{text-decoration:none}table{font-size: 1rem;}
       `,
 };
+
+export const SLACK_WEBHOOK_URL =
+  ENVIRONMENT === "production"
+    ? appEnv.services["user-provided"][0].credentials.SLACK_WEBHOOK_URl
+    : process.env.SLACK_WEBHOOK_URL;

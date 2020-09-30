@@ -20,6 +20,34 @@ export class TestClient {
     };
   }
 
+  async sendFeedbackData(pageTitle: string, pageUrl: string, feedback: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `
+        mutation {
+          sendFeedback(pageTitle: "${pageTitle}", feedback: "${feedback}", pageUrl: "${pageUrl}") {
+            __typename
+            ... on FieldErrors {
+              errors {
+                message
+                path
+              }
+            }
+            ...on Success {
+              message
+            }
+            
+            ...on Error {
+              message
+            }
+          }
+        }
+        `,
+      },
+    });
+  }
+
   async fetchOutputData(token: string, ua_id?: string) {
     return node_fetch(
       `http://localhost:4000/api/output${ua_id ? "/" + ua_id : ""}`,
