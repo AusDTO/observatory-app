@@ -7,9 +7,11 @@ import {
   JoinColumn,
   PrimaryColumn,
   BeforeInsert,
+  OneToMany,
 } from "typeorm";
 import { Agency } from "./Agency";
 import { v4 as uuid } from "uuid";
+import { Outputs } from "./Output";
 
 // extending BaseEntity allows us to do things like User.create({})
 @Entity()
@@ -29,6 +31,9 @@ export class Property extends BaseEntity {
   @ManyToOne((_type) => Agency, (agency) => agency.id)
   @JoinColumn({ name: "agency_id" })
   agency: Agency;
+
+  @OneToMany((type) => Outputs, (output) => output.property)
+  outputs: Outputs[];
 
   @CreateDateColumn()
   createdDate: Date;

@@ -63,3 +63,66 @@ export const agencyListDuplicateItems: Array<IAgency> = [
     emailHosts: ["@dhs.gov.au"],
   },
 ];
+
+export const execDailyData = {
+  type: "exec_daily",
+  output: [
+    {
+      timeOnPage: "HELoooooo",
+      date: "01/-",
+      pageViews: "5000",
+      sessions: "2099",
+      bounceRate: "55%",
+    },
+    {
+      timeOnPage: "bla2",
+      date: "01/01/20",
+      pageViews: "9938",
+      sessions: "879345",
+      bounceRate: "55%",
+    },
+  ],
+};
+
+export const execDailyInvalidType = [
+  {
+    type: "bla",
+    output: [
+      {
+        timeOnPage: "HELoooooo",
+        date: "01/-",
+        pageViews: "5000",
+        sessions: "2099",
+        bounceRate: "55%",
+      },
+      {
+        timeOnPage: "bla2",
+        date: "01/01/20",
+        pageViews: "9938",
+        sessions: "879345",
+        bounceRate: "55%",
+      },
+    ],
+  },
+];
+
+export const execDailyInvalidOutput = [
+  {
+    type: "exec_daily",
+    output: [
+      {
+        date: "01/-",
+        pageViews: "5000",
+        sessions: "2099",
+        bounceRate: "55%",
+      },
+      {
+        timeOnPage: "bla2",
+        date: "01/01/20",
+        pageViews: "9938",
+        sessions: "879345",
+        bounceRate: "55%",
+      },
+    ],
+  },
+];

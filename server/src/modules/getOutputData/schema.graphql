@@ -1,0 +1,61 @@
+type Query {
+  getOutputData(type: String!, property_ua_id: String!): GetOutputResult
+}
+
+type PropertyList {
+  properties: [Property!]!
+}
+
+type NoOutputData {
+  message: String!
+}
+
+type InvalidProperty {
+  message: String!
+}
+
+type Random {
+  message: String!
+}
+
+type ExecDataArray {
+  output: [ExecData]
+}
+
+interface ExecData {
+  timeOnPage: String
+  pageViews: String!
+  sessions: String!
+  bounceRate: String!
+}
+
+type ExecWeekly implements ExecData {
+  timeOnPage: String
+  pageViews: String!
+  sessions: String!
+  bounceRate: String!
+  dateEnding: String!
+}
+
+type ExecDaily implements ExecData {
+  timeOnPage: String
+  pageViews: String!
+  sessions: String!
+  bounceRate: String!
+  date: String!
+}
+
+type ExecHourly implements ExecData {
+  timeOnPage: String
+  pageViews: String!
+  sessions: String!
+  bounceRate: String!
+  visit_hour: String!
+}
+
+union GetOutputResult =
+    Error
+  | NoOutputData
+  | InvalidProperty
+  | FieldErrors
+  | ExecDataArray

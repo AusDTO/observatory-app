@@ -15,3 +15,10 @@ export const emailValidator = yup
   .required()
   .max(255)
   .matches(/.gov.au$/, "Only government emails are allowed to apply");
+
+export const ua_id_schema = yup
+  .string()
+  .matches(
+    /(UA|ua)-[0-9]+-?[0-9]{1,3}$/,
+    "You have entered a UAID that is not valid, check your data and try again"
+  );
