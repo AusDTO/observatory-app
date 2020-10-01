@@ -70,10 +70,12 @@ with models.DAG(
         return output
 
 
-    def add_property(**context):
+    def add_agency(): 
         # Add agency add
-        # dobs_data_ops.add_agency(dobs_constants.AGENCY_DATA)
+        dobs_data_ops.add_agency(dobs_constants.AGENCY_DATA)
 
+
+    def add_property(**context):
         # Get agency ID
         agency_id = dobs_data_ops.get_agencyId_by_name(dobs_constants.AGENCY_NAME)
         logging.info(agency_id)
@@ -88,14 +90,23 @@ with models.DAG(
 
 
     # Write data to RDS
-    post_data_to_rds = python_operator.PythonOperator(
-        task_id='post_data_to_rds',
+    post_agency_to_rds = python_operator.PythonOperator(
+        task_id='post_agency_to_rds',
+        python_callable=add_agency,
+        provide_context=False,
+        op_kwargs=None,
+        dag=dag,
+    )
+    
+    post_properties_to_rds = python_operator.PythonOperator(
+        task_id='post_properties_to_rds',
         python_callable=add_property,
         provide_context=True,
         op_kwargs=None,
         dag=dag,
     )
 
-    
-bigquery_data_script >> bigquery_data_fetch >> post_data_to_rds
+
+post_agency_to_rds
+bigquery_data_script >> bigquery_data_fetch >> post_properties_to_rds
 
