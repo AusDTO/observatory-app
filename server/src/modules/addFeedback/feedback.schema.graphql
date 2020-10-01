@@ -5,8 +5,8 @@ type Query {
 type Mutation {
   sendFeedback(
     feedback: String!
-    pageTitle: String!
-    pageUrl: String!
+    pageTitle: String
+    pageUrl: String
   ): SendFeedbackResult
 }
 

@@ -21,6 +21,7 @@ interface TextFieldProps {
   className?: string;
   type?: string;
   dark?: boolean;
+  block?: boolean;
 }
 
 const TextField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
@@ -38,7 +39,9 @@ const TextField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
       <AuTextInput
         {...field}
         {...props}
-        className={error ? "au-text-input--invalid" : ""}
+        className={`${error ? "au-text-input--invalid" : ""} ${
+          props.className
+        }`}
         aria-invalid={error}
         aria-describedby={describedByError + describedByHint}
       />
