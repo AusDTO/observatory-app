@@ -71,4 +71,4 @@ export const swaggerOptions = {
 export const SLACK_WEBHOOK_URL =
   ENVIRONMENT === "production"
     ? appEnv.services["user-provided"][0].credentials.SLACK_WEBHOOK_URl
-    : process.env.SLACK_WEBHOOK_URL;
+    : "process.env.SLACK_WEBHOOK_URL";
