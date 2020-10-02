@@ -5,7 +5,7 @@ import { gql } from "@apollo/client";
 export const sendFeedbackSchema = yup.object().shape({
   feedback: yup
     .string()
-    .required("Please enter a question")
+    .required("Please enter some feedback")
     .trim()
     .min(3, "Please enter some feedback")
     .test({
