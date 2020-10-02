@@ -12,7 +12,7 @@ export const sendFeedbackSchema = yup.object().shape({
       name: "Check max length",
       message: "Maximum length of field is 500 characters",
       test: async function (this, value) {
-        if (value.trim.length < 500) {
+        if (value.trim().length < 500) {
           return true;
         } else {
           return this.createError({

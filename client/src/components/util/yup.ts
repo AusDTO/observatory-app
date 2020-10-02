@@ -10,7 +10,7 @@ export const emailValidation = yup
 export const passwordValidation = yup
   .string()
   .required("Password is required")
-  .max(255)
+  .max(20)
   .matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
     "Your password needs to be stronger"

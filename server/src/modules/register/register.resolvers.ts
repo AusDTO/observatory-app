@@ -18,8 +18,8 @@ import { sendSignUpMessage } from "../../util/sendSlackMessage/sendMessageSlack"
 const validationSchema = yup.object().shape({
   email: emailValidator,
   password: passwordValidator,
-  name: yup.string().required().trim().min(2),
-  role: yup.string().required().trim().min(2),
+  name: yup.string().required().trim().min(2).max(30),
+  role: yup.string().required().trim().min(2).max(30),
 });
 
 const resendValidationSchema = yup.object().shape({

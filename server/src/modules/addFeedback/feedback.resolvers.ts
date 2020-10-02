@@ -9,8 +9,8 @@ import { formatYupError } from "../../util/formatYupError";
 import { sendFeedbackMessage } from "../../util/sendSlackMessage/sendMessageSlack";
 
 const sendFeedbackValidator = yup.object().shape({
-  feedback: yup.string().trim().required(),
-  pageTitle: yup.string().trim().required(),
+  feedback: yup.string().trim().required().max(500),
+  pageTitle: yup.string().trim().required().max(200),
   pageUrl: yup.string().trim().required(),
 });
 

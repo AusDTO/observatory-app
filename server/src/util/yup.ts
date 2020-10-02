@@ -3,7 +3,7 @@ import * as yup from "yup";
 export const passwordValidator = yup
   .string()
   .required("Enter a password")
-  .max(255)
+  .max(20, "Enter a password that is less than 20 characters")
   .matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
     "Must contain 8 characters, one uppercase, one lowercase, one number and one special case character"
