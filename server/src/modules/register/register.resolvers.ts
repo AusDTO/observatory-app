@@ -18,8 +18,8 @@ import { sendSignUpMessage } from "../../util/sendSlackMessage/sendMessageSlack"
 const validationSchema = yup.object().shape({
   email: emailValidator,
   password: passwordValidator,
-  name: yup.string().required().min(2),
-  role: yup.string().required().min(2),
+  name: yup.string().required().trim().min(2),
+  role: yup.string().required().trim().min(2),
 });
 
 const resendValidationSchema = yup.object().shape({
@@ -43,7 +43,10 @@ export const resolvers: ResolverMap = {
         };
       }
 
-      const { email, password, name, role } = args;
+      const email = args.email.trim().toLowerCase();
+      const password = args.password;
+      const role = args.role.trim();
+      const name = args.name.trim();
 
       //try to find a user with passed in email
       const userAlreadyExists = await User.findOne({
@@ -118,7 +121,7 @@ export const resolvers: ResolverMap = {
         };
       }
 
-      const { email } = args;
+      const email = args.email.trim().toLowerCase();
       const userExists = await User.findOne({
         where: { email },
         select: ["id", "email", "verified", "name"],

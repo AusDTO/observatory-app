@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { AuPageAlert, Aubtn, AuFormGroup } from "../../../types/auds";
 import { Formik, Form } from "formik";
-import SubscribeField from "../../form/SearchField";
-import * as Yup from "yup";
+
 import TextField from "../../form/TextField";
 import {
   InitialValues,
   sendFeedbackSchema,
   SEND_FEEDBACK_MUTATION,
 } from "./feedback_schema";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { FeedbackData, FormSubmitState } from "../../../types/types";
 import {
   sendFeedback,
@@ -23,6 +22,7 @@ interface Props {
   pageTitle: string;
   img: string;
   title: string;
+  hint: string;
 }
 
 const AskQuestionBlock: React.FC<Props> = ({
@@ -32,6 +32,7 @@ const AskQuestionBlock: React.FC<Props> = ({
   pageTitle,
   title,
   img,
+  hint,
 }) => {
   const [sendFeedbackData, { loading, error, data }] = useMutation<
     sendFeedback,
@@ -82,7 +83,16 @@ const AskQuestionBlock: React.FC<Props> = ({
             <h3>Feedback sent</h3>
             <p>
               We're really grateful you took the time to share your thoughts. If
-              you have any more please let us know.
+              you have any more questions or ideas please let us know!
+              <Aubtn
+                as="tertiary"
+                className="block mt-1"
+                onClick={() => {
+                  setState({ ...state, submitted: false });
+                }}
+              >
+                Leave more feedback
+              </Aubtn>
             </p>
           </>
         </AuPageAlert>
@@ -106,6 +116,7 @@ const AskQuestionBlock: React.FC<Props> = ({
                     type="search"
                     as="textarea"
                     label={label}
+                    hint={hint}
                     block
                     className="mh-200"
                     formGroupClass="mt-1"

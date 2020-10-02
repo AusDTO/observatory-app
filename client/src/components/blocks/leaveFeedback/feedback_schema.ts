@@ -3,7 +3,25 @@ import * as yup from "yup";
 import { gql } from "@apollo/client";
 
 export const sendFeedbackSchema = yup.object().shape({
-  feedback: yup.string().required("Please enter a question"),
+  feedback: yup
+    .string()
+    .required("Please enter a question")
+    .trim()
+    .min(3, "Please enter some feedback")
+    .test({
+      name: "Check max length",
+      message: "Maximum length of field is 500 characters",
+      test: async function (this, value) {
+        if (value.trim.length < 500) {
+          return true;
+        } else {
+          return this.createError({
+            message: `Maximum amount of characters is 500. You have used ${value.length}/500 characters`,
+            path: "feedback",
+          });
+        }
+      },
+    }),
 });
 
 export const InitialValues = {

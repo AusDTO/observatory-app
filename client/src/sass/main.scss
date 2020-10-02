@@ -147,6 +147,11 @@ h1 {
     color: $AU-color-background;
     text-decoration: underline;
   }
+
+  &.au-btn--tertiary {
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
 }
 
 .au-search {
@@ -235,7 +240,7 @@ h1.au-header__heading {
 
 .question-image {
   position: absolute;
-  top: 85px;
+  top: 145px;
   max-width: 320px !important;
   @media only screen and (max-width: 992px) {
     top: 100px;

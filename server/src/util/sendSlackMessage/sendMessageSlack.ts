@@ -34,25 +34,27 @@ export const sendFeedbackMessage = async (
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*Feedback*: \n${feedback}`,
+          text: `*Feedback*: \n${feedback.trim()}`,
         },
       },
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*Page path*: \n${pageUrl}`,
+          text: `*Page path*: \n${pageUrl.trim()}`,
         },
       },
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*Page title*: \n ${pageTitle}`,
+          text: `*Page title*: \n ${pageTitle.trim()}`,
         },
       },
     ],
   };
+
+  console.log(feedback.length);
 
   if (ENVIRONMENT === "production") {
     await sendSlackMessage(options);
@@ -86,21 +88,21 @@ export const sendSignUpMessage = async (
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*Email*: \n${email}`,
+          text: `*Email*: \n${email.trim()}`,
         },
       },
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*Role*: \n${role}`,
+          text: `*Role*: \n${role.trim()}`,
         },
       },
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*Name*: \n ${name}`,
+          text: `*Name*: \n ${name.trim()}`,
         },
       },
     ],

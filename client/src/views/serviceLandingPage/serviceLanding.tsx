@@ -67,10 +67,11 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
             <div className="row">
               <AskQuestionBlock
                 label="Let us know what you want to see or how we can make improvements"
+                hint="Maximum of 500 characters"
                 pageTitle={`${property.service_name} | ObservatoryApp`}
                 pageUrl={window.location.href.replace(/(^\w+:|^)\/\//, "")}
                 img={questionImage}
-                title="Have a question that isn't listed?"
+                title="Have a question that is not listed? Or feedback about this page?"
               />
             </div>
           </div>
