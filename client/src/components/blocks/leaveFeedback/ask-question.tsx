@@ -22,6 +22,7 @@ interface Props {
   pageUrl: string;
   pageTitle: string;
   img: string;
+  title: string;
 }
 
 const AskQuestionBlock: React.FC<Props> = ({
@@ -29,6 +30,7 @@ const AskQuestionBlock: React.FC<Props> = ({
   label,
   pageUrl,
   pageTitle,
+  title,
   img,
 }) => {
   const [sendFeedbackData, { loading, error, data }] = useMutation<
@@ -48,13 +50,11 @@ const AskQuestionBlock: React.FC<Props> = ({
     setSaving(true);
 
     const { feedback } = formData;
-    const a = { feedback, pageTitle, pageUrl };
-    console.log(a);
 
     const result = await sendFeedbackData({
       variables: { feedback, pageTitle, pageUrl },
     });
-    console.log(result);
+
     setSaving(false);
 
     // if (loading) {
@@ -79,13 +79,17 @@ const AskQuestionBlock: React.FC<Props> = ({
       {state.submitted ? (
         <AuPageAlert as="success" className="max-42">
           <>
-            <h3>Feedback sent successfully</h3>
-            <p>Feedback has been received</p>
+            <h3>Feedback sent</h3>
+            <p>
+              We're really grateful you took the time to share your thoughts. If
+              you have any more please let us know.
+            </p>
           </>
         </AuPageAlert>
       ) : (
         <>
           <div className="col-md-8 col-sm-12">
+            <h2 className="mt-1">{title}</h2>
             <Formik
               initialValues={InitialValues}
               onSubmit={async (data) => {
@@ -104,6 +108,7 @@ const AskQuestionBlock: React.FC<Props> = ({
                     label={label}
                     block
                     className="mh-200"
+                    formGroupClass="mt-1"
                   />
 
                   <div className="mt-half">

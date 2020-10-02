@@ -6,8 +6,7 @@ const webhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 export const sendSlackMessage = async (
   options: IncomingWebhookSendArguments
 ) => {
-  const res = await webhook.send({ ...options });
-  console.log(res);
+  await webhook.send({ ...options });
 };
 
 export const sendFeedbackMessage = async (

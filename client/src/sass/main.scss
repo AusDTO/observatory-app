@@ -235,9 +235,12 @@ h1.au-header__heading {
 
 .question-image {
   position: absolute;
-  top: 65px;
-
-  max-width: 300px !important;
+  top: 85px;
+  max-width: 320px !important;
+  @media only screen and (max-width: 992px) {
+    top: 100px;
+    max-width: 280px !important;
+  }
 }
 
 .border-right-0 {

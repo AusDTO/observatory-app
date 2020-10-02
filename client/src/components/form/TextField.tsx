@@ -22,6 +22,7 @@ interface TextFieldProps {
   type?: string;
   dark?: boolean;
   block?: boolean;
+  formGroupClass?: string;
 }
 
 const TextField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
@@ -32,13 +33,18 @@ const TextField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
   const describedByHint: string = hint && ` ${props.id}--hint`;
 
   return (
-    <AuFormGroup status={error ? "invalid" : "valid"}>
+    <AuFormGroup
+      status={error ? "invalid" : "valid"}
+      className={`${props.formGroupClass ? props.formGroupClass : ""}`}
+    >
       <AuLabel htmlFor={props.id} text={props.label} />
       {error && <AuErrorText text={meta.error} id={`${props.id}--error`} />}
       {hint && <AuHintText text={props.hint} id={`${props.id}--hint`} />}
       <AuTextInput
         {...field}
-        {...props}
+        block={props.block}
+        id={props.id}
+        as={props.as}
         className={`${error ? "au-text-input--invalid" : ""} ${
           props.className
         }`}

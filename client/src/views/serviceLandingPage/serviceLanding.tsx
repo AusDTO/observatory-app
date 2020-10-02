@@ -64,13 +64,13 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
 
             {questionView ? <ServiceQuestions /> : <MetricsView />}
 
-            <h2>Have a question that isn't listed?</h2>
             <div className="row">
               <AskQuestionBlock
                 label="Let us know what you want to see or how we can make improvements"
                 pageTitle={`${property.service_name} | ObservatoryApp`}
                 pageUrl={window.location.href.replace(/(^\w+:|^)\/\//, "")}
                 img={questionImage}
+                title="Have a question that isn't listed?"
               />
             </div>
           </div>
