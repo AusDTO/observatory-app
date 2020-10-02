@@ -49,6 +49,7 @@ const TextField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
           props.className
         }`}
         aria-invalid={error}
+        type={props.type}
         aria-describedby={describedByError + describedByHint}
         width={props.width}
       />
