@@ -50,6 +50,7 @@ const TextField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
         }`}
         aria-invalid={error}
         aria-describedby={describedByError + describedByHint}
+        width={props.width}
       />
     </AuFormGroup>
   );
