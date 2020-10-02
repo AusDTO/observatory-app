@@ -60,3 +60,55 @@ export const sendFeedbackMessage = async (
     console.log("SENT feedback");
   }
 };
+
+export const sendSignUpMessage = async (
+  name: string,
+  role: string,
+  email: string
+) => {
+  const options: IncomingWebhookSendArguments = {
+    blocks: [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "Hi :celebrate:",
+        },
+      },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "We have had a new sign up to observatoryApp!",
+        },
+      },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*Email*: \n${email}`,
+        },
+      },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*Role*: \n${role}`,
+        },
+      },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*Name*: \n ${name}`,
+        },
+      },
+    ],
+  };
+
+  if (ENVIRONMENT === "production") {
+    await sendSlackMessage(options);
+  } else {
+    console.log("SENT sign up message");
+  }
+};

@@ -13,6 +13,7 @@ import {
   getEmailHost,
 } from "../../util/getAgencyCodeFromEmail";
 import { getManager, getRepository } from "typeorm";
+import { sendSignUpMessage } from "../../util/sendSlackMessage/sendMessageSlack";
 
 const validationSchema = yup.object().shape({
   email: emailValidator,
@@ -94,6 +95,7 @@ export const resolvers: ResolverMap = {
 
       //email the user the link using notify
       await sendConfirmationEmail(email, name, confirmationLink);
+      await sendSignUpMessage(name, role, email);
 
       if (ENVIRONMENT !== "production") {
         console.log(confirmationLink);
