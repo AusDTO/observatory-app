@@ -24,6 +24,10 @@ interface ResetPasswordData {
   password: string;
 }
 
+interface FeedbackData {
+  feedback: string;
+}
+
 interface loginData {
   email: string;
   password: string;

@@ -75,7 +75,6 @@ beforeEach(async () => {
 
 describe("Edit data suite", () => {
   test("Editing data", async () => {
-    // console.log(await Outputs.find());
     const newData = {
       output: [
         {

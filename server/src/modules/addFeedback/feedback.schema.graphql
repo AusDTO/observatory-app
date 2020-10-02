@@ -1,0 +1,13 @@
+type Query {
+  random1: String
+}
+
+type Mutation {
+  sendFeedback(
+    feedback: String!
+    pageTitle: String
+    pageUrl: String
+  ): SendFeedbackResult
+}
+
+union SendFeedbackResult = FieldErrors | Error | Success

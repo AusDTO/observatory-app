@@ -15,6 +15,12 @@ export interface IForgotPasswordSendEmailType {
   email: string;
 }
 
+export interface ISendFeedbackType {
+  feedback: string;
+  pageTitle: string;
+  pageUrl: string;
+}
+
 export interface IResetPasswordType {
   newPassword: string;
   key: string;
