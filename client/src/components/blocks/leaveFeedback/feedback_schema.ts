@@ -2,13 +2,12 @@ import * as yup from "yup";
 
 import { gql } from "@apollo/client";
 
-export const questionSchema = yup.object().shape({
+export const sendFeedbackSchema = yup.object().shape({
   feedback: yup.string().required("Please enter a question"),
 });
 
 export const InitialValues = {
-  email: "",
-  password: "",
+  feedback: "",
 };
 
 export const SEND_FEEDBACK_MUTATION = gql`

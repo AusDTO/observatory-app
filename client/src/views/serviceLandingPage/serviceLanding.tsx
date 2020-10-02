@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { AuDirectionLink, Aubtn } from "../../types/auds";
 import { ServiceQuestions } from "./cardlistQuestions";
 import AskQuestionBlock from "../../components/blocks/leaveFeedback/ask-question";
-import questionImage from "./question.png";
+import questionImage from "./ask.png";
 import { MetricsView } from "./metricsView";
 
 interface Props {
@@ -66,12 +66,12 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
 
             <h2>Have a question that isn't listed?</h2>
             <div className="row">
-              <div className="col-md-8 col-sm-12">
-                <AskQuestionBlock label="Let us know what you want to see or how we can make improvements" />
-              </div>
-              <div className="col-md-3 col-sm-none">
-                <img src={questionImage} alt="" className="question-image" />
-              </div>
+              <AskQuestionBlock
+                label="Let us know what you want to see or how we can make improvements"
+                pageTitle={`${property.service_name} | ObservatoryApp`}
+                pageUrl={window.location.href.replace(/(^\w+:|^)\/\//, "")}
+                img={questionImage}
+              />
             </div>
           </div>
         </div>
