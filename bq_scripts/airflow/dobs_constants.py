@@ -30,7 +30,9 @@ DATASET_ID = 'dta_customers'
 TABLE_ID = 'dta_ga_accounts'
 
 DATASET_EXEC_BASICS = 'dta_customers'
+TABLE_EXEC_TYPE1 = 'exec_basics_prototype_weekly'
 TABLE_EXEC_TYPE2 = 'exec_basics_prototype_daily'
+TABLE_EXEC_TYPE3 = 'exec_basics_prototype_hourly'
 
 AGENCY_NAME = 'DTA'
 
