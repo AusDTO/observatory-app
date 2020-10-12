@@ -102,6 +102,90 @@
                     WHERE
                       type = 'PAGE'
                       and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
+                  union all
+                  select
+                      fullVisitorId,
+                      visitStartTime,
+                      hits.page.hostname as hostname,
+                      hits.hitNumber,
+                      totals.bounces,
+                      totals.visits,
+                      coalesce(cast(hits.isExit as string),"") as isExit,
+                      hits.time/1000 as hit_time,
+                      max( if( hits.isInteraction is not null, hits.time/1000, 0 ) ) over
+                      (partition by fullVisitorId, visitStartTime) as last_interaction,
+                      MIN(IF(hits.isInteraction IS NOT NULL,
+                        hits.hitNumber,0)) OVER (PARTITION BY fullVisitorId, visitStartTime) AS first_interaction,
+                      MIN(hits.hitNumber) OVER (PARTITION BY fullVisitorId, visitStartTime) AS first_hit
+                    from
+                      `222282547.ga_sessions_*` AS GA,
+                      UNNEST(GA.hits) AS hits 
+                    WHERE
+                      type = 'PAGE'
+                      and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
+                  union all
+                  select
+                      fullVisitorId,
+                      visitStartTime,
+                      hits.page.hostname as hostname,
+                      hits.hitNumber,
+                      totals.bounces,
+                      totals.visits,
+                      coalesce(cast(hits.isExit as string),"") as isExit,
+                      hits.time/1000 as hit_time,
+                      max( if( hits.isInteraction is not null, hits.time/1000, 0 ) ) over
+                      (partition by fullVisitorId, visitStartTime) as last_interaction,
+                      MIN(IF(hits.isInteraction IS NOT NULL,
+                        hits.hitNumber,0)) OVER (PARTITION BY fullVisitorId, visitStartTime) AS first_interaction,
+                      MIN(hits.hitNumber) OVER (PARTITION BY fullVisitorId, visitStartTime) AS first_hit
+                    from
+                      `170387771.ga_sessions_*` AS GA,
+                      UNNEST(GA.hits) AS hits 
+                    WHERE
+                      type = 'PAGE'
+                      and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
+                  union all
+                  select
+                      fullVisitorId,
+                      visitStartTime,
+                      hits.page.hostname as hostname,
+                      hits.hitNumber,
+                      totals.bounces,
+                      totals.visits,
+                      coalesce(cast(hits.isExit as string),"") as isExit,
+                      hits.time/1000 as hit_time,
+                      max( if( hits.isInteraction is not null, hits.time/1000, 0 ) ) over
+                      (partition by fullVisitorId, visitStartTime) as last_interaction,
+                      MIN(IF(hits.isInteraction IS NOT NULL,
+                        hits.hitNumber,0)) OVER (PARTITION BY fullVisitorId, visitStartTime) AS first_interaction,
+                      MIN(hits.hitNumber) OVER (PARTITION BY fullVisitorId, visitStartTime) AS first_hit
+                    from
+                      `169220999.ga_sessions_*` AS GA,
+                      UNNEST(GA.hits) AS hits 
+                    WHERE
+                      type = 'PAGE'
+                      and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
+                  union all
+                  select
+                      fullVisitorId,
+                      visitStartTime,
+                      hits.page.hostname as hostname,
+                      hits.hitNumber,
+                      totals.bounces,
+                      totals.visits,
+                      coalesce(cast(hits.isExit as string),"") as isExit,
+                      hits.time/1000 as hit_time,
+                      max( if( hits.isInteraction is not null, hits.time/1000, 0 ) ) over
+                      (partition by fullVisitorId, visitStartTime) as last_interaction,
+                      MIN(IF(hits.isInteraction IS NOT NULL,
+                        hits.hitNumber,0)) OVER (PARTITION BY fullVisitorId, visitStartTime) AS first_interaction,
+                      MIN(hits.hitNumber) OVER (PARTITION BY fullVisitorId, visitStartTime) AS first_hit
+                    from
+                      `225103137.ga_sessions_*` AS GA,
+                      UNNEST(GA.hits) AS hits 
+                    WHERE
+                      type = 'PAGE'
+                      and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
           )
               )))
           group by  hostname, visit_weekday, visit_hour
@@ -130,6 +214,126 @@
       t_exec_basics_prototype_hourly exec
       inner join dta_customers.dta_properties_prototype prop 
         on exec.reg_domain = prop.hostname
+    order by hostname, visit_hour;
+
+    create or replace table dta_customers.exec_basics_prototype_hourly_99993137
+          OPTIONS (
+            description = "Daily 24hr executive basics dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 1 HOUR)
+    )
+    as
+    select
+          property_id,
+          reg_domain as hostname,
+          unique_visitors as users,
+          pageviews,
+          time_on_page,
+          bounce_rate*100 as bounce_rate,
+          bounces,
+          sessions,
+          visit_hour,
+          visit_weekday
+    from 
+      t_exec_basics_prototype_hourly exec
+      inner join dta_customers.dta_properties_prototype prop 
+        on exec.reg_domain = prop.hostname
+    where prop.property_id = 'UA-61222473-1'
+    order by hostname, visit_hour;
+
+  create or replace table dta_customers.exec_basics_prototype_hourly_222282547
+          OPTIONS (
+            description = "Daily 24hr executive basics dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 1 HOUR)
+    )
+    as
+    select
+          property_id,
+          reg_domain as hostname,
+          unique_visitors as users,
+          pageviews,
+          time_on_page,
+          bounce_rate*100 as bounce_rate,
+          bounces,
+          sessions,
+          visit_hour,
+          visit_weekday
+    from 
+      t_exec_basics_prototype_hourly exec
+      inner join dta_customers.dta_properties_prototype prop 
+        on exec.reg_domain = prop.hostname
+    where prop.property_id = 'UA-61222473-32'
+    order by hostname, visit_hour;
+
+  create or replace table dta_customers.exec_basics_prototype_hourly_170387771
+          OPTIONS (
+            description = "Daily 24hr executive basics dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 1 HOUR)
+    )
+    as
+    select
+          property_id,
+          reg_domain as hostname,
+          unique_visitors as users,
+          pageviews,
+          time_on_page,
+          bounce_rate*100 as bounce_rate,
+          bounces,
+          sessions,
+          visit_hour,
+          visit_weekday
+    from 
+      t_exec_basics_prototype_hourly exec
+      inner join dta_customers.dta_properties_prototype prop 
+        on exec.reg_domain = prop.hostname
+    where prop.property_id = 'UA-61222473-15'
+    order by hostname, visit_hour;
+
+    create or replace table dta_customers.exec_basics_prototype_hourly_169220999
+          OPTIONS (
+            description = "Daily 24hr executive basics dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 1 HOUR)
+    )
+    as
+    select
+          property_id,
+          reg_domain as hostname,
+          unique_visitors as users,
+          pageviews,
+          time_on_page,
+          bounce_rate*100 as bounce_rate,
+          bounces,
+          sessions,
+          visit_hour,
+          visit_weekday
+    from 
+      t_exec_basics_prototype_hourly exec
+      inner join dta_customers.dta_properties_prototype prop 
+        on exec.reg_domain = prop.hostname
+    where prop.property_id = 'UA-61222473-13'
+    order by hostname, visit_hour;
+
+  create or replace table dta_customers.exec_basics_prototype_hourly_225103137
+          OPTIONS (
+            description = "Daily 24hr executive basics dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 1 HOUR)
+    )
+    as
+    select
+          property_id,
+          reg_domain as hostname,
+          unique_visitors as users,
+          pageviews,
+          time_on_page,
+          bounce_rate*100 as bounce_rate,
+          bounces,
+          sessions,
+          visit_hour,
+          visit_weekday
+    from 
+      t_exec_basics_prototype_hourly exec
+      inner join dta_customers.dta_properties_prototype prop 
+        on exec.reg_domain = prop.hostname
+    where prop.property_id = 'UA-61222473-33'
     order by hostname, visit_hour;
 
 END;
