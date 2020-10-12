@@ -65,22 +65,95 @@ with models.DAG(
         bql=pathlib.Path(dobs_constants.DAGS_DIR + "/bq_observatory_service/bq_sql_exec_basics_hourly.sql").read_text(), use_legacy_sql=False)
 
     # BigQuery data fetch
-    bigquery_fetch_type1 = bigquery_get_data.BigQueryGetDataOperator(
-        task_id='bigquery_fetch_type1',
+    bigquery_fetch_type1_1 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type1_1',
         dataset_id= dobs_constants.DATASET_EXEC_BASICS,
-        table_id= dobs_constants.TABLE_EXEC_TYPE1
+        table_id= dobs_constants.TABLE_EXEC_TYPE1_1
         )
     
-    bigquery_fetch_type2 = bigquery_get_data.BigQueryGetDataOperator(
-        task_id='bigquery_fetch_type2',
+    bigquery_fetch_type1_2 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type1_2',
         dataset_id= dobs_constants.DATASET_EXEC_BASICS,
-        table_id= dobs_constants.TABLE_EXEC_TYPE2
+        table_id= dobs_constants.TABLE_EXEC_TYPE1_2
+        )
+    
+    bigquery_fetch_type1_3 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type1_3',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE1_3
         )
 
-    bigquery_fetch_type3 = bigquery_get_data.BigQueryGetDataOperator(
-        task_id='bigquery_fetch_type3',
+    bigquery_fetch_type1_4 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type1_4',
         dataset_id= dobs_constants.DATASET_EXEC_BASICS,
-        table_id= dobs_constants.TABLE_EXEC_TYPE3
+        table_id= dobs_constants.TABLE_EXEC_TYPE1_4
+        )
+
+    bigquery_fetch_type1_5 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type1_5',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE1_5
+        )
+
+
+    bigquery_fetch_type2_1 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type2_1',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE2_1
+        )
+
+    bigquery_fetch_type2_2 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type2_2',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE2_2
+        )
+
+    bigquery_fetch_type2_3 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type2_3',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE2_3
+        )    
+
+    bigquery_fetch_type2_4 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type2_4',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE2_4
+        )
+
+    bigquery_fetch_type2_5 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type2_5',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE2_5
+        )
+
+    bigquery_fetch_type3_1 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type3_1',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE3_1
+        )
+
+    bigquery_fetch_type3_2 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type3_2',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE3_2
+        )
+
+    bigquery_fetch_type3_3 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type3_3',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE3_3
+        )
+
+    bigquery_fetch_type3_4 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type3_4',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE3_4
+        )
+
+    bigquery_fetch_type3_5 = bigquery_get_data.BigQueryGetDataOperator(
+        task_id='bigquery_fetch_type3_5',
+        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+        table_id= dobs_constants.TABLE_EXEC_TYPE3_5
         )
 
 
@@ -129,23 +202,72 @@ with models.DAG(
 
     def update_output_type1(**context):
         # Load output of respective agency's property into RDS
-        xcom_data = context['ti'].xcom_pull(task_ids='bigquery_fetch_type1')
-        data_out, uaid = prepare_outtype1(xcom_data)
-        dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE1)
-
+        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type1_1')
+        if xcom_data_1:
+            data_out, uaid = prepare_outtype1(xcom_data_1)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE1)
+        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type1_2')
+        if xcom_data_2:
+            data_out, uaid = prepare_outtype1(xcom_data_2)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE1)
+        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type1_3')
+        if xcom_data_3:
+            data_out, uaid = prepare_outtype1(xcom_data_3)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE1)
+        xcom_data_4 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type1_4')
+        if xcom_data_4:
+            data_out, uaid = prepare_outtype1(xcom_data_4)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE1)
+        xcom_data_5 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type1_5')
+        if xcom_data_5:
+            data_out, uaid = prepare_outtype1(xcom_data_5)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE1)
 
     def update_output_type2(**context):
         # Load output of respective agency's property into RDS
-        xcom_data = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2')
-        data_out, uaid = prepare_outtype2(xcom_data)
-        dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
+        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1')
+        if xcom_data_1:
+            data_out, uaid = prepare_outtype2(xcom_data_1)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2')
+        if xcom_data_2:
+            data_out, uaid = prepare_outtype2(xcom_data_2)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3')
+        if xcom_data_3:
+            data_out, uaid = prepare_outtype2(xcom_data_3)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_4 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4')
+        if xcom_data_4:
+            data_out, uaid = prepare_outtype2(xcom_data_4)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_5 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5')
+        if xcom_data_5:
+            data_out, uaid = prepare_outtype2(xcom_data_5)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
 
     def update_output_type3(**context):
         # Load output of respective agency's property into RDS
-        xcom_data = context['ti'].xcom_pull(task_ids='bigquery_fetch_type3')
-        data_out, uaid = prepare_outtype3(xcom_data)
-        dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE3)
+        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type3_1')
+        if xcom_data_1:
+            data_out, uaid = prepare_outtype3(xcom_data_1)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE3)
+        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type3_2')
+        if xcom_data_2:
+            data_out, uaid = prepare_outtype3(xcom_data_2)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE3)
+        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type3_3')
+        if xcom_data_3:
+            data_out, uaid = prepare_outtype3(xcom_data_3)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE3)
+        xcom_data_4 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type3_4')
+        if xcom_data_4:
+            data_out, uaid = prepare_outtype3(xcom_data_4)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE3)
+        xcom_data_5 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type3_5')
+        if xcom_data_5:
+            data_out, uaid = prepare_outtype3(xcom_data_5)
+            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE3)
 
 
     # Write data to RDS
@@ -173,7 +295,20 @@ with models.DAG(
         dag=dag,
     )
 
-bigquery_data_type1 >> bigquery_fetch_type1 >> update_type1_to_rds
-bigquery_data_type2 >> bigquery_fetch_type2 >> update_type2_to_rds
-bigquery_data_type3 >> bigquery_fetch_type3 >> update_type3_to_rds
+bigquery_data_type1 >> bigquery_fetch_type1_1
+bigquery_data_type1 >> bigquery_fetch_type1_2
+bigquery_data_type1 >> bigquery_fetch_type1_3
+bigquery_data_type1 >> bigquery_fetch_type1_4
+bigquery_data_type1 >> bigquery_fetch_type1_5 >> update_type1_to_rds
 
+bigquery_data_type2 >> bigquery_fetch_type2_1
+bigquery_data_type2 >> bigquery_fetch_type2_2
+bigquery_data_type2 >> bigquery_fetch_type2_3
+bigquery_data_type2 >> bigquery_fetch_type2_4
+bigquery_data_type2 >> bigquery_fetch_type2_5 >> update_type2_to_rds
+
+bigquery_data_type3 >> bigquery_fetch_type3_1
+bigquery_data_type3 >> bigquery_fetch_type3_2
+bigquery_data_type3 >> bigquery_fetch_type3_3
+bigquery_data_type3 >> bigquery_fetch_type3_4
+bigquery_data_type3 >> bigquery_fetch_type3_5 >> update_type3_to_rds
