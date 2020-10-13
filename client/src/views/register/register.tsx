@@ -16,7 +16,7 @@ import {
   RegisterUser_register_UserAlreadyExistsError,
   RegisterUser_register_FieldErrors,
 } from "../../graphql/RegisterUser";
-import { RouteComponentProps } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { formatApiError } from "../../components/util/formatError";
 import SEO from "../seo";
 import {
@@ -25,6 +25,7 @@ import {
   ApiError,
   RegisterErrorName,
 } from "../../types/types";
+import PasswordField from "../../components/form/PasswordField";
 
 interface Props extends RouteComponentProps {}
 export const Register: React.FC<Props> = ({ history }) => {
@@ -103,6 +104,7 @@ export const Register: React.FC<Props> = ({ history }) => {
         <div className="container-fluid au-body">
           <div>
             <h2>Create your observatory reports account</h2>
+
             <p>
               This tool is currently in its Alpha phase, meaning access is
               limited to agencies with Observatory subscriptions only
@@ -111,9 +113,14 @@ export const Register: React.FC<Props> = ({ history }) => {
               To connect your Google Analytics account to the Observatory please
               contact us
             </p>
+            <p>
+              Already have an account? <Link to="/login">Sign in</Link>
+            </p>
           </div>
           <Formik
             initialValues={InitialValues}
+            validateOnChange={false}
+            validateOnBlur={false}
             validationSchema={validationSchema}
             onSubmit={(data, errors) => {
               handleRegisterUser(data);
@@ -179,20 +186,22 @@ export const Register: React.FC<Props> = ({ history }) => {
                 )}
                 <TextField id="name" label="Your name" width="lg" required />
                 <TextField id="email" label="Work email" width="lg" required />
-                <TextField
+
+                <PasswordField
                   id="password"
-                  type="password"
                   hint="Minimum 8 characters, including one uppercase, one lowercase, one number and one special case character"
                   label="Create a password"
                   width="lg"
                   required
                 />
+
                 <TextField
                   id="role"
                   label="What is your role?"
                   width="lg"
                   required
                 />
+
                 <AuFormGroup>
                   <Aubtn type="submit" onClick={submitForm} disabled={saving}>
                     {saving ? "Submitting" : "Subscribe"}

@@ -26,6 +26,7 @@ import {
   ResetPassword_resetPassword_FieldErrors,
   ResetPassword_resetPassword_Error,
 } from "../../graphql/ResetPassword";
+import PasswordField from "../../components/form/PasswordField";
 
 interface Props extends RouteComponentProps<{ key: string }> {} // key
 
@@ -105,6 +106,8 @@ export const ResetPasswordPage: React.FC<Props> = ({ history, match }) => {
           <Formik
             initialValues={InitialValues}
             validationSchema={validationSchema}
+            validateOnBlur={false}
+            validateOnChange={false}
             onSubmit={(data, errors) => {
               handleResetPassword(data);
             }}
@@ -164,12 +167,13 @@ export const ResetPasswordPage: React.FC<Props> = ({ history, match }) => {
                 ) : (
                   ""
                 )}
-                <TextField
+                <PasswordField
                   id="password"
                   width="xl"
                   type="password"
                   dark={false}
                   label="Password"
+                  required={true}
                 />
                 <AuFormGroup>
                   <Aubtn

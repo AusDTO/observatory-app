@@ -107,6 +107,6 @@ describe("Reset password", () => {
     const result = await client.resetPassword("Password123!@#", "2314afaf");
     const { __typename, message } = result.data.resetPassword;
     expect(__typename).toEqual("Error");
-    expect(message).toEqual("Expired key or not found");
+    expect(message).toEqual("Expired or invalid password link");
   });
 });
