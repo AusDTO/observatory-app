@@ -54,7 +54,6 @@ export const sendFeedbackMessage = async (
     ],
   };
 
-  console.log(feedback.length);
 
   if (ENVIRONMENT === "production") {
     await sendSlackMessage(options);

@@ -269,3 +269,7 @@ h1.au-header__heading {
     border-width: 2px !important;
   }
 }
+
+.au-sr-only {
+  @include AU-sronly();
+}

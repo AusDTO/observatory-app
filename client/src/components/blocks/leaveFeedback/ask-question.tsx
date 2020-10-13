@@ -67,6 +67,8 @@ const AskQuestionBlock: React.FC<Props> = ({
 
       const { __typename } = serverResult;
 
+      //FIX should handle validate server errors as well
+
       switch (__typename) {
         case "Success":
           setState({ ...state, submitted: true });

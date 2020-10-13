@@ -17,7 +17,7 @@ export const Home: React.FC<Props> = ({ history, location }) => {
           <p>
             You shouldn't have to be a Data Scientist to use data intelligently.
             So we built ObservatoryApp to flatten the analytics learning curve
-            and give you valuable isights in a language you can understand:{" "}
+            and give you valuable insights in a language you can understand:{" "}
             <i>human.</i>
           </p>
           <Link to="/register">
