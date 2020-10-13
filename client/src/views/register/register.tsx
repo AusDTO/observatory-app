@@ -119,8 +119,6 @@ export const Register: React.FC<Props> = ({ history }) => {
           </div>
           <Formik
             initialValues={InitialValues}
-            validateOnChange={false}
-            validateOnBlur={false}
             validationSchema={validationSchema}
             onSubmit={(data, errors) => {
               handleRegisterUser(data);
