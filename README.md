@@ -2,6 +2,11 @@
 
 Repoistory for the Beta of the analytics reporting tool.
 
+### Contents
+
+- [Server](#server)
+- [Client](#client)
+
 ## Server
 
 Stack:
@@ -10,6 +15,7 @@ Stack:
 - Postgres, using Typeorm as the ORM
 - Redis for in memoryDb
 - Express for admin api
+- [Notify.gov.au](https://notify.gov.au/) for email service
 
 Follow the instructions to start the app locally.
 
@@ -41,7 +47,7 @@ First start the redis server on port 6379
 Download postgres from here and make sure it's running locally
 https://www.postgresql.org/download/
 
-## Start server
+### Start server
 
 Once this is done run the following commands from the `/server` directory to start the server:
 
@@ -51,3 +57,18 @@ $ npm run watch
 ```
 
 It will start on port 4000 by default.
+
+## Client
+
+Stack:
+
+- Create react app
+- Apollo client
+- [Design System](https://designsystem.gov.au/)
+
+Once server is up and running, run the following in the `/client` directory:
+
+```
+$ npm i
+$ npm run watch
+```
