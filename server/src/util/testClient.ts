@@ -1,6 +1,7 @@
 import request from "graphql-request";
 import * as rp from "request-promise";
 import node_fetch from "node-fetch";
+import { DataOutputType } from "../types/schema";
 
 //Test client class for graphql requests
 export class TestClient {
@@ -17,6 +18,77 @@ export class TestClient {
       jar: rp.jar(),
       withCredentials: true,
     };
+  }
+
+  async sendFeedbackData(pageTitle: string, pageUrl: string, feedback: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `
+        mutation {
+          sendFeedback(pageTitle: "${pageTitle}", feedback: "${feedback}", pageUrl: "${pageUrl}") {
+            __typename
+            ... on FieldErrors {
+              errors {
+                message
+                path
+              }
+            }
+            ...on Success {
+              message
+            }
+            
+            ...on Error {
+              message
+            }
+          }
+        }
+        `,
+      },
+    });
+  }
+
+  async fetchOutputData(token: string, ua_id?: string) {
+    return node_fetch(
+      `http://localhost:4000/api/output${ua_id ? "/" + ua_id : ""}`,
+      {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+
+  async editDataOutput(
+    token: string,
+    ua_id: string,
+    type: DataOutputType,
+    bodyData: any
+  ) {
+    return node_fetch(
+      `http://localhost:4000/api/output/${ua_id}?type=${type}`,
+      {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: bodyData,
+      }
+    );
+  }
+
+  async addDataOutput(token: string, ua_id: string, bodyData: any) {
+    return node_fetch(`http://localhost:4000/api/output/${ua_id}`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: bodyData,
+    });
   }
 
   async editProperty(token: string, propertyId: string, bodyData: any) {
@@ -98,6 +170,50 @@ export class TestClient {
       method: "post",
       body: JSON.stringify(body),
       headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  async getOutputData(type: string, property_ua_id: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `query {
+          getOutputData(type: "${type}", property_ua_id: "${property_ua_id}") {
+            __typename
+        
+            ... on ExecDataArray {
+              output {
+                bounceRate
+                pageViews
+                ...on ExecDaily {
+                  date
+                }
+                ...on ExecWeekly {
+                  dateEnding
+                }
+                ...on ExecHourly {
+                  visit_hour
+                }
+              }
+            }
+            ... on FieldErrors {
+              errors {
+                message
+                path
+              }
+            }
+            ... on NoOutputData {
+              message
+            }
+            ... on Error {
+              message
+            }
+            ... on InvalidProperty {
+              message
+            }
+          }
+        }`,
+      },
     });
   }
 

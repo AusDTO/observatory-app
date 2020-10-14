@@ -113,9 +113,8 @@ afterAll(async () => {
   await connection.close();
 });
 
-beforeEach(async () => {
+afterEach(async () => {
   const manager = getManager();
-  await manager.clear(Property);
   await getConnection().getRepository(Property).delete({});
 });
 

@@ -13,7 +13,7 @@ export const ServiceQuestions: React.FC<Props> = () => {
       </h2>
       <div className="row">
         <ul className="au-card-list au-card-list--matchheight">
-          <li className="col-sm-3 col-xs-6">
+          <li className="col-md-4 col-sm-6 col-xs-12">
             <AuCard>
               <AuCardInner>
                 <h3 className="mt-0 font-weight-500">Accessibility</h3>
@@ -34,7 +34,7 @@ export const ServiceQuestions: React.FC<Props> = () => {
               </AuCardInner>
             </AuCard>
           </li>
-          <li className="col-sm-3 col-xs-6">
+          <li className="col-md-4 col-sm-6 col-xs-12">
             <AuCard>
               <AuCardInner>
                 <h3 className="mt-0 font-weight-500">Audience</h3>
@@ -52,7 +52,7 @@ export const ServiceQuestions: React.FC<Props> = () => {
               </AuCardInner>
             </AuCard>
           </li>
-          <li className="col-sm-3 col-xs-6">
+          <li className="col-md-4 col-sm-6 col-xs-12">
             <AuCard>
               <AuCardInner>
                 <h3 className="mt-0 font-weight-500">Content</h3>
@@ -70,7 +70,7 @@ export const ServiceQuestions: React.FC<Props> = () => {
               </AuCardInner>
             </AuCard>
           </li>
-          <li className="col-sm-3 col-xs-6">
+          <li className="col-md-4 col-sm-6 col-xs-12">
             <AuCard>
               <AuCardInner>
                 <h3 className="mt-0 font-weight-500">Engagement</h3>
@@ -89,7 +89,7 @@ export const ServiceQuestions: React.FC<Props> = () => {
             </AuCard>
           </li>
 
-          <li className="col-sm-3 col-xs-6">
+          <li className="col-md-4 col-sm-6 col-xs-12">
             <AuCard>
               <AuCardInner>
                 <h3 className="mt-0 font-weight-500">Searching and finding</h3>
@@ -107,7 +107,7 @@ export const ServiceQuestions: React.FC<Props> = () => {
               </AuCardInner>
             </AuCard>
           </li>
-          <li className="col-sm-3 col-xs-6">
+          <li className="col-md-4 col-sm-6 col-xs-12">
             <AuCard>
               <AuCardInner>
                 <h3 className="mt-0 font-weight-500">Traffic</h3>

@@ -29,7 +29,6 @@ export const resolvers: ResolverMap = {
 
       //This case is for when agency is added while user is logged in and makes this request
       if (!agencyId && user.agency) {
-        console.log("ASSIGNING HERE");
         agencyId = user.agency.id;
         session.agencyId = user.agency.id;
       }

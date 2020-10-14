@@ -15,6 +15,12 @@ export interface IForgotPasswordSendEmailType {
   email: string;
 }
 
+export interface ISendFeedbackType {
+  feedback: string;
+  pageTitle: string;
+  pageUrl: string;
+}
+
 export interface IResetPasswordType {
   newPassword: string;
   key: string;
@@ -31,3 +37,10 @@ export interface IAgencyIdType {
 export interface IGetPropertyType {
   propertyId: string;
 }
+
+export interface IGetOutputDataType {
+  type: DataOutputType;
+  property_ua_id: string;
+}
+
+export type DataOutputType = "exec_weekly" | "exec_daily" | "exec_hourly";

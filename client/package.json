@@ -47,7 +47,7 @@
   "scripts": {
     "watch": "REACT_APP_ENVIRONMENT=development react-scripts start",
     "build": "CI=false REACT_APP_ENVIRONMENT=production react-scripts build && . ./build.sh",
-    "codegen": "apollo codegen:generate --target typescript --excludes=node_modules/* --includes=**/*.tsx --endpoint http://localhost:4000/api --tagName=gql --outputFlat ./src/graphql",
+    "codegen": "apollo codegen:generate --target typescript --excludes=node_modules/* --includes=**/*.tsx --endpoint http://localhost:4000/graphql --tagName=gql --outputFlat ./src/graphql",
     "eject": "react-scripts eject",
     "pancake": "pancake"
   },

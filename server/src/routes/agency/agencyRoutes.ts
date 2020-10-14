@@ -113,9 +113,8 @@ agencyRouter.get(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name } = req.params;
     if (name) {
-      console.log(name);
       const agency = await Agency.findOne({ where: { name } });
-      console.log(agency);
+
       if (agency) {
         return res.status(200).json(agency);
       } else {

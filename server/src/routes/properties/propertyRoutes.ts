@@ -4,16 +4,13 @@ import { Property } from "../../entity/Property";
 import { IProperty } from "../../types/other";
 import * as _ from "lodash";
 import { Agency } from "../../entity/Agency";
-import {
-  propertyArraySchema,
-  ua_id_schema,
-  updatePropertyField,
-} from "./property_schemas";
+import { propertyArraySchema, updatePropertyField } from "./property_schemas";
+import { ua_id_schema } from "../../util/yup";
 
 const propertyRouter = express.Router();
 
 /**
- * Accepts Array<IProperty> as body params
+ * Accepts Array<IProperty'> as body params
  */
 propertyRouter.post(
   "/",

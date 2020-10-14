@@ -147,6 +147,11 @@ h1 {
     color: $AU-color-background;
     text-decoration: underline;
   }
+
+  &.au-btn--tertiary {
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
 }
 
 .au-search {
@@ -235,8 +240,12 @@ h1.au-header__heading {
 
 .question-image {
   position: absolute;
-  top: -30px;
-  max-width: 230px !important;
+  top: 145px;
+  max-width: 320px !important;
+  @media only screen and (max-width: 992px) {
+    top: 100px;
+    max-width: 280px !important;
+  }
 }
 
 .border-right-0 {
@@ -259,4 +268,8 @@ h1.au-header__heading {
     border-color: #046b99 !important;
     border-width: 2px !important;
   }
+}
+
+.au-sr-only {
+  @include AU-sronly();
 }

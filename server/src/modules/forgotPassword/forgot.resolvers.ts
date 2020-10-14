@@ -98,7 +98,7 @@ export const resolvers: ResolverMap = {
       );
 
       if (!userId) {
-        return basicApiErrorMessage("Expired key or not found", "Error");
+        return basicApiErrorMessage("Expired or invalid password link", "Error");
       }
 
       const user = await User.findOne({ where: { id: userId } });
