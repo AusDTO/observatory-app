@@ -1,5 +1,7 @@
 type Query {
-  getOutputData(type: String!, property_ua_id: String!): GetOutputResult
+  getExecDailyData(property_ua_id: String!): GetDailyExecDataResult
+  getExecWeeklyData(property_ua_id: String!): GetWeeklyExecDataResult
+  getExecHourlyData(property_ua_id: String!): GetHourlyExecDataResult
 }
 
 type PropertyList {
@@ -18,44 +20,74 @@ type Random {
   message: String!
 }
 
-type ExecDataArray {
-  output: [ExecData]
-}
-
-interface ExecData {
-  timeOnPage: String
-  pageViews: String!
-  sessions: String!
-  bounceRate: String!
-}
-
-type ExecWeekly implements ExecData {
+type ExecWeekly {
   timeOnPage: String
   pageViews: String!
   sessions: String!
   bounceRate: String!
   dateEnding: String!
+  aveSessionsPerUser: String!
+  pagesPerSession: String!
+  aveSessionDuration: String!
+  newUsers: String!
+  returningUsers: String!
 }
 
-type ExecDaily implements ExecData {
+type ExecWeeklyArray {
+  output: [ExecWeekly!]!
+}
+
+type ExecDaily {
   timeOnPage: String
   pageViews: String!
   sessions: String!
   bounceRate: String!
+  aveSessionsPerUser: String!
+  pagesPerSession: String!
+  aveSessionDuration: String!
+  newUsers: String!
+  returningUsers: String!
   date: String!
 }
 
-type ExecHourly implements ExecData {
-  timeOnPage: String
+type ExecDailyArray {
+  output: [ExecDaily!]!
+}
+
+type ExecHourly {
+  timeOnPage: String!
   pageViews: String!
   sessions: String!
   bounceRate: String!
+  aveSessionsPerUser: String!
+  pagesPerSession: String!
+  aveSessionDuration: String!
+  newUsers: String!
+  returningUsers: String!
   visit_hour: String!
 }
 
-union GetOutputResult =
+type ExecHourlyArray {
+  output: [ExecHourly!]!
+}
+
+union GetDailyExecDataResult =
     Error
   | NoOutputData
   | InvalidProperty
   | FieldErrors
-  | ExecDataArray
+  | ExecDailyArray
+
+union GetWeeklyExecDataResult =
+    Error
+  | NoOutputData
+  | InvalidProperty
+  | FieldErrors
+  | ExecWeeklyArray
+
+union GetHourlyExecDataResult =
+    Error
+  | NoOutputData
+  | InvalidProperty
+  | FieldErrors
+  | ExecHourlyArray

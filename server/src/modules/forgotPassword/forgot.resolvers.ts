@@ -11,6 +11,7 @@ import {
   REDIS_FORGOT_PASSWORD_PREFIX,
   basicApiErrorMessage,
   basicApiMessage,
+  ENVIRONMENT,
 } from "../../util/constants";
 import * as yup from "yup";
 import * as bcrypt from "bcryptjs";
@@ -70,6 +71,10 @@ export const resolvers: ResolverMap = {
       //create forgotpassword link
       const forgotLink = await CreateForgotPasswordLink(user.id, redis_client);
 
+      if (ENVIRONMENT === "development") {
+        console.log(forgotLink);
+      }
+
       await sendForgotPasswordEmail(email, user.name, forgotLink);
 
       return basicApiMessage(
@@ -98,7 +103,10 @@ export const resolvers: ResolverMap = {
       );
 
       if (!userId) {
-        return basicApiErrorMessage("Expired or invalid password link", "Error");
+        return basicApiErrorMessage(
+          "Expired or invalid password link",
+          "Error"
+        );
       }
 
       const user = await User.findOne({ where: { id: userId } });

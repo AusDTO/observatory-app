@@ -97,11 +97,8 @@ afterAll(async () => {
 
 describe("Test getting output data", () => {
   test("Not logged in", async () => {
-    const result = await client.getOutputData(
-      "exec_daily",
-      testProperies[0].ua_id
-    );
-    const { __typename } = result.data.getOutputData;
+    const result = await client.getExecDailyData(testProperies[0].ua_id);
+    const { __typename } = result.data.getExecDailyData;
 
     expect(__typename).toEqual("Error");
   });
@@ -109,24 +106,18 @@ describe("Test getting output data", () => {
   test("Logged in", async () => {
     await client.login(email, password);
 
-    const result = await client.getOutputData(
-      "exec_daily",
-      testProperies[0].ua_id
-    );
-    const { __typename, output } = result.data.getOutputData;
+    const result = await client.getExecDailyData(testProperies[0].ua_id);
+    const { __typename, output } = result.data.getExecDailyData;
 
-    expect(__typename).toEqual("ExecDataArray");
+    expect(__typename).toEqual("ExecDailyArray");
     expect(output).toHaveLength(2);
   });
 
   test("Can't get access to other agency properties", async () => {
     await client.login(email, password);
 
-    const result = await client.getOutputData(
-      "exec_daily",
-      testProperies[1].ua_id
-    );
-    const { __typename, message } = result.data.getOutputData;
+    const result = await client.getExecDailyData(testProperies[1].ua_id);
+    const { __typename, message } = result.data.getExecDailyData;
     expect(__typename).toEqual("Error");
 
     expect(message).toEqual("You don't have access to this properties data");
@@ -135,18 +126,15 @@ describe("Test getting output data", () => {
   test("Property with ua_ID not found", async () => {
     await client.login(email, password);
 
-    const result = await client.getOutputData("exec_daily", "UA-123123123");
-    const { __typename, message } = result.data.getOutputData;
+    const result = await client.getExecDailyData("UA-123123123");
+    const { __typename, message } = result.data.getExecDailyData;
     expect(__typename).toEqual("InvalidProperty");
   });
 
   test("No data for particular type", async () => {
-    const result = await client.getOutputData(
-      "exec_weekly",
-      testProperies[0].ua_id
-    );
+    const result = await client.getExecWeeklyData(testProperies[0].ua_id);
 
-    const { __typename, message } = result.data.getOutputData;
+    const { __typename, message } = result.data.getExecWeeklyData;
     expect(__typename).toEqual("NoOutputData");
   });
 });
