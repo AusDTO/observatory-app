@@ -85,3 +85,16 @@
 .inline {
   display: inline;
 }
+
+.metric-card__inner {
+  @include AU-space(padding, 2unit 1unit);
+  background: $AU-color-alt-bg;
+  border-radius: $AU-border-radius * 2;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.metric-card__desc {
+  display: block;
+  @include AU-fontgrid(lg);
+}

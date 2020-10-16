@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { AuCard, AuCardInner } from "../../types/auds";
 
-interface Props {} // key
+interface Props {
+  propertyUaId: string;
+} // key
 
-export const ServiceQuestions: React.FC<Props> = () => {
+export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
   return (
     <section className="mt-2">
       <h2>
@@ -19,7 +22,9 @@ export const ServiceQuestions: React.FC<Props> = () => {
                 <h3 className="mt-0 font-weight-500">Accessibility</h3>
                 <ul className="au-link-list">
                   <li>
-                    <a href="#">Lorem, ipsum dolor?</a>
+                    <Link to={`/service/snapshot/${propertyUaId}`}>
+                      Site snapshot
+                    </Link>
                   </li>
                   <li>
                     <a href="#">Lorem ipsum dolor sit?</a>
