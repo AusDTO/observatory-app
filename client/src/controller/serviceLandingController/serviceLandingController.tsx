@@ -16,13 +16,13 @@ import { ApiError } from "../../types/types";
 import { NotFound } from "../../views/404-logged-in/404";
 import { formatApiError } from "../../components/util/formatError";
 
-interface Props extends RouteComponentProps<{ property_ua_id: string }> {} // key
+interface Props extends RouteComponentProps<{ ua_id: string }> {} // key
 
 export const ServiceLandingController: (arg0: Props) => any = ({
   history,
   match,
 }) => {
-  const { property_ua_id } = match.params;
+  const { ua_id } = match.params;
 
   const GET_PROPERTY_SCHEMA = gql`
     query GetProperty($property_ua_id: String!) {
@@ -53,7 +53,7 @@ export const ServiceLandingController: (arg0: Props) => any = ({
 
   const { data, loading, error } = useQuery<GetProperty, GetPropertyVariables>(
     GET_PROPERTY_SCHEMA,
-    { variables: { property_ua_id: property_ua_id } }
+    { variables: { property_ua_id: ua_id } }
   );
 
   if (loading) {
