@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { ua_id_schema } from "../../util/yup";
+import { noUnknownMessage, ua_id_schema } from "../../util/yup";
 import { DataOutputType } from "../../types/schema";
 
 export const outputParamSchema = yup.object().shape({
@@ -15,45 +15,64 @@ const pagesPerSessionSchema = yup.string().required();
 const aveSessionDurationSchema = yup.string().required();
 const newUsersSchema = yup.string().required();
 const returningUsersSchema = yup.string().required();
+const usersSchema = yup.string().required();
 
-export const ExecDataSchemaDaily = yup.object().shape({
-  pageViews: pageViewsSchema,
-  sessions: sessionsSchema,
-  timeOnPage: timeOnPageSchema,
-  bounceRate: bounceRateSchema,
-  aveSessionsPerUser: aveSessionsPerUserSchema,
-  pagesPerSession: pagesPerSessionSchema,
-  aveSessionDuration: aveSessionDurationSchema,
-  newUsers: newUsersSchema,
-  returningUsers: returningUsersSchema,
-  date: yup.string().required(), //FIX: should be properly formatted date
-});
+export const ExecDataSchemaDaily = yup
+  .object()
+  .noUnknown(true, function (a) {
+    return noUnknownMessage(a);
+  })
+  .shape({
+    pageViews: pageViewsSchema,
+    sessions: sessionsSchema,
+    timeOnPage: timeOnPageSchema,
+    bounceRate: bounceRateSchema,
+    aveSessionsPerUser: aveSessionsPerUserSchema,
+    pagesPerSession: pagesPerSessionSchema,
+    aveSessionDuration: aveSessionDurationSchema,
+    users: usersSchema,
+    newUsers: newUsersSchema,
+    returningUsers: returningUsersSchema,
+    date: yup.string().required(), //FIX: should be properly formatted date
+  });
 
-export const ExecDataSchemaWeekly = yup.object().shape({
-  pageViews: pageViewsSchema,
-  sessions: sessionsSchema,
-  timeOnPage: timeOnPageSchema,
-  bounceRate: bounceRateSchema,
-  aveSessionsPerUser: aveSessionsPerUserSchema,
-  pagesPerSession: pagesPerSessionSchema,
-  aveSessionDuration: aveSessionDurationSchema,
-  newUsers: newUsersSchema,
-  returningUsers: returningUsersSchema,
-  dateEnding: yup.string().required(),
-});
+export const ExecDataSchemaWeekly = yup
+  .object()
+  .noUnknown(true, function (a) {
+    return noUnknownMessage(a);
+  })
+  .shape({
+    pageViews: pageViewsSchema,
+    sessions: sessionsSchema,
+    timeOnPage: timeOnPageSchema,
+    bounceRate: bounceRateSchema,
+    aveSessionsPerUser: aveSessionsPerUserSchema,
+    pagesPerSession: pagesPerSessionSchema,
+    aveSessionDuration: aveSessionDurationSchema,
+    users: usersSchema,
+    newUsers: newUsersSchema,
+    returningUsers: returningUsersSchema,
+    dateEnding: yup.string().required(),
+  });
 
-export const ExecDataSchemaHourly = yup.object().shape({
-  pageViews: pageViewsSchema,
-  sessions: sessionsSchema,
-  timeOnPage: timeOnPageSchema,
-  bounceRate: bounceRateSchema,
-  aveSessionsPerUser: aveSessionsPerUserSchema,
-  pagesPerSession: pagesPerSessionSchema,
-  aveSessionDuration: aveSessionDurationSchema,
-  newUsers: newUsersSchema,
-  returningUsers: returningUsersSchema,
-  visit_hour: yup.string().required(),
-});
+export const ExecDataSchemaHourly = yup
+  .object()
+  .noUnknown(true, function (a) {
+    return noUnknownMessage(a);
+  })
+  .shape({
+    pageViews: pageViewsSchema,
+    sessions: sessionsSchema,
+    timeOnPage: timeOnPageSchema,
+    bounceRate: bounceRateSchema,
+    aveSessionsPerUser: aveSessionsPerUserSchema,
+    pagesPerSession: pagesPerSessionSchema,
+    aveSessionDuration: aveSessionDurationSchema,
+    users: usersSchema,
+    newUsers: newUsersSchema,
+    returningUsers: returningUsersSchema,
+    visit_hour: yup.string().required(),
+  });
 
 export const ArrayExecDataDaily = yup.array().of(ExecDataSchemaDaily);
 export const ArrayExecDataWeekly = yup.array().of(ExecDataSchemaWeekly);

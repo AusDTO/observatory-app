@@ -82,6 +82,7 @@ describe("Edit data suite", () => {
           pagesPerSession: "1.4",
           aveSessionDuration: "10",
           newUsers: "20",
+          users: "20",
           returningUsers: "20",
         },
       ],
