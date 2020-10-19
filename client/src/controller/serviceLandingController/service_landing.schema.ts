@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_PROPERTY_SCHEMA = gql`
   query GetProperty($propertyId: String!) {
-    getProperty(propertyId: $propertyId) {
+    getProperty(property_ua_id: $propertyId) {
       __typename
       ... on FieldErrors {
         errors {

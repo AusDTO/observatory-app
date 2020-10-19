@@ -46,7 +46,7 @@ const App = (props: any) => {
           component={ResetPasswordPage}
         />
         <ProtectedRoute
-          path="/service/:propertyId"
+          path="/service/:property_ua_id"
           exact={true}
           component={ServiceLandingController}
         />

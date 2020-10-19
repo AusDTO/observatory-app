@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 import AdminLayout from "../../components/layouts/AdminLayout";
 import SEO from "../seo";
 
-import PageAlert from "../../components/blocks/page-alert";
-import {
-  GetPropertiesAndUser_getUser,
-  GetPropertiesAndUser_getUserProperties_PropertyList_properties,
-} from "../../graphql/GetPropertiesAndUser";
+import { GetPropertiesAndUser_getUserProperties_PropertyList_properties } from "../../graphql/GetPropertiesAndUser";
 
 interface Props {
   properties: Array<
@@ -27,7 +23,7 @@ export const ChooseServicePage: React.FC<Props> = ({ properties, name }) => {
           <ul className="au-link-list mt-1">
             {properties.map((property, i) => (
               <li key={i}>
-                <Link to={`/service/${property.id}`}>
+                <Link to={`/service/${property.ua_id}`}>
                   {property.service_name}
                 </Link>
               </li>

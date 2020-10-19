@@ -317,3 +317,7 @@ $AU-grid-12-gutter-width: 24px !default; //gutter space
 .mh-200 {
   min-height: 200px !important;
 }
+
+section + section {
+  @include AU-space(margin-top, 2.5unit);
+}

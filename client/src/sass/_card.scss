@@ -90,11 +90,17 @@
   @include AU-space(padding, 2unit 1unit);
   background: $AU-color-alt-bg;
   border-radius: $AU-border-radius * 2;
-  display: flex;
-  justify-content: flex-end;
+  position: relative;
 }
 
 .metric-card__desc {
-  display: block;
+  display: flex;
   @include AU-fontgrid(lg);
+  justify-content: flex-end;
+}
+
+.metric-card__link {
+  display: block;
+  position: absolute;
+  top: 1rem;
 }

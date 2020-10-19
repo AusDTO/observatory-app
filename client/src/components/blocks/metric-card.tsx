@@ -6,14 +6,32 @@ interface Props {
   title: string;
   className?: string;
   metric: string;
+  link?: string;
+  linkText?: string;
 }
-const MetricCard: React.FC<Props> = ({ level, title, metric, className }) => {
+const MetricCard: React.FC<Props> = ({
+  level,
+  title,
+  metric,
+  link,
+  linkText,
+  className,
+}) => {
   return (
     <AuCard>
       <AuCardInner>
-        <AuCardTitle level={level}>{title}</AuCardTitle>
+        <AuCardTitle level={level} className="font-weight-500">
+          {title}
+        </AuCardTitle>
         <div className="metric-card__inner">
-          <span className="metric-card__desc">{metric}</span>
+          {link && linkText && (
+            <div className="metric-card__link">
+              <a href={link}>{linkText}</a>
+            </div>
+          )}
+          <div className="metric-card__desc">
+            <span className="">{metric}</span>
+          </div>
         </div>
       </AuCardInner>
     </AuCard>
