@@ -30,7 +30,9 @@ dataOutputRouter.post(
     const { output, type } = req.body;
 
     // We know it exists since have checked in validatePropertyExists middleware
-    const property = (await Property.findOne({ where: { ua_id } })) as Property;
+    const property = (await Property.findOne({
+      where: { ua_id: ua_id.toLowerCase() },
+    })) as Property;
 
     // Check if the there is already an entry with this data
     const outputFind = await Outputs.findOne({ where: { property, type } });
@@ -59,13 +61,12 @@ dataOutputRouter.get(
     //we know property exists because of middleware does the checking
     let data;
     if (ua_id) {
-      // const property = await Property.findOne({ where: { ua_id } });
       data = await getConnection()
         .createQueryBuilder()
         .select("property")
         .from(Property, "property")
         .leftJoinAndSelect("property.outputs", "outputs")
-        .where("property.ua_id = :id", { id: ua_id })
+        .where("property.ua_id = :id", { id: ua_id.toLowerCase() })
         .getMany();
     } else {
       data = await Outputs.find({ relations: ["property"] });
@@ -92,7 +93,9 @@ dataOutputRouter.put(
     const { output } = req.body;
 
     // We know it exists since have checked in validatePropertyExists middleware
-    const property = (await Property.findOne({ where: { ua_id } })) as Property;
+    const property = (await Property.findOne({
+      where: { ua_id: ua_id.toLowerCase() },
+    })) as Property;
 
     await getConnection()
       .createQueryBuilder()

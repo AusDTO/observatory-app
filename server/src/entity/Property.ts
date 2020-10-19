@@ -42,6 +42,11 @@ export class Property extends BaseEntity {
   addId() {
     this.id = uuid();
   }
+
+  @BeforeInsert()
+  async lowercaseEmail() {
+    this.ua_id = this.ua_id.toLowerCase();
+  }
 }
 // insert into property ("ua_id","domain", "service_name","agency_id") values('UAID-12345','www.designsystem.gov.au','Design system','227da47e-cc53-472a-9e67-8fee3ec2c157');
 

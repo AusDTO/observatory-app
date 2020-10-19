@@ -53,7 +53,7 @@ export const validateRequestAndFetchData = async (
   const { property_ua_id } = args;
 
   const property = await Property.findOne({
-    where: { ua_id: property_ua_id },
+    where: { ua_id: property_ua_id.toLowerCase() },
     relations: ["agency"],
   });
 

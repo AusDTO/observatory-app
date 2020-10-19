@@ -262,7 +262,7 @@ export class TestClient {
       ...this.options,
       body: {
         query: `query {
-          getProperty(propertyId:"${propertyId}") {
+          getProperty(property_ua_id:"${propertyId}") {
             __typename
             ...on FieldErrors {
               errors{

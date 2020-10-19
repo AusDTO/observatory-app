@@ -8,7 +8,7 @@ import { User } from "../../entity/User";
 import { ua_id_schema } from "../../util/yup";
 
 const propertyIDValidationSchema = yup.object().shape({
-  propertyId: ua_id_schema,
+  property_ua_id: ua_id_schema,
 });
 
 export const resolvers: ResolverMap = {
@@ -39,7 +39,7 @@ export const resolvers: ResolverMap = {
       const { property_ua_id } = args;
 
       const property = await Property.findOne({
-        where: { ua_id: property_ua_id },
+        where: { ua_id: property_ua_id.toLowerCase() },
         relations: ["agency"],
       });
 
