@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import SEO from "../seo";
 import AdminLayout from "../../components/layouts/AdminLayout";
 import { Link } from "react-router-dom";
-import { GetExecWeekly_getExecWeeklyData_ExecWeeklyArray } from "../../graphql/GetExecWeekly";
+
 import { AuCard, AuCardInner, AuCardTitle } from "../../types/auds";
 import MetricCard from "../../components/blocks/metric-card";
 import { stringNumToCommaSeperated } from "../../components/util/stringNumToCommaSeperated";
+import { ExecData_getExecWeeklyData_ExecWeeklyArray } from "../../graphql/ExecData";
 
 interface Props {
-  data: GetExecWeekly_getExecWeeklyData_ExecWeeklyArray;
+  data: ExecData_getExecWeeklyData_ExecWeeklyArray;
   ua_id: string;
 }
 
@@ -35,7 +36,7 @@ export const SnapshotLanding: React.FC<Props> = ({ data, ua_id }) => {
               <div className="col-md-4 col-sm-6">
                 <MetricCard
                   title="Pageviews"
-                  level="3"
+                  level="4"
                   metric={stringNumToCommaSeperated(data.output[0].pageViews)}
                 />
               </div>
@@ -45,7 +46,7 @@ export const SnapshotLanding: React.FC<Props> = ({ data, ua_id }) => {
               <div className="col-md-4 col-sm-6">
                 <MetricCard
                   title="Most viewed page"
-                  level="3"
+                  level="4"
                   link="https://google.com"
                   linkText="Page title"
                   metric={stringNumToCommaSeperated(data.output[0].pageViews)}
@@ -56,7 +57,7 @@ export const SnapshotLanding: React.FC<Props> = ({ data, ua_id }) => {
               <div className="col-md-4 col-sm-6">
                 <MetricCard
                   title="Page with largest growth in views"
-                  level="3"
+                  level="4"
                   metric={stringNumToCommaSeperated(data.output[0].pageViews)}
                 />
               </div>
@@ -72,14 +73,14 @@ export const SnapshotLanding: React.FC<Props> = ({ data, ua_id }) => {
               <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="Users"
-                  level="3"
-                  metric={stringNumToCommaSeperated(data.output[0].newUsers)}
+                  level="4"
+                  metric={stringNumToCommaSeperated(data.output[0].users)}
                 />
               </div>
               <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="New users"
-                  level="3"
+                  level="4"
                   metric={stringNumToCommaSeperated(data.output[0].newUsers)}
                 />
               </div>
@@ -87,7 +88,7 @@ export const SnapshotLanding: React.FC<Props> = ({ data, ua_id }) => {
               <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="Returning users"
-                  level="3"
+                  level="4"
                   metric={stringNumToCommaSeperated(
                     data.output[0].returningUsers
                   )}
@@ -101,7 +102,7 @@ export const SnapshotLanding: React.FC<Props> = ({ data, ua_id }) => {
               <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="Average sessions"
-                  level="3"
+                  level="4"
                   metric={stringNumToCommaSeperated(
                     data.output[0].aveSessionsPerUser
                   )}
@@ -110,7 +111,7 @@ export const SnapshotLanding: React.FC<Props> = ({ data, ua_id }) => {
               <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="Pages per session"
-                  level="3"
+                  level="4"
                   metric={stringNumToCommaSeperated(
                     data.output[0].pagesPerSession
                   )}
@@ -119,7 +120,16 @@ export const SnapshotLanding: React.FC<Props> = ({ data, ua_id }) => {
               <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="Average time on page"
-                  level="3"
+                  level="4"
+                  metric={data.output[0].timeOnPage + "s"}
+                />
+              </div>
+            </div>
+            <div className="row mt-1">
+              <div className="col-md-4 col-sm-6 col-xs-12">
+                <MetricCard
+                  title="Average session duration"
+                  level="4"
                   metric={data.output[0].aveSessionDuration + "s"}
                 />
               </div>

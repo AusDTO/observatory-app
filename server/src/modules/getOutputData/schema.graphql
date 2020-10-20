@@ -29,6 +29,7 @@ type ExecWeekly {
   aveSessionsPerUser: String!
   pagesPerSession: String!
   aveSessionDuration: String!
+  users: String!
   newUsers: String!
   returningUsers: String!
 }
@@ -45,6 +46,7 @@ type ExecDaily {
   aveSessionsPerUser: String!
   pagesPerSession: String!
   aveSessionDuration: String!
+  users: String!
   newUsers: String!
   returningUsers: String!
   date: String!
@@ -62,6 +64,7 @@ type ExecHourly {
   aveSessionsPerUser: String!
   pagesPerSession: String!
   aveSessionDuration: String!
+  users: String!
   newUsers: String!
   returningUsers: String!
   visit_hour: String!
