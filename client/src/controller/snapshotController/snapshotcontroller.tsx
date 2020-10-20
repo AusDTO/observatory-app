@@ -8,6 +8,7 @@ import { NotFound } from "../../views/404-logged-in/404";
 import {
   ExecData,
   ExecDataVariables,
+  ExecData_getExecDailyData_ExecDailyArray,
   ExecData_getExecWeeklyData,
   ExecData_getExecWeeklyData_ExecWeeklyArray,
 } from "../../graphql/ExecData";
@@ -31,15 +32,19 @@ export const SnapshotController: (arg0: Props) => any = ({
   }
 
   let weeklyOutputs;
+  let dailyOutputs;
   if (data && data.getExecWeeklyData && data.getExecDailyData) {
-    const apiResult = data.getExecWeeklyData;
-    const { __typename } = data.getExecWeeklyData;
+    const weeklyResult = data.getExecWeeklyData;
+    const dailyResult = data.getExecDailyData;
+    const weeklyTypeName = data.getExecWeeklyData.__typename;
+    const dailyTypeName = data.getExecDailyData.__typename;
 
-    switch (__typename) {
+    switch (weeklyTypeName) {
       case "ExecWeeklyArray":
-        const data = apiResult as ExecData_getExecWeeklyData_ExecWeeklyArray;
+        const data = weeklyResult as ExecData_getExecWeeklyData_ExecWeeklyArray;
         weeklyOutputs = data;
-        return <SnapshotLanding data={weeklyOutputs} ua_id={ua_id} />;
+        // return <SnapshotLanding data={weeklyOutputs} ua_id={ua_id} />;
+        break;
       // return (
       //   <NotFound title="Error fetching data">
       //     <p>Your data was not found</p>
@@ -52,6 +57,23 @@ export const SnapshotController: (arg0: Props) => any = ({
             <p>Your data was not found</p>
           </NotFound>
         );
+    }
+
+    switch (dailyTypeName) {
+      case "ExecDailyArray":
+        const data = dailyResult as ExecData_getExecDailyData_ExecDailyArray;
+        dailyOutputs = data;
+        break;
+    }
+
+    if (!dailyOutputs || !weeklyOutputs) {
+      return (
+        <NotFound title="Error fetching data">
+          <p>Your data was not found</p>
+        </NotFound>
+      );
+    } else {
+      return <SnapshotLanding data={weeklyOutputs} ua_id={ua_id} />;
     }
   }
 };
