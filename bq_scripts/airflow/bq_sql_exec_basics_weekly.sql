@@ -8,8 +8,102 @@
       -time on page
     */
     BEGIN
-      
-      create temp table t_exec_basics_prototype_weekly
+      create temp table t_exec_basics_prototype_weekly_1
+      as
+       select
+          net.reg_domain(hostname) as reg_domain,
+          newUsers,
+          returningUsers,
+          FORMAT_DATE('%d%b%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) as week_start,
+          FORMAT_DATE('%d%b%Y',CURRENT_DATE()) as week_end
+        from
+          (
+            select
+              hostname,
+              SUM(newUsers) AS newUsers,
+              SUM(returningUsers) AS returningUsers
+            from
+            (
+              select
+              fullVisitorId,
+              hostname,
+              newUsers,
+              returningUsers
+            from
+            (
+        /* Start - Datasets of employment websites */
+                  select
+                      fullVisitorId,
+                      visitStartTime,
+                      hits.page.hostname as hostname,
+                      case when totals.newVisits=1 then 1 else 0 end as newUsers,
+                      case when totals.newVisits is null then 1 else 0 end as returningUsers
+                    from
+                      `99993137.ga_sessions_*` AS GA,
+                      UNNEST(GA.hits) AS hits 
+                    WHERE
+                      type = 'PAGE'
+                      and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
+                  union all
+                  select
+                      fullVisitorId,
+                      visitStartTime,
+                      hits.page.hostname as hostname,
+                      case when totals.newVisits=1 then 1 else 0 end as newUsers,
+                      case when totals.newVisits is null then 1 else 0 end as returningUsers
+                    from
+                      `225103137.ga_sessions_*` AS GA,
+                      UNNEST(GA.hits) AS hits 
+                    WHERE
+                      type = 'PAGE'
+                      and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
+                  union all
+                  select
+                      fullVisitorId,
+                      visitStartTime,
+                      hits.page.hostname as hostname,
+                      case when totals.newVisits=1 then 1 else 0 end as newUsers,
+                      case when totals.newVisits is null then 1 else 0 end as returningUsers
+                    from
+                      `222282547.ga_sessions_*` AS GA,
+                      UNNEST(GA.hits) AS hits 
+                    WHERE
+                      type = 'PAGE'
+                      and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
+                  union all
+                  select
+                      fullVisitorId,
+                      visitStartTime,
+                      hits.page.hostname as hostname,
+                      case when totals.newVisits=1 then 1 else 0 end as newUsers,
+                      case when totals.newVisits is null then 1 else 0 end as returningUsers
+                    from
+                      `170387771.ga_sessions_*` AS GA,
+                      UNNEST(GA.hits) AS hits 
+                    WHERE
+                      type = 'PAGE'
+                      and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
+                  union all
+                  select
+                      fullVisitorId,
+                      visitStartTime,
+                      hits.page.hostname as hostname,
+                      case when totals.newVisits=1 then 1 else 0 end as newUsers,
+                      case when totals.newVisits is null then 1 else 0 end as returningUsers
+                    from
+                      `169220999.ga_sessions_*` AS GA,
+                      UNNEST(GA.hits) AS hits 
+                    WHERE
+                      type = 'PAGE'
+                      and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
+            )
+          )
+          group by  hostname
+          )
+        ; 	
+
+
+      create temp table t_exec_basics_prototype_weekly_2
       as
        select
           net.reg_domain(hostname) as reg_domain,
@@ -22,6 +116,15 @@
           END AS bounce_rate,
           bounces,
           sessions,
+          case when unique_visitors > 0 then sessions/unique_visitors 
+          else 0
+          end as aveSession,
+          case when sessions > 0 then pageviews/sessions
+          else 0
+          end as pagesPerSession,
+           case when sessions > 0 then total_time_on_page/sessions
+          else 0
+          end as aveSessionDuration,
           FORMAT_DATE('%d%b%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) as week_start,
           FORMAT_DATE('%d%b%Y',CURRENT_DATE()) as week_end
         from
@@ -30,6 +133,7 @@
               hostname,
               COUNT(distinct fullVisitorId) as unique_visitors,
               count(*) as pageviews,
+              sum(time_on_page) as total_time_on_page,
               avg(time_on_page) as avg_time_on_page,
               SUM(bounces) AS bounces,
               SUM(sessions) AS sessions
@@ -193,24 +297,32 @@
     create or replace table dta_customers.exec_basics_prototype_weekly
           OPTIONS (
             description = "Weekly executive basics dimensions on daily schedule",
-            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 1 HOUR)
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 23 HOUR)
     )
     as
     select
           property_id,
-          reg_domain as hostname,
+          exec_1.reg_domain as hostname,
           unique_visitors as users,
+          newUsers,
+          returningUsers,
           pageviews,
           time_on_page,
           bounce_rate*100 as bounce_rate,
-          bounces,
           sessions,
-          week_start,
-          week_end
+          aveSession,
+          pagesPerSession ,
+          aveSessionDuration ,
+          exec_1.week_start,
+          exec_1.week_end
     from 
-      t_exec_basics_prototype_weekly exec
+      t_exec_basics_prototype_weekly_1 exec_1
       inner join dta_customers.dta_properties_prototype prop 
-        on exec.reg_domain = prop.hostname
+        on exec_1.reg_domain = prop.hostname
+      inner join t_exec_basics_prototype_weekly_2 exec_2
+        on exec_2.reg_domain = prop.hostname  
+    where exec_1.week_start = exec_2.week_start
+    and exec_1.week_end = exec_2.week_end
 ;
 
     create or replace table dta_customers.exec_basics_prototype_weekly_99993137
@@ -221,20 +333,28 @@
     as
     select
           property_id,
-          reg_domain as hostname,
+          exec_1.reg_domain as hostname,
           unique_visitors as users,
+          newUsers,
+          returningUsers,
           pageviews,
           time_on_page,
           bounce_rate*100 as bounce_rate,
-          bounces,
           sessions,
-          week_start,
-          week_end
+          aveSession,
+          pagesPerSession ,
+          aveSessionDuration ,
+          exec_1.week_start,
+          exec_1.week_end
     from 
-      t_exec_basics_prototype_weekly exec
+      t_exec_basics_prototype_weekly_1 exec_1
       inner join dta_customers.dta_properties_prototype prop 
-        on exec.reg_domain = prop.hostname
+        on exec_1.reg_domain = prop.hostname
+      inner join t_exec_basics_prototype_weekly_2 exec_2
+        on exec_2.reg_domain = prop.hostname  
     where prop.property_id = 'UA-61222473-1'
+    and exec_1.week_start = exec_2.week_start
+    and exec_1.week_end = exec_2.week_end
 ;
 
     create or replace table dta_customers.exec_basics_prototype_weekly_222282547
@@ -245,20 +365,28 @@
     as
     select
           property_id,
-          reg_domain as hostname,
+          exec_1.reg_domain as hostname,
           unique_visitors as users,
+          newUsers,
+          returningUsers,
           pageviews,
           time_on_page,
           bounce_rate*100 as bounce_rate,
-          bounces,
           sessions,
-          week_start,
-          week_end
+          aveSession,
+          pagesPerSession ,
+          aveSessionDuration ,
+          exec_1.week_start,
+          exec_1.week_end
     from 
-      t_exec_basics_prototype_weekly exec
+      t_exec_basics_prototype_weekly_1 exec_1
       inner join dta_customers.dta_properties_prototype prop 
-        on exec.reg_domain = prop.hostname
+        on exec_1.reg_domain = prop.hostname
+      inner join t_exec_basics_prototype_weekly_2 exec_2
+        on exec_2.reg_domain = prop.hostname  
     where prop.property_id = 'UA-61222473-32'
+    and exec_1.week_start = exec_2.week_start
+    and exec_1.week_end = exec_2.week_end
     ;
 
     create or replace table dta_customers.exec_basics_prototype_weekly_170387771
@@ -269,20 +397,28 @@
     as
     select
           property_id,
-          reg_domain as hostname,
+          exec_1.reg_domain as hostname,
           unique_visitors as users,
+          newUsers,
+          returningUsers,
           pageviews,
           time_on_page,
           bounce_rate*100 as bounce_rate,
-          bounces,
           sessions,
-          week_start,
-          week_end
+          aveSession,
+          pagesPerSession ,
+          aveSessionDuration ,
+          exec_1.week_start,
+          exec_1.week_end
     from 
-      t_exec_basics_prototype_weekly exec
+      t_exec_basics_prototype_weekly_1 exec_1
       inner join dta_customers.dta_properties_prototype prop 
-        on exec.reg_domain = prop.hostname
+        on exec_1.reg_domain = prop.hostname
+      inner join t_exec_basics_prototype_weekly_2 exec_2
+        on exec_2.reg_domain = prop.hostname
     where prop.property_id = 'UA-61222473-15'
+    and exec_1.week_start = exec_2.week_start
+    and exec_1.week_end = exec_2.week_end
     ;
 
     create or replace table dta_customers.exec_basics_prototype_weekly_169220999
@@ -293,20 +429,28 @@
     as
     select
           property_id,
-          reg_domain as hostname,
+          exec_1.reg_domain as hostname,
           unique_visitors as users,
+          newUsers,
+          returningUsers,
           pageviews,
           time_on_page,
           bounce_rate*100 as bounce_rate,
-          bounces,
           sessions,
-          week_start,
-          week_end
+          aveSession,
+          pagesPerSession ,
+          aveSessionDuration ,
+          exec_1.week_start,
+          exec_1.week_end
     from 
-      t_exec_basics_prototype_weekly exec
+      t_exec_basics_prototype_weekly_1 exec_1
       inner join dta_customers.dta_properties_prototype prop 
-        on exec.reg_domain = prop.hostname
+        on exec_1.reg_domain = prop.hostname
+      inner join t_exec_basics_prototype_weekly_2 exec_2
+        on exec_2.reg_domain = prop.hostname
     where prop.property_id = 'UA-61222473-13'
+    and exec_1.week_start = exec_2.week_start
+    and exec_1.week_end = exec_2.week_end
     ;
 
    create or replace table dta_customers.exec_basics_prototype_weekly_225103137
@@ -317,20 +461,28 @@
     as
     select
           property_id,
-          reg_domain as hostname,
+          exec_1.reg_domain as hostname,
           unique_visitors as users,
+          newUsers,
+          returningUsers,
           pageviews,
           time_on_page,
           bounce_rate*100 as bounce_rate,
-          bounces,
           sessions,
-          week_start,
-          week_end
+          aveSession,
+          pagesPerSession ,
+          aveSessionDuration ,
+          exec_1.week_start,
+          exec_1.week_end
     from 
-      t_exec_basics_prototype_weekly exec
+      t_exec_basics_prototype_weekly_1 exec_1
       inner join dta_customers.dta_properties_prototype prop 
-        on exec.reg_domain = prop.hostname
+        on exec_1.reg_domain = prop.hostname
+      inner join t_exec_basics_prototype_weekly_2 exec_2
+        on exec_2.reg_domain = prop.hostname
     where prop.property_id = 'UA-61222473-33'
+    and exec_1.week_start = exec_2.week_start
+    and exec_1.week_end = exec_2.week_end
     ;
 
 
