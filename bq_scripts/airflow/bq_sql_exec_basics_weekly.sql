@@ -31,7 +31,7 @@
               returningUsers
             from
             (
-        /* Start - Datasets of employment websites */
+        /* Start - Datasets of DTA websites */
                   select
                       fullVisitorId,
                       visitStartTime,
@@ -182,7 +182,7 @@
                   END AS sessions
                 from
                   (
-        /* Start - Datasets of employment websites */
+        /* Start - Datasets of DTA websites */
                   select
                       fullVisitorId,
                       visitStartTime,
