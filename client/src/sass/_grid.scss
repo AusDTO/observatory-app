@@ -269,7 +269,8 @@ $AU-grid-12-gutter-width: 24px !default; //gutter space
 }
 
 .ml-1 {
-  @include AU-space(margin-left, 1unit);
+  margin-left: 1rem !important;
+  margin-left: 16px !important;
 }
 
 .mb-1 {
@@ -320,4 +321,12 @@ $AU-grid-12-gutter-width: 24px !default; //gutter space
 
 section + section {
   @include AU-space(margin-top, 2.5unit);
+}
+
+.match-height {
+  display: flex;
+  flex-wrap: wrap;
+  > div {
+    display: flex;
+  }
 }

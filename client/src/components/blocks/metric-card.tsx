@@ -30,7 +30,15 @@ const MetricCard: React.FC<Props> = ({
             </div>
           )}
           <div className="metric-card__desc">
-            <span className="">{metric}</span>
+            <span className="metric">{metric}</span>
+            <span className="percentage">
+              {Math.floor(Math.random() * 2) === 1 ? (
+                <span aria-label="Up">&#8599;</span>
+              ) : (
+                <span aria-label="Down">&#8600;</span>
+              )}
+              {Math.floor(Math.random() * 50)}%
+            </span>
           </div>
         </div>
       </AuCardInner>

@@ -95,8 +95,16 @@
 
 .metric-card__desc {
   display: flex;
-  @include AU-fontgrid(lg);
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+
+  > .metric {
+    @include AU-fontgrid(lg);
+  }
+  > .percentage {
+    @include AU-fontgrid(sm);
+    color: rgb(51, 48, 48);
+  }
 }
 
 .metric-card__link {

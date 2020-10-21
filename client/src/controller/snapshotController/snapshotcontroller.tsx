@@ -73,7 +73,13 @@ export const SnapshotController: (arg0: Props) => any = ({
         </NotFound>
       );
     } else {
-      return <SnapshotLanding data={weeklyOutputs} ua_id={ua_id} />;
+      return (
+        <SnapshotLanding
+          weeklyData={weeklyOutputs}
+          dailyData={dailyOutputs}
+          ua_id={ua_id}
+        />
+      );
     }
   }
 };
