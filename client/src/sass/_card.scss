@@ -103,7 +103,14 @@
   }
   > .percentage {
     @include AU-fontgrid(sm);
-    color: rgb(51, 48, 48);
+    // color: rgb(51, 48, 48);
+
+    > .up {
+      color: darken($AU-color-success, 10);
+    }
+    > .down {
+      color: $AU-color-error;
+    }
   }
 }
 

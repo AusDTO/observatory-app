@@ -33,11 +33,14 @@ const MetricCard: React.FC<Props> = ({
             <span className="metric">{metric}</span>
             <span className="percentage">
               {Math.floor(Math.random() * 2) === 1 ? (
-                <span aria-label="Up">&#8599;</span>
+                <span aria-label="Up" className="up">
+                  &#8599;{Math.floor(Math.random() * 50)}%
+                </span>
               ) : (
-                <span aria-label="Down">&#8600;</span>
+                <span aria-label="Down" className="down">
+                  &#8600;{Math.floor(Math.random() * 50)}%
+                </span>
               )}
-              {Math.floor(Math.random() * 50)}%
             </span>
           </div>
         </div>

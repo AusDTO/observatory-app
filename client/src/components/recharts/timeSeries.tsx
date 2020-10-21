@@ -30,13 +30,13 @@ export const LineChartVis: React.FC<Props> = ({ data, xKey, yKey }) => {
         <XAxis dataKey={xKey} tick={<CustomizedAxisTick />} />
         <YAxis
           domain={[
-            (dataMin) => Math.round(dataMin * 0.6),
+            (dataMin) => Math.round(dataMin * 0.7),
             (dataMax) => Math.round(dataMax * 1.1),
           ]}
         />
         <Tooltip />
 
-        <Line type="linear" dataKey={yKey} stroke="#82ca9d" strokeWidth="3" />
+        <Line type="linear" dataKey={yKey} stroke="#008568" strokeWidth="3" />
       </LineChart>
     </ResponsiveContainer>
   );
@@ -45,7 +45,9 @@ export const LineChartVis: React.FC<Props> = ({ data, xKey, yKey }) => {
 class CustomizedAxisTick extends PureComponent {
   render() {
     const { x, y, stroke, payload } = this.props as any;
-
+    if (payload.index === 0) {
+      return null;
+    }
     return (
       <g transform={`translate(${x},${y})`}>
         <text

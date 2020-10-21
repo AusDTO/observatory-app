@@ -330,3 +330,11 @@ section + section {
     display: flex;
   }
 }
+
+.snapshot div[class*="col-sm"] + div[class*="col-sm"] {
+  @include AU-space(margin-top, 1unit);
+
+  @include AU-media(md) {
+    margin-top: 0;
+  }
+}

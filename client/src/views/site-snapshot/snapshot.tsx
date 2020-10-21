@@ -29,7 +29,7 @@ export const SnapshotLanding: React.FC<Props> = ({
     <AdminLayout>
       <>
         <SEO title="Snapshot" />
-        <div className="container-fluid au-body">
+        <div className="container-fluid au-body snapshot">
           <Link
             to={`/service/${ua_id}`}
             className="au-direction-link inline-block mt-1"
@@ -44,36 +44,31 @@ export const SnapshotLanding: React.FC<Props> = ({
           <section className="mt-2">
             <h3>How many views is our site getting?</h3>
             <div className="row mt-1">
-              <div className="">
-                <div className="col-md-4 col-sm-6">
-                  <MetricCard
-                    title="Pageviews"
-                    level="4"
-                    metric={stringNumToCommaSeperated(
-                      weeklyData.output[0].pageViews
-                    )}
-                  />
-                </div>
-                <div className="col-md-8 col-sm-12">
-                  <AuCard>
-                    <AuCardTitle
-                      level="4"
-                      className="font-weight-500 mt-1 ml-1"
-                    >
-                      PageViews
-                    </AuCardTitle>
-                    <LineChartVis
-                      data={ObjectStringToInt(dailyData.output, "pageViews")}
-                      xKey="date"
-                      yKey="pageViews"
-                    ></LineChartVis>
-                  </AuCard>
-                </div>
+              <div className="col-md-4 col-sm-6 col-xs-12">
+                <MetricCard
+                  title="Pageviews"
+                  level="4"
+                  metric={stringNumToCommaSeperated(
+                    weeklyData.output[0].pageViews
+                  )}
+                />
+              </div>
+              <div className="col-md-8 col-sm-12 col-xs-12">
+                <AuCard>
+                  <AuCardTitle level="4" className="font-weight-500 mt-1 ml-1">
+                    PageViews
+                  </AuCardTitle>
+                  <LineChartVis
+                    data={ObjectStringToInt(dailyData.output, "pageViews")}
+                    xKey="date"
+                    yKey="pageViews"
+                  ></LineChartVis>
+                </AuCard>
               </div>
             </div>
 
             <div className="row mt-1">
-              <div className="col-md-4 col-sm-6">
+              <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="Most viewed page"
                   level="4"
@@ -86,7 +81,7 @@ export const SnapshotLanding: React.FC<Props> = ({
               </div>
             </div>
             <div className="row mt-1">
-              <div className="col-md-4 col-sm-6">
+              <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="Page with largest growth in views"
                   level="4"
@@ -169,7 +164,7 @@ export const SnapshotLanding: React.FC<Props> = ({
                   metric={weeklyData.output[0].aveSessionDuration + "s"}
                 />
               </div>
-              <div className="col-md-8 col-sm-12">
+              <div className="col-md-8 col-sm-12 col-xs-12">
                 <AuCard>
                   <AuCardTitle level="4" className="font-weight-500 mt-1 ml-1">
                     Average session duration

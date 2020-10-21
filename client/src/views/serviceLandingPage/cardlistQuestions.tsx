@@ -86,9 +86,6 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
                   <li>
                     <a href="#">Lorem ipsum dolor sit?</a>
                   </li>
-                  <li>
-                    <a href="#">Lorem, ipsum?</a>
-                  </li>
                 </ul>
               </AuCardInner>
             </AuCard>
@@ -105,9 +102,6 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
                   <li>
                     <a href="#">Lorem ipsum dolor sit?</a>
                   </li>
-                  <li>
-                    <a href="#">Lorem, ipsum?</a>
-                  </li>
                 </ul>
               </AuCardInner>
             </AuCard>
@@ -122,9 +116,6 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
                   </li>
                   <li>
                     <a href="#">Lorem ipsum dolor sit?</a>
-                  </li>
-                  <li>
-                    <a href="#">Lorem, ipsum?</a>
                   </li>
                 </ul>
               </AuCardInner>
