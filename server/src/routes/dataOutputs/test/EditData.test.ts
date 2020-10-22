@@ -6,7 +6,7 @@ import { User } from "../../../entity/User";
 import { ADMIN_EMAILS } from "../../../util/constants";
 import { connection } from "../../../util/createConnection";
 import { TestClient } from "../../../util/testClient";
-import { testUser, execDailyData } from "../../../util/testData";
+import { testUser, execDailyData, top10Data } from "../../../util/testData";
 
 const client = new TestClient();
 let adminEmail = ADMIN_EMAILS[0] as string;
@@ -84,6 +84,8 @@ describe("Edit data suite", () => {
           newUsers: "20",
           users: "20",
           returningUsers: "20",
+          topTen: top10Data.topTen,
+          topTenGrowth: top10Data.topTenGrowth,
         },
       ],
     };

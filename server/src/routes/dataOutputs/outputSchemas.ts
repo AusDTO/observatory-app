@@ -6,16 +6,21 @@ export const outputParamSchema = yup.object().shape({
   ua_id: ua_id_schema,
 });
 
-const pageViewsSchema = yup.string().required();
-const sessionsSchema = yup.string().required();
-const timeOnPageSchema = yup.string().required();
-const bounceRateSchema = yup.string().required();
-const aveSessionsPerUserSchema = yup.string().required();
-const pagesPerSessionSchema = yup.string().required();
-const aveSessionDurationSchema = yup.string().required();
-const newUsersSchema = yup.string().required();
-const returningUsersSchema = yup.string().required();
-const usersSchema = yup.string().required();
+export const topTenStats = yup
+  .array()
+  .of(
+    yup
+      .object()
+      .shape({
+        pageUrl: yup.string().required(),
+        pageTitle: yup.string().required(),
+        pageViews: yup.string().required(),
+        rank: yup.string().required(),
+        percentage: yup.string().required(),
+      })
+      .required()
+  )
+  .required();
 
 export const ExecDataSchemaDaily = yup
   .object()
@@ -23,16 +28,18 @@ export const ExecDataSchemaDaily = yup
     return noUnknownMessage(a);
   })
   .shape({
-    pageViews: pageViewsSchema,
-    sessions: sessionsSchema,
-    timeOnPage: timeOnPageSchema,
-    bounceRate: bounceRateSchema,
-    aveSessionsPerUser: aveSessionsPerUserSchema,
-    pagesPerSession: pagesPerSessionSchema,
-    aveSessionDuration: aveSessionDurationSchema,
-    users: usersSchema,
-    newUsers: newUsersSchema,
-    returningUsers: returningUsersSchema,
+    pageViews: yup.string().required(),
+    sessions: yup.string().required(),
+    timeOnPage: yup.string().required(),
+    bounceRate: yup.string().required(),
+    aveSessionsPerUser: yup.string().required(),
+    pagesPerSession: yup.string().required(),
+    aveSessionDuration: yup.string().required(),
+    users: yup.string().required(),
+    newUsers: yup.string().required(),
+    returningUsers: yup.string().required(),
+    topTen: topTenStats,
+    topTenGrowth: topTenStats,
     date: yup.string().required(), //FIX: should be properly formatted date
   });
 
@@ -42,16 +49,18 @@ export const ExecDataSchemaWeekly = yup
     return noUnknownMessage(a);
   })
   .shape({
-    pageViews: pageViewsSchema,
-    sessions: sessionsSchema,
-    timeOnPage: timeOnPageSchema,
-    bounceRate: bounceRateSchema,
-    aveSessionsPerUser: aveSessionsPerUserSchema,
-    pagesPerSession: pagesPerSessionSchema,
-    aveSessionDuration: aveSessionDurationSchema,
-    users: usersSchema,
-    newUsers: newUsersSchema,
-    returningUsers: returningUsersSchema,
+    pageViews: yup.string().required(),
+    sessions: yup.string().required(),
+    timeOnPage: yup.string().required(),
+    bounceRate: yup.string().required(),
+    aveSessionsPerUser: yup.string().required(),
+    pagesPerSession: yup.string().required(),
+    aveSessionDuration: yup.string().required(),
+    users: yup.string().required(),
+    newUsers: yup.string().required(),
+    returningUsers: yup.string().required(),
+    topTen: topTenStats,
+    topTenGrowth: topTenStats,
     dateEnding: yup.string().required(),
   });
 
@@ -61,16 +70,16 @@ export const ExecDataSchemaHourly = yup
     return noUnknownMessage(a);
   })
   .shape({
-    pageViews: pageViewsSchema,
-    sessions: sessionsSchema,
-    timeOnPage: timeOnPageSchema,
-    bounceRate: bounceRateSchema,
-    aveSessionsPerUser: aveSessionsPerUserSchema,
-    pagesPerSession: pagesPerSessionSchema,
-    aveSessionDuration: aveSessionDurationSchema,
-    users: usersSchema,
-    newUsers: newUsersSchema,
-    returningUsers: returningUsersSchema,
+    pageViews: yup.string().required(),
+    sessions: yup.string().required(),
+    timeOnPage: yup.string().required(),
+    bounceRate: yup.string().required(),
+    aveSessionsPerUser: yup.string().required(),
+    pagesPerSession: yup.string().required(),
+    aveSessionDuration: yup.string().required(),
+    users: yup.string().required(),
+    newUsers: yup.string().required(),
+    returningUsers: yup.string().required(),
     visit_hour: yup.string().required(),
   });
 

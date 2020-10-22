@@ -64,6 +64,97 @@ export const agencyListDuplicateItems: Array<IAgency> = [
   },
 ];
 
+export const top10Data = {
+  topTen: [
+    {
+      pageUrl: "designsystem.gov.au/contact",
+      pageTitle: "Contact us",
+      pageViews: "10000",
+      rank: "1",
+      percentage: "10",
+    },
+    {
+      pageUrl: "designsystem.gov.au/feedback",
+      pageTitle: "leave feedback",
+      pageViews: "9000",
+      rank: "2",
+      percentage: "10",
+    },
+    {
+      pageUrl: "designsystem.gov.au/information",
+      pageTitle: "Information",
+      pageViews: "9000",
+      rank: "3",
+      percentage: "10",
+    },
+    {
+      pageUrl: "designsystem.gov.au/privacy",
+      pageTitle: "privacy",
+      pageViews: "8000",
+      rank: "4",
+      percentage: "10",
+    },
+    {
+      pageUrl: "designsystem.gov.au/accessibility",
+      pageTitle: "Accessibility",
+      pageViews: "7000",
+      rank: "5",
+      percentage: "10",
+    },
+    {
+      pageUrl: "designsystem.gov.au/community",
+      pageTitle: "community",
+      pageViews: "6000",
+      rank: "6",
+      percentage: "10",
+    },
+  ],
+  topTenGrowth: [
+    {
+      pageUrl: "designsystem.gov.au/contact",
+      pageTitle: "Contact us",
+      pageViews: "10000",
+      rank: "1",
+      percentage: "10",
+    },
+    {
+      pageUrl: "designsystem.gov.au/feedback",
+      pageTitle: "leave feedback",
+      pageViews: "9000",
+      rank: "2",
+      percentage: "10",
+    },
+    {
+      pageUrl: "designsystem.gov.au/information",
+      pageTitle: "Information",
+      pageViews: "9000",
+      rank: "3",
+      percentage: "10",
+    },
+    {
+      pageUrl: "designsystem.gov.au/privacy",
+      pageTitle: "privacy",
+      pageViews: "8000",
+      rank: "4",
+      percentage: "10",
+    },
+    {
+      pageUrl: "designsystem.gov.au/accessibility",
+      pageTitle: "Accessibility",
+      pageViews: "7000",
+      rank: "5",
+      percentage: "10",
+    },
+    {
+      pageUrl: "designsystem.gov.au/community",
+      pageTitle: "community",
+      pageViews: "6000",
+      rank: "6",
+      percentage: "10",
+    },
+  ],
+};
+
 export const execDailyData = {
   type: "exec_daily",
   output: [
@@ -79,6 +170,8 @@ export const execDailyData = {
       users: "200",
       newUsers: "20",
       returningUsers: "20",
+      topTen: top10Data.topTen,
+      topTenGrowth: top10Data.topTenGrowth,
     },
     {
       timeOnPage: "bla2",
@@ -90,9 +183,10 @@ export const execDailyData = {
       pagesPerSession: "1.4",
       aveSessionDuration: "10",
       users: "200",
-
       newUsers: "20",
       returningUsers: "20",
+      topTen: top10Data.topTen,
+      topTenGrowth: top10Data.topTenGrowth,
     },
   ],
 };
@@ -113,6 +207,8 @@ export const execDailyInvalidType = [
         users: "200",
         newUsers: "20",
         returningUsers: "20",
+        topTen: top10Data.topTen,
+        topTenGrowth: top10Data.topTenGrowth,
       },
       {
         timeOnPage: "bla2",
@@ -126,6 +222,8 @@ export const execDailyInvalidType = [
         users: "200",
         newUsers: "20",
         returningUsers: "20",
+        topTen: top10Data.topTen,
+        topTenGrowth: top10Data.topTenGrowth,
       },
     ],
   },
