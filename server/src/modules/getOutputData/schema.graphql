@@ -32,6 +32,16 @@ type ExecWeekly {
   users: String!
   newUsers: String!
   returningUsers: String!
+  topTen: [topTenStats]!
+  topTenGrowth: [topTenStats]!
+}
+
+type topTenStats {
+  pageUrl: String!
+  pageTitle: String!
+  pageViews: String!
+  rank: String!
+  percentage: String!
 }
 
 type ExecWeeklyArray {
@@ -50,6 +60,8 @@ type ExecDaily {
   newUsers: String!
   returningUsers: String!
   date: String!
+  topTen: [topTenStats]!
+  topTenGrowth: [topTenStats]!
 }
 
 type ExecDailyArray {
