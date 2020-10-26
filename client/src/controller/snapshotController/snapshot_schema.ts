@@ -32,6 +32,21 @@ export const GET_EXEC_WEEKLY = gql`
           users
           returningUsers
           dateEnding
+          topTen {
+            pageUrl
+            pageTitle
+            percentage
+            percentage
+            rank
+            pageViews
+          }
+          topTenGrowth {
+            pageUrl
+            pageTitle
+            percentage
+            rank
+            pageViews
+          }
         }
       }
     }
@@ -66,6 +81,21 @@ export const GET_EXEC_WEEKLY = gql`
           newUsers
           returningUsers
           date
+          topTen {
+            pageUrl
+            pageTitle
+            percentage
+            percentage
+            rank
+            pageViews
+          }
+          topTenGrowth {
+            pageUrl
+            pageTitle
+            percentage
+            rank
+            pageViews
+          }
         }
       }
     }

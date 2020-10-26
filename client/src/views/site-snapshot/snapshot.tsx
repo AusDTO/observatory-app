@@ -13,6 +13,8 @@ import {
 import { LineChartVis } from "../../components/recharts/timeSeries";
 import * as _ from "lodash";
 import { ObjectStringToInt } from "../../components/recharts/formatters/stringToNumber";
+import { Table } from "../../components/blocks/table/table";
+import { numberWithCommas } from "../../components/blocks/table/utility";
 
 interface Props {
   weeklyData: ExecData_getExecWeeklyData_ExecWeeklyArray;
@@ -67,27 +69,117 @@ export const SnapshotLanding: React.FC<Props> = ({
               </div>
             </div>
 
-            <div className="row mt-1">
+            <div className="row mt-2">
               <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="Most viewed page"
                   level="4"
-                  link="#"
-                  linkText="Page title"
+                  link={weeklyData.output[0].topTen[0].pageUrl}
+                  linkText={weeklyData.output[0].topTen[0].pageTitle}
                   metric={stringNumToCommaSeperated(
-                    weeklyData.output[0].pageViews
+                    weeklyData.output[0].topTen[0].pageViews
                   )}
                 />
               </div>
+              <div className="col-md-8">
+                <Table
+                  columns={[
+                    {
+                      Header: "Page",
+                      accessor: "pageTitle",
+                      Cell: ({ value, row }) => {
+                        const rowData = row as any;
+                        return (
+                          <a href={rowData.original.pageUrl}>
+                            {`${
+                              value.length > 20
+                                ? value.substring(0, 20) + "..."
+                                : value
+                            }`}
+                          </a>
+                        );
+                      },
+                    },
+                    { Header: "Rank", accessor: "rank" },
+                    {
+                      Header: () => (
+                        <span className="align-right">Page Views</span>
+                      ),
+                      accessor: "pageViews",
+                      Cell: ({ value }) => (
+                        <span className="align-right">
+                          {numberWithCommas(value)}
+                        </span>
+                      ),
+                    },
+                    {
+                      Header: () => (
+                        <span className="align-right">Percentage (%)</span>
+                      ),
+                      accessor: "percentage",
+                      Cell: ({ value }) => (
+                        <span className="align-right">{value}</span>
+                      ),
+                    },
+                  ]}
+                  data={weeklyData.output[0].topTen}
+                />
+              </div>
             </div>
-            <div className="row mt-1">
+            <div className="row mt-2">
               <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="Page with largest growth in views"
                   level="4"
+                  link={weeklyData.output[0].topTenGrowth[0].pageUrl}
+                  linkText={weeklyData.output[0].topTenGrowth[0].pageTitle}
                   metric={stringNumToCommaSeperated(
-                    weeklyData.output[0].pageViews
+                    weeklyData.output[0].topTenGrowth[0].pageViews
                   )}
+                />
+              </div>
+              <div className="col-md-8">
+                <Table
+                  columns={[
+                    {
+                      Header: "Page",
+                      accessor: "pageTitle",
+                      Cell: ({ value, row: { original } }) => {
+                        const rowData = original as any;
+                        return (
+                          <a href={rowData.pageUrl}>
+                            {`${
+                              value.length > 20
+                                ? value.substring(0, 20) + "..."
+                                : value
+                            }`}
+                          </a>
+                        );
+                      },
+                    },
+                    { Header: "Rank", accessor: "rank" },
+                    {
+                      Header: () => (
+                        <span className="align-right">Page Views</span>
+                      ),
+                      accessor: "pageViews",
+                      Cell: ({ value }) => (
+                        <span className="align-right">
+                          {numberWithCommas(value)}
+                        </span>
+                      ),
+                    },
+                    {
+                      Header: () => (
+                        <span className="align-right">Percentage (%)</span>
+                      ),
+                      accessor: "percentage",
+                      Cell: ({ value }) => (
+                        <span className="align-right">{value}</span>
+                      ),
+                    },
+                  ]}
+                  data={weeklyData.output[0].topTenGrowth}
                 />
               </div>
             </div>

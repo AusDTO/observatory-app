@@ -32,8 +32,8 @@ type ExecWeekly {
   users: String!
   newUsers: String!
   returningUsers: String!
-  topTen: [topTenStats]!
-  topTenGrowth: [topTenStats]!
+  topTen: [topTenStats!]!
+  topTenGrowth: [topTenStats!]!
 }
 
 type topTenStats {
@@ -60,8 +60,8 @@ type ExecDaily {
   newUsers: String!
   returningUsers: String!
   date: String!
-  topTen: [topTenStats]!
-  topTenGrowth: [topTenStats]!
+  topTen: [topTenStats!]!
+  topTenGrowth: [topTenStats!]!
 }
 
 type ExecDailyArray {

@@ -274,3 +274,13 @@ h1.au-header__heading {
 .au-sr-only {
   @include AU-sronly();
 }
+
+.au-table {
+  border: solid 1px lightgray;
+  border-radius: $AU-border-radius;
+}
+
+.align-right {
+  text-align: right;
+  display: block;
+}

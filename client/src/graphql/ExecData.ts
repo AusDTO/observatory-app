@@ -33,6 +33,24 @@ export interface ExecData_getExecWeeklyData_NoOutputData {
   message: string;
 }
 
+export interface ExecData_getExecWeeklyData_ExecWeeklyArray_output_topTen {
+  __typename: "topTenStats";
+  pageUrl: string;
+  pageTitle: string;
+  percentage: string;
+  rank: string;
+  pageViews: string;
+}
+
+export interface ExecData_getExecWeeklyData_ExecWeeklyArray_output_topTenGrowth {
+  __typename: "topTenStats";
+  pageUrl: string;
+  pageTitle: string;
+  percentage: string;
+  rank: string;
+  pageViews: string;
+}
+
 export interface ExecData_getExecWeeklyData_ExecWeeklyArray_output {
   __typename: "ExecWeekly";
   pageViews: string;
@@ -46,6 +64,8 @@ export interface ExecData_getExecWeeklyData_ExecWeeklyArray_output {
   users: string;
   returningUsers: string;
   dateEnding: string;
+  topTen: ExecData_getExecWeeklyData_ExecWeeklyArray_output_topTen[];
+  topTenGrowth: ExecData_getExecWeeklyData_ExecWeeklyArray_output_topTenGrowth[];
 }
 
 export interface ExecData_getExecWeeklyData_ExecWeeklyArray {
@@ -81,6 +101,24 @@ export interface ExecData_getExecDailyData_NoOutputData {
   message: string;
 }
 
+export interface ExecData_getExecDailyData_ExecDailyArray_output_topTen {
+  __typename: "topTenStats";
+  pageUrl: string;
+  pageTitle: string;
+  percentage: string;
+  rank: string;
+  pageViews: string;
+}
+
+export interface ExecData_getExecDailyData_ExecDailyArray_output_topTenGrowth {
+  __typename: "topTenStats";
+  pageUrl: string;
+  pageTitle: string;
+  percentage: string;
+  rank: string;
+  pageViews: string;
+}
+
 export interface ExecData_getExecDailyData_ExecDailyArray_output {
   __typename: "ExecDaily";
   pageViews: string;
@@ -94,6 +132,8 @@ export interface ExecData_getExecDailyData_ExecDailyArray_output {
   newUsers: string;
   returningUsers: string;
   date: string;
+  topTen: ExecData_getExecDailyData_ExecDailyArray_output_topTen[];
+  topTenGrowth: ExecData_getExecDailyData_ExecDailyArray_output_topTenGrowth[];
 }
 
 export interface ExecData_getExecDailyData_ExecDailyArray {
