@@ -3,7 +3,7 @@ import SEO from "../seo";
 import AdminLayout from "../../components/layouts/AdminLayout";
 import { Link } from "react-router-dom";
 
-import { AuCard, AuCardTitle } from "../../types/auds";
+import { AuCard, AuCardInner, AuCardTitle } from "../../types/auds";
 import MetricCard from "../../components/blocks/metric-card";
 import { stringNumToCommaSeperated } from "../../components/util/stringNumToCommaSeperated";
 import {
@@ -82,48 +82,54 @@ export const SnapshotLanding: React.FC<Props> = ({
                 />
               </div>
               <div className="col-md-8">
-                <Table
-                  columns={[
-                    {
-                      Header: "Page",
-                      accessor: "pageTitle",
-                      Cell: ({ value, row }) => {
-                        const rowData = row as any;
-                        return (
-                          <a href={rowData.original.pageUrl}>
-                            {`${
-                              value.length > 20
-                                ? value.substring(0, 20) + "..."
-                                : value
-                            }`}
-                          </a>
-                        );
-                      },
-                    },
-                    { Header: "Rank", accessor: "rank" },
-                    {
-                      Header: () => (
-                        <span className="align-right">Page Views</span>
-                      ),
-                      accessor: "pageViews",
-                      Cell: ({ value }) => (
-                        <span className="align-right">
-                          {numberWithCommas(value)}
-                        </span>
-                      ),
-                    },
-                    {
-                      Header: () => (
-                        <span className="align-right">Percentage (%)</span>
-                      ),
-                      accessor: "percentage",
-                      Cell: ({ value }) => (
-                        <span className="align-right">{value}</span>
-                      ),
-                    },
-                  ]}
-                  data={weeklyData.output[0].topTen}
-                />
+                <AuCard>
+                  <AuCardInner>
+                    <Table
+                      caption="Top 10 most growing pages"
+                      columns={[
+                        {
+                          Header: "Page",
+                          accessor: "pageTitle",
+                          disableSortBy: true,
+                          Cell: ({ value, row }) => {
+                            const rowData = row as any;
+                            return (
+                              <a href={rowData.original.pageUrl} title={value}>
+                                {`${
+                                  value.length > 20
+                                    ? value.substring(0, 20) + "..."
+                                    : value
+                                }`}
+                              </a>
+                            );
+                          },
+                        },
+                        { Header: "Rank", accessor: "rank" },
+                        {
+                          Header: () => (
+                            <span className="align-right">Page Views</span>
+                          ),
+                          accessor: "pageViews",
+                          Cell: ({ value }) => (
+                            <span className="align-right">
+                              {numberWithCommas(value)}
+                            </span>
+                          ),
+                        },
+                        {
+                          Header: () => (
+                            <span className="align-right">Percentage (%)</span>
+                          ),
+                          accessor: "percentage",
+                          Cell: ({ value }) => (
+                            <span className="align-right">{value}</span>
+                          ),
+                        },
+                      ]}
+                      data={weeklyData.output[0].topTen}
+                    />
+                  </AuCardInner>
+                </AuCard>
               </div>
             </div>
             <div className="row mt-2">
@@ -139,48 +145,54 @@ export const SnapshotLanding: React.FC<Props> = ({
                 />
               </div>
               <div className="col-md-8">
-                <Table
-                  columns={[
-                    {
-                      Header: "Page",
-                      accessor: "pageTitle",
-                      Cell: ({ value, row: { original } }) => {
-                        const rowData = original as any;
-                        return (
-                          <a href={rowData.pageUrl}>
-                            {`${
-                              value.length > 20
-                                ? value.substring(0, 20) + "..."
-                                : value
-                            }`}
-                          </a>
-                        );
-                      },
-                    },
-                    { Header: "Rank", accessor: "rank" },
-                    {
-                      Header: () => (
-                        <span className="align-right">Page Views</span>
-                      ),
-                      accessor: "pageViews",
-                      Cell: ({ value }) => (
-                        <span className="align-right">
-                          {numberWithCommas(value)}
-                        </span>
-                      ),
-                    },
-                    {
-                      Header: () => (
-                        <span className="align-right">Percentage (%)</span>
-                      ),
-                      accessor: "percentage",
-                      Cell: ({ value }) => (
-                        <span className="align-right">{value}</span>
-                      ),
-                    },
-                  ]}
-                  data={weeklyData.output[0].topTenGrowth}
-                />
+                <AuCard>
+                  <AuCardInner>
+                    <Table
+                      caption="Top 10 most growing pages"
+                      columns={[
+                        {
+                          Header: "Page",
+                          accessor: "pageTitle",
+                          disableSortBy: true,
+                          Cell: ({ value, row: { original } }) => {
+                            const rowData = original as any;
+                            return (
+                              <a href={rowData.pageUrl} title={value}>
+                                {`${
+                                  value.length > 20
+                                    ? value.substring(0, 20) + "..."
+                                    : value
+                                }`}
+                              </a>
+                            );
+                          },
+                        },
+                        { Header: "Rank", accessor: "rank" },
+                        {
+                          Header: () => (
+                            <span className="align-right">Page Views</span>
+                          ),
+                          accessor: "pageViews",
+                          Cell: ({ value }) => (
+                            <span className="align-right">
+                              {numberWithCommas(value)}
+                            </span>
+                          ),
+                        },
+                        {
+                          Header: () => (
+                            <span className="align-right">Percentage (%)</span>
+                          ),
+                          accessor: "percentage",
+                          Cell: ({ value }) => (
+                            <span className="align-right">{value}</span>
+                          ),
+                        },
+                      ]}
+                      data={weeklyData.output[0].topTenGrowth}
+                    />
+                  </AuCardInner>
+                </AuCard>
               </div>
             </div>
           </section>

@@ -275,12 +275,17 @@ h1.au-header__heading {
   @include AU-sronly();
 }
 
-.au-table {
-  border: solid 1px lightgray;
-  border-radius: $AU-border-radius;
-}
+// .au-table {
+//   border: solid 1px lightgray;
+//   border-radius: $AU-border-radius;
+// }
 
 .align-right {
-  text-align: right;
-  display: block;
+  float: right;
+}
+
+.metric-table {
+  .au-table__cell {
+    border-bottom: none;
+  }
 }
