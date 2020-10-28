@@ -271,7 +271,8 @@ h1.au-header__heading {
   }
 }
 
-.au-sr-only {
+.au-sr-only,
+.visually-hidden {
   @include AU-sronly();
 }
 
@@ -288,4 +289,8 @@ h1.au-header__heading {
   .au-table__cell {
     border-bottom: none;
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }

@@ -22,7 +22,9 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
                 <h3 className="mt-0 font-weight-500">Accessibility</h3>
                 <ul className="au-link-list">
                   <li>
-                    <Link to={`/service/snapshot/${propertyUaId}`}>
+                    <Link
+                      to={`/service/snapshot/${propertyUaId}?timePeriod=weekly`}
+                    >
                       Site snapshot
                     </Link>
                   </li>

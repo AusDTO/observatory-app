@@ -119,3 +119,23 @@
   position: absolute;
   top: 1rem;
 }
+
+.au-body {
+  .metric-card__title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .metric-card__title-link {
+    background-color: lighten($AU-color-bright, 10);
+    color: $AU-color-foreground-text;
+    @include AU-space(padding, 0.2unit 0.5unit);
+    @include AU-fontgrid(xs);
+    text-decoration: none;
+    border-radius: $AU-border-radius;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

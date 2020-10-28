@@ -5,7 +5,7 @@ import {
   AUfieldset,
   AUlegend,
 } from "../auds/react/form";
-import { AUcheckbox } from "../auds/react/control-input";
+import { AUcheckbox, AUradio } from "../auds/react/control-input";
 import AUheader, { AUheaderBrand } from "../auds/react/header";
 import AUselect from "../auds/react/select";
 import AUlinkList from "../auds/react/link-list";
@@ -23,6 +23,7 @@ import AUpageAlert from "../auds/react/page-alerts";
 import AUctaLink from "../auds/react/cta-link";
 import AUdirectionLink from "../auds/react/direction-links";
 import AUtagList from "../auds/react/tags";
+import { AUinpageNavLinks, AUinpageNavSection } from "../auds/react/inpage-nav";
 
 export const AuFormGroup: any = AUformGroup;
 export const AuErrorText: any = AUerrorText;
@@ -48,6 +49,9 @@ export const AuPageAlert: any = AUpageAlert;
 export const AuCtaLink: any = AUctaLink;
 export const AuDirectionLink: any = AUdirectionLink;
 export const AuTagList: any = AUtagList;
+export const AuRadio: any = AUradio;
+export const AuInpageNavLinks: any = AUinpageNavLinks;
+export const AuInpageNavSection: any = AUinpageNavSection;
 
 interface LabelProps {
   text?: string;

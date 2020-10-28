@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import SEO from "../seo";
 import AdminLayout from "../../components/layouts/AdminLayout";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 
-import { AuCard, AuCardInner, AuCardTitle } from "../../types/auds";
+import {
+  Aubtn,
+  AuCard,
+  AuCardInner,
+  AuCardTitle,
+  AuFormGroup,
+  AuInpageNavSection,
+} from "../../types/auds";
 import MetricCard from "../../components/blocks/metric-card";
 import { stringNumToCommaSeperated } from "../../components/util/stringNumToCommaSeperated";
 import {
@@ -15,18 +22,27 @@ import * as _ from "lodash";
 import { ObjectStringToInt } from "../../components/recharts/formatters/stringToNumber";
 import { Table } from "../../components/blocks/table/table";
 import { numberWithCommas } from "../../components/blocks/table/utility";
+import { Formik, Form } from "formik";
+import TextField from "../../components/form/TextField";
+import { InitialValues, validationSchema } from "../register/register_schema";
+import RadioField from "../../components/form/RadioField";
+import { Glossary } from "./glossary";
 
-interface Props {
+interface Props extends RouteComponentProps {
   weeklyData: ExecData_getExecWeeklyData_ExecWeeklyArray;
   dailyData: ExecData_getExecDailyData_ExecDailyArray;
   ua_id: string;
 }
 
-export const SnapshotLanding: React.FC<Props> = ({
+const SnapshotLanding: React.FC<Props> = ({
   weeklyData,
   dailyData,
   ua_id,
+  history,
 }) => {
+  const handleSelection = () => {
+    console.log("hello");
+  };
   return (
     <AdminLayout>
       <>
@@ -43,8 +59,51 @@ export const SnapshotLanding: React.FC<Props> = ({
             Back
           </Link>
           <h1 className="mt-1">What's a snapshot of our site?</h1>
+
+          <Formik
+            initialValues={InitialValues}
+            onSubmit={(data, errors) => {
+              handleSelection();
+            }}
+          >
+            {({ values, errors, touched, handleSubmit, submitForm }) => (
+              <Form
+                noValidate
+                onChange={(e) => {
+                  const a = e as any;
+                  // handleSubmit(e);
+                  console.log(a.target.value);
+                  history.push(
+                    `${window.location.pathname}?timePeriod=${a.target.value}`
+                  );
+                }}
+              >
+                <RadioField
+                  id="time-period"
+                  legend="Select time period"
+                  options={[
+                    {
+                      label: "weekly",
+                      value: "weekly",
+                      defaultChecked: true,
+                    },
+                    {
+                      label: "daily",
+                      value: "daily",
+                      defaultChecked: false,
+                    },
+                    {
+                      label: "weasdfdsaf",
+                      value: "asdsa",
+                    },
+                  ]}
+                />
+              </Form>
+            )}
+          </Formik>
+
           <section className="mt-2">
-            <h3>How many views is our site getting?</h3>
+            <h3 id="page-views-section">How many views is our site getting?</h3>
             <div className="row mt-1">
               <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
@@ -53,6 +112,8 @@ export const SnapshotLanding: React.FC<Props> = ({
                   metric={stringNumToCommaSeperated(
                     weeklyData.output[0].pageViews
                   )}
+                  defLink="#pageviews-def"
+                  defLinkId="pageviews-card"
                 />
               </div>
               <div className="col-md-8 col-sm-12 col-xs-12">
@@ -85,7 +146,7 @@ export const SnapshotLanding: React.FC<Props> = ({
                 <AuCard>
                   <AuCardInner>
                     <Table
-                      caption="Top 10 most growing pages"
+                      caption="Top 10 most viewed pages"
                       columns={[
                         {
                           Header: "Page",
@@ -148,7 +209,7 @@ export const SnapshotLanding: React.FC<Props> = ({
                 <AuCard>
                   <AuCardInner>
                     <Table
-                      caption="Top 10 most growing pages"
+                      caption="Top 10 pages with largest growth in views"
                       columns={[
                         {
                           Header: "Page",
@@ -199,6 +260,7 @@ export const SnapshotLanding: React.FC<Props> = ({
 
           <section>
             <h3>
+              {/* FIX should automatically create linked headings*/}
               How many visitors came, and how many were coming for the first
               time?
             </h3>
@@ -207,6 +269,8 @@ export const SnapshotLanding: React.FC<Props> = ({
                 <MetricCard
                   title="Users"
                   level="4"
+                  defLink="#users-def"
+                  defLinkId="users-card"
                   metric={stringNumToCommaSeperated(weeklyData.output[0].users)}
                 />
               </div>
@@ -241,6 +305,8 @@ export const SnapshotLanding: React.FC<Props> = ({
                   metric={stringNumToCommaSeperated(
                     weeklyData.output[0].aveSessionsPerUser
                   )}
+                  defLinkId="sessions-card"
+                  defLink="#sessions-def"
                 />
               </div>
               <div className="col-md-4 col-sm-6 col-xs-12">
@@ -285,8 +351,11 @@ export const SnapshotLanding: React.FC<Props> = ({
               </div>
             </div>
           </section>
+          <Glossary />
         </div>
       </>
     </AdminLayout>
   );
 };
+
+export default withRouter(SnapshotLanding);

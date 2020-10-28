@@ -16,6 +16,7 @@
     "@gov.au/form": "latest",
     "@gov.au/header": "latest",
     "@gov.au/headings": "^2.0.11",
+    "@gov.au/inpage-nav": "^3.0.6",
     "@gov.au/link-list": "latest",
     "@gov.au/page-alerts": "latest",
     "@gov.au/progress-indicator": "latest",

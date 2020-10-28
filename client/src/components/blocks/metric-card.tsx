@@ -8,6 +8,8 @@ interface Props {
   metric: string;
   link?: string;
   linkText?: string;
+  defLink?: string; //FIX the def link should probs be a type
+  defLinkId?: string;
 }
 const MetricCard: React.FC<Props> = ({
   level,
@@ -15,13 +17,28 @@ const MetricCard: React.FC<Props> = ({
   metric,
   link,
   linkText,
+  defLink,
+  defLinkId,
+
   className,
 }) => {
   return (
-    <AuCard>
+    <AuCard className="metric-card">
       <AuCardInner>
-        <AuCardTitle level={level} className="font-weight-500">
+        <AuCardTitle
+          level={level}
+          className="font-weight-500 metric-card__title"
+        >
           {title}
+          {defLink && (
+            <a
+              href={defLink}
+              className="metric-card__title-link"
+              id={defLinkId}
+            >
+              Learn<span className="visually-hidden"> more about {title}</span>
+            </a>
+          )}
         </AuCardTitle>
         <div className="metric-card__inner">
           {link && linkText && (
@@ -31,7 +48,7 @@ const MetricCard: React.FC<Props> = ({
           )}
           <div className="metric-card__desc">
             <span className="metric">{metric}</span>
-            <span className="percentage">
+            {/* <span className="percentage">
               {Math.floor(Math.random() * 2) === 1 ? (
                 <span aria-label="Up" className="up">
                   &#8599;{Math.floor(Math.random() * 50)}%
@@ -41,7 +58,7 @@ const MetricCard: React.FC<Props> = ({
                   &#8600;{Math.floor(Math.random() * 50)}%
                 </span>
               )}
-            </span>
+            </span> */}
           </div>
         </div>
       </AuCardInner>

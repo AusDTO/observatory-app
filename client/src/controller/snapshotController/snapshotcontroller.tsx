@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { RouteComponentProps } from "react-router-dom";
-import { SnapshotLanding } from "../../views/site-snapshot/snapshot";
+import SnapshotLanding from "../../views/site-snapshot/snapshot";
 import { gql, useQuery } from "@apollo/client";
 
 import { NotFound } from "../../views/404-logged-in/404";
@@ -19,8 +19,11 @@ interface Props extends RouteComponentProps<{ ua_id: string }> {} // key
 export const SnapshotController: (arg0: Props) => any = ({
   history,
   match,
+  location,
 }) => {
   const { ua_id } = match.params;
+  let params = new URLSearchParams(location.search); //FIX may need to refactor to work in IE
+  const timePeriod = params.get("timePeriod");
 
   const { data, loading, error } = useQuery<ExecData, ExecDataVariables>(
     GET_EXEC_WEEKLY,
