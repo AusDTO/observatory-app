@@ -45,7 +45,7 @@
     "react-helmet-async": "^1.0.6",
     "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^4.0.0",
     "react-table": "^7.6.0",
     "recharts": "^1.8.5",
     "typescript": "^3.7.5",
@@ -61,6 +61,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "eslintIgnore": [
+    "src/auds/**"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
