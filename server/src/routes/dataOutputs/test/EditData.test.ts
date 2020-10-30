@@ -84,7 +84,7 @@ describe("Edit data suite", () => {
           newUsers: "20",
           users: "20",
           returningUsers: "20",
-          topTen: top10Data.topTen,
+          topTenPageViews: top10Data.topTenPageViews,
           topTenGrowth: top10Data.topTenGrowth,
         },
       ],

@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Stack
+
+- [Create react app](https://github.com/facebook/create-react-app)
+- [Australian Government Design System](https://github.com/govau/design-system-components)
+- [Apollo client](https://github.com/apollographql/apollo-client)
+
 ## Available Scripts
 
 In the project directory, you can run:

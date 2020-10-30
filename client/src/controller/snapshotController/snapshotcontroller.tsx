@@ -9,6 +9,7 @@ import {
   ExecData,
   ExecDataVariables,
   ExecData_getExecDailyData_ExecDailyArray,
+  ExecData_getExecHourlyData_ExecHourlyArray,
   ExecData_getExecWeeklyData,
   ExecData_getExecWeeklyData_ExecWeeklyArray,
 } from "../../graphql/ExecData";
@@ -16,6 +17,7 @@ import { GET_EXEC_WEEKLY } from "./snapshot_schema";
 
 interface Props extends RouteComponentProps<{ ua_id: string }> {} // key
 
+//FIX should not need all the data for this to load
 export const SnapshotController: (arg0: Props) => any = ({
   history,
   match,
@@ -30,29 +32,40 @@ export const SnapshotController: (arg0: Props) => any = ({
     { variables: { property_ua_id: ua_id } }
   );
 
+  if (error) {
+    return (
+      <NotFound title="Error fetching data">
+        <p>Your data was not found</p>
+      </NotFound>
+    );
+  }
+
   if (loading) {
     return null;
   }
 
   let weeklyOutputs;
   let dailyOutputs;
-  if (data && data.getExecWeeklyData && data.getExecDailyData) {
+  let hourlyOutputs;
+  if (
+    data &&
+    data.getExecWeeklyData &&
+    data.getExecDailyData &&
+    data.getExecHourlyData
+  ) {
     const weeklyResult = data.getExecWeeklyData;
     const dailyResult = data.getExecDailyData;
+    const hourlyResult = data.getExecHourlyData;
+
     const weeklyTypeName = data.getExecWeeklyData.__typename;
     const dailyTypeName = data.getExecDailyData.__typename;
+    const hourlyTypeName = data.getExecHourlyData.__typename;
 
     switch (weeklyTypeName) {
       case "ExecWeeklyArray":
         const data = weeklyResult as ExecData_getExecWeeklyData_ExecWeeklyArray;
         weeklyOutputs = data;
-        // return <SnapshotLanding data={weeklyOutputs} ua_id={ua_id} />;
         break;
-      // return (
-      //   <NotFound title="Error fetching data">
-      //     <p>Your data was not found</p>
-      //   </NotFound>
-      // );
 
       default:
         return (
@@ -67,6 +80,25 @@ export const SnapshotController: (arg0: Props) => any = ({
         const data = dailyResult as ExecData_getExecDailyData_ExecDailyArray;
         dailyOutputs = data;
         break;
+      default:
+        return (
+          <NotFound title="Error fetching data">
+            <p>Your data was not found</p>
+          </NotFound>
+        );
+    }
+
+    switch (hourlyTypeName) {
+      case "ExecHourlyArray":
+        const data = hourlyResult as ExecData_getExecHourlyData_ExecHourlyArray;
+        hourlyOutputs = data;
+        break;
+      default:
+        return (
+          <NotFound title="Error fetching data">
+            <p>Your data was not found</p>
+          </NotFound>
+        );
     }
 
     if (!dailyOutputs || !weeklyOutputs) {
@@ -80,7 +112,9 @@ export const SnapshotController: (arg0: Props) => any = ({
         <SnapshotLanding
           weeklyData={weeklyOutputs}
           dailyData={dailyOutputs}
+          hourlyData={hourlyOutputs}
           ua_id={ua_id}
+          timePeriod={timePeriod || "weekly"}
         />
       );
     }

@@ -65,7 +65,7 @@ export const agencyListDuplicateItems: Array<IAgency> = [
 ];
 
 export const top10Data = {
-  topTen: [
+  topTenPageViews: [
     {
       pageUrl: "designsystem.gov.au/contact",
       pageTitle: "Contact us",
@@ -170,7 +170,7 @@ export const execDailyData = {
       users: "200",
       newUsers: "20",
       returningUsers: "20",
-      topTen: top10Data.topTen,
+      topTenPageViews: top10Data.topTenPageViews,
       topTenGrowth: top10Data.topTenGrowth,
     },
     {
@@ -185,7 +185,7 @@ export const execDailyData = {
       users: "200",
       newUsers: "20",
       returningUsers: "20",
-      topTen: top10Data.topTen,
+      topTenPageViews: top10Data.topTenPageViews,
       topTenGrowth: top10Data.topTenGrowth,
     },
   ],
@@ -207,7 +207,7 @@ export const execDailyInvalidType = [
         users: "200",
         newUsers: "20",
         returningUsers: "20",
-        topTen: top10Data.topTen,
+        topTenPageViews: top10Data.topTenPageViews,
         topTenGrowth: top10Data.topTenGrowth,
       },
       {
@@ -222,7 +222,7 @@ export const execDailyInvalidType = [
         users: "200",
         newUsers: "20",
         returningUsers: "20",
-        topTen: top10Data.topTen,
+        topTenPageViews: top10Data.topTenPageViews,
         topTenGrowth: top10Data.topTenGrowth,
       },
     ],

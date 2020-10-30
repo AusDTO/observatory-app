@@ -4,17 +4,21 @@ import AdminLayout from "../../components/layouts/AdminLayout";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 
 import {
-  Aubtn,
   AuCard,
   AuCardInner,
   AuCardTitle,
-  AuFormGroup,
-  AuInpageNavSection,
+  AuFieldset,
+  AuLegend,
+  AuRadio,
 } from "../../types/auds";
 import MetricCard from "../../components/blocks/metric-card";
-import { stringNumToCommaSeperated } from "../../components/util/stringNumToCommaSeperated";
+import {
+  roundTwoPlaces,
+  stringNumToCommaSeperated,
+} from "../../components/util/numberUtils";
 import {
   ExecData_getExecDailyData_ExecDailyArray,
+  ExecData_getExecHourlyData_ExecHourlyArray,
   ExecData_getExecWeeklyData_ExecWeeklyArray,
 } from "../../graphql/ExecData";
 import { LineChartVis } from "../../components/recharts/timeSeries";
@@ -22,27 +26,27 @@ import * as _ from "lodash";
 import { ObjectStringToInt } from "../../components/recharts/formatters/stringToNumber";
 import { Table } from "../../components/blocks/table/table";
 import { numberWithCommas } from "../../components/blocks/table/utility";
-import { Formik, Form } from "formik";
-import TextField from "../../components/form/TextField";
-import { InitialValues, validationSchema } from "../register/register_schema";
-import RadioField from "../../components/form/RadioField";
+
 import { Glossary } from "./glossary";
 
 interface Props extends RouteComponentProps {
   weeklyData: ExecData_getExecWeeklyData_ExecWeeklyArray;
   dailyData: ExecData_getExecDailyData_ExecDailyArray;
+  hourlyData: ExecData_getExecHourlyData_ExecHourlyArray;
+  timePeriod: string;
   ua_id: string;
 }
 
 const SnapshotLanding: React.FC<Props> = ({
   weeklyData,
   dailyData,
+  hourlyData,
+  timePeriod,
   ua_id,
   history,
 }) => {
-  const handleSelection = () => {
-    console.log("hello");
-  };
+  const cardData = timePeriod === "daily" ? dailyData : weeklyData;
+  const graphData = timePeriod === "daily" ? hourlyData : dailyData;
   return (
     <AdminLayout>
       <>
@@ -60,47 +64,33 @@ const SnapshotLanding: React.FC<Props> = ({
           </Link>
           <h1 className="mt-1">What's a snapshot of our site?</h1>
 
-          <Formik
-            initialValues={InitialValues}
-            onSubmit={(data, errors) => {
-              handleSelection();
-            }}
-          >
-            {({ values, errors, touched, handleSubmit, submitForm }) => (
-              <Form
-                noValidate
-                onChange={(e) => {
-                  const a = e as any;
-                  // handleSubmit(e);
-                  console.log(a.target.value);
-                  history.push(
-                    `${window.location.pathname}?timePeriod=${a.target.value}`
-                  );
-                }}
-              >
-                <RadioField
-                  id="time-period"
-                  legend="Select time period"
-                  options={[
-                    {
-                      label: "weekly",
-                      value: "weekly",
-                      defaultChecked: true,
-                    },
-                    {
-                      label: "daily",
-                      value: "daily",
-                      defaultChecked: false,
-                    },
-                    {
-                      label: "weasdfdsaf",
-                      value: "asdsa",
-                    },
-                  ]}
-                />
-              </Form>
-            )}
-          </Formik>
+          <AuFieldset>
+            <AuLegend>Select your time period</AuLegend>
+            <AuRadio
+              label="weekly"
+              value="weekly"
+              name="form"
+              id="weekly_radio"
+              defaultChecked={timePeriod != "daily"}
+              onChange={(e: any) => {
+                history.push(
+                  `${window.location.pathname}?timePeriod=${e.target.value}`
+                );
+              }}
+            />
+            <AuRadio
+              label="daily"
+              value="daily"
+              name="form"
+              id="daily_radio"
+              defaultChecked={timePeriod === "daily"}
+              onChange={(e: any) => {
+                history.push(
+                  `${window.location.pathname}?timePeriod=${e.target.value}`
+                );
+              }}
+            />
+          </AuFieldset>
 
           <section className="mt-2">
             <h3 id="page-views-section">How many views is our site getting?</h3>
@@ -110,7 +100,7 @@ const SnapshotLanding: React.FC<Props> = ({
                   title="Pageviews"
                   level="4"
                   metric={stringNumToCommaSeperated(
-                    weeklyData.output[0].pageViews
+                    cardData.output[0].pageViews
                   )}
                   defLink="#pageviews-def"
                   defLinkId="pageviews-card"
@@ -120,10 +110,11 @@ const SnapshotLanding: React.FC<Props> = ({
                 <AuCard>
                   <AuCardTitle level="4" className="font-weight-500 mt-1 ml-1">
                     PageViews
+                    {timePeriod === "daily" && <span>(Last 24 hours)</span>}
                   </AuCardTitle>
                   <LineChartVis
-                    data={ObjectStringToInt(dailyData.output, "pageViews")}
-                    xKey="date"
+                    data={ObjectStringToInt(graphData.output, "pageViews")}
+                    xKey={timePeriod === "daily" ? "visit_hour" : "date"}
                     yKey="pageViews"
                   ></LineChartVis>
                 </AuCard>
@@ -135,14 +126,14 @@ const SnapshotLanding: React.FC<Props> = ({
                 <MetricCard
                   title="Most viewed page"
                   level="4"
-                  link={weeklyData.output[0].topTen[0].pageUrl}
-                  linkText={weeklyData.output[0].topTen[0].pageTitle}
+                  link={cardData.output[0].topTenPageViews[0].pageUrl}
+                  linkText={cardData.output[0].topTenPageViews[0].pageTitle}
                   metric={stringNumToCommaSeperated(
-                    weeklyData.output[0].topTen[0].pageViews
+                    cardData.output[0].topTenPageViews[0].pageViews
                   )}
                 />
               </div>
-              <div className="col-md-8">
+              <div className="col-md-8 col-sm-12 col-xs-12">
                 <AuCard>
                   <AuCardInner>
                     <Table
@@ -187,7 +178,7 @@ const SnapshotLanding: React.FC<Props> = ({
                           ),
                         },
                       ]}
-                      data={weeklyData.output[0].topTen}
+                      data={cardData.output[0].topTenPageViews}
                     />
                   </AuCardInner>
                 </AuCard>
@@ -198,14 +189,14 @@ const SnapshotLanding: React.FC<Props> = ({
                 <MetricCard
                   title="Page with largest growth in views"
                   level="4"
-                  link={weeklyData.output[0].topTenGrowth[0].pageUrl}
-                  linkText={weeklyData.output[0].topTenGrowth[0].pageTitle}
+                  link={cardData.output[0].topTenGrowth[0].pageUrl}
+                  linkText={cardData.output[0].topTenGrowth[0].pageTitle}
                   metric={stringNumToCommaSeperated(
-                    weeklyData.output[0].topTenGrowth[0].pageViews
+                    cardData.output[0].topTenGrowth[0].pageViews
                   )}
                 />
               </div>
-              <div className="col-md-8">
+              <div className="col-md-8 col-sm-12 col-xs-12">
                 <AuCard>
                   <AuCardInner>
                     <Table
@@ -250,7 +241,7 @@ const SnapshotLanding: React.FC<Props> = ({
                           ),
                         },
                       ]}
-                      data={weeklyData.output[0].topTenGrowth}
+                      data={cardData.output[0].topTenGrowth}
                     />
                   </AuCardInner>
                 </AuCard>
@@ -271,7 +262,7 @@ const SnapshotLanding: React.FC<Props> = ({
                   level="4"
                   defLink="#users-def"
                   defLinkId="users-card"
-                  metric={stringNumToCommaSeperated(weeklyData.output[0].users)}
+                  metric={stringNumToCommaSeperated(cardData.output[0].users)}
                 />
               </div>
               <div className="col-md-4 col-sm-6 col-xs-12">
@@ -279,7 +270,7 @@ const SnapshotLanding: React.FC<Props> = ({
                   title="New users"
                   level="4"
                   metric={stringNumToCommaSeperated(
-                    weeklyData.output[0].newUsers
+                    cardData.output[0].newUsers
                   )}
                 />
               </div>
@@ -289,7 +280,7 @@ const SnapshotLanding: React.FC<Props> = ({
                   title="Returning users"
                   level="4"
                   metric={stringNumToCommaSeperated(
-                    weeklyData.output[0].returningUsers
+                    cardData.output[0].returningUsers
                   )}
                 />
               </div>
@@ -303,7 +294,7 @@ const SnapshotLanding: React.FC<Props> = ({
                   title="Average sessions"
                   level="4"
                   metric={stringNumToCommaSeperated(
-                    weeklyData.output[0].aveSessionsPerUser
+                    cardData.output[0].aveSessionsPerUser
                   )}
                   defLinkId="sessions-card"
                   defLink="#sessions-def"
@@ -314,7 +305,7 @@ const SnapshotLanding: React.FC<Props> = ({
                   title="Pages per session"
                   level="4"
                   metric={stringNumToCommaSeperated(
-                    weeklyData.output[0].pagesPerSession
+                    cardData.output[0].pagesPerSession
                   )}
                 />
               </div>
@@ -322,7 +313,7 @@ const SnapshotLanding: React.FC<Props> = ({
                 <MetricCard
                   title="Average time on page"
                   level="4"
-                  metric={weeklyData.output[0].timeOnPage + "s"}
+                  metric={roundTwoPlaces(cardData.output[0].timeOnPage) + "s"}
                 />
               </div>
             </div>
@@ -331,20 +322,23 @@ const SnapshotLanding: React.FC<Props> = ({
                 <MetricCard
                   title="Average session duration"
                   level="4"
-                  metric={weeklyData.output[0].aveSessionDuration + "s"}
+                  metric={
+                    roundTwoPlaces(cardData.output[0].aveSessionDuration) + "s"
+                  }
                 />
               </div>
               <div className="col-md-8 col-sm-12 col-xs-12">
                 <AuCard>
                   <AuCardTitle level="4" className="font-weight-500 mt-1 ml-1">
                     Average session duration
+                    {timePeriod === "daily" && <span>(Last 24 hours)</span>}
                   </AuCardTitle>
                   <LineChartVis
                     data={ObjectStringToInt(
-                      dailyData.output,
+                      graphData.output,
                       "aveSessionDuration"
                     )}
-                    xKey="date"
+                    xKey={timePeriod === "daily" ? "visit_hour" : "date"}
                     yKey="aveSessionDuration"
                   ></LineChartVis>
                 </AuCard>

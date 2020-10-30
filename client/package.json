@@ -37,7 +37,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/recharts": "^1.8.16",
     "@types/yup": "^0.29.4",
-    "apollo": "^2.30.2",
+    "apollo": "^2.31.0",
     "formik": "^2.1.5",
     "graphql": "^15.3.0",
     "react": "^16.13.1",

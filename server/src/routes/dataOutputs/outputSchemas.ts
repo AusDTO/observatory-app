@@ -38,7 +38,7 @@ export const ExecDataSchemaDaily = yup
     users: yup.string().required(),
     newUsers: yup.string().required(),
     returningUsers: yup.string().required(),
-    topTen: topTenStats,
+    topTenPageViews: topTenStats,
     topTenGrowth: topTenStats,
     date: yup.string().required(), //FIX: should be properly formatted date
   });
@@ -59,7 +59,7 @@ export const ExecDataSchemaWeekly = yup
     users: yup.string().required(),
     newUsers: yup.string().required(),
     returningUsers: yup.string().required(),
-    topTen: topTenStats,
+    topTenPageViews: topTenStats,
     topTenGrowth: topTenStats,
     dateEnding: yup.string().required(),
   });

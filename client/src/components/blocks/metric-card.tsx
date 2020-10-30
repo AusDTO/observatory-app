@@ -19,7 +19,6 @@ const MetricCard: React.FC<Props> = ({
   linkText,
   defLink,
   defLinkId,
-
   className,
 }) => {
   return (

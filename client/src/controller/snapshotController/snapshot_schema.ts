@@ -32,7 +32,7 @@ export const GET_EXEC_WEEKLY = gql`
           users
           returningUsers
           dateEnding
-          topTen {
+          topTenPageViews {
             pageUrl
             pageTitle
             percentage
@@ -47,6 +47,32 @@ export const GET_EXEC_WEEKLY = gql`
             rank
             pageViews
           }
+        }
+      }
+    }
+
+    getExecHourlyData(property_ua_id: $property_ua_id) {
+      __typename
+      ... on FieldErrors {
+        errors {
+          message
+          path
+        }
+      }
+      ... on Error {
+        message
+      }
+      ... on InvalidProperty {
+        message
+      }
+      ... on NoOutputData {
+        message
+      }
+      ... on ExecHourlyArray {
+        output {
+          pageViews
+          aveSessionDuration
+          visit_hour
         }
       }
     }
@@ -81,7 +107,7 @@ export const GET_EXEC_WEEKLY = gql`
           newUsers
           returningUsers
           date
-          topTen {
+          topTenPageViews {
             pageUrl
             pageTitle
             percentage
