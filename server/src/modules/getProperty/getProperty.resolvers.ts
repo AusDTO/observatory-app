@@ -5,9 +5,10 @@ import * as yup from "yup";
 import { formatYupError } from "../../util/formatYupError";
 import { basicApiErrorMessage } from "../../util/constants";
 import { User } from "../../entity/User";
+import { ua_id_schema } from "../../util/yup";
 
 const propertyIDValidationSchema = yup.object().shape({
-  propertyId: yup.string().required().uuid("We could not find the property"),
+  property_ua_id: ua_id_schema,
 });
 
 export const resolvers: ResolverMap = {
@@ -35,10 +36,10 @@ export const resolvers: ResolverMap = {
         return basicApiErrorMessage("Not authenticated", "user");
       }
 
-      const { propertyId } = args;
+      const { property_ua_id } = args;
 
       const property = await Property.findOne({
-        where: { id: propertyId },
+        where: { ua_id: property_ua_id.toLowerCase() },
         relations: ["agency"],
       });
 

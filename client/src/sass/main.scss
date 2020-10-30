@@ -12,6 +12,7 @@ $AU-color-foreground-text: #212121;
 //Main nav, set project specific breakpoint
 
 $AU-color-bright: #00cfff;
+$AU-color-alt-bg: #e9e9e9;
 
 $AU-media-xs: 0px;
 $AU-media-sm: 576px;
@@ -270,6 +271,26 @@ h1.au-header__heading {
   }
 }
 
-.au-sr-only {
+.au-sr-only,
+.visually-hidden {
   @include AU-sronly();
+}
+
+// .au-table {
+//   border: solid 1px lightgray;
+//   border-radius: $AU-border-radius;
+// }
+
+.align-right {
+  float: right;
+}
+
+.metric-table {
+  .au-table__cell {
+    border-bottom: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }

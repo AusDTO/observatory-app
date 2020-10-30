@@ -16,7 +16,7 @@ const { email, password, name, role, emailHost } = testUser;
 
 const client = new TestClient();
 const { service_name, domain, ua_id } = testProperies[0];
-let propertyId: string;
+let property_ua_id: string;
 
 beforeAll(async () => {
   await connection.create();
@@ -42,7 +42,7 @@ beforeAll(async () => {
   propertyToInsert.agency = agency1 as Agency;
   await Property.save(propertyToInsert);
 
-  propertyId = propertyToInsert.id;
+  property_ua_id = propertyToInsert.ua_id;
 
   await user1.save();
 
@@ -78,7 +78,7 @@ describe("Test accessing properties", () => {
   test("Not logged in, should return error", async () => {
     // await client.login(email, password);
 
-    const result = await client.getProperty(propertyId);
+    const result = await client.getProperty(property_ua_id);
     const { __typename, message } = result.data.getProperty;
 
     expect(__typename).toEqual("Error");
@@ -88,7 +88,7 @@ describe("Test accessing properties", () => {
   test("Logged in should return a property", async () => {
     await client.login(email, password);
 
-    const result = await client.getProperty(propertyId);
+    const result = await client.getProperty(property_ua_id);
 
     const apiResponse = result.data.getProperty;
 
@@ -99,7 +99,7 @@ describe("Test accessing properties", () => {
 
   test("Users can only access their own agencies properties", async () => {
     await client.login("testuser@bla.gov.au", password);
-    const result = await client.getProperty(propertyId);
+    const result = await client.getProperty(property_ua_id);
     const { __typename, message } = result.data.getProperty;
 
     expect(__typename).toEqual("Error");
@@ -107,19 +107,21 @@ describe("Test accessing properties", () => {
     await client.logout();
   });
 
-  test("Invalid uuid returns error", async () => {
+  test("Invalid ua_id returns error", async () => {
     await client.login(email, password);
 
-    const result = await client.getProperty("inavlid-uuid");
+    const result = await client.getProperty("UA-asd-23");
 
     const { __typename, errors } = result.data.getProperty;
 
     expect(__typename).toEqual("FieldErrors");
-    expect(errors[0].message).toEqual("We could not find the property");
+    expect(errors[0].message).toEqual(
+      "You have entered a UAID that is not valid, check your data and try again"
+    );
   });
 
   test("Property doesn't exist error", async () => {
-    const fakeUUID = "4aa5a0c2-3134-4eed-afd9-0f7580752545";
+    const fakeUUID = "UA-1212121";
     await client.login(email, password);
 
     const result = await client.getProperty(fakeUUID);

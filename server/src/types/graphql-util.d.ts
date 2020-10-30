@@ -1,5 +1,6 @@
 import { Redis } from "ioredis";
 import { Request, Response } from "express";
+import { Property } from "../entity/Property";
 
 export interface Context {
   redis_client: Redis;

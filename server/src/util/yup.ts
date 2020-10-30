@@ -22,3 +22,7 @@ export const ua_id_schema = yup
     /(UA|ua)-[0-9]+-?[0-9]{1,3}$/,
     "You have entered a UAID that is not valid, check your data and try again"
   );
+
+export const noUnknownMessage = (a: any) => {
+  return `You have entered invalid fields: ${a.unknown}`;
+};

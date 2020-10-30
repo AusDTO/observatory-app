@@ -84,7 +84,7 @@ propertyRouter.delete(
     }
 
     const propertyExists = await Property.findOne({
-      where: { ua_id: ua_id_param },
+      where: { ua_id: ua_id_param.toLowerCase() },
     });
 
     if (!propertyExists) {
@@ -118,7 +118,7 @@ propertyRouter.put(
 
     //Find the property that needs updating
     const propertyToUpdate = await Property.findOne(
-      { ua_id: ua_id_param },
+      { ua_id: ua_id_param.toLowerCase() },
       { relations: ["agency"] }
     );
 

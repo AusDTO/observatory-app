@@ -229,7 +229,7 @@ describe("Test property crud operations", () => {
 
     const { ua_id, service_name } = getPropertiesRes2[0];
 
-    expect(ua_id).toEqual("UA-91234");
+    expect(ua_id).toEqual("UA-91234".toLowerCase());
     expect(service_name).toEqual("Bye");
   });
 

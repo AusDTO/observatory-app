@@ -173,43 +173,83 @@ export class TestClient {
     });
   }
 
-  async getOutputData(type: string, property_ua_id: string) {
+  async getExecWeeklyData(property_ua_id: string) {
     return rp.post(this.url, {
       ...this.options,
       body: {
         query: `query {
-          getOutputData(type: "${type}", property_ua_id: "${property_ua_id}") {
+          getExecWeeklyData(property_ua_id: "${property_ua_id}") {
             __typename
-        
-            ... on ExecDataArray {
-              output {
-                bounceRate
-                pageViews
-                ...on ExecDaily {
-                  date
-                }
-                ...on ExecWeekly {
-                  dateEnding
-                }
-                ...on ExecHourly {
-                  visit_hour
-                }
-              }
-            }
             ... on FieldErrors {
               errors {
                 message
                 path
               }
             }
+            ... on Error {
+              message
+            }
+            ... on InvalidProperty {
+              message
+            }
             ... on NoOutputData {
               message
+            }
+            ... on ExecWeeklyArray {
+              output {
+                pageViews
+                sessions
+                timeOnPage
+                bounceRate
+                aveSessionsPerUser
+                pagesPerSession
+                aveSessionDuration
+                newUsers
+                returningUsers
+                dateEnding
+              }
+            }
+          }
+        }`,
+      },
+    });
+  }
+
+  async getExecDailyData(property_ua_id: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `query {
+          getExecDailyData(property_ua_id: "${property_ua_id}") {
+            __typename
+            ... on FieldErrors {
+              errors {
+                message
+                path
+              }
             }
             ... on Error {
               message
             }
             ... on InvalidProperty {
               message
+            }
+            ... on NoOutputData {
+              message
+            }
+            ... on ExecDailyArray {
+              output {
+                pageViews
+                sessions
+                timeOnPage
+                bounceRate
+                aveSessionsPerUser
+                pagesPerSession
+                aveSessionDuration
+                newUsers
+                returningUsers
+                date
+              }
             }
           }
         }`,
@@ -222,7 +262,7 @@ export class TestClient {
       ...this.options,
       body: {
         query: `query {
-          getProperty(propertyId:"${propertyId}") {
+          getProperty(property_ua_id:"${propertyId}") {
             __typename
             ...on FieldErrors {
               errors{

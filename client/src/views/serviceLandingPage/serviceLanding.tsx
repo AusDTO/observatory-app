@@ -62,7 +62,11 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
               </Aubtn>
             </div>
 
-            {questionView ? <ServiceQuestions /> : <MetricsView />}
+            {questionView ? (
+              <ServiceQuestions propertyUaId={property.ua_id} />
+            ) : (
+              <MetricsView />
+            )}
 
             <div className="row">
               <AskQuestionBlock

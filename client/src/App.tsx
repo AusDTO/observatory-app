@@ -16,6 +16,7 @@ import { PasswordResetEmailPage } from "./views/forgotPasswordEmail/forgotPasswo
 import { ResetPasswordPage } from "./views/resetPassword/resetPassword";
 import { ServiceLandingController } from "./controller/serviceLandingController/serviceLandingController";
 import { ChooseServiceController } from "./controller/chooseServiceController/chooseServiceController";
+import { SnapshotController } from "./controller/snapshotController/snapshotcontroller";
 
 const App = (props: any) => {
   return (
@@ -45,9 +46,14 @@ const App = (props: any) => {
           component={ResetPasswordPage}
         />
         <ProtectedRoute
-          path="/service/:propertyId"
+          path="/service/:ua_id"
           exact={true}
           component={ServiceLandingController}
+        />
+        <ProtectedRoute
+          path="/service/snapshot/:ua_id"
+          exact={true}
+          component={SnapshotController}
         />
         <Route
           path="/invalid-confirmation"
