@@ -30,12 +30,14 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
                   </li>
 
                   <li>
-                    <a href="#">
+                    <a href="#" className="disabled-link">
                       How are people engaging with [URL's] content?
                     </a>
                   </li>
                   <li>
-                    <a href="#">Is there a peak demand time for my service?</a>
+                    <a href="#" className="disabled-link">
+                      Is there a peak demand time for my service?
+                    </a>
                   </li>
                 </ul>
               </AuCardInner>
@@ -47,12 +49,14 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
                 <h3 className="mt-0 font-weight-500">Content review</h3>
                 <ul className="au-link-list">
                   <li>
-                    <a href="#">
+                    <a href="#" className="disabled-link">
                       Are there any pages on our site which are 'leaking' users?
                     </a>
                   </li>
                   <li>
-                    <a href="#">What content is outdated/unused?</a>
+                    <a href="#" className="disabled-link">
+                      What content is outdated/unused?
+                    </a>
                   </li>
                 </ul>
               </AuCardInner>
@@ -64,12 +68,12 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
                 <h3 className="mt-0 font-weight-500">Journeys</h3>
                 <ul className="au-link-list">
                   <li>
-                    <a href="#">
+                    <a href="#" className="disabled-link">
                       How many steps are users taking to find [PageUrl]
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="#" className="disabled-link">
                       How many users are completing a journey from Page A to
                       Page B
                     </a>

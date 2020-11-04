@@ -41,6 +41,7 @@ const times: Array<string> = [
   "10pm",
   "11pm",
 ];
+const days: Array<string> = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 //REFACTOR May become redundant once data stream is updated
 
@@ -50,8 +51,15 @@ const formatDate: TickFormatterFunction = (date) => {
   return `${date_obj.getDate()} ${months[month]}`;
 };
 
+const formatDateWithDay: TickFormatterFunction = (date) => {
+  const date_obj: Date = new Date(date);
+  const month: any = date_obj.getMonth();
+  const day: any = days[date_obj.getDay()];
+  return `${day} ${date_obj.getDate()} ${months[month]}`;
+};
+
 const formatHour: TickFormatterFunction = (hour) => {
   return times[hour];
 };
 
-export { formatDate, formatHour };
+export { formatDate, formatHour, formatDateWithDay };

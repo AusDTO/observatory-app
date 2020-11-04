@@ -17,7 +17,7 @@ export const NotFound: React.FC<Props> = ({ children, title }) => {
 
         <div className="container-fluid au-body">
           <h2>{title}</h2>
-          <PageAlert type={"warning"} className="max-42">
+          <PageAlert type={"warning"} className="max-30">
             <>{children}</>
           </PageAlert>
 

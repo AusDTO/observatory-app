@@ -294,3 +294,53 @@ h1.au-header__heading {
 html {
   scroll-behavior: smooth;
 }
+
+.au-direction-link__arrow:after {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.au-body .disabled-link {
+  color: gray;
+}
+
+.percentage-cell {
+  display: flex;
+  justify-content: flex-end;
+}
+.percentage-cell__inner {
+  display: flex;
+  @include AU-space(width, 3.5unit);
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.custom-tooltip {
+  @include AU-fontgrid(xs);
+  background-color: rgba(255, 255, 255, 1);
+  color: $AU-color-foreground-text;
+  border: solid 2px $AU-color-foreground-alt-hint;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  @include AU-space(padding, 0.35unit);
+  @include AU-space(max-width, 13unit);
+  border-radius: $AU-border-radius;
+
+  p + p {
+    @include AU-space(margin-top, 0.25unit);
+  }
+
+  &__text {
+    position: relative;
+
+    .color-square {
+      border: solid 1px #636363;
+      border-radius: 2px;
+      vertical-align: bottom;
+      @include AU-space(height, 0.75unit);
+      @include AU-space(width, 0.75unit);
+      display: inline-block;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+  }
+}

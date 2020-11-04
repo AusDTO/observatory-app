@@ -42,7 +42,9 @@ const MetricCard: React.FC<Props> = ({
         <div className="metric-card__inner">
           {link && linkText && (
             <div className="metric-card__link">
-              <a href={link}>{linkText}</a>
+              <a href={link} target="blank" rel="noopener noreferrer">
+                {linkText}
+              </a>
             </div>
           )}
           <div className="metric-card__desc">
