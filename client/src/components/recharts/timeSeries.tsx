@@ -31,7 +31,7 @@ export const LineChartVis: React.FC<Props> = ({ data, xKey, yKey }) => {
         <XAxis
           dataKey={xKey}
           tick={xKey === "date" ? <CustomizedAxisTick /> : <HourlyTick />}
-          minTickGap={20}
+          interval={1}
         />
         <YAxis
           domain={[
