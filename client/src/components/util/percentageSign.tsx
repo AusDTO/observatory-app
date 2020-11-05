@@ -1,5 +1,5 @@
 import React from "react";
-import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { FaArrowUp, FaArrowDown, FaPlus, FaMinus } from "react-icons/fa";
 
 export const percentageWithSign = (value: string) => {
   let num;
@@ -9,13 +9,15 @@ export const percentageWithSign = (value: string) => {
   }
   return num < 0 ? (
     <>
-      <FaArrowDown fontSize="0.85em" color="red" transform="rotate(-45)" />
+      <FaMinus fontSize="0.85em" aria-label="decreased" />
       <span className="percentage-number">{`${value.replace("-", "")}`}</span>
+      <span className="au-sr-only">percent</span>
     </>
   ) : (
     <>
-      <FaArrowUp transform="rotate(45)" color="green" fontSize="0.85em" />
+      <FaPlus fontSize="0.85em" />
       <span className="percentage-number">{value}</span>
+      <span className="au-sr-only">percent</span>
     </>
   );
 };

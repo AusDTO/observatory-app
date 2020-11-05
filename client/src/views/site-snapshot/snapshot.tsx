@@ -195,7 +195,7 @@ const SnapshotLanding: React.FC<Props> = ({
                         },
                         {
                           Header: () => (
-                            <span className="align-right">Percentage</span>
+                            <span className="align-right">Percentage (%)</span>
                           ),
                           accessor: "percentage",
                           Cell: ({ value }) => {
