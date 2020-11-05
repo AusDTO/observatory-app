@@ -18,13 +18,14 @@ export const ChooseServicePage: React.FC<Props> = ({ properties, name }) => {
         <SEO title="Home" />
 
         <div className="container-fluid au-body">
-          <h1>Welcome back, {name}</h1>
-          <h2>Which property do you want to work with today</h2>
+          <h2 className="max-42">
+            Hi {name}, which property do you want to work with today?
+          </h2>
           <ul className="au-link-list mt-1">
             {properties.map((property, i) => (
               <li key={i}>
                 <Link to={`/service/${property.ua_id}`}>
-                  {property.service_name}
+                  {property.service_name} ({property.ua_id})
                 </Link>
               </li>
             ))}

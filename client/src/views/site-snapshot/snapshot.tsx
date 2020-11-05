@@ -14,6 +14,7 @@ import {
 import MetricCard from "../../components/blocks/metric-card";
 import {
   roundTwoPlaces,
+  secondsToMinutes,
   stringNumToCommaSeperated,
 } from "../../components/util/numberUtils";
 import {
@@ -23,11 +24,20 @@ import {
 } from "../../graphql/ExecData";
 import { LineChartVis } from "../../components/recharts/timeSeries";
 import * as _ from "lodash";
-import { ObjectStringToInt } from "../../components/recharts/formatters/stringToNumber";
+import {
+  ObjectStringToInt,
+  ScaleSecondsToMins,
+} from "../../components/recharts/formatters/stringToNumber";
 import { Table } from "../../components/blocks/table/table";
-import { numberWithCommas } from "../../components/blocks/table/utility";
+import {
+  numberWithCommas,
+  shortenString,
+} from "../../components/blocks/table/utility";
 
 import { Glossary } from "./glossary";
+import { percentageWithSign } from "../../components/util/percentageSign";
+
+import { DurationVis } from "../../components/recharts/timeSeriesDuration";
 
 interface Props extends RouteComponentProps {
   weeklyData: ExecData_getExecWeeklyData_ExecWeeklyArray;
@@ -47,11 +57,12 @@ const SnapshotLanding: React.FC<Props> = ({
 }) => {
   const cardData = timePeriod === "daily" ? dailyData : weeklyData;
   const graphData = timePeriod === "daily" ? hourlyData : dailyData;
+
   return (
     <AdminLayout>
       <>
         <SEO title="Snapshot" />
-        <div className="container-fluid au-body snapshot">
+        <div className="container-fluid au-body snapshot" id="top">
           <Link
             to={`/service/${ua_id}`}
             className="au-direction-link inline-block mt-1"
@@ -64,10 +75,10 @@ const SnapshotLanding: React.FC<Props> = ({
           </Link>
           <h1 className="mt-1">What's a snapshot of our site?</h1>
 
-          <AuFieldset>
+          <AuFieldset className="mt-2">
             <AuLegend>Select your time period</AuLegend>
             <AuRadio
-              label="weekly"
+              label="Last 7 days"
               value="weekly"
               name="form"
               id="weekly_radio"
@@ -79,7 +90,7 @@ const SnapshotLanding: React.FC<Props> = ({
               }}
             />
             <AuRadio
-              label="daily"
+              label="Last 24 hours"
               value="daily"
               name="form"
               id="daily_radio"
@@ -110,10 +121,12 @@ const SnapshotLanding: React.FC<Props> = ({
                 <AuCard>
                   <AuCardTitle level="4" className="font-weight-500 mt-1 ml-1">
                     PageViews
-                    {timePeriod === "daily" && <span>(Last 24 hours)</span>}
                   </AuCardTitle>
                   <LineChartVis
-                    data={ObjectStringToInt(graphData.output, "pageViews")}
+                    data={ObjectStringToInt(
+                      graphData.output,
+                      "pageViews"
+                    ).reverse()}
                     xKey={timePeriod === "daily" ? "visit_hour" : "date"}
                     yKey="pageViews"
                   ></LineChartVis>
@@ -127,7 +140,10 @@ const SnapshotLanding: React.FC<Props> = ({
                   title="Most viewed page"
                   level="4"
                   link={cardData.output[0].topTenPageViews[0].pageUrl}
-                  linkText={cardData.output[0].topTenPageViews[0].pageTitle}
+                  linkText={shortenString(
+                    cardData.output[0].topTenPageViews[0].pageTitle,
+                    25
+                  )}
                   metric={stringNumToCommaSeperated(
                     cardData.output[0].topTenPageViews[0].pageViews
                   )}
@@ -146,17 +162,26 @@ const SnapshotLanding: React.FC<Props> = ({
                           Cell: ({ value, row }) => {
                             const rowData = row as any;
                             return (
-                              <a href={rowData.original.pageUrl} title={value}>
-                                {`${
-                                  value.length > 20
-                                    ? value.substring(0, 20) + "..."
-                                    : value
-                                }`}
+                              <a
+                                href={rowData.original.pageUrl}
+                                title={value}
+                                target="blank"
+                                rel="noopener noreferrer"
+                              >
+                                {shortenString(value, 20)}
                               </a>
                             );
                           },
                         },
-                        { Header: "Rank", accessor: "rank" },
+                        {
+                          Header: () => (
+                            <span className="align-right">Rank</span>
+                          ),
+                          accessor: "rank",
+                          Cell: ({ value }) => (
+                            <span className="align-right">{value}</span>
+                          ),
+                        },
                         {
                           Header: () => (
                             <span className="align-right">Page Views</span>
@@ -173,9 +198,17 @@ const SnapshotLanding: React.FC<Props> = ({
                             <span className="align-right">Percentage (%)</span>
                           ),
                           accessor: "percentage",
-                          Cell: ({ value }) => (
-                            <span className="align-right">{value}</span>
-                          ),
+                          Cell: ({ value }) => {
+                            let d: string = value;
+
+                            return (
+                              <span className="percentage-cell">
+                                <span className="percentage-cell__inner">
+                                  {percentageWithSign(d)}
+                                </span>
+                              </span>
+                            );
+                          },
                         },
                       ]}
                       data={cardData.output[0].topTenPageViews}
@@ -190,7 +223,10 @@ const SnapshotLanding: React.FC<Props> = ({
                   title="Page with largest growth in views"
                   level="4"
                   link={cardData.output[0].topTenGrowth[0].pageUrl}
-                  linkText={cardData.output[0].topTenGrowth[0].pageTitle}
+                  linkText={shortenString(
+                    cardData.output[0].topTenGrowth[0].pageTitle,
+                    25
+                  )}
                   metric={stringNumToCommaSeperated(
                     cardData.output[0].topTenGrowth[0].pageViews
                   )}
@@ -209,17 +245,26 @@ const SnapshotLanding: React.FC<Props> = ({
                           Cell: ({ value, row: { original } }) => {
                             const rowData = original as any;
                             return (
-                              <a href={rowData.pageUrl} title={value}>
-                                {`${
-                                  value.length > 20
-                                    ? value.substring(0, 20) + "..."
-                                    : value
-                                }`}
+                              <a
+                                href={rowData.pageUrl}
+                                title={value}
+                                target="blank"
+                                rel="noopener noreferrer"
+                              >
+                                {shortenString(value, 20)}
                               </a>
                             );
                           },
                         },
-                        { Header: "Rank", accessor: "rank" },
+                        {
+                          Header: () => (
+                            <span className="align-right">Rank</span>
+                          ),
+                          accessor: "rank",
+                          Cell: ({ value }) => (
+                            <span className="align-right">{value}</span>
+                          ),
+                        },
                         {
                           Header: () => (
                             <span className="align-right">Page Views</span>
@@ -233,7 +278,9 @@ const SnapshotLanding: React.FC<Props> = ({
                         },
                         {
                           Header: () => (
-                            <span className="align-right">Percentage (%)</span>
+                            <span className="align-right">
+                              Percentage increase
+                            </span>
                           ),
                           accessor: "percentage",
                           Cell: ({ value }) => (
@@ -312,8 +359,10 @@ const SnapshotLanding: React.FC<Props> = ({
               <div className="col-md-4 col-sm-6 col-xs-12">
                 <MetricCard
                   title="Average time on page"
+                  defLinkId="time-card"
+                  defLink="#time-on-page-def"
                   level="4"
-                  metric={roundTwoPlaces(cardData.output[0].timeOnPage) + "s"}
+                  metric={secondsToMinutes(cardData.output[0].timeOnPage)}
                 />
               </div>
             </div>
@@ -322,25 +371,24 @@ const SnapshotLanding: React.FC<Props> = ({
                 <MetricCard
                   title="Average session duration"
                   level="4"
-                  metric={
-                    roundTwoPlaces(cardData.output[0].aveSessionDuration) + "s"
-                  }
+                  metric={secondsToMinutes(
+                    cardData.output[0].aveSessionDuration
+                  )}
                 />
               </div>
               <div className="col-md-8 col-sm-12 col-xs-12">
                 <AuCard>
                   <AuCardTitle level="4" className="font-weight-500 mt-1 ml-1">
                     Average session duration
-                    {timePeriod === "daily" && <span>(Last 24 hours)</span>}
                   </AuCardTitle>
-                  <LineChartVis
-                    data={ObjectStringToInt(
+                  <DurationVis
+                    data={ScaleSecondsToMins(
                       graphData.output,
                       "aveSessionDuration"
-                    )}
+                    ).reverse()}
                     xKey={timePeriod === "daily" ? "visit_hour" : "date"}
                     yKey="aveSessionDuration"
-                  ></LineChartVis>
+                  ></DurationVis>
                 </AuCard>
               </div>
             </div>

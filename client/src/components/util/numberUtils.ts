@@ -17,3 +17,13 @@ export const roundTwoPlaces = (number: string) => {
     return "NaN";
   } else return Math.round(num).toLocaleString();
 };
+
+export const secondsToMinutes = (sec: string) => {
+  const seconds = parseInt(sec);
+  var m = Math.floor((seconds % 3600) / 60).toString(),
+    s = Math.floor(seconds % 60)
+      .toString()
+      .padStart(2, "0");
+
+  return m + "mins " + s + " secs";
+};

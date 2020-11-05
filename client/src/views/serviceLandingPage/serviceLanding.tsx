@@ -36,12 +36,12 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
               Change service
             </Link>
 
-            <h2 className="mt-1">{property.service_name}</h2>
+            <h1 className="mt-1">{property.service_name}</h1>
           </>
         </ServiceBanner>
         <div className="au-body au-body--alt">
           <div className="container-fluid">
-            <div role="tablist">
+            {/* <div role="tablist">
               <Aubtn
                 className="border-right-0"
                 as={questionView ? "primary" : "secondary"}
@@ -60,7 +60,7 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
               >
                 Metrics
               </Aubtn>
-            </div>
+            </div> */}
 
             {questionView ? (
               <ServiceQuestions propertyUaId={property.ua_id} />
@@ -68,7 +68,7 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
               <MetricsView />
             )}
 
-            <div className="row">
+            <div className="row mt-2">
               <AskQuestionBlock
                 label="Let us know what you want to see or how we can make improvements"
                 hint="Maximum of 500 characters"

@@ -23,6 +23,8 @@ import {
   ApiError,
   LoginErrorName,
 } from "../../types/types";
+import { ErrorPage } from "../error/error";
+import PasswordField from "../../components/form/PasswordField";
 
 interface Props extends RouteComponentProps {}
 export const Login: React.FC<Props> = ({ history }) => {
@@ -35,7 +37,7 @@ export const Login: React.FC<Props> = ({ history }) => {
 
   const [saving, setSaving] = useState<boolean>(false);
 
-  const [login, { data, client }] = useMutation(LOGIN_MUTATION);
+  const [login, { data, client, error }] = useMutation(LOGIN_MUTATION);
 
   const handleLogin = async (data: loginData) => {
     setSaving(true);
@@ -51,6 +53,13 @@ export const Login: React.FC<Props> = ({ history }) => {
     });
 
     setSaving(false);
+    if (error) {
+      return (
+        <ErrorPage title="Error: 500">
+          <p>There was a error processing your request. Please try again</p>
+        </ErrorPage>
+      );
+    }
 
     if (result.data && result.data.login) {
       const apiResult = result.data.login;
@@ -93,9 +102,11 @@ export const Login: React.FC<Props> = ({ history }) => {
       <div className="container-fluid au-body">
         <SEO title="Sign in" />
         <h2>Login to ObservatoryApp</h2>
+
         <p>
-          If you do not have an account, you can{" "}
-          <Link to="/register">create one now.</Link>
+          {" "}
+          Forgot your password? Visit the{" "}
+          <Link to="/forgot-password">reset password</Link> page.
         </p>
         <Formik
           initialValues={InitialValues}
@@ -162,7 +173,7 @@ export const Login: React.FC<Props> = ({ history }) => {
                 ""
               )}
               <TextField id="email" label="Email" width="lg" required />
-              <TextField
+              <PasswordField
                 id="password"
                 type="password"
                 label="Password"
@@ -178,9 +189,6 @@ export const Login: React.FC<Props> = ({ history }) => {
             </Form>
           )}
         </Formik>
-        <AuFormGroup>
-          <Link to="/forgot-password">Forgot your password?</Link>
-        </AuFormGroup>
       </div>
     </DefaultLayout>
   );
