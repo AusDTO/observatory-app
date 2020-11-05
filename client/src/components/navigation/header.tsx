@@ -31,6 +31,9 @@ const Header: React.FC<Props> = ({ isAdmin, history, logoUrl }) => {
 
   const handleLogout = async () => {
     const result = await logout();
+    if (loading) {
+      return null;
+    }
     await client.resetStore();
     if (result.data && result.data.logout) {
       history.push("/");

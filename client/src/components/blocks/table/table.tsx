@@ -1,5 +1,5 @@
 import React from "react";
-import { useTable, useSortBy, TableOptions, Column } from "react-table";
+import { useTable, useSortBy, Column } from "react-table";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 
 interface Props {

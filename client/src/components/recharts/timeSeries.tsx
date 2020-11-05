@@ -6,7 +6,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 import { formatDate, formatHour } from "./formatters/dateTickFormatter";
@@ -36,10 +35,18 @@ export const LineChartVis: React.FC<Props> = ({ data, xKey, yKey }) => {
         <YAxis
           domain={[
             (dataMin) => {
-              return Math.floor(dataMin / 1000) * 1000;
+              if (dataMin.toString().length >= 4 || dataMin > 500) {
+                return Math.floor(dataMin / 1000) * 1000;
+              } else {
+                return Math.floor(dataMin / 100) * 100;
+              }
             },
             (dataMax) => {
-              return Math.ceil(dataMax / 1000) * 1000;
+              if (dataMax.toString().length >= 4 || dataMax > 500) {
+                return Math.ceil(dataMax / 1000) * 1000;
+              } else {
+                return Math.ceil(dataMax / 100) * 100;
+              }
             },
           ]}
         />
