@@ -1,5 +1,3 @@
-import moment from "moment";
-
 export const stringNumToCommaSeperated = (number: string) => {
   let num;
   num = parseInt(number);

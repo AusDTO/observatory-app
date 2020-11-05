@@ -40,7 +40,6 @@
     "apollo": "^2.31.0",
     "formik": "^2.1.5",
     "graphql": "^15.3.0",
-    "moment": "^2.29.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet-async": "^1.0.6",

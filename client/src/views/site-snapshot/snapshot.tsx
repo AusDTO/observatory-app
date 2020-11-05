@@ -36,7 +36,7 @@ import {
 
 import { Glossary } from "./glossary";
 import { percentageWithSign } from "../../components/util/percentageSign";
-import moment from "moment";
+
 import { DurationVis } from "../../components/recharts/timeSeriesDuration";
 
 interface Props extends RouteComponentProps {
