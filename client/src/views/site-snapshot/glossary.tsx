@@ -23,7 +23,7 @@ export const Glossary: React.FC<Props> = () => {
             page being loaded in a browser. 'Pageviews' is a metric defined as
             the total number of times a page has been loaded.
           </dd>
-          <dt>Explanatioin</dt>
+          <dt>Explanation</dt>
           <dd>
             Pageviews will show you the number of times that a specific page is
             loaded in a time period. It is a useful metric in determining how
@@ -242,9 +242,9 @@ export const Glossary: React.FC<Props> = () => {
           </dd>
           <dt>Caution</dt>
           <dd>
-            Again, ifIf yourthe property is not set up to exclude hits from bots
-            and web crawlers spiders then they will show up as the Users metric
-            will be skewed (especially on which will affect the metrics on low
+            Again, if your property is not set up to exclude hits from bots and
+            web crawlers spiders then they will show up as the Users metric will
+            be skewed (especially on which will affect the metrics on low
             traffic pages).
           </dd>
         </dl>

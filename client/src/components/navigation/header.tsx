@@ -68,7 +68,7 @@ const Header: React.FC<Props> = ({ isAdmin, history, logoUrl }) => {
                       Log in
                     </Link>
                     <Link to="/register" className="au-btn au-btn--bright">
-                      Get started
+                      Register
                     </Link>
                   </>
                 ) : (
