@@ -547,7 +547,8 @@ with models.DAG(
 
 
     # Prepare analytics data for delivery into RDS
-    #Weekly data ouput transform
+
+    #Weekly data ouput transform function
     def prepare_outtype1(data_tp, data_tg):
         output =  []
         top10g = []
@@ -571,35 +572,121 @@ with models.DAG(
         return jdata, datum[0]
 
 
-# Daily data output transform
-    def prepare_outtype2(data_, data_tp, data_tg):
+# Daily data output transform function
+    def prepare_outtype2(data_, data_tp1, data_tg1,data_tp2, data_tg2,data_tp3, data_tg3,data_tp4, data_tg4, data_tp5, data_tg5,data_tp6, data_tg6,data_tp7, data_tg7):
         output =  []
-        top10g = []
-        top10p = []
+        top10g1 = []
+        top10p1 = []
+        top10g2 = []
+        top10p2 = []
+        top10g3 = []
+        top10p3 = []
+        top10g4 = []
+        top10p4 = []
+        top10g5 = []
+        top10p5 = []
+        top10g6 = []
+        top10p6 = []
+        top10g7 = []
+        top10p7 = []
 
-        for datum_1 in data_tp:
-             property_id, reg_domain, pageviews_tp, pagetitle_tp, pageurl_tp, trend_percent, top_rank_tp, visit_date = datum_1
-             top10p.append({"pageUrl": pageurl_tp, "pageTitle": pagetitle_tp, "pageViews": pageviews_tp, "rank": top_rank_tp, "percentage": trend_percent})
+        for datum_p1 in data_tp1:
+             property_id, reg_domain, pageviews_tp, pagetitle_tp, pageurl_tp, trend_percent, top_rank_tp, visit_date = datum_p1
+             top10p1.append({"pageUrl": pageurl_tp, "pageTitle": pagetitle_tp, "pageViews": pageviews_tp, "rank": top_rank_tp, "percentage": trend_percent})
         
-        for datum_2 in data_tg:
-            property_id, reg_domain, pageviews_tg, pagetitle_tg, pageurl_tg, growth_percent, top_rank_tg, visit_date = datum_2
-            top10g.append({"pageUrl": pageurl_tg, "pageTitle": pagetitle_tg, "pageViews": pageviews_tg, "rank": top_rank_tg, "percentage": growth_percent})
+        for datum_g1 in data_tg1:
+            property_id, reg_domain, pageviews_tg, pagetitle_tg, pageurl_tg, growth_percent, top_rank_tg, visit_date = datum_g1
+            top10g1.append({"pageUrl": pageurl_tg, "pageTitle": pagetitle_tg, "pageViews": pageviews_tg, "rank": top_rank_tg, "percentage": growth_percent})
         
-        visitdate_ = datum_2[7]
+        visitdate_1 = datum_g1[7]
 
-        for datum_3 in data_:
-             property_id, hostname, users, newUsers, returningUsers, pageviews, time_on_page, bounce_rate, sessions, aveSession, pagesPerSession, aveSessionDuration, visit_date, visit_weekday = datum_3
-             if datum_3[12] == visitdate_: 
-                output.append({"date": visit_date, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSessionsPerUser": aveSession, "pagesPerSession": pagesPerSession, "aveSessionDuration": aveSessionDuration, "newUsers": newUsers, "returningUsers": returningUsers, "topTenGrowth": top10g, "topTenPageViews": top10p})
-                break;
+        for datum_p2 in data_tp2:
+             property_id, reg_domain, pageviews_tp, pagetitle_tp, pageurl_tp, trend_percent, top_rank_tp, visit_date = datum_p2
+             top10p2.append({"pageUrl": pageurl_tp, "pageTitle": pagetitle_tp, "pageViews": pageviews_tp, "rank": top_rank_tp, "percentage": trend_percent})
+        
+        for datum_g2 in data_tg2:
+            property_id, reg_domain, pageviews_tg, pagetitle_tg, pageurl_tg, growth_percent, top_rank_tg, visit_date = datum_g2
+            top10g2.append({"pageUrl": pageurl_tg, "pageTitle": pagetitle_tg, "pageViews": pageviews_tg, "rank": top_rank_tg, "percentage": growth_percent})
+        
+        visitdate_2 = datum_g2[7]
+
+        for datum_p3 in data_tp3:
+             property_id, reg_domain, pageviews_tp, pagetitle_tp, pageurl_tp, trend_percent, top_rank_tp, visit_date = datum_p3
+             top10p3.append({"pageUrl": pageurl_tp, "pageTitle": pagetitle_tp, "pageViews": pageviews_tp, "rank": top_rank_tp, "percentage": trend_percent})
+        
+        for datum_g3 in data_tg3:
+            property_id, reg_domain, pageviews_tg, pagetitle_tg, pageurl_tg, growth_percent, top_rank_tg, visit_date = datum_g3
+            top10g3.append({"pageUrl": pageurl_tg, "pageTitle": pagetitle_tg, "pageViews": pageviews_tg, "rank": top_rank_tg, "percentage": growth_percent})
+        
+        visitdate_3 = datum_g3[7]
+
+        for datum_p4 in data_tp4:
+             property_id, reg_domain, pageviews_tp, pagetitle_tp, pageurl_tp, trend_percent, top_rank_tp, visit_date = datum_p4
+             top10p4.append({"pageUrl": pageurl_tp, "pageTitle": pagetitle_tp, "pageViews": pageviews_tp, "rank": top_rank_tp, "percentage": trend_percent})
+        
+        for datum_g4 in data_tg4:
+            property_id, reg_domain, pageviews_tg, pagetitle_tg, pageurl_tg, growth_percent, top_rank_tg, visit_date = datum_g4
+            top10g4.append({"pageUrl": pageurl_tg, "pageTitle": pagetitle_tg, "pageViews": pageviews_tg, "rank": top_rank_tg, "percentage": growth_percent})
+        
+        visitdate_4 = datum_g4[7]
+
+        for datum_p5 in data_tp5:
+             property_id, reg_domain, pageviews_tp, pagetitle_tp, pageurl_tp, trend_percent, top_rank_tp, visit_date = datum_p5
+             top10p5.append({"pageUrl": pageurl_tp, "pageTitle": pagetitle_tp, "pageViews": pageviews_tp, "rank": top_rank_tp, "percentage": trend_percent})
+        
+        for datum_g5 in data_tg5:
+            property_id, reg_domain, pageviews_tg, pagetitle_tg, pageurl_tg, growth_percent, top_rank_tg, visit_date = datum_g5
+            top10g5.append({"pageUrl": pageurl_tg, "pageTitle": pagetitle_tg, "pageViews": pageviews_tg, "rank": top_rank_tg, "percentage": growth_percent})
+        
+        visitdate_5 = datum_g5[7]
+
+        for datum_p6 in data_tp6:
+             property_id, reg_domain, pageviews_tp, pagetitle_tp, pageurl_tp, trend_percent, top_rank_tp, visit_date = datum_p6
+             top10p6.append({"pageUrl": pageurl_tp, "pageTitle": pagetitle_tp, "pageViews": pageviews_tp, "rank": top_rank_tp, "percentage": trend_percent})
+        
+        for datum_g6 in data_tg6:
+            property_id, reg_domain, pageviews_tg, pagetitle_tg, pageurl_tg, growth_percent, top_rank_tg, visit_date = datum_g6
+            top10g6.append({"pageUrl": pageurl_tg, "pageTitle": pagetitle_tg, "pageViews": pageviews_tg, "rank": top_rank_tg, "percentage": growth_percent})
+        
+        visitdate_6 = datum_g6[7]
+
+        for datum_p7 in data_tp7:
+             property_id, reg_domain, pageviews_tp, pagetitle_tp, pageurl_tp, trend_percent, top_rank_tp, visit_date = datum_p7
+             top10p7.append({"pageUrl": pageurl_tp, "pageTitle": pagetitle_tp, "pageViews": pageviews_tp, "rank": top_rank_tp, "percentage": trend_percent})
+        
+        for datum_g7 in data_tg7:
+            property_id, reg_domain, pageviews_tg, pagetitle_tg, pageurl_tg, growth_percent, top_rank_tg, visit_date = datum_g7
+            top10g7.append({"pageUrl": pageurl_tg, "pageTitle": pagetitle_tg, "pageViews": pageviews_tg, "rank": top_rank_tg, "percentage": growth_percent})
+        
+        visitdate_7 = datum_g7[7]
+
+        for datum_ in data_:
+            property_id, hostname, users, newUsers, returningUsers, pageviews, time_on_page, bounce_rate, sessions, aveSession, pagesPerSession, aveSessionDuration, visit_date, visit_weekday = datum_
+            if datum_[12] == visitdate_1: 
+                output.append({"date": visit_date, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSessionsPerUser": aveSession, "pagesPerSession": pagesPerSession, "aveSessionDuration": aveSessionDuration, "newUsers": newUsers, "returningUsers": returningUsers, "topTenGrowth": top10g1, "topTenPageViews": top10p1})
+            if datum_[12] == visitdate_2: 
+                output.append({"date": visit_date, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSessionsPerUser": aveSession, "pagesPerSession": pagesPerSession, "aveSessionDuration": aveSessionDuration, "newUsers": newUsers, "returningUsers": returningUsers, "topTenGrowth": top10g2, "topTenPageViews": top10p2})
+            if datum_[12] == visitdate_3: 
+                output.append({"date": visit_date, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSessionsPerUser": aveSession, "pagesPerSession": pagesPerSession, "aveSessionDuration": aveSessionDuration, "newUsers": newUsers, "returningUsers": returningUsers, "topTenGrowth": top10g3, "topTenPageViews": top10p3})
+            if datum_[12] == visitdate_4: 
+                output.append({"date": visit_date, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSessionsPerUser": aveSession, "pagesPerSession": pagesPerSession, "aveSessionDuration": aveSessionDuration, "newUsers": newUsers, "returningUsers": returningUsers, "topTenGrowth": top10g4, "topTenPageViews": top10p4})
+            if datum_[12] == visitdate_5: 
+                output.append({"date": visit_date, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSessionsPerUser": aveSession, "pagesPerSession": pagesPerSession, "aveSessionDuration": aveSessionDuration, "newUsers": newUsers, "returningUsers": returningUsers, "topTenGrowth": top10g5, "topTenPageViews": top10p5})
+            if datum_[12] == visitdate_6: 
+                output.append({"date": visit_date, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSessionsPerUser": aveSession, "pagesPerSession": pagesPerSession, "aveSessionDuration": aveSessionDuration, "newUsers": newUsers, "returningUsers": returningUsers, "topTenGrowth": top10g6, "topTenPageViews": top10p6})
+            if datum_[12] == visitdate_7: 
+                output.append({"date": visit_date, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSessionsPerUser": aveSession, "pagesPerSession": pagesPerSession, "aveSessionDuration": aveSessionDuration, "newUsers": newUsers, "returningUsers": returningUsers, "topTenGrowth": top10g7, "topTenPageViews": top10p7})
+            # else:
+            #     output.append({"date": visit_date, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSessionsPerUser": aveSession, "pagesPerSession": pagesPerSession, "aveSessionDuration": aveSessionDuration, "newUsers": newUsers, "returningUsers": returningUsers, "topTenGrowth": [], "topTenPageViews": []})
 
         jdata =   {
             "output": output
         }   
         logging.info(jdata)
-        return jdata, datum_3[0]
+        return jdata, datum_[0]
 
-# Hourly data output transform
+
+# Hourly data output transform function
     def prepare_outtype3(data_):
         output = []
         for datum in data_:
@@ -612,6 +699,7 @@ with models.DAG(
         }   
         logging.info(jdata)
         return jdata, datum[0]
+
 
 # Weekly data output streaming
     def update_output_type1(**context):
@@ -649,263 +737,135 @@ with models.DAG(
     def update_output_type2(**context):
         # Load output of respective agency's property into RDS
         xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1')
+
         xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day1')
         xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day1')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
         
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day2')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day2')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_4 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day2')
+        xcom_data_5 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day2')
         
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day3')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day3')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_6 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day3')
+        xcom_data_7 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day3')
         
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day4')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day4')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_8 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day4')
+        xcom_data_9 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day4')
         
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day5')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day5')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_10 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day5')
+        xcom_data_11 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day5')
 
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day6')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day6')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_12 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day6')
+        xcom_data_13 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day6')
         
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day7')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day7')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
+        xcom_data_14 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tpgs_day7')
+        xcom_data_15 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_1_tgw_day7')
+
+        if xcom_data_1 and (xcom_data_2 or xcom_data_3 or xcom_data_4 or xcom_data_5 or xcom_data_6 or xcom_data_7 or xcom_data_8 or xcom_data_9 or xcom_data_10 or xcom_data_11 or xcom_data_12 or xcom_data_13 or xcom_data_14 or xcom_data_15):
+            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3, xcom_data_4, xcom_data_5, xcom_data_6, xcom_data_7, xcom_data_8, xcom_data_9, xcom_data_10, xcom_data_11, xcom_data_12, xcom_data_13, xcom_data_14, xcom_data_15)
             dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-        xcom_data_1 = []
-        xcom_data_2 = []
-        xcom_data_3 = []
 
         # xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2')
         # xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day1')
         # xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day1')
-        # if xcom_data_1 and xcom_data_2 and xcom_data_3:
-        #     data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-        #     dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
         
-        # xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2')
-        # xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day2')
-        # xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day2')
-        # if xcom_data_1 and xcom_data_2 and xcom_data_3:
-        #     data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
+        # xcom_data_4 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day2')
+        # xcom_data_5 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day2')
+        
+        # xcom_data_6 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day3')
+        # xcom_data_7 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day3')
+        
+        # xcom_data_8 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day4')
+        # xcom_data_9 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day4')
+        
+        # xcom_data_10 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day5')
+        # xcom_data_11 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day5')
+
+        # xcom_data_12 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day6')
+        # xcom_data_13 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day6')
+        
+        # xcom_data_14 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day7')
+        # xcom_data_15 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day7')
+
+        # if xcom_data_1 and (xcom_data_2 or xcom_data_3 or xcom_data_4 or xcom_data_5 or xcom_data_6 or xcom_data_7 or xcom_data_8 or xcom_data_9 or xcom_data_10 or xcom_data_11 or xcom_data_12 or xcom_data_13 or xcom_data_14 or xcom_data_15):
+        #     data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3, xcom_data_4, xcom_data_5, xcom_data_6, xcom_data_7, xcom_data_8, xcom_data_9, xcom_data_10, xcom_data_11, xcom_data_12, xcom_data_13, xcom_data_14, xcom_data_15)
         #     dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
 
-        # xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2')
-        # xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day3')
-        # xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day3')
-        # if xcom_data_1 and xcom_data_2 and xcom_data_3:
-        #     data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-        #     dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        # xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2')
-        # xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day4')
-        # xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day4')
-        # if xcom_data_1 and xcom_data_2 and xcom_data_3:
-        #     data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-        #     dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-        
-        # xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2')
-        # xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day5')
-        # xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day5')
-        # if xcom_data_1 and xcom_data_2 and xcom_data_3:
-        #     data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-        #     dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-        
-        # xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2')
-        # xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day6')
-        # xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day6')
-        # if xcom_data_1 and xcom_data_2 and xcom_data_3:
-        #     data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-        #     dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-        
-        # xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2')
-        # xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tpgs_day7')
-        # xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2_tgw_day7')
-        # if xcom_data_1 and xcom_data_2 and xcom_data_3:
-        #     data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-        #     dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-        # xcom_data_1 = []
-        # xcom_data_2 = []
-        # xcom_data_3 = []
         xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3')
         xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day1')
         xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day1')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
         
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day2')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day2')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day3')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day3')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_4 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day2')
+        xcom_data_5 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day2')
         
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day4')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day4')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day5')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day5')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day6')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day6')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_6 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day3')
+        xcom_data_7 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day3')
         
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day7')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day7')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
+        xcom_data_8 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day4')
+        xcom_data_9 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day4')
+        
+        xcom_data_10 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day5')
+        xcom_data_11 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day5')
+
+        xcom_data_12 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day6')
+        xcom_data_13 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day6')
+        
+        xcom_data_14 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tpgs_day7')
+        xcom_data_15 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3_tgw_day7')
+
+        if xcom_data_1 and (xcom_data_2 or xcom_data_3 or xcom_data_4 or xcom_data_5 or xcom_data_6 or xcom_data_7 or xcom_data_8 or xcom_data_9 or xcom_data_10 or xcom_data_11 or xcom_data_12 or xcom_data_13 or xcom_data_14 or xcom_data_15):
+            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3, xcom_data_4, xcom_data_5, xcom_data_6, xcom_data_7, xcom_data_8, xcom_data_9, xcom_data_10, xcom_data_11, xcom_data_12, xcom_data_13, xcom_data_14, xcom_data_15)
             dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-        xcom_data_1 = []
-        xcom_data_2 = []
-        xcom_data_3 = []
 
         xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4')
         xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day1')
         xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day1')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
         
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day2')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day2')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_4 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day2')
+        xcom_data_5 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day2')
+        
+        xcom_data_6 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day3')
+        xcom_data_7 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day3')
+        
+        xcom_data_8 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day4')
+        xcom_data_9 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day4')
+        
+        xcom_data_10 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day5')
+        xcom_data_11 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day5')
 
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day3')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day3')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_12 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day6')
+        xcom_data_13 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day6')
+        
+        xcom_data_14 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day7')
+        xcom_data_15 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day7')
 
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day4')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day4')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
+        if xcom_data_1 and (xcom_data_2 or xcom_data_3 or xcom_data_4 or xcom_data_5 or xcom_data_6 or xcom_data_7 or xcom_data_8 or xcom_data_9 or xcom_data_10 or xcom_data_11 or xcom_data_12 or xcom_data_13 or xcom_data_14 or xcom_data_15):
+            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3, xcom_data_4, xcom_data_5, xcom_data_6, xcom_data_7, xcom_data_8, xcom_data_9, xcom_data_10, xcom_data_11, xcom_data_12, xcom_data_13, xcom_data_14, xcom_data_15)
             dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day5')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day5')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day6')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day6')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tpgs_day7')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_4_tgw_day7')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-        xcom_data_1 = []
-        xcom_data_2 = []
-        xcom_data_3 = []
             
         xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5')
         xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day1')
         xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day1')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        
+        xcom_data_4 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day2')
+        xcom_data_5 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day2')
+        
+        xcom_data_6 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day3')
+        xcom_data_7 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day3')
+        
+        xcom_data_8 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day4')
+        xcom_data_9 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day4')
+        
+        xcom_data_10 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day5')
+        xcom_data_11 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day5')
 
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day2')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day2')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
+        xcom_data_12 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day6')
+        xcom_data_13 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day6')
+        
+        xcom_data_14 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day7')
+        xcom_data_15 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day7')
 
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day3')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day3')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
+        if xcom_data_1 and (xcom_data_2 or xcom_data_3 or xcom_data_4 or xcom_data_5 or xcom_data_6 or xcom_data_7 or xcom_data_8 or xcom_data_9 or xcom_data_10 or xcom_data_11 or xcom_data_12 or xcom_data_13 or xcom_data_14 or xcom_data_15):
+            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3, xcom_data_4, xcom_data_5, xcom_data_6, xcom_data_7, xcom_data_8, xcom_data_9, xcom_data_10, xcom_data_11, xcom_data_12, xcom_data_13, xcom_data_14, xcom_data_15)
             dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day4')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day4')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day5')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day5')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day6')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day6')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-
-        xcom_data_1 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5')
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tpgs_day7')
-        xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_5_tgw_day7')
-        if xcom_data_1 and xcom_data_2 and xcom_data_3:
-            data_out, uaid = prepare_outtype2(xcom_data_1, xcom_data_2, xcom_data_3)
-            dobs_data_ops.update_output(data_out, uaid, dobs_constants.Analytics_TYPE2)
-        xcom_data_1 = []
-        xcom_data_2 = []
-        xcom_data_3 = []
 
 
 # Hourly data output streaming

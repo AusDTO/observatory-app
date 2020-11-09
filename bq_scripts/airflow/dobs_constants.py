@@ -3,6 +3,7 @@ from pathlib import Path  # Python 3.6+ only
 # from dotenv import load_dotenv
 # import env
 
+# Delivering output data to endpoints of prototype backend RDS
 API_STAGING = "https://observatory-app.apps.y.cld.gov.au/api"
 AGENCIES_ENDPOINT = "https://observatory-app.apps.y.cld.gov.au/api/agencies"
 PROPERTIES_ENDPOINT = "https://observatory-app.apps.y.cld.gov.au/api/properties"
@@ -19,16 +20,24 @@ OUTPUTS_ENDPOINT = "https://observatory-app.apps.y.cld.gov.au/api/output/"
 # API_USERNAME = os.getenv("USERNAME")
 # API_PASSWORD = os.getenv("PASSWORD")
 
-
+# DTA Google Cloud Path for Airflow in Google Cloud Storage
 DAGS_DIR = '/home/airflow/gcs/dags/'
 if not os.path.isdir(DAGS_DIR):
     DAGS_DIR = '../../dags/'
 
 
-# BigQuery Variables
+# BigQuery Project Variables
 DATASET_ID = 'dta_customers'
 TABLE_ID = 'dta_ga_accounts'
 
+# Hostname : Dataset ID : Reference Number
+# dta.gov.au : 99993137 : 1
+# career-pathways.apps.b.cld.gov.au : 222282547 : 2
+# designsystem.gov.au : 170387771 : 3
+# domainname.gov.au : 169220999 : 4
+# stylemanual.gov.au : 225103137 : 5
+
+# Output tables in BigQuery for type 1 weekly stream
 DATASET_EXEC_BASICS = 'dta_customers'
 TABLE_EXEC_TYPE1 = 'exec_basics_prototype_weekly'
 TABLE_EXEC_TYPE1_1 = 'exec_basics_prototype_weekly_99993137'
@@ -47,6 +56,7 @@ TABLE_EXEC_TYPE1_5 = 'exec_basics_prototype_weekly_225103137'
 TABLE_EXEC_TYPE1_5_TP = 'exec_basics_prototype_weekly_225103137_toppages'
 TABLE_EXEC_TYPE1_5_TG = 'exec_basics_prototype_weekly_225103137_topgrowth'
 
+# Output tables in BigQuery for type 2 daily stream
 TABLE_EXEC_TYPE2 = 'exec_basics_prototype_daily'
 TABLE_EXEC_TYPE2_1 = 'exec_basics_prototype_daily_99993137'
 TABLE_EXEC_TYPE2_1_TP_DAY1 = 'exec_basics_prototype_daily_99993137_toppages_day1'
@@ -124,6 +134,7 @@ TABLE_EXEC_TYPE2_5_TG_DAY5 = 'exec_basics_prototype_daily_225103137_topgrowth_da
 TABLE_EXEC_TYPE2_5_TG_DAY6 = 'exec_basics_prototype_daily_225103137_topgrowth_day6'
 TABLE_EXEC_TYPE2_5_TG_DAY7 = 'exec_basics_prototype_daily_225103137_topgrowth_day7'
 
+# Output tables in BigQuery for type 3 hourly stream
 TABLE_EXEC_TYPE3 = 'exec_basics_prototype_hourly'
 TABLE_EXEC_TYPE3_1 = 'exec_basics_prototype_hourly_99993137'
 TABLE_EXEC_TYPE3_2 = 'exec_basics_prototype_hourly_222282547'

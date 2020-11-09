@@ -13,4 +13,7 @@ The data pipeline scripts comprises of three modules
 
 The python code is splitted into new and update script for updating the prototype backend RDS
 
-The python file provides Airflow DAG tasks for scheduling the data flow and translating the BigQuery tables into JSON format.
+The python file provides following functionalities
+Airflow DAG tasks for scheduling the data flow 
+Translating the BigQuery tables into JSON format
+Delivering data using RESTAPI endpoints to backend RDS service

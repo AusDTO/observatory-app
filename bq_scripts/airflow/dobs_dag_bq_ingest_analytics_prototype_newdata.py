@@ -71,11 +71,11 @@ with models.DAG(
         table_id= dobs_constants.TABLE_EXEC_TYPE1_1
         )
     
-    bigquery_fetch_type1_2 = bigquery_get_data.BigQueryGetDataOperator(
-        task_id='bigquery_fetch_type1_2',
-        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
-        table_id= dobs_constants.TABLE_EXEC_TYPE1_2
-        )
+    # bigquery_fetch_type1_2 = bigquery_get_data.BigQueryGetDataOperator(
+    #     task_id='bigquery_fetch_type1_2',
+    #     dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+    #     table_id= dobs_constants.TABLE_EXEC_TYPE1_2
+    #     )
     
     bigquery_fetch_type1_3 = bigquery_get_data.BigQueryGetDataOperator(
         task_id='bigquery_fetch_type1_3',
@@ -102,11 +102,11 @@ with models.DAG(
         table_id= dobs_constants.TABLE_EXEC_TYPE2_1
         )
 
-    bigquery_fetch_type2_2 = bigquery_get_data.BigQueryGetDataOperator(
-        task_id='bigquery_fetch_type2_2',
-        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
-        table_id= dobs_constants.TABLE_EXEC_TYPE2_2
-        )
+    # bigquery_fetch_type2_2 = bigquery_get_data.BigQueryGetDataOperator(
+    #     task_id='bigquery_fetch_type2_2',
+    #     dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+    #     table_id= dobs_constants.TABLE_EXEC_TYPE2_2
+    #     )
 
     bigquery_fetch_type2_3 = bigquery_get_data.BigQueryGetDataOperator(
         task_id='bigquery_fetch_type2_3',
@@ -132,11 +132,11 @@ with models.DAG(
         table_id= dobs_constants.TABLE_EXEC_TYPE3_1
         )
 
-    bigquery_fetch_type3_2 = bigquery_get_data.BigQueryGetDataOperator(
-        task_id='bigquery_fetch_type3_2',
-        dataset_id= dobs_constants.DATASET_EXEC_BASICS,
-        table_id= dobs_constants.TABLE_EXEC_TYPE3_2
-        )
+    # bigquery_fetch_type3_2 = bigquery_get_data.BigQueryGetDataOperator(
+    #     task_id='bigquery_fetch_type3_2',
+    #     dataset_id= dobs_constants.DATASET_EXEC_BASICS,
+    #     table_id= dobs_constants.TABLE_EXEC_TYPE3_2
+    #     )
 
     bigquery_fetch_type3_3 = bigquery_get_data.BigQueryGetDataOperator(
         task_id='bigquery_fetch_type3_3',
@@ -160,8 +160,8 @@ with models.DAG(
     def prepare_outtype1(data_):
         output = []
         for datum in data_:
-             property_id, hostname, users, pageviews, time_on_page, bounce_rate, bounces, sessions, week_start, week_end = datum
-             output.append({"dateEnding": week_end, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions}
+             property_id, hostname, users, newUsers, returningUsers, pageviews, time_on_page, bounce_rate, sessions, aveSession, pagesPerSession, aveSessionDuration, week_start, week_end = datum
+             output.append({"dateEnding": week_end, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSession": aveSession, "pagesPerSession": pagesPerSession , "aveSessionDuration": aveSessionDuration, "newUsers": newUsers ,"returningUsers": returningUsers}
             )
 
         jdata =   {
@@ -175,8 +175,8 @@ with models.DAG(
     def prepare_outtype2(data_):
         output = []
         for datum in data_:
-             property_id, hostname, users, pageviews, time_on_page, bounce_rate, bounces, sessions, visit_date,visit_weekday = datum
-             output.append({"date": visit_date, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions}
+             property_id, hostname, users, newUsers, returningUsers, pageviews, time_on_page, bounce_rate, sessions, aveSession, pagesPerSession, aveSessionDuration, visit_date,visit_weekday = datum
+             output.append({"date": visit_date, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSession": aveSession, "pagesPerSession": pagesPerSession , "aveSessionDuration": aveSessionDuration, "newUsers": newUsers ,"returningUsers": returningUsers }
             )
 
         jdata =   {
@@ -190,8 +190,8 @@ with models.DAG(
     def prepare_outtype3(data_):
         output = []
         for datum in data_:
-             property_id, hostname, users, pageviews, time_on_page, bounce_rate, bounces, sessions, visit_hour,visit_weekday = datum
-             output.append({"visit_hour": visit_hour, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions}
+             property_id, hostname, users, newUsers, returningUsers, pageviews, time_on_page, bounce_rate, sessions, aveSession, pagesPerSession, aveSessionDuration, visit_hour, visit_weekday = datum
+             output.append({"visit_hour": visit_hour, "users": users, "pageViews": pageviews, "timeOnPage": time_on_page, "bounceRate": bounce_rate, "sessions": sessions, "aveSession": aveSession, "pagesPerSession": pagesPerSession , "aveSessionDuration": aveSessionDuration, "newUsers": newUsers ,"returningUsers": returningUsers}
             )
 
         jdata =   {
@@ -208,10 +208,10 @@ with models.DAG(
         if xcom_data_1:
             data_out, uaid = prepare_outtype1(xcom_data_1)
             dobs_data_ops.add_output(data_out, uaid)
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type1_2')
-        if xcom_data_2:
-            data_out, uaid = prepare_outtype1(xcom_data_2)
-            dobs_data_ops.add_output(data_out, uaid)
+        # xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type1_2')
+        # if xcom_data_2:
+        #     data_out, uaid = prepare_outtype1(xcom_data_2)
+        #     dobs_data_ops.add_output(data_out, uaid)
         xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type1_3')
         if xcom_data_3:
             data_out, uaid = prepare_outtype1(xcom_data_3)
@@ -232,10 +232,10 @@ with models.DAG(
         if xcom_data_1:
             data_out, uaid = prepare_outtype2(xcom_data_1)
             dobs_data_ops.add_output(data_out, uaid)
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2')
-        if xcom_data_2:
-            data_out, uaid = prepare_outtype2(xcom_data_2)
-            dobs_data_ops.add_output(data_out, uaid)
+        # xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_2')
+        # if xcom_data_2:
+        #     data_out, uaid = prepare_outtype2(xcom_data_2)
+        #     dobs_data_ops.add_output(data_out, uaid)
         xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type2_3')
         if xcom_data_3:
             data_out, uaid = prepare_outtype2(xcom_data_3)
@@ -255,10 +255,10 @@ with models.DAG(
         if xcom_data_1:
             data_out, uaid = prepare_outtype3(xcom_data_1)
             dobs_data_ops.add_output(data_out, uaid)
-        xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type3_2')
-        if xcom_data_2:
-            data_out, uaid = prepare_outtype3(xcom_data_2)
-            dobs_data_ops.add_output(data_out, uaid)
+        # xcom_data_2 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type3_2')
+        # if xcom_data_2:
+        #     data_out, uaid = prepare_outtype3(xcom_data_2)
+        #     dobs_data_ops.add_output(data_out, uaid)
         xcom_data_3 = context['ti'].xcom_pull(task_ids='bigquery_fetch_type3_3')
         if xcom_data_3:
             data_out, uaid = prepare_outtype3(xcom_data_3)
@@ -299,20 +299,20 @@ with models.DAG(
     )
 
 bigquery_data_type1 >> bigquery_fetch_type1_1
-bigquery_data_type1 >> bigquery_fetch_type1_2
+# bigquery_data_type1 >> bigquery_fetch_type1_2
 bigquery_data_type1 >> bigquery_fetch_type1_3
 bigquery_data_type1 >> bigquery_fetch_type1_4
 bigquery_data_type1 >> bigquery_fetch_type1_5 >> add_type1_to_rds
 
 bigquery_data_type2 >> bigquery_fetch_type2_1
-bigquery_data_type2 >> bigquery_fetch_type2_2
+# bigquery_data_type2 >> bigquery_fetch_type2_2
 bigquery_data_type2 >> bigquery_fetch_type2_3
 bigquery_data_type2 >> bigquery_fetch_type2_4
 bigquery_data_type2 >> bigquery_fetch_type2_5 >> add_type2_to_rds
 
 
 bigquery_data_type3 >> bigquery_fetch_type3_1
-bigquery_data_type3 >> bigquery_fetch_type3_2
+# bigquery_data_type3 >> bigquery_fetch_type3_2
 bigquery_data_type3 >> bigquery_fetch_type3_3
 bigquery_data_type3 >> bigquery_fetch_type3_4
 bigquery_data_type3 >> bigquery_fetch_type3_5 >> add_type3_to_rds
