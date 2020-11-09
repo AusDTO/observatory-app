@@ -46,7 +46,7 @@ export const DurationVis: React.FC<Props> = ({ data, xKey, yKey }) => {
               if (dataMax > 500) {
                 return Math.ceil(dataMax / 1000) * 1000;
               } else {
-                return Math.ceil(dataMax / 100) * 100 + 50;
+                return Math.ceil(dataMax / 100) * 100 + 10;
               }
             },
           ]}

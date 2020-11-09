@@ -1,6 +1,6 @@
 import React from "react";
 import DefaultLayout from "../components/layouts/DefaultLayout";
-import { RouteComponentProps, Router, Redirect, Link } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 import SEO from "./seo";
 import { Aubtn } from "../types/auds";
 
@@ -13,7 +13,7 @@ export const Home: React.FC<Props> = ({ history, location }) => {
         <SEO title="Home" />
 
         <div className="container-fluid au-body">
-          <h1>See your data differently</h1>
+          <h1>See your web data differently</h1>
           <p>
             You shouldn't have to be a Data Scientist to use data intelligently.
             So we built ObservatoryApp to flatten the analytics learning curve
@@ -21,7 +21,7 @@ export const Home: React.FC<Props> = ({ history, location }) => {
             <i>human.</i>
           </p>
           <Link to="/register">
-            <Aubtn className="mt-1"> Get started</Aubtn>
+            <Aubtn className="mt-1">Register</Aubtn>
           </Link>
         </div>
       </>
