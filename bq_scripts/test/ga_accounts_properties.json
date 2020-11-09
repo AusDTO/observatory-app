@@ -1,0 +1,3182 @@
+{
+    "kind": "analytics#profiles",
+    "username": "mufaddal.taiyab-ali@digital.gov.au",
+    "totalResults": 1059,
+    "startIndex": 1,
+    "itemsPerPage": 100,
+    "nextLink": "https://www.googleapis.com/analytics/v3/management/accounts/~all/webproperties/~all/profiles?start-index=101&max-results=100",
+    "items": [
+      {
+        "id": "2813927",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/2813927",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "nga.gov.au",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "defaultPage": "Default.cfm",
+        "siteSearchQueryParameters": "q,stq",
+        "stripSiteSearchQueryParameters": true,
+        "siteSearchCategoryParameters": "stp",
+        "stripSiteSearchCategoryParameters": true,
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-03-27T03:48:50.000Z",
+        "updated": "2020-07-06T20:01:26.844Z",
+        "eCommerceTracking": true,
+        "enhancedECommerceTracking": true,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/2813927/goals"
+        }
+      },
+      {
+        "id": "3884988",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/3884988",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "TYLER",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-06-25T03:25:13.000Z",
+        "updated": "2012-03-24T00:19:32.296Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/3884988/goals"
+        }
+      },
+      {
+        "id": "4141023",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/4141023",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "LAMBERT",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-07-17T03:36:41.000Z",
+        "updated": "2012-03-24T00:19:32.454Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/4141023/goals"
+        }
+      },
+      {
+        "id": "5849751",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/5849751",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "NIAT07",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-11-18T23:11:37.000Z",
+        "updated": "2012-03-24T00:19:32.646Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/5849751/goals"
+        }
+      },
+      {
+        "id": "5850520",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/5850520",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "OCEANtoOUTBACK",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-11-19T00:57:59.000Z",
+        "updated": "2012-03-24T00:19:32.151Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/5850520/goals"
+        }
+      },
+      {
+        "id": "7645512",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/7645512",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "artonline",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-03-11T13:07:03.000Z",
+        "updated": "2012-03-24T00:19:23.158Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/7645512/goals"
+        }
+      },
+      {
+        "id": "8065453",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/8065453",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "T2M",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-04-03T12:05:01.000Z",
+        "updated": "2012-03-24T00:19:32.886Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/8065453/goals"
+        }
+      },
+      {
+        "id": "9972540",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/9972540",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "LARTER",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-07-10T05:26:01.000Z",
+        "updated": "2012-03-24T00:19:32.139Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/9972540/goals"
+        }
+      },
+      {
+        "id": "10501560",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/10501560",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "PP",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-08-06T06:26:11.000Z",
+        "updated": "2012-03-24T00:19:32.716Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/10501560/goals"
+        }
+      },
+      {
+        "id": "11687921",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/11687921",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "DEGAS",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-09-30T09:09:37.000Z",
+        "updated": "2010-07-01T02:10:45.029Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/11687921/goals"
+        }
+      },
+      {
+        "id": "11688032",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/11688032",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "DEGAS_Ex",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-09-30T09:15:05.000Z",
+        "updated": "2012-03-24T00:19:32.126Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/11688032/goals"
+        }
+      },
+      {
+        "id": "16843931",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/16843931",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "SoftSculpture",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2009-04-14T00:46:15.000Z",
+        "updated": "2012-03-24T00:19:32.533Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/16843931/goals"
+        }
+      },
+      {
+        "id": "20372676",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/20372676",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "MCCUBBIN",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2009-08-07T02:38:23.000Z",
+        "updated": "2012-03-24T00:19:32.268Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/20372676/goals"
+        }
+      },
+      {
+        "id": "20472299",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/20472299",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "MasterpiecesTeaser",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2009-08-10T23:56:30.000Z",
+        "updated": "2012-03-24T00:19:32.673Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/20472299/goals"
+        }
+      },
+      {
+        "id": "23652281",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/23652281",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "MASTERPIECES",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2009-11-20T05:05:53.000Z",
+        "updated": "2012-03-24T00:19:32.225Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/23652281/goals"
+        }
+      },
+      {
+        "id": "36228963",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/36228963",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "LDM",
+        "currency": "USD",
+        "timezone": "America/Los_Angeles",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2010-08-30T01:40:12.211Z",
+        "updated": "2012-03-24T00:19:32.855Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/36228963/goals"
+        }
+      },
+      {
+        "id": "37378496",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/37378496",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "OPENINGSEASON",
+        "currency": "USD",
+        "timezone": "America/Los_Angeles",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2010-10-01T09:12:22.146Z",
+        "updated": "2011-03-29T01:52:27.365Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/37378496/goals"
+        }
+      },
+      {
+        "id": "38578513",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/38578513",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "Space Invaders",
+        "currency": "USD",
+        "timezone": "America/Los_Angeles",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2010-11-03T00:37:35.554Z",
+        "updated": "2012-03-24T00:19:32.081Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/38578513/goals"
+        }
+      },
+      {
+        "id": "40040364",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/40040364",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "BALLETS RUSSES",
+        "currency": "USD",
+        "timezone": "America/Los_Angeles",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2010-12-13T11:50:58.927Z",
+        "updated": "2012-03-24T00:19:23.000Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/40040364/goals"
+        }
+      },
+      {
+        "id": "49533358",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/49533358",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "FRED-WILLIAMS",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2011-08-19T04:55:18.024Z",
+        "updated": "2012-03-24T00:19:32.806Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/49533358/goals"
+        }
+      },
+      {
+        "id": "49960524",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/49960524",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "RENAISSANCE",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2011-08-31T06:03:57.811Z",
+        "updated": "2012-03-24T00:19:32.769Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/49960524/goals"
+        }
+      },
+      {
+        "id": "65804542",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/65804542",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "TOULOUSE",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "defaultPage": "Default.cfm",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2012-11-06T01:04:27.419Z",
+        "updated": "2012-11-06T01:08:44.107Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/65804542/goals"
+        }
+      },
+      {
+        "id": "73166450",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/73166450",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "Turner",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2013-06-05T03:12:46.168Z",
+        "updated": "2013-06-05T03:20:01.332Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/73166450/goals"
+        }
+      },
+      {
+        "id": "79872283",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/79872283",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "Incas",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "defaultPage": "Default.cfm",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2013-12-09T05:28:44.556Z",
+        "updated": "2013-12-09T05:32:00.071Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/79872283/goals"
+        }
+      },
+      {
+        "id": "89764319",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/89764319",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "nga_1",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2014-08-12T01:23:32.550Z",
+        "updated": "2014-08-12T01:23:32.550Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/89764319/goals"
+        }
+      },
+      {
+        "id": "91037896",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/91037896",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "Boyd",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2014-09-11T06:39:46.655Z",
+        "updated": "2014-11-03T03:32:00.456Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/91037896/goals"
+        }
+      },
+      {
+        "id": "93289580",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/93289580",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "Turrell",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2014-11-03T03:27:27.938Z",
+        "updated": "2014-11-03T03:31:43.743Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/93289580/goals"
+        }
+      },
+      {
+        "id": "108347939",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/108347939",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "Tom Roberts",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "defaultPage": "Default.cfm",
+        "siteSearchQueryParameters": "q",
+        "stripSiteSearchQueryParameters": true,
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2015-09-13T00:53:50.257Z",
+        "updated": "2015-09-13T01:00:08.567Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/108347939/goals"
+        }
+      },
+      {
+        "id": "127347759",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/127347759",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "Versailles",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-08-09T07:30:19.279Z",
+        "updated": "2016-08-09T07:32:25.470Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/127347759/goals"
+        }
+      },
+      {
+        "id": "190108943",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/190108943",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-1",
+        "internalWebPropertyId": "2759513",
+        "name": "LoveDesire",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://nga.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2019-02-18T06:14:31.767Z",
+        "updated": "2019-02-21T01:49:25.028Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-1/profiles/190108943/goals"
+        }
+      },
+      {
+        "id": "2828941",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-2/profiles/2828941",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-2",
+        "internalWebPropertyId": "2773962",
+        "name": "EgyptianAntiquities.com.au",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://EgyptianAntiquities.com.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-03-28T11:20:31.000Z",
+        "updated": "2011-09-02T01:22:57.329Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-2"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-2/profiles/2828941/goals"
+        }
+      },
+      {
+        "id": "8318910",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-3/profiles/8318910",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-3",
+        "internalWebPropertyId": "7993153",
+        "name": "artsearch.nga.gov.au",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://artsearch.nga.gov.au",
+        "defaultPage": "Default.cfm",
+        "siteSearchQueryParameters": "q",
+        "stripSiteSearchQueryParameters": true,
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-04-16T23:17:28.000Z",
+        "updated": "2019-09-27T00:40:51.449Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-3"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-3/profiles/8318910/goals"
+        }
+      },
+      {
+        "id": "16843732",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-4/profiles/16843732",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-4",
+        "internalWebPropertyId": "15908039",
+        "name": "SoftSculpture.com.au",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://SoftSculpture.com.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2009-04-14T00:33:51.000Z",
+        "updated": "2012-03-24T00:19:23.130Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-4"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-4/profiles/16843732/goals"
+        }
+      },
+      {
+        "id": "195599980",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-5/profiles/195599980",
+        "accountId": "1571219",
+        "webPropertyId": "UA-1571219-5",
+        "internalWebPropertyId": "201633261",
+        "name": "All Web Site Data",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.knowmyname.com.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2019-05-22T02:13:29.696Z",
+        "updated": "2019-05-22T02:13:29.696Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-5"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/1571219/webproperties/UA-1571219-5/profiles/195599980/goals"
+        }
+      },
+      {
+        "id": "3827410",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-1/profiles/3827410",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-1",
+        "internalWebPropertyId": "3731247",
+        "name": "climateXchange",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "climatexchange.aspacnet.org",
+        "defaultPage": "index.html",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-06-20T04:17:33.000Z",
+        "updated": "2012-02-20T05:13:18.917Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-1/profiles/3827410/goals"
+        }
+      },
+      {
+        "id": "5056675",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2/profiles/5056675",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-2",
+        "internalWebPropertyId": "4909269",
+        "name": "Questacon (including subdomains)",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.questacon.edu.au",
+        "siteSearchQueryParameters": "as_q",
+        "stripSiteSearchQueryParameters": true,
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-09-26T01:26:52.000Z",
+        "updated": "2020-07-22T12:14:47.627Z",
+        "eCommerceTracking": true,
+        "enhancedECommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2/profiles/5056675/goals"
+        }
+      },
+      {
+        "id": "9671788",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2/profiles/9671788",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-2",
+        "internalWebPropertyId": "4909269",
+        "name": "Imagination Factory",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.questacon.edu.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-06-25T03:36:35.000Z",
+        "updated": "2020-07-21T12:32:25.795Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2/profiles/9671788/goals"
+        }
+      },
+      {
+        "id": "9671855",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2/profiles/9671855",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-2",
+        "internalWebPropertyId": "4909269",
+        "name": "Questacon (excluding subdomains)",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://www.questacon.edu.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-06-25T03:42:39.000Z",
+        "updated": "2020-07-22T12:51:41.538Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2/profiles/9671855/goals"
+        }
+      },
+      {
+        "id": "9693930",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2/profiles/9693930",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-2",
+        "internalWebPropertyId": "4909269",
+        "name": "Smart Moves",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.questacon.edu.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-06-26T01:11:32.000Z",
+        "updated": "2012-02-20T05:13:30.175Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2/profiles/9693930/goals"
+        }
+      },
+      {
+        "id": "183758980",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2/profiles/183758980",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-2",
+        "internalWebPropertyId": "4909269",
+        "name": "Shop.questacon.edu.au",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://shop.questacon.edu.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2018-10-22T20:32:43.688Z",
+        "updated": "2019-07-12T19:12:01.920Z",
+        "eCommerceTracking": true,
+        "enhancedECommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-2/profiles/183758980/goals"
+        }
+      },
+      {
+        "id": "21794375",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-3/profiles/21794375",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-3",
+        "internalWebPropertyId": "23460786",
+        "name": "SKA",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.ska.edu.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2009-09-24T05:42:34.000Z",
+        "updated": "2012-02-20T05:13:19.087Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-3"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-3/profiles/21794375/goals"
+        }
+      },
+      {
+        "id": "81129339",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-5/profiles/81129339",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-5",
+        "internalWebPropertyId": "78463131",
+        "name": "All Web Site Data",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://5267180d3575293d0c000002.simpleupload.junaio.com/data/232163/index.xml",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2014-01-17T04:26:46.874Z",
+        "updated": "2014-01-17T04:26:46.874Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-5"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-5/profiles/81129339/goals"
+        }
+      },
+      {
+        "id": "115694756",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-7/profiles/115694756",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-7",
+        "internalWebPropertyId": "110885748",
+        "name": "All Mobile App Data",
+        "currency": "USD",
+        "timezone": "America/Los_Angeles",
+        "websiteUrl": "--",
+        "defaultPage": "--",
+        "type": "APP",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-01-29T03:44:58.200Z",
+        "updated": "2016-01-29T03:44:58.200Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-7"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-7/profiles/115694756/goals"
+        }
+      },
+      {
+        "id": "115724643",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-8/profiles/115724643",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-8",
+        "internalWebPropertyId": "110914536",
+        "name": "All Mobile App Data",
+        "currency": "USD",
+        "timezone": "America/Los_Angeles",
+        "websiteUrl": "--",
+        "defaultPage": "--",
+        "type": "APP",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-01-29T03:47:12.439Z",
+        "updated": "2016-01-29T03:47:12.439Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-8"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-8/profiles/115724643/goals"
+        }
+      },
+      {
+        "id": "180631238",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-9/profiles/180631238",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-9",
+        "internalWebPropertyId": "183026216",
+        "name": "All Web Site Data",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://dev.questacon.edu.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2018-08-24T02:45:13.048Z",
+        "updated": "2018-08-24T02:45:13.048Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-9"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-9/profiles/180631238/goals"
+        }
+      },
+      {
+        "id": "227731732",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-11/profiles/227731732",
+        "accountId": "2091368",
+        "webPropertyId": "UA-2091368-11",
+        "internalWebPropertyId": "244746544",
+        "name": "All Web Site Data",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://questacon.github.io/mission-to-mars/",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2020-08-28T00:31:00.714Z",
+        "updated": "2020-08-28T00:31:00.714Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-11"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2091368/webproperties/UA-2091368-11/profiles/227731732/goals"
+        }
+      },
+      {
+        "id": "80009944",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-25/profiles/80009944",
+        "accountId": "2785808",
+        "webPropertyId": "UA-2785808-25",
+        "internalWebPropertyId": "77395635",
+        "name": "Intranet - dev",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://hsibusdev.dhsstaff.dhs.gov.au",
+        "defaultPage": "default.aspx",
+        "excludeQueryParameters": "pageview",
+        "siteSearchQueryParameters": "k",
+        "stripSiteSearchQueryParameters": true,
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2013-12-12T05:31:43.285Z",
+        "updated": "2019-05-14T01:26:42.162Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-25"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-25/profiles/80009944/goals"
+        }
+      },
+      {
+        "id": "157083444",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-26/profiles/157083444",
+        "accountId": "2785808",
+        "webPropertyId": "UA-2785808-26",
+        "internalWebPropertyId": "155407647",
+        "name": "All Web Site Data",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://hsi.dhsstaff.dhs.gov.au",
+        "defaultPage": "default.aspx",
+        "excludeQueryParameters": "PagePreview",
+        "siteSearchQueryParameters": "k, intraq",
+        "stripSiteSearchQueryParameters": true,
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2017-08-03T22:54:17.211Z",
+        "updated": "2020-05-11T01:08:54.392Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-26"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-26/profiles/157083444/goals"
+        }
+      },
+      {
+        "id": "159319136",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-26/profiles/159319136",
+        "accountId": "2785808",
+        "webPropertyId": "UA-2785808-26",
+        "internalWebPropertyId": "155407647",
+        "name": "Master view - unfiltered (All data) 1 Sep 17 onwards",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://hsi.dhsstaff.dhs.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2017-09-01T03:47:25.337Z",
+        "updated": "2017-10-05T00:35:42.861Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-26"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-26/profiles/159319136/goals"
+        }
+      },
+      {
+        "id": "159656090",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-26/profiles/159656090",
+        "accountId": "2785808",
+        "webPropertyId": "UA-2785808-26",
+        "internalWebPropertyId": "155407647",
+        "name": "Intranet - excluding homepage",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://hsi.dhsstaff.dhs.gov.au",
+        "defaultPage": "default.aspx",
+        "excludeQueryParameters": "PagePreview",
+        "siteSearchQueryParameters": "k",
+        "stripSiteSearchQueryParameters": true,
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2017-09-05T23:28:22.063Z",
+        "updated": "2017-11-02T23:35:24.446Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-26"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-26/profiles/159656090/goals"
+        }
+      },
+      {
+        "id": "195854369",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-27/profiles/195854369",
+        "accountId": "2785808",
+        "webPropertyId": "UA-2785808-27",
+        "internalWebPropertyId": "199152038",
+        "name": "PROD - All Web Site Data",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://hsi.dhsstaff.dhs.gov.au/corporatedirectory/",
+        "defaultPage": "search-summary.aspx",
+        "excludeQueryParameters": "k, u, follow",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2019-05-28T06:22:40.794Z",
+        "updated": "2020-02-24T00:42:34.181Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-27"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2785808/webproperties/UA-2785808-27/profiles/195854369/goals"
+        }
+      },
+      {
+        "id": "5426088",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/5426088",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "www.defence.gov.au",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "defaultPage": "default.asp",
+        "siteSearchQueryParameters": "q",
+        "stripSiteSearchQueryParameters": true,
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-10-22T04:22:14.000Z",
+        "updated": "2016-05-11T01:23:37.193Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/5426088/goals"
+        }
+      },
+      {
+        "id": "5564745",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/5564745",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Latest Images",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-10-31T03:18:43.000Z",
+        "updated": "2011-10-31T05:26:05.379Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/5564745/goals"
+        }
+      },
+      {
+        "id": "5564787",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/5564787",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Latest Video",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-10-31T03:23:21.000Z",
+        "updated": "2011-10-31T05:26:05.096Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/5564787/goals"
+        }
+      },
+      {
+        "id": "5596513",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/5596513",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "OurPeople",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-11-01T23:31:25.000Z",
+        "updated": "2012-08-13T03:07:07.340Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/5596513/goals"
+        }
+      },
+      {
+        "id": "7555400",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/7555400",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Long Tan Awards",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-03-06T04:54:10.000Z",
+        "updated": "2011-10-31T05:26:05.289Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/7555400/goals"
+        }
+      },
+      {
+        "id": "8893695",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/8893695",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Sydneyii",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-05-16T03:55:26.000Z",
+        "updated": "2011-10-31T05:26:05.010Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/8893695/goals"
+        }
+      },
+      {
+        "id": "12310256",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/12310256",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Navy Past editions",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-10-27T04:08:00.000Z",
+        "updated": "2011-10-31T05:26:05.154Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/12310256/goals"
+        }
+      },
+      {
+        "id": "12697588",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/12697588",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "RAAF Past Edition",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-11-11T22:44:21.000Z",
+        "updated": "2011-10-31T05:26:05.395Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/12697588/goals"
+        }
+      },
+      {
+        "id": "12697631",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/12697631",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Army Past Editions",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2008-11-11T22:46:37.000Z",
+        "updated": "2011-12-12T02:17:59.180Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/12697631/goals"
+        }
+      },
+      {
+        "id": "30889776",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/30889776",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Work Experience",
+        "currency": "USD",
+        "timezone": "America/Los_Angeles",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2010-03-25T22:45:39.695Z",
+        "updated": "2011-10-31T05:26:05.245Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/30889776/goals"
+        }
+      },
+      {
+        "id": "45266872",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/45266872",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "foi home",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2011-04-27T04:04:15.975Z",
+        "updated": "2011-12-12T02:17:59.233Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/45266872/goals"
+        }
+      },
+      {
+        "id": "45267443",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/45267443",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "ips home",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2011-04-27T03:59:23.667Z",
+        "updated": "2011-12-12T02:17:59.416Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/45267443/goals"
+        }
+      },
+      {
+        "id": "47245466",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/47245466",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Medals",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2011-06-17T06:18:49.533Z",
+        "updated": "2011-10-31T05:26:05.063Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/47245466/goals"
+        }
+      },
+      {
+        "id": "48188857",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/48188857",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "ips",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "defaultPage": "/ips/index.htm",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2011-07-12T23:35:48.137Z",
+        "updated": "2011-12-12T02:17:59.315Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/48188857/goals"
+        }
+      },
+      {
+        "id": "48282398",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/48282398",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "ips less defence staff",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2011-07-15T05:04:27.282Z",
+        "updated": "2011-12-12T02:17:59.349Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/48282398/goals"
+        }
+      },
+      {
+        "id": "48283910",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/48283910",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "foi",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2011-07-15T05:06:39.897Z",
+        "updated": "2017-04-07T02:57:31.326Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/48283910/goals"
+        }
+      },
+      {
+        "id": "101787595",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/101787595",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "AGSVA",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2015-05-04T06:33:25.299Z",
+        "updated": "2016-02-05T04:12:31.778Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/101787595/goals"
+        }
+      },
+      {
+        "id": "101795968",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/101795968",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "DSA",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2015-05-04T07:07:22.170Z",
+        "updated": "2015-05-04T07:08:46.284Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/101795968/goals"
+        }
+      },
+      {
+        "id": "101826675",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/101826675",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "DGTA",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2015-05-05T00:36:09.669Z",
+        "updated": "2015-05-05T00:37:45.293Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/101826675/goals"
+        }
+      },
+      {
+        "id": "105879495",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/105879495",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Export Controls",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "siteSearchQueryParameters": "q,search,proxystylesheet",
+        "stripSiteSearchQueryParameters": true,
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2015-07-27T06:39:25.925Z",
+        "updated": "2016-08-29T23:34:20.820Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/105879495/goals"
+        }
+      },
+      {
+        "id": "107329384",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/107329384",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "AircraftNoise",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2015-08-25T05:42:59.205Z",
+        "updated": "2015-08-25T05:44:07.001Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/107329384/goals"
+        }
+      },
+      {
+        "id": "110087347",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/110087347",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Operations",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2015-10-15T03:27:14.258Z",
+        "updated": "2015-10-20T02:39:00.629Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/110087347/goals"
+        }
+      },
+      {
+        "id": "110264829",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/110264829",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "DPG",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2015-10-19T04:22:30.234Z",
+        "updated": "2015-10-19T04:22:57.549Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/110264829/goals"
+        }
+      },
+      {
+        "id": "111985805",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/111985805",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "CASG",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2015-11-17T21:39:00.429Z",
+        "updated": "2015-11-18T00:35:00.722Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/111985805/goals"
+        }
+      },
+      {
+        "id": "117231629",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/117231629",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "EIG",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-02-23T00:55:58.260Z",
+        "updated": "2016-02-23T00:58:39.761Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/117231629/goals"
+        }
+      },
+      {
+        "id": "119589377",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/119589377",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "DCO",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-04-04T00:46:16.460Z",
+        "updated": "2016-04-04T00:47:16.759Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/119589377/goals"
+        }
+      },
+      {
+        "id": "119916871",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/119916871",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "dio",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-04-08T03:46:27.660Z",
+        "updated": "2016-04-08T03:46:59.425Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/119916871/goals"
+        }
+      },
+      {
+        "id": "131331048",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/131331048",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "PayAndConditions",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-10-11T04:06:09.357Z",
+        "updated": "2016-10-11T04:16:24.540Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/131331048/goals"
+        }
+      },
+      {
+        "id": "134608707",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/134608707",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "APS Careers",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au/apscareers",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-11-25T01:19:35.003Z",
+        "updated": "2016-11-25T01:21:18.804Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/134608707/goals"
+        }
+      },
+      {
+        "id": "138108159",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/138108159",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Initiatives",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2017-01-16T03:45:42.048Z",
+        "updated": "2017-01-16T03:46:35.907Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/138108159/goals"
+        }
+      },
+      {
+        "id": "164550287",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/164550287",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "environment",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2017-11-15T03:08:25.238Z",
+        "updated": "2017-11-15T03:12:56.868Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/164550287/goals"
+        }
+      },
+      {
+        "id": "178536197",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/178536197",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Bases",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2018-07-13T05:44:51.597Z",
+        "updated": "2018-07-13T05:47:39.980Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/178536197/goals"
+        }
+      },
+      {
+        "id": "214332319",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/214332319",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Export",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2020-03-24T00:46:06.157Z",
+        "updated": "2020-03-24T00:46:58.126Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/214332319/goals"
+        }
+      },
+      {
+        "id": "214336354",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/214336354",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Woomera",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2020-03-24T00:16:56.834Z",
+        "updated": "2020-03-24T00:39:32.764Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/214336354/goals"
+        }
+      },
+      {
+        "id": "216982779",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/216982779",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "Graduates",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://www.defence.gov.au/graduates/",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2020-04-29T02:43:31.311Z",
+        "updated": "2020-04-29T02:44:27.427Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/216982779/goals"
+        }
+      },
+      {
+        "id": "227028142",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/227028142",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-1",
+        "internalWebPropertyId": "5262567",
+        "name": "DEQMS",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://www.defence.gov.au/estatemanagement/",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2020-08-21T00:31:41.187Z",
+        "updated": "2020-08-21T00:32:25.296Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-1/profiles/227028142/goals"
+        }
+      },
+      {
+        "id": "6059849",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-2/profiles/6059849",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-2",
+        "internalWebPropertyId": "5869156",
+        "name": "www.minister.defence.gov.au/",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.minister.defence.gov.au/",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2007-12-02T23:52:31.000Z",
+        "updated": "2012-08-13T03:07:07.340Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-2"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-2/profiles/6059849/goals"
+        }
+      },
+      {
+        "id": "35405840",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-4/profiles/35405840",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-4",
+        "internalWebPropertyId": "36000137",
+        "name": "defencecareers.nga.net.au/cp/?audiencetypecode=defenceext",
+        "currency": "USD",
+        "timezone": "America/Los_Angeles",
+        "websiteUrl": "https://defencecareers.nga.net.au/cp/?audiencetypecode=defenceext",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2010-08-05T06:07:35.538Z",
+        "updated": "2011-12-12T02:17:59.466Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-4"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-4/profiles/35405840/goals"
+        }
+      },
+      {
+        "id": "63790426",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-5/profiles/63790426",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-5",
+        "internalWebPropertyId": "62236124",
+        "name": "Defence Public Web",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2012-09-07T00:17:09.156Z",
+        "updated": "2012-09-07T00:17:09.156Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-5"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-5/profiles/63790426/goals"
+        }
+      },
+      {
+        "id": "87188867",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-5/profiles/87188867",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-5",
+        "internalWebPropertyId": "62236124",
+        "name": "Report Abuse",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2014-06-10T22:39:42.670Z",
+        "updated": "2014-06-10T22:39:42.670Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-5"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-5/profiles/87188867/goals"
+        }
+      },
+      {
+        "id": "121386494",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-6/profiles/121386494",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-6",
+        "internalWebPropertyId": "116078478",
+        "name": "www.asd.gov.au",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://www.asd.gov.au",
+        "siteSearchQueryParameters": "q",
+        "stripSiteSearchQueryParameters": true,
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-05-04T00:22:56.417Z",
+        "updated": "2019-03-25T23:06:29.101Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": true,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-6"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-6/profiles/121386494/goals"
+        }
+      },
+      {
+        "id": "122418128",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-7/profiles/122418128",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-7",
+        "internalWebPropertyId": "117047022",
+        "name": "All Web Site Data",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.army.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-05-20T04:07:21.576Z",
+        "updated": "2016-05-20T04:07:21.576Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-7"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-7/profiles/122418128/goals"
+        }
+      },
+      {
+        "id": "122818310",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-8/profiles/122818310",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-8",
+        "internalWebPropertyId": "117420209",
+        "name": "All Web Site Data",
+        "currency": "USD",
+        "timezone": "Australia/Brisbane",
+        "websiteUrl": "http://www.dsto.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-05-26T23:26:16.344Z",
+        "updated": "2016-05-27T02:34:02.907Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-8"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-8/profiles/122818310/goals"
+        }
+      },
+      {
+        "id": "122829809",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-10/profiles/122829809",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-10",
+        "internalWebPropertyId": "117431008",
+        "name": "All Web Site Data",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.airforce.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-05-27T02:54:51.413Z",
+        "updated": "2016-05-27T02:54:51.413Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-10"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-10/profiles/122829809/goals"
+        }
+      },
+      {
+        "id": "122841309",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-11/profiles/122841309",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-11",
+        "internalWebPropertyId": "117442708",
+        "name": "All Web Site Data",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://video.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-05-27T02:57:30.228Z",
+        "updated": "2016-05-27T02:57:30.228Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-11"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-11/profiles/122841309/goals"
+        }
+      },
+      {
+        "id": "122811018",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-17/profiles/122811018",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-17",
+        "internalWebPropertyId": "117413416",
+        "name": "All Web Site Data",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://forcenet.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-05-27T03:06:20.957Z",
+        "updated": "2019-03-29T00:16:04.024Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-17"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-17/profiles/122811018/goals"
+        }
+      },
+      {
+        "id": "122821337",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-22/profiles/122821337",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-22",
+        "internalWebPropertyId": "117422735",
+        "name": "All Web Site Data",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defenceyouth.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-05-27T04:19:02.335Z",
+        "updated": "2016-05-27T04:19:02.335Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-22"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-22/profiles/122821337/goals"
+        }
+      },
+      {
+        "id": "135989789",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-24/profiles/135989789",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-24",
+        "internalWebPropertyId": "132044563",
+        "name": "All Web Site Data",
+        "currency": "AUD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "https://news.defence.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2016-12-13T23:43:26.664Z",
+        "updated": "2019-05-16T01:17:39.463Z",
+        "eCommerceTracking": false,
+        "botFilteringEnabled": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-24"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-24/profiles/135989789/goals"
+        }
+      },
+      {
+        "id": "162370350",
+        "kind": "analytics#profile",
+        "selfLink": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-25/profiles/162370350",
+        "accountId": "2848578",
+        "webPropertyId": "UA-2848578-25",
+        "internalWebPropertyId": "161238920",
+        "name": "All Web Site Data",
+        "currency": "USD",
+        "timezone": "Australia/Sydney",
+        "websiteUrl": "http://www.defenceindustry.gov.au",
+        "type": "WEB",
+        "permissions": {
+          "effective": [
+            "COLLABORATE",
+            "EDIT",
+            "MANAGE_USERS",
+            "READ_AND_ANALYZE"
+          ]
+        },
+        "created": "2017-10-12T05:15:55.891Z",
+        "updated": "2018-07-19T07:01:26.470Z",
+        "eCommerceTracking": false,
+        "parentLink": {
+          "type": "analytics#webproperty",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-25"
+        },
+        "childLink": {
+          "type": "analytics#goals",
+          "href": "https://www.googleapis.com/analytics/v3/management/accounts/2848578/webproperties/UA-2848578-25/profiles/162370350/goals"
+        }
+      }
+    ]
+  }
+  
