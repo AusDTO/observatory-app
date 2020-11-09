@@ -11,7 +11,7 @@
       create temp table t_exec_basics_prototype_hourly_1
       as
        select
-          net.reg_domain(hostname) as reg_domain,
+          reg_domain,
           newUsers,
           returningUsers,
           visit_weekday,
@@ -19,7 +19,7 @@
         from
           (
             select
-              hostname,
+              reg_domain,
               visit_weekday,
               visit_hour,
               SUM(newUsers) AS newUsers,
@@ -28,7 +28,7 @@
             (
               select
               fullVisitorId,
-              hostname,
+              coalesce(net.reg_domain(hostname),'') as reg_domain,
               extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
               format_date('%A', (date(timestamp_seconds(visitStartTime), 'Australia/Sydney'))) as visit_weekday,
               newUsers,
@@ -102,7 +102,7 @@
                       and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
             )
           )
-          group by  hostname, visit_weekday, visit_hour
+          group by  reg_domain, visit_weekday, visit_hour
           )
         ; 	
 
@@ -110,7 +110,7 @@
       create temp table t_exec_basics_prototype_hourly_2
       as
        select
-          net.reg_domain(hostname) as reg_domain,
+          reg_domain,
           unique_visitors,
           pageviews,
           avg_time_on_page as time_on_page,
@@ -134,7 +134,7 @@
         from
           (
             select
-              hostname,
+              reg_domain,
               visit_weekday,
               visit_hour,
               COUNT(distinct fullVisitorId) as unique_visitors,
@@ -155,7 +155,7 @@
                 when isExit is not null then last_interaction - hit_time
                 else next_pageview - hit_time
               end as time_on_page,
-              hostname,
+              coalesce(net.reg_domain(hostname),'') as reg_domain,
               bounces,
               sessions
             from 
@@ -296,7 +296,7 @@
                       and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) and FORMAT_DATE('%Y%m%d',CURRENT_DATE())
           )
               )))
-          group by  hostname, visit_weekday, visit_hour
+          group by  reg_domain, visit_weekday, visit_hour
           )
         ; 	
 

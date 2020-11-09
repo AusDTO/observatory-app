@@ -3,15 +3,18 @@
       Basics for executive - weekly, daily, hourly/24hrs
       -pageviews
       -sessions
-      -users
+      -New users
       -bounce rate
       -time on page
+      -Returning users
+      -Top 10 top pages
+      -Top 10 pages with highest growth
     */
     BEGIN
       create temp table t_exec_basics_prototype_daily_1
       as
        select
-          net.reg_domain(hostname) as reg_domain,
+          reg_domain,
           newUsers,
           returningUsers,
           visit_weekday,
@@ -19,7 +22,7 @@
         from
           (
             select
-              hostname,
+              reg_domain,
               visit_weekday,
               visit_date,
               SUM(newUsers) AS newUsers,
@@ -28,7 +31,7 @@
             (
               select
               fullVisitorId,
-              hostname,
+              coalesce(net.reg_domain(hostname),'') as reg_domain,
               format_date('%A', (date(timestamp_seconds(visitStartTime), 'Australia/Sydney'))) as visit_weekday,
               format_date('%F', (date(timestamp_seconds(visitStartTime), 'Australia/Sydney'))) as visit_date,
               newUsers,
@@ -102,7 +105,7 @@
                       and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
             )
           )
-          group by  hostname, visit_weekday, visit_date
+          group by  reg_domain, visit_weekday, visit_date
           )
         ; 	
 
@@ -110,7 +113,7 @@
       create temp table t_exec_basics_prototype_daily_2
       as
        select
-          net.reg_domain(hostname) as reg_domain,
+          reg_domain,
           unique_visitors,
           pageviews,
           total_time_on_page,
@@ -135,7 +138,7 @@
         from
           (
             select
-              hostname,
+              reg_domain,
               visit_weekday,
               visit_date,
               COUNT(distinct fullVisitorId) as unique_visitors,
@@ -156,7 +159,7 @@
                 when isExit is not null then last_interaction - hit_time
                 else next_pageview - hit_time
               end as time_on_page,
-              hostname,
+              coalesce(net.reg_domain(hostname),'') as reg_domain,
               bounces,
               sessions
             from 
@@ -297,7 +300,7 @@
                       and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
           )
               )))
-          group by  hostname, visit_weekday, visit_date
+          group by  reg_domain, visit_weekday, visit_date
           )
         ; 	
 

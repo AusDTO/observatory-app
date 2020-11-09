@@ -1,17 +1,20 @@
     /*
       BigQuery script delivering following outputs for analytics prototype tool
       Basics for executive - weekly, daily, hourly/24hrs
-      -pageviews
-      -sessions
-      -users
-      -bounce rate
-      -time on page
+      -Pageviews
+      -Sessions
+      -New users
+      -Bounce rate
+      -Time on page
+      -Returning users
+      -Top 10 top pages
+      -Top 10 pages with highest growth
     */
     BEGIN
       create temp table t_exec_basics_prototype_weekly_1
       as
        select
-          net.reg_domain(hostname) as reg_domain,
+          reg_domain,
           newUsers,
           returningUsers,
           FORMAT_DATE('%d%m%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) as week_start,
@@ -19,14 +22,14 @@
         from
           (
             select
-              hostname,
+              reg_domain,
               SUM(newUsers) AS newUsers,
               SUM(returningUsers) AS returningUsers
             from
             (
               select
               fullVisitorId,
-              hostname,
+              coalesce(net.reg_domain(hostname),'') as reg_domain,
               newUsers,
               returningUsers
             from
@@ -98,7 +101,7 @@
                       and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
             )
           )
-          group by  hostname
+          group by  reg_domain
           )
         ; 	
 
@@ -106,7 +109,7 @@
       create temp table t_exec_basics_prototype_weekly_2
       as
        select
-          net.reg_domain(hostname) as reg_domain,
+          reg_domain,
           unique_visitors,
           pageviews,
           avg_time_on_page as time_on_page,
@@ -130,7 +133,7 @@
         from
           (
             select
-              hostname,
+              reg_domain,
               COUNT(distinct fullVisitorId) as unique_visitors,
               count(*) as pageviews,
               sum(time_on_page) as total_time_on_page,
@@ -148,7 +151,7 @@
                 when isExit is not null then last_interaction - hit_time
                 else next_pageview - hit_time
               end as time_on_page,
-              hostname,
+              coalesce(net.reg_domain(hostname),'') as reg_domain,
               bounces,
               sessions
             from 
@@ -289,14 +292,14 @@
                       and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
           )
               )))
-          group by  hostname
+          group by  reg_domain
           )
         ; 	
 
 create temp table t_prototype_week_pagetitle_top10
 as
     select
-      net.reg_domain(hostname) as reg_domain,
+      reg_domain,
       pagePath,
       pagetitle,
       count(*) as pageviews
@@ -305,7 +308,7 @@ as
       select
       pagePath,
       pagetitle,
-      hostname
+      coalesce(net.reg_domain(hostname),'') as reg_domain
      from 
      (
       select
@@ -391,13 +394,13 @@ as
         )
         )
     )
-    group by  pagepath ,pagetitle, hostname;
+    group by  pagepath ,pagetitle, reg_domain;
 
 
 create temp table t_prototype_preweek_pagetitle_top10
 as
     select
-      net.reg_domain(hostname) as reg_domain,
+      reg_domain,
       pagePath,
       pagetitle,
       count(*) as pageviews
@@ -406,7 +409,7 @@ as
       select
       pagePath,
       pagetitle,
-      hostname
+      coalesce(net.reg_domain(hostname),'') as reg_domain
      from 
      (
       select
@@ -492,7 +495,7 @@ as
         )
         )
     )
-    group by  pagepath ,pagetitle, hostname;
+    group by  pagepath ,pagetitle, reg_domain;
 
 
 -- Delta rank sites
