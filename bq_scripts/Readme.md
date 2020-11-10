@@ -16,9 +16,9 @@ The python code is splitted into new and update script for updating the prototyp
 
 The data pipeline scripts comprises of three modules
 1. BigQuery scripts
-   a. weekly slice
-   b. daily slice
-   c. hourly slice
+   - weekly slice
+   - daily slice
+   - hourly slice
    
 2. Python data transformation
    The python file provides following functionalities
