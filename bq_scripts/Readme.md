@@ -7,7 +7,7 @@
 - [Airflow with python](https://airflow.apache.org/docs/stable/)
 
 
-The scripts in Airflow folder are ready for production
+The scripts in [Airflow folder](https://github.com/AusDTO/observatory-service/tree/site-snapshot-bq-scripts/bq_scripts/airflow) are ready for production
 The test folder has scripts for code testing and output data quality check purpose.
 
 
