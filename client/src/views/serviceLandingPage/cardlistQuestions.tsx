@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { AuCard, AuCardInner } from "../../types/auds";
 
-interface Props {} // key
+interface Props {
+  propertyUaId: string;
+} // key
 
-export const ServiceQuestions: React.FC<Props> = () => {
+export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
   return (
     <section className="mt-2">
       <h2>
@@ -16,92 +19,25 @@ export const ServiceQuestions: React.FC<Props> = () => {
           <li className="col-md-4 col-sm-6 col-xs-12">
             <AuCard>
               <AuCardInner>
-                <h3 className="mt-0 font-weight-500">Accessibility</h3>
+                <h3 className="mt-0 font-weight-500">Usage</h3>
                 <ul className="au-link-list">
                   <li>
-                    <a href="#">Lorem, ipsum dolor?</a>
+                    <Link
+                      to={`/service/snapshot/${propertyUaId}?timePeriod=weekly`}
+                    >
+                      What is a snapshot of our site?
+                    </Link>
                   </li>
-                  <li>
-                    <a href="#">Lorem ipsum dolor sit?</a>
-                  </li>
-                  <li>
-                    <a href="#">Lorem, ipsum?</a>
-                  </li>
-                  <li>
-                    <a href="#">Lorem, ipsum?</a>
-                  </li>
-                </ul>
-              </AuCardInner>
-            </AuCard>
-          </li>
-          <li className="col-md-4 col-sm-6 col-xs-12">
-            <AuCard>
-              <AuCardInner>
-                <h3 className="mt-0 font-weight-500">Audience</h3>
-                <ul className="au-link-list">
-                  <li>
-                    <a href="#">Lorem, ipsum dolor?</a>
-                  </li>
-                  <li>
-                    <a href="#">Lorem ipsum dolor sit?</a>
-                  </li>
-                  <li>
-                    <a href="#">Lorem, ipsum?</a>
-                  </li>
-                </ul>
-              </AuCardInner>
-            </AuCard>
-          </li>
-          <li className="col-md-4 col-sm-6 col-xs-12">
-            <AuCard>
-              <AuCardInner>
-                <h3 className="mt-0 font-weight-500">Content</h3>
-                <ul className="au-link-list">
-                  <li>
-                    <a href="#">Lorem, ipsum dolor?</a>
-                  </li>
-                  <li>
-                    <a href="#">Lorem ipsum dolor sit?</a>
-                  </li>
-                  <li>
-                    <a href="#">Lorem, ipsum?</a>
-                  </li>
-                </ul>
-              </AuCardInner>
-            </AuCard>
-          </li>
-          <li className="col-md-4 col-sm-6 col-xs-12">
-            <AuCard>
-              <AuCardInner>
-                <h3 className="mt-0 font-weight-500">Engagement</h3>
-                <ul className="au-link-list">
-                  <li>
-                    <a href="#">Lorem, ipsum dolor?</a>
-                  </li>
-                  <li>
-                    <a href="#">Lorem ipsum dolor sit?</a>
-                  </li>
-                  <li>
-                    <a href="#">Lorem, ipsum?</a>
-                  </li>
-                </ul>
-              </AuCardInner>
-            </AuCard>
-          </li>
 
-          <li className="col-md-4 col-sm-6 col-xs-12">
-            <AuCard>
-              <AuCardInner>
-                <h3 className="mt-0 font-weight-500">Searching and finding</h3>
-                <ul className="au-link-list">
                   <li>
-                    <a href="#">Lorem, ipsum dolor?</a>
+                    <a href="#" className="disabled-link">
+                      How are people engaging with [URL's] content?
+                    </a>
                   </li>
                   <li>
-                    <a href="#">Lorem ipsum dolor sit?</a>
-                  </li>
-                  <li>
-                    <a href="#">Lorem, ipsum?</a>
+                    <a href="#" className="disabled-link">
+                      Is there a peak demand time for my service?
+                    </a>
                   </li>
                 </ul>
               </AuCardInner>
@@ -110,16 +46,37 @@ export const ServiceQuestions: React.FC<Props> = () => {
           <li className="col-md-4 col-sm-6 col-xs-12">
             <AuCard>
               <AuCardInner>
-                <h3 className="mt-0 font-weight-500">Traffic</h3>
+                <h3 className="mt-0 font-weight-500">Content review</h3>
                 <ul className="au-link-list">
                   <li>
-                    <a href="#">Lorem, ipsum dolor?</a>
+                    <a href="#" className="disabled-link">
+                      Are there any pages on our site which are 'leaking' users?
+                    </a>
                   </li>
                   <li>
-                    <a href="#">Lorem ipsum dolor sit?</a>
+                    <a href="#" className="disabled-link">
+                      What content is outdated/unused?
+                    </a>
+                  </li>
+                </ul>
+              </AuCardInner>
+            </AuCard>
+          </li>
+          <li className="col-md-4 col-sm-6 col-xs-12">
+            <AuCard>
+              <AuCardInner>
+                <h3 className="mt-0 font-weight-500">Journeys</h3>
+                <ul className="au-link-list">
+                  <li>
+                    <a href="#" className="disabled-link">
+                      How many steps are users taking to find [PageUrl]
+                    </a>
                   </li>
                   <li>
-                    <a href="#">Lorem, ipsum?</a>
+                    <a href="#" className="disabled-link">
+                      How many users are completing a journey from Page A to
+                      Page B
+                    </a>
                   </li>
                 </ul>
               </AuCardInner>

@@ -19,7 +19,7 @@ interface TextFieldProps {
 const SubscribeField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
   const [field, meta] = useField({ name: props.id, ...props });
   const error = meta.touched && meta.error ? meta.error : "";
-  const describedByError: string = error && `${props.id}--error`;
+  // const describedByError: string = error && `${props.id}--error`;
 
   return (
     <>

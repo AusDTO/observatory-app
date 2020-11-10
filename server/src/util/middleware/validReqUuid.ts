@@ -41,7 +41,9 @@ export const validatePropertyExists = async (
       .json({ fieldErrors: errors.errors, statusCode: 400 });
   }
 
-  const property = await Property.findOne({ where: { ua_id } });
+  const property = await Property.findOne({
+    where: { ua_id: ua_id.toLowerCase() },
+  });
   if (!property) {
     return res.status(404).json({
       statusCode: 404,

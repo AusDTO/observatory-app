@@ -85,3 +85,57 @@
 .inline {
   display: inline;
 }
+
+.metric-card__inner {
+  @include AU-space(padding, 2unit 1unit);
+  background: $AU-color-alt-bg;
+  border-radius: $AU-border-radius * 2;
+  position: relative;
+}
+
+.metric-card__desc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  > .metric {
+    @include AU-fontgrid(lg);
+  }
+  > .percentage {
+    @include AU-fontgrid(sm);
+    // color: rgb(51, 48, 48);
+
+    > .up {
+      color: darken($AU-color-success, 10);
+    }
+    > .down {
+      color: $AU-color-error;
+    }
+  }
+}
+
+.metric-card__link {
+  display: block;
+  position: absolute;
+  top: 1rem;
+}
+
+.au-body {
+  .metric-card__title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .metric-card__title-link {
+    background-color: lighten($AU-color-bright, 10);
+    color: $AU-color-foreground-text;
+    @include AU-space(padding, 0.2unit 0.5unit);
+    @include AU-fontgrid(xs);
+    text-decoration: none;
+    border-radius: $AU-border-radius;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

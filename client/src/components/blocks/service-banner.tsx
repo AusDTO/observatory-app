@@ -1,5 +1,4 @@
 import React from "react";
-import { AuPageAlert } from "../../types/auds";
 
 interface Props {}
 const ServiceBanner: React.FC<Props> = ({ children }) => {

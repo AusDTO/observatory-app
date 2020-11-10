@@ -35,7 +35,7 @@ export interface IAgencyIdType {
 }
 
 export interface IGetPropertyType {
-  propertyId: string;
+  property_ua_id: string;
 }
 
 export interface IGetOutputDataType {

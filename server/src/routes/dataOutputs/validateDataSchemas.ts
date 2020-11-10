@@ -51,7 +51,7 @@ export const ValidateDataOutput = async (
   }
 
   try {
-    await dataValidator.validate(output, { abortEarly: true });
+    await dataValidator.validate(output, { abortEarly: true, strict: true });
   } catch (errors) {
     return res.status(400).json({
       statusCode: 400,

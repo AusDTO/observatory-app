@@ -111,7 +111,7 @@ export const Register: React.FC<Props> = ({ history }) => {
             </p>
             <p>
               To connect your Google Analytics account to the Observatory please
-              contact us
+              contact us at observatory@dta.gov.au.
             </p>
             <p>
               Already have an account? <Link to="/login">Sign in</Link>

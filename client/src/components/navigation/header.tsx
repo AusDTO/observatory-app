@@ -4,6 +4,7 @@ import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 import { LogoutUser } from "../../graphql/LogoutUser";
 import coatOfArms from "./coat-of-arms.svg";
+import { ErrorPage } from "../../views/error/error";
 
 interface Props extends RouteComponentProps {
   isAdmin?: boolean;
@@ -20,9 +21,19 @@ const Header: React.FC<Props> = ({ isAdmin, history, logoUrl }) => {
   const [logout, { data, loading, error, client }] = useMutation<LogoutUser>(
     LOGOUT_MUTATION
   );
+  if (error) {
+    return (
+      <ErrorPage title="Server error">
+        <p>There was an error with the server</p>
+      </ErrorPage>
+    );
+  }
 
   const handleLogout = async () => {
     const result = await logout();
+    if (loading) {
+      return null;
+    }
     await client.resetStore();
     if (result.data && result.data.logout) {
       history.push("/");
@@ -57,11 +68,14 @@ const Header: React.FC<Props> = ({ isAdmin, history, logoUrl }) => {
                       Log in
                     </Link>
                     <Link to="/register" className="au-btn au-btn--bright">
-                      Get started
+                      Register
                     </Link>
                   </>
                 ) : (
-                  <Aubtn className="au-btn--bright" onClick={handleLogout}>
+                  <Aubtn
+                    className="au-btn au-btn--secondary au-btn--dark"
+                    onClick={handleLogout}
+                  >
                     Logout
                   </Aubtn>
                 )}

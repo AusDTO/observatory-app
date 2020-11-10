@@ -1,6 +1,6 @@
 # Observatory-service
 
-Repoistory for the Beta of the analytics reporting tool.
+Repoistory for the Alpha of the analytics reporting tool.
 
 ### Contents
 

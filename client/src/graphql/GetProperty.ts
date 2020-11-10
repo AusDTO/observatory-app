@@ -38,15 +38,12 @@ export interface GetProperty_getProperty_Property {
   agency: GetProperty_getProperty_Property_agency | null;
 }
 
-export type GetProperty_getProperty =
-  | GetProperty_getProperty_FieldErrors
-  | GetProperty_getProperty_Error
-  | GetProperty_getProperty_Property;
+export type GetProperty_getProperty = GetProperty_getProperty_FieldErrors | GetProperty_getProperty_Error | GetProperty_getProperty_Property;
 
 export interface GetProperty {
   getProperty: GetProperty_getProperty;
 }
 
 export interface GetPropertyVariables {
-  propertyId: string;
+  property_ua_id: string;
 }

@@ -3,13 +3,14 @@ import { Agency } from "../../entity/Agency";
 import { Property } from "../../entity/Property";
 import { ua_id_schema } from "../../util/yup";
 
-
 export const propertyField = yup.object().shape({
   ua_id: ua_id_schema.required().test({
     name: "Check dupe property",
     message: "Property already exists",
     test: async function (this, value) {
-      const propertyExists = await Property.findOne({ ua_id: value });
+      const propertyExists = await Property.findOne({
+        ua_id: value.toLowerCase(),
+      });
 
       return propertyExists === undefined
         ? true

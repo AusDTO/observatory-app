@@ -16,6 +16,7 @@
     "@gov.au/form": "latest",
     "@gov.au/header": "latest",
     "@gov.au/headings": "^2.0.11",
+    "@gov.au/inpage-nav": "^3.0.6",
     "@gov.au/link-list": "latest",
     "@gov.au/page-alerts": "latest",
     "@gov.au/progress-indicator": "latest",
@@ -23,37 +24,46 @@
     "@gov.au/searchbox": "latest",
     "@gov.au/select": "latest",
     "@gov.au/skip-link": "latest",
+    "@gov.au/table": "^0.2.0",
     "@gov.au/tags": "^4.0.0",
     "@gov.au/text-inputs": "latest",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/jest": "^24.9.1",
+    "@types/lodash": "^4.14.162",
     "@types/node": "^12.12.54",
     "@types/react": "^16.9.44",
     "@types/react-dom": "^16.9.8",
+    "@types/recharts": "^1.8.16",
     "@types/yup": "^0.29.4",
-    "apollo": "^2.30.2",
+    "apollo": "^2.31.0",
     "formik": "^2.1.5",
     "graphql": "^15.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet-async": "^1.0.6",
+    "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^4.0.0",
+    "react-table": "^7.6.0",
+    "recharts": "^1.8.5",
     "typescript": "^3.7.5",
     "yup": "^0.29.3"
   },
   "scripts": {
     "watch": "REACT_APP_ENVIRONMENT=development react-scripts start",
     "build": "CI=false REACT_APP_ENVIRONMENT=production react-scripts build && . ./build.sh",
-    "codegen": "apollo codegen:generate --target typescript --excludes=node_modules/* --includes=**/*.tsx --endpoint http://localhost:4000/graphql --tagName=gql --outputFlat ./src/graphql",
+    "codegen": "apollo codegen:generate --target typescript --excludes=node_modules/* --includes=**/*.tsx --endpoint http://localhost:4000/graphql --tagName=gql --outputFlat ./src/graphql && rm -rf ./src/graphql/globalTypes.ts",
     "eject": "react-scripts eject",
     "pancake": "pancake"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
+  "eslintIgnore": [
+    "src/auds/**"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
@@ -108,6 +118,7 @@
   },
   "devDependencies": {
     "@types/react-helmet-async": "^1.0.3",
-    "@types/react-router-dom": "^5.1.5"
+    "@types/react-router-dom": "^5.1.5",
+    "@types/react-table": "^7.0.24"
   }
 }
