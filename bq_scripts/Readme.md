@@ -10,7 +10,7 @@
 The scripts in [Airflow folder](https://github.com/AusDTO/observatory-service/tree/site-snapshot-bq-scripts/bq_scripts/airflow) are ready for production
 The test folder has scripts for code testing and output data quality check purpose.
 
-The BigQuery scripts are developed and organised to deliver output tables in Google BigQuery by weekly, daily and hourly, optimising the data processing.
+The BigQuery scripts are developed and organised to deliver output tables in Google BigQuery by weekly, daily and hourly, optimising the data processing producing cost-effective solution.
 
 The python code is splitted into new and update script for updating the prototype backend RDS
 
