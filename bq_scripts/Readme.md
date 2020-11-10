@@ -28,3 +28,15 @@ The data pipeline scripts comprises of three modules
 3. Airflow DAG schedule
    - tasks run on daily schedule at 6am Sydney/Australia time
    - Airflow DAG tasks for scheduling the data flow
+   
+
+### Environment variable
+
+Add a `.env` in the root directory for Google Cloud credential. Also, the Google Cloud and Airflow credentials keys to be setup in Airflow environment.
+
+```
+USERNAME= 
+PASSWORD=
+AIRFLOW_BUCKET=
+GCP_PROJECT=
+```
