@@ -35,17 +35,21 @@ export const LineChartVis: React.FC<Props> = ({ data, xKey, yKey }) => {
         <YAxis
           domain={[
             (dataMin) => {
-              if (dataMin.toString().length >= 4 || dataMin > 500) {
+              if (dataMin > 999) {
                 return Math.floor(dataMin / 1000) * 1000;
+              } else if (dataMin < 999 && dataMin > 499) {
+                return Math.floor(dataMin / 500) * 500;
               } else {
-                return Math.floor(dataMin / 100) * 100;
+                return Math.floor(dataMin / 50) * 50;
               }
             },
             (dataMax) => {
-              if (dataMax.toString().length >= 4 || dataMax > 500) {
-                return Math.ceil(dataMax / 1000) * 1000;
-              } else {
+              if (dataMax > 999) {
+                return Math.ceil(dataMax / 500) * 500;
+              } else if (dataMax < 999 && dataMax > 99) {
                 return Math.ceil(dataMax / 100) * 100;
+              } else {
+                return Math.ceil(dataMax / 10) * 10;
               }
             },
           ]}

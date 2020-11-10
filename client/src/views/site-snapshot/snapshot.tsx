@@ -168,7 +168,7 @@ const SnapshotLanding: React.FC<Props> = ({
                                 target="blank"
                                 rel="noopener noreferrer"
                               >
-                                {shortenString(value, 20)}
+                                {shortenString(value, 25)}
                               </a>
                             );
                           },
@@ -251,7 +251,7 @@ const SnapshotLanding: React.FC<Props> = ({
                                 target="blank"
                                 rel="noopener noreferrer"
                               >
-                                {shortenString(value, 20)}
+                                {shortenString(value, 25)}
                               </a>
                             );
                           },
