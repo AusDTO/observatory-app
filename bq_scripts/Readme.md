@@ -14,6 +14,9 @@ The test folder has scripts for code testing and output data quality check purpo
 
 The data pipeline scripts comprises of three modules
 1. BigQuery scripts
+  a_ weekly slice
+  b_ daily slice
+  c_ hourly slice
 2. Python data transformation
 3. Airflow DAG schedule
 
