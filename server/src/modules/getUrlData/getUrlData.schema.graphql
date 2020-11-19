@@ -1,0 +1,9 @@
+type Query {
+  getDataFromUrl(property_ua_id: String!, url: String!): GetDataUrlResult
+}
+
+type Message {
+  message: String!
+}
+
+union GetDataUrlResult = FieldErrors | Message
