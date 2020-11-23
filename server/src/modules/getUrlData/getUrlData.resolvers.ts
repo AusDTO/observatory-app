@@ -4,12 +4,24 @@ import { IGetDataFromUrlType, IGetPropertyType } from "../../types/schema";
 import * as yup from "yup";
 import { formatYupError } from "../../util/formatYupError";
 import { basicApiErrorMessage } from "../../util/constants";
-import { User } from "../../entity/User";
 import { ua_id_schema } from "../../util/yup";
+import { BigQuery } from "@google-cloud/bigquery";
+require("dotenv").config();
+
+const bigQuery = new BigQuery({
+  credentials: {
+    client_email: process.env.BIGQUERY_EMAIL,
+    private_key: (process.env.BIGQUERY_PRIVATE_KEY as string).replace(
+      /\\n/gm,
+      "\n"
+    ),
+  },
+  projectId: "dta-ga-bigquery",
+});
 
 const validationSchema = yup.object().shape({
   property_ua_id: ua_id_schema,
-  url: yup.string().url()
+  url: yup.string(),
 });
 
 export const resolvers: ResolverMap = {
@@ -28,11 +40,30 @@ export const resolvers: ResolverMap = {
         };
       }
 
+      const { url, property_ua_id } = args;
+
+      const query = `SELECT hostname,
+      pagePath,
+      pageviews_weekly
+    FROM \`dta_customers.sample_kp2_dta\`
+    WHERE pagePath='${url}'
+    LIMIT 100`;
+
+      const [job] = await bigQuery.createQueryJob({ query });
+      console.log(`Job ${job.id} started.`);
+
+      // Wait for the query to finish
+      const [rows] = await job.getQueryResults();
+
+      if (rows.length < 1) {
+        return basicApiErrorMessage("No data found", "data");
+      }
+      console.log(rows);
 
       return {
-       __typename: "Message",   
-        message: "Hello"
-      }
+        __typename: "Message",
+        message: "Hello",
+      };
     },
   },
 };

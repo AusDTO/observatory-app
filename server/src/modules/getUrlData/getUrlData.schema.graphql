@@ -6,4 +6,4 @@ type Message {
   message: String!
 }
 
-union GetDataUrlResult = FieldErrors | Message
+union GetDataUrlResult = FieldErrors | Message | Error
