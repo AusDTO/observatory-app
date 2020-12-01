@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 
 import { Aubtn, AuFormGroup } from "../../types/auds";
 import SEO from "../seo";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import PageAlert from "../../components/blocks/page-alert";
 import { formatApiError } from "../../components/util/formatError";
@@ -38,28 +38,6 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
   });
 
   const [isSaving, setSaving] = useState<boolean>(false);
-  const FORGOT_PASSWORD_SCHEMA = gql`
-    mutation SendPasswordResetEmail($email: String) {
-      sendForgotPasswordEmail(email: $email) {
-        __typename
-        ... on FieldErrors {
-          errors {
-            path
-            message
-          }
-        }
-
-        ... on Error {
-          path
-          message
-        }
-
-        ... on Success {
-          message
-        }
-      }
-    }
-  `;
 
   const [
     sendForgotPasswordEmail,

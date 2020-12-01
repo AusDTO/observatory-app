@@ -21,7 +21,6 @@ export const FORGOT_PASSWORD_SCHEMA = gql`
   mutation SendPasswordResetEmail($email: String) {
     sendForgotPasswordEmail(email: $email) {
       __typename
-
       ... on FieldErrors {
         errors {
           path
@@ -33,6 +32,7 @@ export const FORGOT_PASSWORD_SCHEMA = gql`
         path
         message
       }
+
       ... on Success {
         message
       }

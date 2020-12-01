@@ -4,8 +4,9 @@ import { AuCard, AuCardInner, AuCardTitle } from "../../types/auds";
 interface Props {
   level: "1" | "2" | "3" | "4";
   title: string;
+  metric: string | React.ReactElement;
+  metricAlignment?: boolean;
   className?: string;
-  metric: string;
   link?: string;
   linkText?: string;
   defLink?: string; //FIX the def link should probs be a type
@@ -19,8 +20,13 @@ const MetricCard: React.FC<Props> = ({
   linkText,
   defLink,
   defLinkId,
+  metricAlignment = false,
   className,
 }) => {
+  const metricStyle = {
+    alignItems: metricAlignment ? "flex-start" : "flex-end",
+  };
+
   return (
     <AuCard className="metric-card">
       <AuCardInner>
@@ -47,19 +53,8 @@ const MetricCard: React.FC<Props> = ({
               </a>
             </div>
           )}
-          <div className="metric-card__desc">
-            <span className="metric">{metric}</span>
-            {/* <span className="percentage">
-              {Math.floor(Math.random() * 2) === 1 ? (
-                <span aria-label="Up" className="up">
-                  &#8599;{Math.floor(Math.random() * 50)}%
-                </span>
-              ) : (
-                <span aria-label="Down" className="down">
-                  &#8600;{Math.floor(Math.random() * 50)}%
-                </span>
-              )}
-            </span> */}
+          <div className="metric-card__desc" style={metricStyle}>
+            <div className="metric">{metric}</div>
           </div>
         </div>
       </AuCardInner>

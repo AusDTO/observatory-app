@@ -21,12 +21,16 @@ const bigQuery = new BigQuery({
 
 const validationSchema = yup.object().shape({
   property_ua_id: ua_id_schema,
-  url: yup.string(),
+  url: yup.string().url(),
 });
 
 export const resolvers: ResolverMap = {
   Query: {
-    getDataFromUrl: async (_, args: IGetDataFromUrlType, { session }) => {
+    getDataFromUrl: async (
+      _,
+      args: IGetDataFromUrlType,
+      { session, redis_client }
+    ) => {
       //use session data
 
       try {
@@ -42,23 +46,41 @@ export const resolvers: ResolverMap = {
 
       const { url, property_ua_id } = args;
 
-      const query = `SELECT hostname,
-      pagePath,
-      pageviews_weekly
-    FROM \`dta_customers.sample_kp2_dta\`
-    WHERE pagePath='${url}'
-    LIMIT 100`;
+      const urlTrimmed = url.replace(/(^\w+:|^)\/\//, "");
 
-      const [job] = await bigQuery.createQueryJob({ query });
-      console.log(`Job ${job.id} started.`);
+      const isCached = await redis_client.get(`urldata:${urlTrimmed}`);
 
-      // Wait for the query to finish
-      const [rows] = await job.getQueryResults();
+      if (isCached) {
+        console.log("fetching from cache");
+        console.log(isCached ? JSON.parse(isCached) : "not cached");
+      } else {
+        const query = `SELECT hostname,
+        pagePath,
+        pageviews_weekly
+      FROM \`dta_customers.sample_kp2_dta\`
+      WHERE pagePath='${urlTrimmed}'
+      LIMIT 100`;
+        // console.log("doing here");
 
-      if (rows.length < 1) {
-        return basicApiErrorMessage("No data found", "data");
+        const [job] = await bigQuery.createQueryJob({ query });
+        console.log(`Job ${job.id} started.`);
+
+        // Wait for the query to finish
+        const [rows] = await job.getQueryResults();
+        await redis_client.set(
+          `urldata:${urlTrimmed}`,
+          JSON.stringify(rows),
+          "ex",
+          60
+        );
+
+        if (rows.length < 1) {
+          return basicApiErrorMessage("No data found", "data");
+        }
+        console.log("rows");
       }
-      console.log(rows);
+
+      // console.log(rows);
 
       return {
         __typename: "Message",
