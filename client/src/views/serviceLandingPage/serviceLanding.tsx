@@ -61,9 +61,13 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
                 Metrics
               </Aubtn>
             </div> */}
+            {console.log(property.domain)}
 
             {questionView ? (
-              <ServiceQuestions propertyUaId={property.ua_id} />
+              <ServiceQuestions
+                propertyUaId={property.ua_id}
+                domain={property.domain}
+              />
             ) : (
               <MetricsView />
             )}

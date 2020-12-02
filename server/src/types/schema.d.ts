@@ -40,7 +40,8 @@ export interface IGetPropertyType {
 
 export interface IGetDataFromUrlType {
   property_ua_id: string;
-  url: string
+  url: string;
+  dateType: string;
 }
 
 export interface IGetOutputDataType {

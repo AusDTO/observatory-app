@@ -9,10 +9,20 @@ import AdminLayout from "../../components/layouts/AdminLayout";
 import { engagementFormSchema } from "../../controller/engagementController/schema";
 import { Aubtn, AuFormGroup } from "../../types/auds";
 import SEO from "../seo";
+import Loader from "react-loader-spinner";
+import { UrlData_getDataFromUrl_UrlDataResult } from "../../graphql/UrlData";
 
-interface Props extends RouteComponentProps {}
+interface Props extends RouteComponentProps {
+  isLoading: boolean;
+  urlData?: UrlData_getDataFromUrl_UrlDataResult;
+}
 
-const EngagementView: React.FC<Props> = ({ history, location }) => {
+const EngagementView: React.FC<Props> = ({
+  history,
+  location,
+  isLoading,
+  urlData,
+}) => {
   return (
     <AdminLayout>
       <>
@@ -75,38 +85,68 @@ const EngagementView: React.FC<Props> = ({ history, location }) => {
             )}
           </Formik>
 
-          <h2>How long do users spend on this page?</h2>
-          <div className="row mt-1">
-            <div className="col-md-4 col-sm-6 col-xs-12">
-              <MetricCard level="3" title="Average time on page" metric="33s" />
-            </div>
-          </div>
-          <h2>Are users coming back to this page?</h2>
-          <div className="row mt-1">
-            <div className="col-md-4 col-sm-6 col-xs-12">
-              <MetricCard level="3" title="Returning users" metric="33s" />
-            </div>
-            <div className="col-md-4 col-sm-6 col-xs-12">
-              <MetricCard
-                level="3"
-                title="Ratio of page demand"
-                metric={<p>hello</p>}
-              />
-            </div>
-          </div>
-          <h2>How are users getting to this page?</h2>
-          <div className="row mt-1">
-            <div className="col-md-4 col-sm-6 col-xs-12">
-              <MetricCard level="3" title="Traffic sources" metric="33s" />
-            </div>
-            <div className="col-md-4 col-sm-6 col-xs-12">
-              <MetricCard
-                level="3"
-                title="Device types"
-                metric={<p>hello</p>}
-              />
-            </div>
-          </div>
+          {isLoading ? (
+            <Loader
+              type="Puff"
+              color="#00BFFF"
+              height={100}
+              width={100}
+              timeout={3000} //3 secs
+            />
+          ) : urlData ? (
+            <>
+              <h2>How long do users spend on this page?</h2>
+              <div className="row mt-1">
+                <div className="col-md-4 col-sm-6 col-xs-12">
+                  <MetricCard
+                    level="3"
+                    title="Average time on page"
+                    metric="33s"
+                  />
+                </div>
+                <div className="col-md-4 col-sm-6 col-xs-12">
+                  <MetricCard
+                    level="3"
+                    title="Average time on page"
+                    leftAlignMetric={true}
+                    metric={
+                      <>
+                        <Link to="/metrics/time-on-page">Time on page</Link>
+                      </>
+                    }
+                  />
+                </div>
+              </div>
+              <h2>Are users coming back to this page?</h2>
+              <div className="row mt-1">
+                <div className="col-md-4 col-sm-6 col-xs-12">
+                  <MetricCard level="3" title="Returning users" metric="33s" />
+                </div>
+                <div className="col-md-4 col-sm-6 col-xs-12">
+                  <MetricCard
+                    level="3"
+                    title="Ratio of page demand"
+                    metric={<p>hello</p>}
+                  />
+                </div>
+              </div>
+              <h2>How are users getting to this page?</h2>
+              <div className="row mt-1">
+                <div className="col-md-4 col-sm-6 col-xs-12">
+                  <MetricCard level="3" title="Traffic sources" metric="33s" />
+                </div>
+                <div className="col-md-4 col-sm-6 col-xs-12">
+                  <MetricCard
+                    level="3"
+                    title="Device types"
+                    metric={<p>hello</p>}
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </>
     </AdminLayout>

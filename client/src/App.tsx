@@ -72,7 +72,7 @@ const App = (props: any) => {
           exact
           component={ResendConfirmationEmail}
         />
-        <ProtectedRoute path="/metric/timeonpage" component={TimeOnPage} />
+        <ProtectedRoute path="/metrics/time-on-page" component={TimeOnPage} />
 
         <Route path="/" render={() => <div>404</div>} />
       </Switch>

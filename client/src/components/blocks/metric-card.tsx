@@ -1,11 +1,12 @@
 import React from "react";
+import { JsxElement } from "typescript";
 import { AuCard, AuCardInner, AuCardTitle } from "../../types/auds";
 
 interface Props {
   level: "1" | "2" | "3" | "4";
   title: string;
-  metric: string | React.ReactElement;
-  metricAlignment?: boolean;
+  metric: string | JSX.Element;
+  leftAlignMetric?: boolean;
   className?: string;
   link?: string;
   linkText?: string;
@@ -20,11 +21,11 @@ const MetricCard: React.FC<Props> = ({
   linkText,
   defLink,
   defLinkId,
-  metricAlignment = false,
+  leftAlignMetric = false,
   className,
 }) => {
   const metricStyle = {
-    alignItems: metricAlignment ? "flex-start" : "flex-end",
+    alignItems: leftAlignMetric ? "flex-start" : "flex-end",
   };
 
   return (

@@ -1,7 +1,16 @@
+import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 
 import { RouteComponentProps } from "react-router-dom";
+import {
+  UrlData,
+  UrlDataVariables,
+  UrlData_getDataFromUrl_UrlDataResult,
+  UrlData_getProperty,
+} from "../../graphql/UrlData";
 import EngagementView from "../../views/urlEngagement/engagementView";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 interface Props extends RouteComponentProps<{ ua_id: string }> {} // key
 
 export const EngagementUrlController: (arg0: Props) => any = ({
@@ -13,8 +22,67 @@ export const EngagementUrlController: (arg0: Props) => any = ({
 
   let params = new URLSearchParams(location.search);
   const timePeriod = params.get("timePeriod");
-  const url = params.get("url");
-  console.log(url);
+  const urlParam = params.get("url");
+  const GET_URL_DATA = gql`
+    query UrlData($property_ua_id: String!, $url: String!, $dateType: String!) {
+      getDataFromUrl(
+        property_ua_id: $property_ua_id
+        url: $url
+        dateType: $dateType
+      ) {
+        __typename
+        ... on FieldErrors {
+          errors {
+            message
+            path
+          }
+        }
+        ... on InvalidProperty {
+          message
+        }
+        ... on Message {
+          message
+        }
+        ... on Error {
+          message
+        }
+        ... on UrlDataResult {
+          output {
+            date
+            desktop
+            time_on_page
+          }
+        }
+      }
+    }
+  `;
 
-  return <EngagementView />;
+  const { loading, data, error } = useQuery<UrlData, UrlDataVariables>(
+    GET_URL_DATA,
+    {
+      variables: {
+        property_ua_id: ua_id,
+        url: urlParam as string,
+        dateType: timePeriod as string,
+      },
+    }
+  );
+
+  let urlData;
+
+  if (loading) {
+    console.log("loading...");
+    return <EngagementView isLoading={true} />;
+  }
+  if (data) {
+    const apiResult = data.getDataFromUrl;
+
+    const { __typename } = apiResult;
+    switch (__typename) {
+      case "UrlDataResult":
+        const data = apiResult as UrlData_getDataFromUrl_UrlDataResult;
+        return <EngagementView urlData={data} isLoading={false} />;
+    }
+    return <EngagementView isLoading={false} />;
+  }
 };

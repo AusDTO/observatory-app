@@ -3,9 +3,11 @@ import { Property } from "../../entity/Property";
 import { IGetDataFromUrlType, IGetPropertyType } from "../../types/schema";
 import * as yup from "yup";
 import { formatYupError } from "../../util/formatYupError";
-import { basicApiErrorMessage } from "../../util/constants";
+import { basicApiErrorMessage, basicApiMessage } from "../../util/constants";
 import { ua_id_schema } from "../../util/yup";
-import { BigQuery } from "@google-cloud/bigquery";
+import { BigQuery, JobResponse } from "@google-cloud/bigquery";
+import { User } from "../../entity/User";
+import { validateDataRequest } from "../../util/middleware/validateDataRequest";
 require("dotenv").config();
 
 const bigQuery = new BigQuery({
@@ -22,6 +24,7 @@ const bigQuery = new BigQuery({
 const validationSchema = yup.object().shape({
   property_ua_id: ua_id_schema,
   url: yup.string().url(),
+  dateType: yup.string().oneOf(["weekly", "daily"]),
 });
 
 export const resolvers: ResolverMap = {
@@ -32,6 +35,7 @@ export const resolvers: ResolverMap = {
       { session, redis_client }
     ) => {
       //use session data
+      const { url, property_ua_id, dateType } = args;
 
       try {
         await validationSchema.validate(args, {
@@ -44,48 +48,60 @@ export const resolvers: ResolverMap = {
         };
       }
 
-      const { url, property_ua_id } = args;
+      const { userId, agencyId } = session;
 
-      const urlTrimmed = url.replace(/(^\w+:|^)\/\//, "");
+      await validateDataRequest(userId, property_ua_id, agencyId);
 
-      const isCached = await redis_client.get(`urldata:${urlTrimmed}`);
+      const urlTrimmed = url.replace(/(^\w+:|^)\/\//, "").toLowerCase();
+      const uaid = property_ua_id.toLowerCase().replace(/-/g, "_");
 
-      if (isCached) {
+      const dataCache = await redis_client.get(
+        `urldata:${dateType}:${urlTrimmed}`
+      );
+
+      if (dataCache) {
         console.log("fetching from cache");
-        console.log(isCached ? JSON.parse(isCached) : "not cached");
+
+        const data = JSON.parse(dataCache);
+
+        return {
+          __typename: "UrlDataResult",
+          output: data,
+        };
       } else {
-        const query = `SELECT hostname,
-        pagePath,
-        pageviews_weekly
-      FROM \`dta_customers.sample_kp2_dta\`
-      WHERE pagePath='${urlTrimmed}'
+        const query = `SELECT *,
+      FROM \`dta_customers.${uaid}_urlpage_usage_${dateType}\`
+      WHERE page_url='${urlTrimmed}'
       LIMIT 100`;
         // console.log("doing here");
+        console.log("executing job");
+        try {
+          const [job] = await bigQuery.createQueryJob({
+            query,
+          });
+          console.log(`Job ${job.id} started.`);
 
-        const [job] = await bigQuery.createQueryJob({ query });
-        console.log(`Job ${job.id} started.`);
+          const [rows] = await job.getQueryResults();
+          if (rows.length < 1) {
+            return basicApiErrorMessage("No data found", "data");
+          }
 
-        // Wait for the query to finish
-        const [rows] = await job.getQueryResults();
-        await redis_client.set(
-          `urldata:${urlTrimmed}`,
-          JSON.stringify(rows),
-          "ex",
-          60
-        );
+          await redis_client.set(
+            `urldata:${dateType}:${urlTrimmed}`,
+            JSON.stringify(rows),
+            "ex",
+            60
+          );
 
-        if (rows.length < 1) {
-          return basicApiErrorMessage("No data found", "data");
+          return {
+            __typename: "UrlDataResult",
+            output: rows,
+          };
+        } catch (err) {
+          console.error(err.errors);
+          return basicApiErrorMessage(err.errors[0].message, "table");
         }
-        console.log("rows");
       }
-
-      // console.log(rows);
-
-      return {
-        __typename: "Message",
-        message: "Hello",
-      };
     },
   },
 };

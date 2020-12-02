@@ -1,9 +1,37 @@
 type Query {
-  getDataFromUrl(property_ua_id: String!, url: String!): GetDataUrlResult
+  getDataFromUrl(
+    property_ua_id: String!
+    url: String!
+    dateType: String!
+  ): GetDataUrlResult!
 }
 
 type Message {
   message: String!
 }
 
-union GetDataUrlResult = FieldErrors | Message | Error
+type UrlDataResult {
+  output: [UrlData!]!
+}
+
+type UrlData {
+  date: String!
+  page_url: String!
+  organic: String!
+  referral: String!
+  other: String!
+  mobile: String!
+  desktop: String!
+  tablet: String!
+  time_on_page: String!
+  new_users: String!
+  returning_users: String!
+  ratio: String!
+}
+
+union GetDataUrlResult =
+    FieldErrors
+  | Message
+  | Error
+  | InvalidProperty
+  | UrlDataResult
