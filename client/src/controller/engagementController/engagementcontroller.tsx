@@ -8,8 +8,8 @@ import {
   UrlData_getDataFromUrl_UrlDataResult,
   UrlData_getProperty,
 } from "../../graphql/UrlData";
-import EngagementView from "../../views/urlEngagement/engagementView";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import EngagementView from "../../views/urlEngagement/engagementView";
 
 interface Props extends RouteComponentProps<{ ua_id: string }> {} // key
 
@@ -22,7 +22,7 @@ export const EngagementUrlController: (arg0: Props) => any = ({
 
   let params = new URLSearchParams(location.search);
   const timePeriod = params.get("timePeriod");
-  const urlParam = params.get("url");
+  const urlParam = params.get("url") as string;
   const GET_URL_DATA = gql`
     query UrlData($property_ua_id: String!, $url: String!, $dateType: String!) {
       getDataFromUrl(
@@ -62,7 +62,7 @@ export const EngagementUrlController: (arg0: Props) => any = ({
     {
       variables: {
         property_ua_id: ua_id,
-        url: urlParam as string,
+        url: urlParam,
         dateType: timePeriod as string,
       },
     }
@@ -71,18 +71,24 @@ export const EngagementUrlController: (arg0: Props) => any = ({
   let urlData;
 
   if (loading) {
-    console.log("loading...");
     return <EngagementView isLoading={true} />;
   }
-  if (data) {
+
+  if (data && data.getDataFromUrl) {
     const apiResult = data.getDataFromUrl;
 
     const { __typename } = apiResult;
     switch (__typename) {
       case "UrlDataResult":
         const data = apiResult as UrlData_getDataFromUrl_UrlDataResult;
-        return <EngagementView urlData={data} isLoading={false} />;
+        return (
+          <EngagementView
+            urlData={data}
+            isLoading={false}
+            initialUrl={urlParam}
+          />
+        );
     }
-    return <EngagementView isLoading={false} />;
+    return <EngagementView isLoading={false} initialUrl={urlParam} />;
   }
 };

@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 
 import { RouteComponentProps, Link, withRouter } from "react-router-dom";
 import MetricCard from "../../components/blocks/metric-card";
@@ -11,18 +11,28 @@ import { Aubtn, AuFormGroup } from "../../types/auds";
 import SEO from "../seo";
 import Loader from "react-loader-spinner";
 import { UrlData_getDataFromUrl_UrlDataResult } from "../../graphql/UrlData";
+import { initial } from "lodash";
 
 interface Props extends RouteComponentProps {
   isLoading: boolean;
   urlData?: UrlData_getDataFromUrl_UrlDataResult;
+  initialUrl?: string;
 }
 
 const EngagementView: React.FC<Props> = ({
   history,
   location,
   isLoading,
+  initialUrl,
   urlData,
 }) => {
+  const [url, updateUrl] = useState<string>("hello");
+
+  const initialValues = {
+    url: initialUrl || "",
+    timePeriod: "",
+  };
+
   return (
     <AdminLayout>
       <>
@@ -30,9 +40,8 @@ const EngagementView: React.FC<Props> = ({
 
         <div className="container-fluid au-body">
           <h1>Engagement</h1>
-
           <Formik
-            initialValues={{ url: "", timePeriod: "" }}
+            initialValues={initialValues}
             validateOnBlur
             validateOnChange
             validationSchema={engagementFormSchema}
@@ -43,6 +52,7 @@ const EngagementView: React.FC<Props> = ({
               history.push(
                 `${window.location.pathname}?timePeriod=${data.timePeriod}&url=${data.url}`
               );
+              updateUrl(data.url);
               // console.log(data);
               setSubmitting(false);
             }}
@@ -101,7 +111,7 @@ const EngagementView: React.FC<Props> = ({
                   <MetricCard
                     level="3"
                     title="Average time on page"
-                    metric="33s"
+                    metric={urlData.output[0].time_on_page}
                   />
                 </div>
                 <div className="col-md-4 col-sm-6 col-xs-12">

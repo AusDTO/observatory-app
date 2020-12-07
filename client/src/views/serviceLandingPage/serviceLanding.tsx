@@ -6,7 +6,6 @@ import { GetProperty_getProperty_Property } from "../../graphql/GetProperty";
 
 import ServiceBanner from "../../components/blocks/service-banner";
 import { Link } from "react-router-dom";
-import { AuDirectionLink, Aubtn } from "../../types/auds";
 import { ServiceQuestions } from "./cardlistQuestions";
 import AskQuestionBlock from "../../components/blocks/leaveFeedback/ask-question";
 import questionImage from "./ask.png";
@@ -41,28 +40,6 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
         </ServiceBanner>
         <div className="au-body au-body--alt">
           <div className="container-fluid">
-            {/* <div role="tablist">
-              <Aubtn
-                className="border-right-0"
-                as={questionView ? "primary" : "secondary"}
-                onClick={handleViewChange}
-                role="tab"
-                aria-selected={questionView}
-              >
-                Questions
-              </Aubtn>
-              <Aubtn
-                as={questionView ? "secondary" : "primary"}
-                className="border-left-0"
-                onClick={handleViewChange}
-                role="tab"
-                aria-selected={!questionView}
-              >
-                Metrics
-              </Aubtn>
-            </div> */}
-            {console.log(property.domain)}
-
             {questionView ? (
               <ServiceQuestions
                 propertyUaId={property.ua_id}
