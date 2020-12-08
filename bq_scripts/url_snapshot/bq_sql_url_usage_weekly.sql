@@ -25,7 +25,7 @@ Begin
           newUsers,
           returningUsers,
           total_users,
-          round(returningUsers/total_users,1) as ratio,
+          round(returningUsers/total_users,2) as ratio,
           FORMAT_DATE('%F',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) as week_start,
           FORMAT_DATE('%F',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as week_end
         from
@@ -279,7 +279,7 @@ Begin
           newUsers,
           returningUsers,
           total_users,
-          round(returningUsers/total_users,1) as ratio,
+          round(returningUsers/total_users,2) as ratio,
           FORMAT_DATE('%F',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) as week_start,
           FORMAT_DATE('%F',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as week_end
         from
@@ -532,7 +532,7 @@ Begin
           newUsers,
           returningUsers,
           total_users,
-          round(returningUsers/total_users,1) as ratio,
+          round(returningUsers/total_users,2) as ratio,
           FORMAT_DATE('%F',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) as week_start,
           FORMAT_DATE('%F',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as week_end
         from
@@ -786,7 +786,7 @@ Begin
           newUsers,
           returningUsers,
           total_users,
-          round(returningUsers/total_users,1) as ratio,
+          round(returningUsers/total_users,2) as ratio,
           FORMAT_DATE('%F',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) as week_start,
           FORMAT_DATE('%F',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as week_end
         from
@@ -829,7 +829,7 @@ Begin
         ; 	
 
 
-       create temp table t_urlsnap_prototype_weekly_2
+      create temp table t_urlsnap_prototype_weekly_2
       as
        select
           reg_domain,
