@@ -1,36 +1,41 @@
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
-
-import { RouteComponentProps, Link, withRouter } from "react-router-dom";
+import React from "react";
+import Loader from "react-loader-spinner";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import MetricCard from "../../components/blocks/metric-card";
+import PageAlert from "../../components/blocks/page-alert";
+import { Table } from "../../components/blocks/table/table";
 import RadioGroup from "../../components/form/RadioGroup";
 import TextField from "../../components/form/TextField";
 import AdminLayout from "../../components/layouts/AdminLayout";
+import { secondsToMinutes } from "../../components/util/numberUtils";
 import { engagementFormSchema } from "../../controller/engagementController/schema";
-import { Aubtn, AuFormGroup } from "../../types/auds";
-import SEO from "../seo";
-import Loader from "react-loader-spinner";
 import { UrlData_getDataFromUrl_UrlDataResult } from "../../graphql/UrlData";
-import { initial } from "lodash";
+import { Aubtn, AuCard, AuCardInner, AuFormGroup } from "../../types/auds";
+import SEO from "../seo";
+import { TimeOnPageCardContent } from "./timeOnPageCard";
 
 interface Props extends RouteComponentProps {
   isLoading: boolean;
   urlData?: UrlData_getDataFromUrl_UrlDataResult;
   initialUrl?: string;
+  timePeriod?: string;
+  errorMessage?: string;
 }
 
 const EngagementView: React.FC<Props> = ({
   history,
-  location,
   isLoading,
   initialUrl,
+  timePeriod,
   urlData,
+  errorMessage,
 }) => {
-  const [url, updateUrl] = useState<string>("hello");
+  // const [url, updateUrl] = useState<string>("hello");
 
   const initialValues = {
     url: initialUrl || "",
-    timePeriod: "",
+    timePeriod: timePeriod || "",
   };
 
   return (
@@ -40,6 +45,15 @@ const EngagementView: React.FC<Props> = ({
 
         <div className="container-fluid au-body">
           <h1>Engagement</h1>
+
+          {errorMessage && (
+            <PageAlert type="error" className="max-42">
+              <>
+                <h3>There was an error</h3>
+                <p>{errorMessage}</p>
+              </>
+            </PageAlert>
+          )}
           <Formik
             initialValues={initialValues}
             validateOnBlur
@@ -52,12 +66,11 @@ const EngagementView: React.FC<Props> = ({
               history.push(
                 `${window.location.pathname}?timePeriod=${data.timePeriod}&url=${data.url}`
               );
-              updateUrl(data.url);
               // console.log(data);
               setSubmitting(false);
             }}
           >
-            {({ isSubmitting, values, errors, handleSubmit }) => (
+            {({ isSubmitting }) => (
               <Form>
                 <AuFormGroup>
                   <TextField
@@ -65,6 +78,7 @@ const EngagementView: React.FC<Props> = ({
                     id="url"
                     type="text"
                     className="max-42"
+                    hint="Make sure to include the protocol and www, i.e. https://www.dta.gov.au/help-and-advice"
                   />
                 </AuFormGroup>
                 <AuFormGroup>
@@ -75,17 +89,17 @@ const EngagementView: React.FC<Props> = ({
                         value: "weekly",
                         label: "Last week",
                         name: "timePeriod",
+                        defaultChecked: timePeriod === "weekly",
                       },
                       {
-                        value: "daily",
+                        value: "lastday",
                         label: "Last day",
                         name: "timePeriod",
+                        defaultChecked: timePeriod === "lastday",
                       },
                     ]}
                   ></RadioGroup>
                 </AuFormGroup>
-                {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-                <pre>{JSON.stringify(errors, null, 2)}</pre>
                 <AuFormGroup>
                   <Aubtn type="submit" disabled={isSubmitting}>
                     {isSubmitting ? "Submitting" : "Submit"}
@@ -96,14 +110,16 @@ const EngagementView: React.FC<Props> = ({
           </Formik>
 
           {isLoading ? (
-            <Loader
-              type="Puff"
-              color="#00BFFF"
-              height={100}
-              width={100}
-              timeout={3000} //3 secs
-            />
-          ) : urlData ? (
+            <div className="flex flex-jc-center mt-2">
+              <Loader
+                type="Bars"
+                color="#046b99"
+                height={150}
+                width={150}
+                timeout={5000} //3 secs
+              />
+            </div>
+          ) : urlData && urlData.output ? (
             <>
               <h2>How long do users spend on this page?</h2>
               <div className="row mt-1">
@@ -111,18 +127,18 @@ const EngagementView: React.FC<Props> = ({
                   <MetricCard
                     level="3"
                     title="Average time on page"
-                    metric={urlData.output[0].time_on_page}
+                    metric={secondsToMinutes(urlData.output[0].time_on_page)}
                   />
                 </div>
-                <div className="col-md-4 col-sm-6 col-xs-12">
+                <div className="col-md-8 col-sm-6 col-xs-12">
                   <MetricCard
                     level="3"
                     title="Average time on page"
                     leftAlignMetric={true}
-                    metric={
-                      <>
-                        <Link to="/metrics/time-on-page">Time on page</Link>
-                      </>
+                    content={
+                      <TimeOnPageCardContent
+                        timeOnPage={urlData.output[0].time_on_page}
+                      />
                     }
                   />
                 </div>
@@ -130,27 +146,67 @@ const EngagementView: React.FC<Props> = ({
               <h2>Are users coming back to this page?</h2>
               <div className="row mt-1">
                 <div className="col-md-4 col-sm-6 col-xs-12">
-                  <MetricCard level="3" title="Returning users" metric="33s" />
+                  <MetricCard
+                    level="3"
+                    title="Returning users"
+                    metric={urlData.output[0].returning_users}
+                  />
+                </div>
+                <div className="col-md-4 col-sm-6 col-xs-12">
+                  <MetricCard
+                    level="3"
+                    title="New users"
+                    metric={urlData.output[0].new_users}
+                  />
                 </div>
                 <div className="col-md-4 col-sm-6 col-xs-12">
                   <MetricCard
                     level="3"
                     title="Ratio of page demand"
-                    metric={<p>hello</p>}
+                    metric={urlData.output[0].ratio}
                   />
                 </div>
               </div>
               <h2>How are users getting to this page?</h2>
               <div className="row mt-1">
                 <div className="col-md-4 col-sm-6 col-xs-12">
-                  <MetricCard level="3" title="Traffic sources" metric="33s" />
+                  <AuCard>
+                    <AuCardInner>
+                      <Table
+                        data={urlData.output[0].source}
+                        caption="Traffic sources"
+                        columns={[
+                          {
+                            Header: "Traffic source",
+                            accessor: "source",
+                            disableSortBy: true,
+                            Cell: (props) => {
+                              return <span>{props.value}</span>;
+                            },
+                          },
+                          { Header: "Views", accessor: "views" },
+                        ]}
+                      ></Table>
+                    </AuCardInner>
+                  </AuCard>
                 </div>
                 <div className="col-md-4 col-sm-6 col-xs-12">
-                  <MetricCard
-                    level="3"
-                    title="Device types"
-                    metric={<p>hello</p>}
-                  />
+                  <AuCard>
+                    <AuCardInner>
+                      <Table
+                        data={urlData.output[0].medium}
+                        caption="Device types"
+                        columns={[
+                          {
+                            Header: "Device",
+                            accessor: "medium",
+                            disableSortBy: true,
+                          },
+                          { Header: "Views", accessor: "views" },
+                        ]}
+                      />
+                    </AuCardInner>
+                  </AuCard>
                 </div>
               </div>
             </>

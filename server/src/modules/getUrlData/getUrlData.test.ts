@@ -1,17 +1,16 @@
 import Redis from "ioredis";
-import { User } from "../../entity/User";
-import { connection } from "../../util/createConnection";
-import {
-  testUser,
-  testProperies,
-  testAgency,
-  testAgency2,
-} from "../../util/testData";
-import { TestClient } from "../../util/testClient";
+import { getConnection } from "typeorm";
 import { Agency } from "../../entity/Agency";
 import { Property } from "../../entity/Property";
-import { getConnection } from "typeorm";
-import { chain } from "lodash";
+import { User } from "../../entity/User";
+import { connection } from "../../util/createConnection";
+import { TestClient } from "../../util/testClient";
+import {
+  testAgency,
+  testAgency2,
+  testProperies,
+  testUser,
+} from "../../util/testData";
 
 const { email, password, name, role, emailHost } = testUser;
 
@@ -181,7 +180,7 @@ describe("Test caching", () => {
     expect(__typename).toEqual("UrlDataResult");
     expect(output).toHaveLength(1);
     const cached = (await redis_client.get(
-      `urldata:weekly:${urlTrimmed}`
+      `urldata:weekly:${urlTrimmed}:${ua_id}`
     )) as string;
     const redis_output = JSON.parse(cached);
 
@@ -199,11 +198,11 @@ describe("Test caching", () => {
     const urlTrimmed = falsePath.replace(/(^\w+:|^)\/\//, "").toLowerCase();
 
     const cached = (await redis_client.get(
-      `urldata:weekly:${urlTrimmed}`
+      `urldata:weekly:${urlTrimmed}:${ua_id}`
     )) as string;
     const redis_output = JSON.parse(cached);
 
-    expect(redis_output).toHaveLength(0);
+    expect(redis_output).toBeNull();
     const { __typename } = apiResponse;
     expect(__typename).toEqual("Error");
   });

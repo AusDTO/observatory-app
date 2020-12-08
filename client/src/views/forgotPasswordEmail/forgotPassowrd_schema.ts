@@ -1,9 +1,6 @@
-import * as yup from "yup";
-import {
-  passwordValidationFunction,
-  emailValidationFunction,
-} from "../../components/util/yup";
 import { gql } from "@apollo/client";
+import * as yup from "yup";
+import { emailValidationFunction } from "../../components/util/yup";
 
 export const InitialValues = {
   email: "",

@@ -27,6 +27,18 @@ type UrlData {
   new_users: String!
   returning_users: String!
   ratio: String!
+  source: [Source!]!
+  medium: [Medium!]!
+}
+
+type Medium {
+  medium: String!
+  views: String!
+}
+
+type Source {
+  source: String!
+  views: String!
 }
 
 union GetDataUrlResult =

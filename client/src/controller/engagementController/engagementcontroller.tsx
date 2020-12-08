@@ -1,15 +1,18 @@
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
-import React, { useState } from "react";
-
+import { useQuery } from "@apollo/client";
+import React from "react";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { RouteComponentProps } from "react-router-dom";
 import {
   UrlData,
   UrlDataVariables,
+  UrlData_getDataFromUrl_Error,
+  UrlData_getDataFromUrl_FieldErrors,
+  UrlData_getDataFromUrl_InvalidProperty,
   UrlData_getDataFromUrl_UrlDataResult,
-  UrlData_getProperty,
 } from "../../graphql/UrlData";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { NotFound } from "../../views/404-logged-in/404";
 import EngagementView from "../../views/urlEngagement/engagementView";
+import { GET_URL_DATA } from "./schema";
 
 interface Props extends RouteComponentProps<{ ua_id: string }> {} // key
 
@@ -21,41 +24,8 @@ export const EngagementUrlController: (arg0: Props) => any = ({
   const { ua_id } = match.params;
 
   let params = new URLSearchParams(location.search);
-  const timePeriod = params.get("timePeriod");
-  const urlParam = params.get("url") as string;
-  const GET_URL_DATA = gql`
-    query UrlData($property_ua_id: String!, $url: String!, $dateType: String!) {
-      getDataFromUrl(
-        property_ua_id: $property_ua_id
-        url: $url
-        dateType: $dateType
-      ) {
-        __typename
-        ... on FieldErrors {
-          errors {
-            message
-            path
-          }
-        }
-        ... on InvalidProperty {
-          message
-        }
-        ... on Message {
-          message
-        }
-        ... on Error {
-          message
-        }
-        ... on UrlDataResult {
-          output {
-            date
-            desktop
-            time_on_page
-          }
-        }
-      }
-    }
-  `;
+  const timePeriod = params.get("timePeriod") || "";
+  const urlParam = params.get("url") || "";
 
   const { loading, data, error } = useQuery<UrlData, UrlDataVariables>(
     GET_URL_DATA,
@@ -68,11 +38,27 @@ export const EngagementUrlController: (arg0: Props) => any = ({
     }
   );
 
-  let urlData;
-
   if (loading) {
-    return <EngagementView isLoading={true} />;
+    return (
+      <EngagementView
+        isLoading={true}
+        initialUrl={urlParam}
+        timePeriod={timePeriod}
+      />
+    );
   }
+
+  if (error) {
+    return (
+      <NotFound title="Error with request">
+        <p>THere was an unexpected error</p>
+      </NotFound>
+    );
+  }
+
+  let urlData: UrlData_getDataFromUrl_UrlDataResult | undefined;
+  let errorMessage: string | undefined;
+  let isLoading: boolean = true;
 
   if (data && data.getDataFromUrl) {
     const apiResult = data.getDataFromUrl;
@@ -81,14 +67,33 @@ export const EngagementUrlController: (arg0: Props) => any = ({
     switch (__typename) {
       case "UrlDataResult":
         const data = apiResult as UrlData_getDataFromUrl_UrlDataResult;
-        return (
-          <EngagementView
-            urlData={data}
-            isLoading={false}
-            initialUrl={urlParam}
-          />
-        );
+        isLoading = false;
+        urlData = data;
+        break;
+      case "InvalidProperty":
+        const { message } = apiResult as UrlData_getDataFromUrl_InvalidProperty;
+        errorMessage = message;
+        isLoading = false;
+        break;
+      case "Error":
+        const errorResult = apiResult as UrlData_getDataFromUrl_Error;
+        errorMessage = errorResult.message;
+        isLoading = false;
+        break;
+      case "FieldErrors":
+        const fieldErrorResult = apiResult as UrlData_getDataFromUrl_FieldErrors;
+        errorMessage = fieldErrorResult.errors[0].message;
+        isLoading = false;
+        break;
     }
-    return <EngagementView isLoading={false} initialUrl={urlParam} />;
+    return (
+      <EngagementView
+        urlData={urlData}
+        timePeriod={timePeriod}
+        errorMessage={errorMessage}
+        isLoading={isLoading}
+        initialUrl={urlParam}
+      />
+    );
   }
 };

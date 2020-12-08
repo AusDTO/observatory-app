@@ -17,8 +17,8 @@ interface RadioFieldProps {
 }
 
 const RadioField: React.FC<RadioFieldProps> = (props: RadioFieldProps) => {
-  const [field, meta] = useField({ ...props });
-  const error = meta.error && meta.touched ? true : false;
+  const [field] = useField({ ...props });
+  // const error = meta.error && meta.touched ? true : false;
 
   return <AuRadio {...field} {...props} id={`${props.value}-radio`} />;
 };

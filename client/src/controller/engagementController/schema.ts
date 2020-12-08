@@ -9,10 +9,10 @@ export const engagementFormSchema = yup.object().shape({
     )
     .required("Enter a url")
     .matches(/.gov.au/, "You can only search .gov.au domains"),
-  timePeriod: yup.string().required().oneOf(["weekly", "daily"]),
+  timePeriod: yup.string().required().oneOf(["weekly", "lastday"]),
 });
 
-const GET_URL_DATA = gql`
+export const GET_URL_DATA = gql`
   query UrlData($property_ua_id: String!, $url: String!, $dateType: String!) {
     getDataFromUrl(
       property_ua_id: $property_ua_id
@@ -38,8 +38,18 @@ const GET_URL_DATA = gql`
       ... on UrlDataResult {
         output {
           date
-          desktop
           time_on_page
+          returning_users
+          new_users
+          ratio
+          source {
+            views
+            source
+          }
+          medium {
+            views
+            medium
+          }
         }
       }
     }

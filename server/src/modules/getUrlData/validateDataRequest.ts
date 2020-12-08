@@ -1,8 +1,8 @@
+import * as yup from "yup";
 import { Property } from "../../entity/Property";
 import { User } from "../../entity/User";
 import { Resolver } from "../../types/graphql-util";
 import { basicApiErrorMessage, basicApiMessage } from "../../util/constants";
-import * as yup from "yup";
 import { formatYupError } from "../../util/formatYupError";
 import { ua_id_schema } from "../../util/yup";
 
@@ -10,7 +10,7 @@ import { ua_id_schema } from "../../util/yup";
 const validationSchema = yup.object().shape({
   property_ua_id: ua_id_schema,
   url: yup.string().url(),
-  dateType: yup.string().oneOf(["weekly", "daily"]),
+  dateType: yup.string().oneOf(["weekly", "lastday"]),
 });
 
 export const validateDataRequest = async (
@@ -22,6 +22,7 @@ export const validateDataRequest = async (
 ) => {
   const { userId, agencyId } = context.session;
   const { property_ua_id } = args;
+  const { url } = args;
 
   try {
     await validationSchema.validate(args, {
@@ -55,6 +56,12 @@ export const validateDataRequest = async (
     return basicApiMessage(
       "InvalidProperty",
       `Property with ua_id: ${property_ua_id} was not found`
+    );
+  }
+  if (!url.includes(property.domain)) {
+    return basicApiErrorMessage(
+      `The domain ${url} may not belong to the property with id : ${property_ua_id}`,
+      "domain"
     );
   }
 

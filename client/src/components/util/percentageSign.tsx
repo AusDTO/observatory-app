@@ -1,5 +1,5 @@
 import React from "react";
-import { FaArrowUp, FaArrowDown, FaPlus, FaMinus } from "react-icons/fa";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 export const percentageWithSign = (value: string) => {
   let num;

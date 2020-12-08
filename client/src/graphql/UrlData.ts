@@ -33,11 +33,27 @@ export interface UrlData_getDataFromUrl_Error {
   message: string;
 }
 
+export interface UrlData_getDataFromUrl_UrlDataResult_output_source {
+  __typename: "Source";
+  views: string;
+  source: string;
+}
+
+export interface UrlData_getDataFromUrl_UrlDataResult_output_medium {
+  __typename: "Medium";
+  views: string;
+  medium: string;
+}
+
 export interface UrlData_getDataFromUrl_UrlDataResult_output {
   __typename: "UrlData";
   date: string;
-  desktop: string;
   time_on_page: string;
+  returning_users: string;
+  new_users: string;
+  ratio: string;
+  source: UrlData_getDataFromUrl_UrlDataResult_output_source[];
+  medium: UrlData_getDataFromUrl_UrlDataResult_output_medium[];
 }
 
 export interface UrlData_getDataFromUrl_UrlDataResult {
@@ -47,20 +63,8 @@ export interface UrlData_getDataFromUrl_UrlDataResult {
 
 export type UrlData_getDataFromUrl = UrlData_getDataFromUrl_FieldErrors | UrlData_getDataFromUrl_InvalidProperty | UrlData_getDataFromUrl_Message | UrlData_getDataFromUrl_Error | UrlData_getDataFromUrl_UrlDataResult;
 
-export interface UrlData_getProperty_Error {
-  __typename: "Error" | "FieldErrors";
-}
-
-export interface UrlData_getProperty_Property {
-  __typename: "Property";
-  domain: string;
-}
-
-export type UrlData_getProperty = UrlData_getProperty_Error | UrlData_getProperty_Property;
-
 export interface UrlData {
   getDataFromUrl: UrlData_getDataFromUrl;
-  getProperty: UrlData_getProperty;
 }
 
 export interface UrlDataVariables {

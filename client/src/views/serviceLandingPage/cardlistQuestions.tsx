@@ -1,7 +1,5 @@
-import { domain } from "process";
 import React from "react";
 import { Link } from "react-router-dom";
-
 import { AuCard, AuCardInner } from "../../types/auds";
 
 interface Props {
@@ -33,7 +31,7 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId, domain }) => {
 
                   <li>
                     <Link
-                      to={`/service/engagement/${propertyUaId}?url=${domain}&timePeriod=weekly`}
+                      to={`/service/engagement/${propertyUaId}?url=https://www.${domain}/&timePeriod=weekly`}
                     >
                       How are people engaging with [URL's] content?
                     </Link>
@@ -73,13 +71,13 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId, domain }) => {
                 <ul className="au-link-list">
                   <li>
                     <a href="#" className="disabled-link">
-                      How many steps are users taking to find [PageUrl]
+                      How many steps are users taking to find [PageUrl]?
                     </a>
                   </li>
                   <li>
                     <a href="#" className="disabled-link">
                       How many users are completing a journey from Page A to
-                      Page B
+                      Page B ?
                     </a>
                   </li>
                 </ul>

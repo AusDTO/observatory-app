@@ -1,17 +1,17 @@
 import React from "react";
-import { JsxElement } from "typescript";
 import { AuCard, AuCardInner, AuCardTitle } from "../../types/auds";
 
 interface Props {
   level: "1" | "2" | "3" | "4";
   title: string;
-  metric: string | JSX.Element;
+  metric?: string | JSX.Element;
   leftAlignMetric?: boolean;
   className?: string;
   link?: string;
   linkText?: string;
   defLink?: string; //FIX the def link should probs be a type
   defLinkId?: string;
+  content?: string | JSX.Element;
 }
 const MetricCard: React.FC<Props> = ({
   level,
@@ -22,6 +22,7 @@ const MetricCard: React.FC<Props> = ({
   defLink,
   defLinkId,
   leftAlignMetric = false,
+  content,
   className,
 }) => {
   const metricStyle = {
@@ -55,7 +56,8 @@ const MetricCard: React.FC<Props> = ({
             </div>
           )}
           <div className="metric-card__desc" style={metricStyle}>
-            <div className="metric">{metric}</div>
+            {metric && <div className="metric">{metric}</div>}
+            {content && <div>{content}</div>}
           </div>
         </div>
       </AuCardInner>

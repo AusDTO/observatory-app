@@ -1,19 +1,18 @@
+import { useMutation } from "@apollo/client";
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import { AuPageAlert, Aubtn } from "../../../types/auds";
-import { Formik, Form } from "formik";
-
+import {
+  sendFeedback,
+  sendFeedbackVariables,
+} from "../../../graphql/sendFeedback";
+import { Aubtn, AuPageAlert } from "../../../types/auds";
+import { FeedbackData, FormSubmitState } from "../../../types/types";
 import TextField from "../../form/TextField";
 import {
   InitialValues,
   sendFeedbackSchema,
   SEND_FEEDBACK_MUTATION,
 } from "./feedback_schema";
-import { useMutation } from "@apollo/client";
-import { FeedbackData, FormSubmitState } from "../../../types/types";
-import {
-  sendFeedback,
-  sendFeedbackVariables,
-} from "../../../graphql/sendFeedback";
 
 interface Props {
   textBoxClass?: string;
@@ -26,7 +25,6 @@ interface Props {
 }
 
 const AskQuestionBlock: React.FC<Props> = ({
-  textBoxClass,
   label,
   pageUrl,
   pageTitle,
@@ -34,10 +32,9 @@ const AskQuestionBlock: React.FC<Props> = ({
   img,
   hint,
 }) => {
-  const [sendFeedbackData, { loading, error, data }] = useMutation<
-    sendFeedback,
-    sendFeedbackVariables
-  >(SEND_FEEDBACK_MUTATION);
+  const [sendFeedbackData] = useMutation<sendFeedback, sendFeedbackVariables>(
+    SEND_FEEDBACK_MUTATION
+  );
 
   const [isSaving, setSaving] = useState<boolean>(false);
   const [state, setState] = useState<FormSubmitState>({

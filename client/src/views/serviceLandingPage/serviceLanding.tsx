@@ -1,25 +1,18 @@
-import React, { useState } from "react";
-
-import SEO from "../seo";
+import React from "react";
+import { Link } from "react-router-dom";
+import AskQuestionBlock from "../../components/blocks/leaveFeedback/ask-question";
+import ServiceBanner from "../../components/blocks/service-banner";
 import AdminLayout from "../../components/layouts/AdminLayout";
 import { GetProperty_getProperty_Property } from "../../graphql/GetProperty";
-
-import ServiceBanner from "../../components/blocks/service-banner";
-import { Link } from "react-router-dom";
-import { ServiceQuestions } from "./cardlistQuestions";
-import AskQuestionBlock from "../../components/blocks/leaveFeedback/ask-question";
+import SEO from "../seo";
 import questionImage from "./ask.png";
-import { MetricsView } from "./metricsView";
+import { ServiceQuestions } from "./cardlistQuestions";
 
 interface Props {
   property: GetProperty_getProperty_Property;
 }
 
 export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
-  const [questionView, setQuestionView] = useState<boolean>(true);
-  const handleViewChange = () => {
-    setQuestionView(!questionView);
-  };
   return (
     <AdminLayout>
       <>
@@ -40,14 +33,10 @@ export const ServiceLandingPage: React.FC<Props> = ({ property }) => {
         </ServiceBanner>
         <div className="au-body au-body--alt">
           <div className="container-fluid">
-            {questionView ? (
-              <ServiceQuestions
-                propertyUaId={property.ua_id}
-                domain={property.domain}
-              />
-            ) : (
-              <MetricsView />
-            )}
+            <ServiceQuestions
+              propertyUaId={property.ua_id}
+              domain={property.domain}
+            />
 
             <div className="row mt-2">
               <AskQuestionBlock

@@ -315,6 +315,10 @@ $AU-grid-12-gutter-width: 24px !default; //gutter space
   justify-content: flex-end;
 }
 
+.flex-jc-center {
+  justify-content: center;
+}
+
 .mh-200 {
   min-height: 200px !important;
 }

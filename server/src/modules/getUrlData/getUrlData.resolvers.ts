@@ -1,12 +1,11 @@
+import { BigQuery } from "@google-cloud/bigquery";
 import { ResolverMap } from "../../types/graphql-util";
-
 import { IGetDataFromUrlType } from "../../types/schema";
-import { formatYupError } from "../../util/formatYupError";
 import { basicApiErrorMessage } from "../../util/constants";
-import { BigQuery, JobResponse } from "@google-cloud/bigquery";
-require("dotenv").config();
 import { createMiddleware } from "../../util/createMiddleware";
 import { validateDataRequest } from "./validateDataRequest";
+
+require("dotenv").config();
 
 const bigQuery = new BigQuery({
   credentials: {
@@ -31,7 +30,7 @@ export const resolvers: ResolverMap = {
         const uaid = property_ua_id.toLowerCase().replace(/-/g, "_");
 
         const dataCache = await redis_client.get(
-          `urldata:${dateType}:${urlTrimmed}`
+          `urldata:${dateType}:${urlTrimmed}:${property_ua_id}`
         );
 
         if (dataCache) {
@@ -68,23 +67,42 @@ export const resolvers: ResolverMap = {
                 "ex",
                 120
               );
-              return basicApiErrorMessage("No data found", "data");
+              return basicApiErrorMessage(
+                "No data found. Please try another url. Make sure you have included the protocol and www.",
+                "data"
+              );
             }
+            const medium = [
+              { medium: "desktop", views: rows[0].desktop },
+              { medium: "mobile", views: rows[0].mobile },
+              { medium: "tablet", views: rows[0].tablet },
+            ];
+
+            const source = [
+              { source: "organic", views: rows[0].organic },
+              { source: "referral", views: rows[0].referral },
+              { source: "other", views: rows[0].other },
+            ];
+
+            const dataToReturn = [{ ...rows[0], source, medium }];
 
             await redis_client.set(
-              `urldata:${dateType}:${urlTrimmed}`,
-              JSON.stringify(rows),
+              `urldata:${dateType}:${urlTrimmed}:${property_ua_id}`,
+              JSON.stringify(dataToReturn),
               "ex",
               60 * 60 * 12
             );
 
             return {
               __typename: "UrlDataResult",
-              output: rows,
+              output: dataToReturn,
             };
           } catch (err) {
             console.error(err.errors);
-            return basicApiErrorMessage(err.errors[0].message, "table");
+            return basicApiErrorMessage(
+              "There was an unexpected error fetching your data",
+              "table"
+            );
           }
         }
       }
