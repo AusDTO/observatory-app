@@ -184,7 +184,15 @@ const EngagementView: React.FC<Props> = ({
                               return <span>{props.value}</span>;
                             },
                           },
-                          { Header: "Views", accessor: "views" },
+                          {
+                            Header: () => (
+                              <span className="align-right">Views</span>
+                            ),
+                            accessor: "views",
+                            Cell: ({ value }) => (
+                              <span className="align-right">{value}</span>
+                            ),
+                          },
                         ]}
                       ></Table>
                     </AuCardInner>
@@ -202,7 +210,15 @@ const EngagementView: React.FC<Props> = ({
                             accessor: "medium",
                             disableSortBy: true,
                           },
-                          { Header: "Views", accessor: "views" },
+                          {
+                            Header: () => (
+                              <span className="align-right">Views</span>
+                            ),
+                            accessor: "views",
+                            Cell: ({ value }) => (
+                              <span className="align-right">{value}</span>
+                            ),
+                          },
                         ]}
                       />
                     </AuCardInner>
