@@ -1,22 +1,10 @@
-import { BigQuery } from "@google-cloud/bigquery";
 import { ResolverMap } from "../../types/graphql-util";
 import { IGetDataFromUrlType } from "../../types/schema";
-import { basicApiErrorMessage } from "../../util/constants";
+import { basicApiErrorMessage, bigQuery } from "../../util/constants";
 import { createMiddleware } from "../../util/createMiddleware";
 import { validateDataRequest } from "./validateDataRequest";
 
 require("dotenv").config();
-
-const bigQuery = new BigQuery({
-  credentials: {
-    client_email: process.env.BIGQUERY_EMAIL,
-    private_key: (process.env.BIGQUERY_PRIVATE_KEY as string).replace(
-      /\\n/gm,
-      "\n"
-    ),
-  },
-  projectId: "dta-ga-bigquery",
-});
 
 export const resolvers: ResolverMap = {
   Query: {

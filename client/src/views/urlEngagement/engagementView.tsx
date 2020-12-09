@@ -13,6 +13,7 @@ import { engagementFormSchema } from "../../controller/engagementController/sche
 import { UrlData_getDataFromUrl_UrlDataResult } from "../../graphql/UrlData";
 import { Aubtn, AuCard, AuCardInner, AuFormGroup } from "../../types/auds";
 import SEO from "../seo";
+import { EngagementGlossary } from "./engagementGlossary";
 import { TimeOnPageCardContent } from "./timeOnPageCard";
 
 interface Props extends RouteComponentProps {
@@ -162,14 +163,21 @@ const EngagementView: React.FC<Props> = ({
                 <div className="col-md-4 col-sm-6 col-xs-12">
                   <MetricCard
                     level="3"
-                    title="Ratio of page demand"
-                    metric={urlData.output[0].ratio}
+                    title="Percentage of returning users"
+                    metric={`${parseFloat(urlData.output[0].ratio) * 100} %`}
+                    outerContent={
+                      <p className="mt-1">
+                        Our analysis indicates that{" "}
+                        {parseFloat(urlData.output[0].ratio) * 100}% of users
+                        who visit this page will come back
+                      </p>
+                    }
                   />
                 </div>
               </div>
               <h2>How are users getting to this page?</h2>
               <div className="row mt-1">
-                <div className="col-md-4 col-sm-6 col-xs-12">
+                <div className="col-md-6 col-sm-6 col-xs-12">
                   <AuCard>
                     <AuCardInner>
                       <Table
@@ -198,7 +206,7 @@ const EngagementView: React.FC<Props> = ({
                     </AuCardInner>
                   </AuCard>
                 </div>
-                <div className="col-md-4 col-sm-6 col-xs-12">
+                <div className="col-md-6 col-sm-6 col-xs-12">
                   <AuCard>
                     <AuCardInner>
                       <Table
@@ -225,6 +233,7 @@ const EngagementView: React.FC<Props> = ({
                   </AuCard>
                 </div>
               </div>
+              <EngagementGlossary />
             </>
           ) : (
             <></>

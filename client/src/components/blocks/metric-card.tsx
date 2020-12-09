@@ -12,6 +12,7 @@ interface Props {
   defLink?: string; //FIX the def link should probs be a type
   defLinkId?: string;
   content?: string | JSX.Element;
+  outerContent?: string | JSX.Element;
 }
 const MetricCard: React.FC<Props> = ({
   level,
@@ -23,6 +24,7 @@ const MetricCard: React.FC<Props> = ({
   defLinkId,
   leftAlignMetric = false,
   content,
+  outerContent,
   className,
 }) => {
   const metricStyle = {
@@ -60,6 +62,7 @@ const MetricCard: React.FC<Props> = ({
             {content && <div>{content}</div>}
           </div>
         </div>
+        {outerContent && <div>{outerContent}</div>}
       </AuCardInner>
     </AuCard>
   );
