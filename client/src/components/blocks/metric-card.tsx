@@ -4,12 +4,15 @@ import { AuCard, AuCardInner, AuCardTitle } from "../../types/auds";
 interface Props {
   level: "1" | "2" | "3" | "4";
   title: string;
+  metric?: string | JSX.Element;
+  leftAlignMetric?: boolean;
   className?: string;
-  metric: string;
   link?: string;
   linkText?: string;
   defLink?: string; //FIX the def link should probs be a type
   defLinkId?: string;
+  content?: string | JSX.Element;
+  outerContent?: string | JSX.Element;
 }
 const MetricCard: React.FC<Props> = ({
   level,
@@ -19,8 +22,15 @@ const MetricCard: React.FC<Props> = ({
   linkText,
   defLink,
   defLinkId,
+  leftAlignMetric = false,
+  content,
+  outerContent,
   className,
 }) => {
+  const metricStyle = {
+    alignItems: leftAlignMetric ? "flex-start" : "flex-end",
+  };
+
   return (
     <AuCard className="metric-card">
       <AuCardInner>
@@ -47,21 +57,12 @@ const MetricCard: React.FC<Props> = ({
               </a>
             </div>
           )}
-          <div className="metric-card__desc">
-            <span className="metric">{metric}</span>
-            {/* <span className="percentage">
-              {Math.floor(Math.random() * 2) === 1 ? (
-                <span aria-label="Up" className="up">
-                  &#8599;{Math.floor(Math.random() * 50)}%
-                </span>
-              ) : (
-                <span aria-label="Down" className="down">
-                  &#8600;{Math.floor(Math.random() * 50)}%
-                </span>
-              )}
-            </span> */}
+          <div className="metric-card__desc" style={metricStyle}>
+            {metric && <div className="metric">{metric}</div>}
+            {content && <div>{content}</div>}
           </div>
         </div>
+        {outerContent && <div>{outerContent}</div>}
       </AuCardInner>
     </AuCard>
   );

@@ -1,18 +1,15 @@
-import React, { useState } from "react";
-
+import { useQuery } from "@apollo/client";
+import React from "react";
 import { RouteComponentProps } from "react-router-dom";
-import SnapshotLanding from "../../views/site-snapshot/snapshot";
-import { gql, useQuery } from "@apollo/client";
-
-import { NotFound } from "../../views/404-logged-in/404";
 import {
   ExecData,
   ExecDataVariables,
   ExecData_getExecDailyData_ExecDailyArray,
   ExecData_getExecHourlyData_ExecHourlyArray,
-  ExecData_getExecWeeklyData,
   ExecData_getExecWeeklyData_ExecWeeklyArray,
 } from "../../graphql/ExecData";
+import { NotFound } from "../../views/404-logged-in/404";
+import SnapshotLanding from "../../views/site-snapshot/snapshot";
 import { GET_EXEC_WEEKLY } from "./snapshot_schema";
 
 interface Props extends RouteComponentProps<{ ua_id: string }> {} // key

@@ -1,12 +1,12 @@
 import React, { PureComponent } from "react";
 import {
-  LineChart,
+  CartesianGrid,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
 import { formatDate, formatHour } from "./formatters/dateTickFormatter";
 import { AverageSessionToolTip } from "./formatters/tooltipFormatters";
@@ -64,7 +64,7 @@ export const DurationVis: React.FC<Props> = ({ data, xKey, yKey }) => {
 
 class HourlyTick extends PureComponent {
   render() {
-    const { x, y, stroke, payload } = this.props as any;
+    const { x, y, payload } = this.props as any;
     if (payload.index === 0) {
       return null;
     }
@@ -88,7 +88,7 @@ class HourlyTick extends PureComponent {
 
 class CustomizedAxisTick extends PureComponent {
   render() {
-    const { x, y, stroke, payload } = this.props as any;
+    const { x, y, payload } = this.props as any;
     if (payload.index === 0) {
       return null;
     }

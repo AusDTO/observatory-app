@@ -1,8 +1,7 @@
 import React from "react";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 import DefaultLayout from "../../components/layouts/DefaultLayout";
-import { RouteComponentProps, Router, Redirect } from "react-router-dom";
 import SEO from "../seo";
-import confirmationImg from "./confirmation.png";
 
 interface Props extends RouteComponentProps {}
 

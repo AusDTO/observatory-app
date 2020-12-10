@@ -1,3 +1,5 @@
+import { BigQuery } from "@google-cloud/bigquery";
+
 require("dotenv").config();
 var cfenv = require("cfenv");
 let appEnv: any;
@@ -72,3 +74,26 @@ export const SLACK_WEBHOOK_URL =
   ENVIRONMENT === "production"
     ? appEnv.services["user-provided"][0].credentials.SLACK_WEBHOOK_URL
     : "process.env.SLACK_WEBHOOK_URL";
+
+export const bigQuery =
+  ENVIRONMENT !== "production"
+    ? new BigQuery({
+        credentials: {
+          client_email: process.env.BIGQUERY_EMAIL,
+          private_key: (process.env.BIGQUERY_PRIVATE_KEY as string).replace(
+            /\\n/gm,
+            "\n"
+          ),
+        },
+        projectId: "dta-ga-bigquery",
+      })
+    : new BigQuery({
+        credentials: {
+          client_email:
+            appEnv.services["user-provided"][0].credentials.BIGQUERY_EMAIL,
+          private_key:
+            appEnv.services["user-provided"][0].credentials
+              .BIGQUERY_PRIVATE_KEY,
+        },
+        projectId: "dta-ga-bigquery",
+      });

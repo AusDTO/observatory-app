@@ -1,9 +1,6 @@
-import * as yup from "yup";
-import {
-  passwordValidationFunction,
-  emailValidationFunction,
-} from "../../components/util/yup";
 import { gql } from "@apollo/client";
+import * as yup from "yup";
+import { emailValidationFunction } from "../../components/util/yup";
 
 export const InitialValues = {
   email: "",
@@ -21,7 +18,6 @@ export const FORGOT_PASSWORD_SCHEMA = gql`
   mutation SendPasswordResetEmail($email: String) {
     sendForgotPasswordEmail(email: $email) {
       __typename
-
       ... on FieldErrors {
         errors {
           path
@@ -33,6 +29,7 @@ export const FORGOT_PASSWORD_SCHEMA = gql`
         path
         message
       }
+
       ... on Success {
         message
       }

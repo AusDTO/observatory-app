@@ -1,8 +1,28 @@
-import React, { useState } from "react";
-import SEO from "../seo";
-import AdminLayout from "../../components/layouts/AdminLayout";
+import React from "react";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
-
+import MetricCard from "../../components/blocks/metric-card";
+import { Table } from "../../components/blocks/table/table";
+import {
+  numberWithCommas,
+  shortenString,
+} from "../../components/blocks/table/utility";
+import AdminLayout from "../../components/layouts/AdminLayout";
+import {
+  ObjectStringToInt,
+  ScaleSecondsToMins,
+} from "../../components/recharts/formatters/stringToNumber";
+import { LineChartVis } from "../../components/recharts/timeSeries";
+import { DurationVis } from "../../components/recharts/timeSeriesDuration";
+import {
+  secondsToMinutes,
+  stringNumToCommaSeperated,
+} from "../../components/util/numberUtils";
+import { percentageWithSign } from "../../components/util/percentageSign";
+import {
+  ExecData_getExecDailyData_ExecDailyArray,
+  ExecData_getExecHourlyData_ExecHourlyArray,
+  ExecData_getExecWeeklyData_ExecWeeklyArray,
+} from "../../graphql/ExecData";
 import {
   AuCard,
   AuCardInner,
@@ -11,33 +31,8 @@ import {
   AuLegend,
   AuRadio,
 } from "../../types/auds";
-import MetricCard from "../../components/blocks/metric-card";
-import {
-  roundTwoPlaces,
-  secondsToMinutes,
-  stringNumToCommaSeperated,
-} from "../../components/util/numberUtils";
-import {
-  ExecData_getExecDailyData_ExecDailyArray,
-  ExecData_getExecHourlyData_ExecHourlyArray,
-  ExecData_getExecWeeklyData_ExecWeeklyArray,
-} from "../../graphql/ExecData";
-import { LineChartVis } from "../../components/recharts/timeSeries";
-import * as _ from "lodash";
-import {
-  ObjectStringToInt,
-  ScaleSecondsToMins,
-} from "../../components/recharts/formatters/stringToNumber";
-import { Table } from "../../components/blocks/table/table";
-import {
-  numberWithCommas,
-  shortenString,
-} from "../../components/blocks/table/utility";
-
+import SEO from "../seo";
 import { Glossary } from "./glossary";
-import { percentageWithSign } from "../../components/util/percentageSign";
-
-import { DurationVis } from "../../components/recharts/timeSeriesDuration";
 
 interface Props extends RouteComponentProps {
   weeklyData: ExecData_getExecWeeklyData_ExecWeeklyArray;
@@ -82,7 +77,7 @@ const SnapshotLanding: React.FC<Props> = ({
               value="weekly"
               name="form"
               id="weekly_radio"
-              defaultChecked={timePeriod != "daily"}
+              defaultChecked={timePeriod !== "daily"}
               onChange={(e: any) => {
                 history.push(
                   `${window.location.pathname}?timePeriod=${e.target.value}`

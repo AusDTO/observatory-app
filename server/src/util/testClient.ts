@@ -20,6 +20,55 @@ export class TestClient {
     };
   }
 
+  async getDataFromUrl(property_ua_id: string, url: string, dateType: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `
+        query {
+          getDataFromUrl(
+            property_ua_id: "${property_ua_id}"
+            url: "${url}",
+            dateType:"${dateType}"
+          ) {
+            __typename
+            ... on FieldErrors {
+              errors {
+                message
+                path
+              }
+            }
+            ... on Message {
+              message
+            }
+            ... on Error {
+              message
+            }
+            ... on InvalidProperty {
+              message
+            }
+            ...on UrlDataResult {
+              output {
+                date
+                desktop
+                mobile
+                desktop
+                time_on_page
+                returning_users
+                new_users
+                organic
+                page_url
+                ratio
+                referral
+              }
+            }
+          }
+        }
+        `,
+      },
+    });
+  }
+
   async sendFeedbackData(pageTitle: string, pageUrl: string, feedback: string) {
     return rp.post(this.url, {
       ...this.options,

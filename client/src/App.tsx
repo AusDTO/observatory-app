@@ -17,6 +17,8 @@ import { ResetPasswordPage } from "./views/resetPassword/resetPassword";
 import { ServiceLandingController } from "./controller/serviceLandingController/serviceLandingController";
 import { ChooseServiceController } from "./controller/chooseServiceController/chooseServiceController";
 import { SnapshotController } from "./controller/snapshotController/snapshotcontroller";
+import { EngagementUrlController } from "./controller/engagementController/engagementcontroller";
+import { TimeOnPage } from "./views/urlEngagement/timeOnPage";
 
 const App = (props: any) => {
   return (
@@ -55,6 +57,11 @@ const App = (props: any) => {
           exact={true}
           component={SnapshotController}
         />
+        <ProtectedRoute
+          path="/service/engagement/:ua_id"
+          exact={true}
+          component={EngagementUrlController}
+        />
         <Route
           path="/invalid-confirmation"
           exact
@@ -65,6 +72,8 @@ const App = (props: any) => {
           exact
           component={ResendConfirmationEmail}
         />
+        <ProtectedRoute path="/metrics/time-on-page" component={TimeOnPage} />
+
         <Route path="/" render={() => <div>404</div>} />
       </Switch>
     </BrowserRouter>
