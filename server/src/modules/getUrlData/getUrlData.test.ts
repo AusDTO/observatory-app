@@ -151,6 +151,17 @@ describe("Test invalid parameters", () => {
     expect(__typename).toEqual("FieldErrors");
     await client.logout();
   });
+
+  test("Adding query returns error", async () => {
+    await client.login(email, password);
+    const result = await client.getDataFromUrl(
+      ua_id,
+      `${testUrl};select+*+FROM+dta_customers.${ua_id}_urlpage_usage_weekly`,
+      "weekly"
+    );
+    const { __typename, message } = result.data.getDataFromUrl;
+    expect(__typename).toEqual("Error");
+  });
 });
 
 describe("Getting data", () => {

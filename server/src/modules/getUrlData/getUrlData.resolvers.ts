@@ -37,13 +37,15 @@ export const resolvers: ResolverMap = {
         } else {
           const query = `SELECT *,
       FROM \`dta_customers.${uaid}_urlpage_usage_${dateType}\`
-      WHERE page_url='${urlTrimmed}'
-      LIMIT 100`;
+      WHERE page_url=@url`;
           // console.log("doing here");
           console.log("executing job");
           try {
             const [job] = await bigQuery.createQueryJob({
               query,
+              params: {
+                url: urlTrimmed,
+              },
             });
             console.log(`Job ${job.id} started.`);
 
