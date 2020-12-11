@@ -54,7 +54,6 @@ export const sendFeedbackMessage = async (
     ],
   };
 
-
   if (ENVIRONMENT === "production") {
     await sendSlackMessage(options);
   } else {
@@ -111,5 +110,42 @@ export const sendSignUpMessage = async (
     await sendSlackMessage(options);
   } else {
     console.log("SENT sign up message");
+  }
+};
+
+export const sendURLEngagementMessage = async (
+  url: string,
+  dateType: string
+) => {
+  const options: IncomingWebhookSendArguments = {
+    blocks: [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "A request has been made to Knowledge Product 2!"
+        }
+      },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*URL:* ${url.trim()}`
+        }
+      },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*Time period:* ${dateType.trim()}`
+        }
+      }
+    ]
+  };
+
+  if (ENVIRONMENT === "production") {
+    await sendSlackMessage(options);
+  } else {
+    console.log("SENT URL Engagement Request");
   }
 };

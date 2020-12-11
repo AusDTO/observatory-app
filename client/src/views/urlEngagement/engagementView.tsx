@@ -70,13 +70,11 @@ const EngagementView: React.FC<Props> = ({
             validateOnChange
             validationSchema={engagementFormSchema}
             onSubmit={(data, { setSubmitting }) => {
-              console.log("submitted");
               setSubmitting(true);
               //async call
               history.push(
                 `${window.location.pathname}?timePeriod=${data.timePeriod}&url=${data.url}`
               );
-              // console.log(data);
               setSubmitting(false);
             }}
           >
@@ -99,7 +97,7 @@ const EngagementView: React.FC<Props> = ({
                         value: "weekly",
                         label: "Last week",
                         name: "timePeriod",
-                        defaultChecked: timePeriod === "weekly",
+                        defaultChecked: timePeriod === "weekly"
                       },
                       {
                         value: "lastday",
@@ -225,7 +223,7 @@ const EngagementView: React.FC<Props> = ({
                           {
                             Header: "Device",
                             accessor: "medium",
-                            disableSortBy: true,
+                            disableSortBy: true
                           },
                           {
                             Header: () => (
@@ -236,6 +234,7 @@ const EngagementView: React.FC<Props> = ({
                               <span className="align-right">{value}</span>
                             ),
                           },
+                          }
                         ]}
                       />
                     </AuCardInner>

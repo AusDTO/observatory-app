@@ -52,7 +52,7 @@ export const EngagementUrlController: (arg0: Props) => any = ({
   if (error) {
     return (
       <NotFound title="Error with request">
-        <p>THere was an unexpected error</p>
+        <p>There was an unexpected error</p>
       </NotFound>
     );
   }
