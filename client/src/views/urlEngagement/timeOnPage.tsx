@@ -4,7 +4,7 @@ interface Props {}
 export const TimeOnPage: React.FC<Props> = () => {
   return (
     <AdminLayout>
-      <div className="au-body container">
+      <div className="container-fluid au-body">
         <h1>Time on page</h1>
         <section className="mt-2">
           <h3 id="action">Action oriented page</h3>
@@ -43,7 +43,7 @@ export const TimeOnPage: React.FC<Props> = () => {
             </li>
           </ul>
         </section>
-        <section className="max-42">
+        <section>
           <h3>
             My page is content oriented, but the time on page is quite low. Is
             this a problem? What can I do?

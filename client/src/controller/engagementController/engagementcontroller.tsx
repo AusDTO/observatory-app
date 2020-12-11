@@ -44,6 +44,7 @@ export const EngagementUrlController: (arg0: Props) => any = ({
         isLoading={true}
         initialUrl={urlParam}
         timePeriod={timePeriod}
+        ua_id={ua_id}
       />
     );
   }
@@ -51,7 +52,7 @@ export const EngagementUrlController: (arg0: Props) => any = ({
   if (error) {
     return (
       <NotFound title="Error with request">
-        <p>THere was an unexpected error</p>
+        <p>There was an unexpected error</p>
       </NotFound>
     );
   }
@@ -93,6 +94,7 @@ export const EngagementUrlController: (arg0: Props) => any = ({
         errorMessage={errorMessage}
         isLoading={isLoading}
         initialUrl={urlParam}
+        ua_id={ua_id}
       />
     );
   }

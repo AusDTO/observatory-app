@@ -3,6 +3,7 @@ import { IGetDataFromUrlType } from "../../types/schema";
 import { basicApiErrorMessage, bigQuery } from "../../util/constants";
 import { createMiddleware } from "../../util/createMiddleware";
 import { validateDataRequest } from "./validateDataRequest";
+import { sendURLEngagementMessage } from "../../util/sendSlackMessage/sendMessageSlack";
 
 require("dotenv").config();
 
@@ -29,6 +30,8 @@ export const resolvers: ResolverMap = {
           if (data.length < 1) {
             return basicApiErrorMessage("No data found", "data");
           }
+
+          await sendURLEngagementMessage(url, dateType);
 
           return {
             __typename: "UrlDataResult",
@@ -82,6 +85,8 @@ export const resolvers: ResolverMap = {
               "ex",
               60 * 60 * 12
             );
+
+            await sendURLEngagementMessage(url, dateType);
 
             return {
               __typename: "UrlDataResult",

@@ -46,7 +46,7 @@ const developmentDatabase = {
   host: "localhost",
   port: 5432,
   username: "postgres",
-  password: "",
+  password: "postgres",
   database: "observatory",
   synchronize: true,
   logging: false,
