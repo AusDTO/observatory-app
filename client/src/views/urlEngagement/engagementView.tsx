@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import React from "react";
 import Loader from "react-loader-spinner";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import MetricCard from "../../components/blocks/metric-card";
 import PageAlert from "../../components/blocks/page-alert";
 import { Table } from "../../components/blocks/table/table";
@@ -22,6 +22,7 @@ interface Props extends RouteComponentProps {
   initialUrl?: string;
   timePeriod?: string;
   errorMessage?: string;
+  ua_id: string;
 }
 
 const EngagementView: React.FC<Props> = ({
@@ -31,6 +32,7 @@ const EngagementView: React.FC<Props> = ({
   timePeriod,
   urlData,
   errorMessage,
+  ua_id,
 }) => {
   // const [url, updateUrl] = useState<string>("hello");
 
@@ -45,7 +47,14 @@ const EngagementView: React.FC<Props> = ({
         <SEO title="Engagement" />
 
         <div className="container-fluid au-body">
-          <h1>Engagement</h1>
+          <Link className="au-direction-link" to={`/service/${ua_id}`}>
+            <span
+              className="au-direction-link__arrow au-direction-link__arrow--left"
+              aria-hidden="true"
+            ></span>
+            Back
+          </Link>
+          <h1 className="mt-0">Engagement</h1>
 
           {errorMessage && (
             <PageAlert type="error" className="max-42">

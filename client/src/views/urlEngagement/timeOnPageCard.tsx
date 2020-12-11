@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { secondsToMinutes } from "../../components/util/numberUtils";
 
 interface Props {
@@ -14,11 +13,10 @@ export const TimeOnPageCardContent: React.FC<Props> = ({ timeOnPage }) => {
       </p>
       <p>
         Our analysis indicates that this is a{" "}
-        {parseInt(timeOnPage) > 90 ? (
-          <Link to="/metrics/time-on-page">content oriented</Link>
-        ) : (
-          <Link to="/metrics/time-on-page">action oriented</Link>
-        )}{" "}
+        <a href="/metrics/time-on-page">
+          {parseInt(timeOnPage) > 90 ? "content-oriented" : "action-oriented"}
+        </a>{" "}
+        {/** TO FIX: USE LINK */}
         page.
       </p>
     </>
