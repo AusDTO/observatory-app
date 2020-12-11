@@ -97,7 +97,7 @@ const EngagementView: React.FC<Props> = ({
                         value: "weekly",
                         label: "Last week",
                         name: "timePeriod",
-                        defaultChecked: timePeriod === "weekly"
+                        defaultChecked: timePeriod === "weekly",
                       },
                       {
                         value: "lastday",
@@ -223,7 +223,7 @@ const EngagementView: React.FC<Props> = ({
                           {
                             Header: "Device",
                             accessor: "medium",
-                            disableSortBy: true
+                            disableSortBy: true,
                           },
                           {
                             Header: () => (
@@ -234,7 +234,6 @@ const EngagementView: React.FC<Props> = ({
                               <span className="align-right">{value}</span>
                             ),
                           },
-                          }
                         ]}
                       />
                     </AuCardInner>
