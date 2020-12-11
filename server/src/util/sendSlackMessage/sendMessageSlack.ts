@@ -123,24 +123,24 @@ export const sendURLEngagementMessage = async (
         type: "section",
         text: {
           type: "mrkdwn",
-          text: "A request has been made to Knowledge Product 2!"
-        }
+          text: "A request has been made to Knowledge Product 2!",
+        },
       },
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*URL:* ${url.trim()}`
-        }
+          text: `*URL:* ${url.trim()}`,
+        },
       },
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*Time period:* ${dateType.trim()}`
-        }
-      }
-    ]
+          text: `*Time period:* ${dateType.trim()}`,
+        },
+      },
+    ],
   };
 
   if (ENVIRONMENT === "production") {

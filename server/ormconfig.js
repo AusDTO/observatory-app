@@ -36,8 +36,8 @@ const productionDatabase = {
   cli: {
     entitiesDir: __dirname + "/entity",
     migrationsDir: __dirname + "/migration",
-    subscribersDir: __dirname + "/subscriber"
-  }
+    subscribersDir: __dirname + "/subscriber",
+  },
 };
 
 const developmentDatabase = {
@@ -56,8 +56,8 @@ const developmentDatabase = {
   cli: {
     entitiesDir: "src/entity",
     migrationsDir: "src/migration",
-    subscribersDir: "src/subscriber"
-  }
+    subscribersDir: "src/subscriber",
+  },
 };
 
 const testDatabase = {
@@ -77,8 +77,8 @@ const testDatabase = {
   cli: {
     entitiesDir: "src/entity",
     migrationsDir: "src/migration",
-    subscribersDir: "src/subscriber"
-  }
+    subscribersDir: "src/subscriber",
+  },
 };
 
 function getDatabase() {
