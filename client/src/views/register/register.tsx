@@ -103,18 +103,18 @@ export const Register: React.FC<Props> = ({ history }) => {
         <SEO title="Register" />
         <div className="container-fluid au-body">
           <div>
-            <h2>Create your observatory reports account</h2>
+            <h2>Create your Observatory Reports account</h2>
 
             <p>
               This tool is currently in its Alpha phase, meaning access is
-              limited to agencies with Observatory subscriptions only
+              limited to agencies with Observatory subscriptions only.
             </p>
             <p>
-              To connect your Google Analytics account to the Observatory please
-              contact us at observatory@dta.gov.au.
+              To connect your Google Analytics account to the Observatory,
+              please contact us at observatory@dta.gov.au.
             </p>
             <p>
-              Already have an account? <Link to="/login">Sign in</Link>
+              Already have an account? <Link to="/login">Sign in</Link>.
             </p>
           </div>
           <Formik

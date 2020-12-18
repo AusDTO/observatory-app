@@ -82,11 +82,11 @@ const EngagementView: React.FC<Props> = ({
               <Form>
                 <AuFormGroup>
                   <TextField
-                    label="Enter a url"
+                    label="Enter a URL"
                     id="url"
                     type="text"
                     className="max-42"
-                    hint="Make sure to include the protocol and www, i.e. https://www.dta.gov.au/help-and-advice"
+                    hint="Make sure to include the protocol and 'www', i.e. https://www.dta.gov.au/help-and-advice"
                   />
                 </AuFormGroup>
                 <AuFormGroup>
@@ -171,12 +171,12 @@ const EngagementView: React.FC<Props> = ({
                   <MetricCard
                     level="3"
                     title="Percentage of returning users"
-                    metric={`${parseFloat(urlData.output[0].ratio) * 100} %`}
+                    metric={`${parseFloat(urlData.output[0].ratio) * 100}%`}
                     outerContent={
                       <p className="mt-1">
                         Our analysis indicates that{" "}
                         {parseFloat(urlData.output[0].ratio) * 100}% of users
-                        who visit this page will come back
+                        who visit this page will come back.
                       </p>
                     }
                   />
