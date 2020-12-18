@@ -21,7 +21,7 @@ Follow the instructions to start the app locally.
 
 ### Environment variable
 
-Add a `.env` to the root directory. A notify key is required for the email functionality.
+Add a `.env` to the root directory. A notify key is required for email functionality.
 
 ```
 NOTIFY_DEV_KEY=
