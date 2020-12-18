@@ -19,11 +19,15 @@ The data pipeline scripts comprises of three modules
    - weekly slice
    - daily slice
    - hourly slice
-   
+
+The BigQuery module has SQL scripts that aggregates select dimensions of Agency's GA360 data scheme in BigQuery. The script aggregates each agency website service data with varying time duration of weekly, daily and hourly. The output tables produced by the script are stored in BigQuery for delivery to front-end.
+
 2. Python data transformation
    The python file provides following functionalities
    - translating the BigQuery tables into JSON format
    - script to deliver JSON output to RDS using RESTAPI endpoints
+
+The Airflow python module executes the SQL scripts in BigQuery as mentioned below. The BigQuery output tables are fetched by python script and translated into JSON format. The JSON formatted data is delivered to RDS using RESTAPI for front-end visualisation.
 
 3. Airflow DAG schedule
    - tasks run on daily schedule at 6am Sydney/Australia time
