@@ -17,7 +17,7 @@ export const validationSchema = yup.object().shape({
   ),
   password: passwordValidationFunction(
     "Enter a password",
-    "Check if your password contains: 8 characters, including one uppercase, one lowercase, one number and one special case character"
+    "Check that your password contains: 8 characters, including one uppercase, one lowercase, one number and one special case character"
   ),
 });
 

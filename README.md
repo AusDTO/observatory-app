@@ -1,6 +1,6 @@
 # Observatory-service
 
-Repoistory for the Alpha of the analytics reporting tool.
+Repository for the Alpha phase of the Observatory analytics reporting tool.
 
 ### Contents
 
@@ -11,17 +11,17 @@ Repoistory for the Alpha of the analytics reporting tool.
 
 Stack:
 
-- Graphql (Appolo)
-- Postgres, using Typeorm as the ORM
-- Redis for in memoryDb
-- Express for admin api
+- Graphql (Apollo)
+- Postgres, using TypeORM as the ORM
+- Redis for In-memory database
+- Express for admin API
 - [Notify.gov.au](https://notify.gov.au/) for email service
 
 Follow the instructions to start the app locally.
 
 ### Environment variable
 
-Add a `.env` in the root directory. A notify key is required for the email functionality.
+Add a `.env` to the root directory. A notify key is required for email functionality.
 
 ```
 NOTIFY_DEV_KEY=
@@ -32,9 +32,9 @@ Although you could probably get away with out a notify key by mocking the send c
 
 ### Redis
 
-Download redis from the [doc site](https://redis.io/download). Mac users may run `brew install redis`.
+Download Redis from the [doc site](https://redis.io/download). Mac users may run `brew install redis`.
 
-First start the redis server on port 6379
+Firstly, start the Redis server on port 6379:
 
 `$ redis-server --port 6379`
 
@@ -44,12 +44,12 @@ First start the redis server on port 6379
 
 ### Postgres
 
-Download postgres from here and make sure it's running locally
+Download Postgres from here and make sure it's running locally:
 https://www.postgresql.org/download/
 
 ### Start server
 
-Once this is done run the following commands from the `/server` directory to start the server:
+Once Postgres is running, run the following commands from the `/server` directory to start the server:
 
 ```
 $ npm i
@@ -62,7 +62,7 @@ It will start on port 4000 by default.
 
 Stack:
 
-- Create react app
+- Create React App
 - Apollo client
 - [Design System](https://designsystem.gov.au/)
 
