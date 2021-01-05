@@ -38,6 +38,12 @@ export interface IGetPropertyType {
   property_ua_id: string;
 }
 
+export interface IGetDataFromUrlType {
+  property_ua_id: string;
+  url: string;
+  dateType: string;
+}
+
 export interface IGetOutputDataType {
   type: DataOutputType;
   property_ua_id: string;

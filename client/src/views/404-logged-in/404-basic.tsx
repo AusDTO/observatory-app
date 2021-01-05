@@ -1,9 +1,7 @@
 import React from "react";
 import PageAlert from "../../components/blocks/page-alert";
-
-import SEO from "../seo";
-import { AuLinkList } from "../../types/auds";
 import AdminLayout from "../../components/layouts/AdminLayout";
+import SEO from "../seo";
 
 interface Props {
   title: string;

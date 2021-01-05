@@ -1,31 +1,28 @@
+import { useMutation } from "@apollo/client";
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import DefaultLayout from "../../components/layouts/DefaultLayout";
 import { RouteComponentProps } from "react-router-dom";
-import { Formik, Form } from "formik";
-
-import { Aubtn, AuFormGroup } from "../../types/auds";
-import SEO from "../seo";
-import { useMutation, gql } from "@apollo/client";
-
 import PageAlert from "../../components/blocks/page-alert";
-import { formatApiError } from "../../components/util/formatError";
-import {
-  FormSubmitState,
-  ApiError,
-  ResetPasswordEmailData,
-} from "../../types/types";
-import {
-  InitialValues,
-  validationSchema,
-  FORGOT_PASSWORD_SCHEMA,
-} from "./forgotPassowrd_schema";
 import TextField from "../../components/form/TextField";
+import DefaultLayout from "../../components/layouts/DefaultLayout";
+import { formatApiError } from "../../components/util/formatError";
 import {
   SendPasswordResetEmail,
   SendPasswordResetEmailVariables,
   SendPasswordResetEmail_sendForgotPasswordEmail_FieldErrors,
-  SendPasswordResetEmail_sendForgotPasswordEmail_Error,
 } from "../../graphql/SendPasswordResetEmail";
+import { Aubtn, AuFormGroup } from "../../types/auds";
+import {
+  ApiError,
+  FormSubmitState,
+  ResetPasswordEmailData,
+} from "../../types/types";
+import SEO from "../seo";
+import {
+  FORGOT_PASSWORD_SCHEMA,
+  InitialValues,
+  validationSchema,
+} from "./forgotPassowrd_schema";
 
 interface Props extends RouteComponentProps {}
 
@@ -38,35 +35,11 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
   });
 
   const [isSaving, setSaving] = useState<boolean>(false);
-  const FORGOT_PASSWORD_SCHEMA = gql`
-    mutation SendPasswordResetEmail($email: String) {
-      sendForgotPasswordEmail(email: $email) {
-        __typename
-        ... on FieldErrors {
-          errors {
-            path
-            message
-          }
-        }
 
-        ... on Error {
-          path
-          message
-        }
-
-        ... on Success {
-          message
-        }
-      }
-    }
-  `;
-
-  const [
-    sendForgotPasswordEmail,
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation<SendPasswordResetEmail, SendPasswordResetEmailVariables>(
-    FORGOT_PASSWORD_SCHEMA
-  );
+  const [sendForgotPasswordEmail] = useMutation<
+    SendPasswordResetEmail,
+    SendPasswordResetEmailVariables
+  >(FORGOT_PASSWORD_SCHEMA);
 
   const handleResetPassword = async (formData: ResetPasswordEmailData) => {
     setSaving(true);
@@ -95,9 +68,6 @@ export const PasswordResetEmailPage: React.FC<Props> = ({ history }) => {
           break;
 
         case "Error":
-          const {
-            message,
-          } = serverResult as SendPasswordResetEmail_sendForgotPasswordEmail_Error;
           history.push("/password-reset-email", { email });
           break;
 

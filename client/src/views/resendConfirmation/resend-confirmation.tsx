@@ -1,27 +1,25 @@
+import { useMutation } from "@apollo/client";
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import DefaultLayout from "../../components/layouts/DefaultLayout";
 import { RouteComponentProps } from "react-router-dom";
-import { Formik, Form } from "formik";
-
-import SubscribeField from "../../components/form/SearchField";
-import { Aubtn, AuFormGroup } from "../../types/auds";
-import SEO from "../seo";
-import { useMutation, gql } from "@apollo/client";
-import {
-  RESEND_CONFIRMATION_SCHEMA,
-  InitialValues,
-  validationSchema,
-} from "./resendConfirmationSchema";
+import PageAlert from "../../components/blocks/page-alert";
+import TextField from "../../components/form/TextField";
+import DefaultLayout from "../../components/layouts/DefaultLayout";
+import { formatApiError } from "../../components/util/formatError";
 import {
   ResendConfirmation,
   ResendConfirmationVariables,
   ResendConfirmation_resendConfirmationEmail_EmailNotSentError,
   ResendConfirmation_resendConfirmationEmail_FieldErrors,
 } from "../../graphql/ResendConfirmation";
-import PageAlert from "../../components/blocks/page-alert";
-import { formatApiError } from "../../components/util/formatError";
-import { FormSubmitState, ResendEmailData, ApiError } from "../../types/types";
-import TextField from "../../components/form/TextField";
+import { Aubtn, AuFormGroup } from "../../types/auds";
+import { ApiError, FormSubmitState, ResendEmailData } from "../../types/types";
+import SEO from "../seo";
+import {
+  InitialValues,
+  RESEND_CONFIRMATION_SCHEMA,
+  validationSchema,
+} from "./resendConfirmationSchema";
 
 interface Props extends RouteComponentProps {}
 
@@ -35,12 +33,10 @@ export const ResendConfirmationEmail: React.FC<Props> = ({ history }) => {
 
   const [isSaving, setSaving] = useState<boolean>(false);
 
-  const [
-    resendEmail,
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation<ResendConfirmation, ResendConfirmationVariables>(
-    RESEND_CONFIRMATION_SCHEMA
-  );
+  const [resendEmail] = useMutation<
+    ResendConfirmation,
+    ResendConfirmationVariables
+  >(RESEND_CONFIRMATION_SCHEMA);
 
   const handleResendEmail = async (formData: ResendEmailData) => {
     setSaving(true);

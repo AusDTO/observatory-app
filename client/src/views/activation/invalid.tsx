@@ -1,6 +1,6 @@
 import React from "react";
+import { Link, RouteComponentProps } from "react-router-dom";
 import DefaultLayout from "../../components/layouts/DefaultLayout";
-import { RouteComponentProps, Link } from "react-router-dom";
 import SEO from "../seo";
 
 interface Props extends RouteComponentProps {}

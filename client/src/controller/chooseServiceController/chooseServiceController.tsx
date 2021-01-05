@@ -1,21 +1,19 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
-
-import { ChooseServicePage } from "../../views/chooseService/chooseService";
-import { GET_PROPERTIES_USER_SCHEMA } from "./service_schema";
+import React from "react";
 import {
   GetPropertiesAndUser,
   GetPropertiesAndUser_getUserProperties_Error,
   GetPropertiesAndUser_getUserProperties_NoProperties,
   GetPropertiesAndUser_getUserProperties_PropertyList,
 } from "../../graphql/GetPropertiesAndUser";
-
 import { NotFoundBasic } from "../../views/404-logged-in/404-basic";
+import { ChooseServicePage } from "../../views/chooseService/chooseService";
+import { GET_PROPERTIES_USER_SCHEMA } from "./service_schema";
 
 interface Props {}
 
 export const ChooseServiceController: (arg0: Props) => any = () => {
-  const { data, loading, error } = useQuery<GetPropertiesAndUser>(
+  const { data, loading } = useQuery<GetPropertiesAndUser>(
     GET_PROPERTIES_USER_SCHEMA
   );
 

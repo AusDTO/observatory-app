@@ -1,22 +1,23 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Register } from "./views/register/register";
-import { Login } from "./views/login/login";
-import { Confirmation } from "./views/confirmation/confirmation";
-import { Activated } from "./views/activation/activated";
-import { ResendConfirmationEmail } from "./views/resendConfirmation/resend-confirmation";
-import { InvalidConfirmation } from "./views/activation/invalid";
-import { AlreadyActivated } from "./views/activation/alreadyActive";
-import { Home } from "./views/home";
-import { MePage } from "./views/me/me";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ProtectedRoute } from "./components/util/protectedRoute";
-
-import { PasswordResetEmailSent } from "./views/forgotPasswordEmail/forgotPasswordSubmitted";
-import { PasswordResetEmailPage } from "./views/forgotPasswordEmail/forgotPassword";
-import { ResetPasswordPage } from "./views/resetPassword/resetPassword";
-import { ServiceLandingController } from "./controller/serviceLandingController/serviceLandingController";
 import { ChooseServiceController } from "./controller/chooseServiceController/chooseServiceController";
+import { EngagementUrlController } from "./controller/engagementController/engagementcontroller";
+import { ServiceLandingController } from "./controller/serviceLandingController/serviceLandingController";
 import { SnapshotController } from "./controller/snapshotController/snapshotcontroller";
+import { Activated } from "./views/activation/activated";
+import { AlreadyActivated } from "./views/activation/alreadyActive";
+import { InvalidConfirmation } from "./views/activation/invalid";
+import { Confirmation } from "./views/confirmation/confirmation";
+import { PasswordResetEmailPage } from "./views/forgotPasswordEmail/forgotPassword";
+import { PasswordResetEmailSent } from "./views/forgotPasswordEmail/forgotPasswordSubmitted";
+import { Home } from "./views/home";
+import { Login } from "./views/login/login";
+import { MePage } from "./views/me/me";
+import { Register } from "./views/register/register";
+import { ResendConfirmationEmail } from "./views/resendConfirmation/resend-confirmation";
+import { ResetPasswordPage } from "./views/resetPassword/resetPassword";
+import { TimeOnPage } from "./views/urlEngagement/timeOnPage";
 
 const App = (props: any) => {
   return (
@@ -55,6 +56,11 @@ const App = (props: any) => {
           exact={true}
           component={SnapshotController}
         />
+        <ProtectedRoute
+          path="/service/engagement/:ua_id"
+          exact={true}
+          component={EngagementUrlController}
+        />
         <Route
           path="/invalid-confirmation"
           exact
@@ -65,6 +71,12 @@ const App = (props: any) => {
           exact
           component={ResendConfirmationEmail}
         />
+        <ProtectedRoute
+          path="/metrics/time-on-page"
+          component={TimeOnPage}
+          exact
+        />
+
         <Route path="/" render={() => <div>404</div>} />
       </Switch>
     </BrowserRouter>

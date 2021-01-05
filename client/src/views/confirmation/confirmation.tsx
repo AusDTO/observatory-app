@@ -1,12 +1,12 @@
 import React from "react";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 import DefaultLayout from "../../components/layouts/DefaultLayout";
-import { RouteComponentProps, Router, Redirect } from "react-router-dom";
 import SEO from "../seo";
 import confirmationImg from "./confirmation.png";
 
 interface Props extends RouteComponentProps {}
 
-export const Confirmation: React.FC<Props> = ({ history, location }) => {
+export const Confirmation: React.FC<Props> = ({ location }) => {
   if (!location.state) {
     return <Redirect to="/" />;
   }
@@ -30,7 +30,7 @@ export const Confirmation: React.FC<Props> = ({ history, location }) => {
           </p>
           <div className="row">
             <div className="col-md-6 col-xs-12">
-              <img src={confirmationImg}></img>
+              <img src={confirmationImg} alt=""></img>
             </div>
           </div>
         </div>

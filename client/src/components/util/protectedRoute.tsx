@@ -1,7 +1,7 @@
-import * as React from "react";
-import { RouteProps, Route, Redirect, RouteComponentProps } from "react-router";
-import gql from "graphql-tag";
 import { useQuery } from "@apollo/client";
+import gql from "graphql-tag";
+import * as React from "react";
+import { Redirect, Route, RouteComponentProps, RouteProps } from "react-router";
 import { GetUser } from "../../graphql/GetUser";
 
 type Props = RouteProps;
@@ -15,7 +15,7 @@ export const ProtectedRoute: React.FC<Props> = ({ component, path }) => {
     }
   `;
 
-  const { data, loading, error } = useQuery<GetUser>(GET_USER_QUERY);
+  const { data, loading } = useQuery<GetUser>(GET_USER_QUERY);
 
   //routeprops gives us history, match etc
   const renderRoute = (routeProps: RouteComponentProps<{}>) => {

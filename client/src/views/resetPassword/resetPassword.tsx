@@ -1,32 +1,29 @@
-import React, { useState, useEffect } from "react";
-import DefaultLayout from "../../components/layouts/DefaultLayout";
-import { RouteComponentProps, Redirect } from "react-router-dom";
-import { Formik, Form } from "formik";
-
-import { Aubtn, AuFormGroup } from "../../types/auds";
-import SEO from "../seo";
 import { useMutation } from "@apollo/client";
-
+import { Form, Formik } from "formik";
+import React, { useState } from "react";
+import { RouteComponentProps } from "react-router-dom";
 import PageAlert from "../../components/blocks/page-alert";
+import PasswordField from "../../components/form/PasswordField";
+import DefaultLayout from "../../components/layouts/DefaultLayout";
 import { formatApiError } from "../../components/util/formatError";
-import {
-  FormSubmitState,
-  ApiError,
-  ResetPasswordData,
-} from "../../types/types";
-import TextField from "../../components/form/TextField";
-import {
-  InitialValues,
-  validationSchema,
-  RESET_PASSWORD_SCHEMA,
-} from "./resetPassword_schema";
 import {
   ResetPassword,
   ResetPasswordVariables,
-  ResetPassword_resetPassword_FieldErrors,
   ResetPassword_resetPassword_Error,
+  ResetPassword_resetPassword_FieldErrors,
 } from "../../graphql/ResetPassword";
-import PasswordField from "../../components/form/PasswordField";
+import { Aubtn, AuFormGroup } from "../../types/auds";
+import {
+  ApiError,
+  FormSubmitState,
+  ResetPasswordData,
+} from "../../types/types";
+import SEO from "../seo";
+import {
+  InitialValues,
+  RESET_PASSWORD_SCHEMA,
+  validationSchema,
+} from "./resetPassword_schema";
 
 interface Props extends RouteComponentProps<{ key: string }> {} // key
 
@@ -42,10 +39,9 @@ export const ResetPasswordPage: React.FC<Props> = ({ history, match }) => {
 
   const [isSaving, setSaving] = useState<boolean>(false);
 
-  const [
-    resetPassword,
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation<ResetPassword, ResetPasswordVariables>(RESET_PASSWORD_SCHEMA);
+  const [resetPassword] = useMutation<ResetPassword, ResetPasswordVariables>(
+    RESET_PASSWORD_SCHEMA
+  );
 
   const handleResetPassword = async (formData: ResetPasswordData) => {
     setSaving(true);

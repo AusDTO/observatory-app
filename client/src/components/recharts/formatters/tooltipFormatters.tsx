@@ -1,6 +1,6 @@
-import { TooltipProps } from "recharts";
 import React from "react";
-import { formatDate, formatDateWithDay, formatHour } from "./dateTickFormatter";
+import { TooltipProps } from "recharts";
+import { formatDateWithDay, formatHour } from "./dateTickFormatter";
 
 interface Props extends TooltipProps {}
 

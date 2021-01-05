@@ -15,8 +15,8 @@ export const Home: React.FC<Props> = ({ history, location }) => {
         <div className="container-fluid au-body">
           <h1>See your web data differently</h1>
           <p>
-            You shouldn't have to be a Data Scientist to use data intelligently.
-            So we built ObservatoryApp to flatten the analytics learning curve
+            You shouldn't have to be a Data Scientist to use data intelligently,
+            so we built ObservatoryApp to flatten the analytics learning curve
             and give you valuable insights in a language you can understand:{" "}
             <i>human.</i>
           </p>

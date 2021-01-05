@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import { AuCard, AuCardInner } from "../../types/auds";
 
 interface Props {
   propertyUaId: string;
+  domain: string;
 } // key
 
-export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
+export const ServiceQuestions: React.FC<Props> = ({ propertyUaId, domain }) => {
   return (
     <section className="mt-2">
       <h2>
@@ -30,9 +30,11 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
                   </li>
 
                   <li>
-                    <a href="#" className="disabled-link">
+                    <Link
+                      to={`/service/engagement/${propertyUaId}?url=https://www.${domain}/&timePeriod=weekly`}
+                    >
                       How are people engaging with [URL's] content?
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#" className="disabled-link">
@@ -69,13 +71,13 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId }) => {
                 <ul className="au-link-list">
                   <li>
                     <a href="#" className="disabled-link">
-                      How many steps are users taking to find [PageUrl]
+                      How many steps are users taking to find [PageUrl]?
                     </a>
                   </li>
                   <li>
                     <a href="#" className="disabled-link">
                       How many users are completing a journey from Page A to
-                      Page B
+                      Page B ?
                     </a>
                   </li>
                 </ul>

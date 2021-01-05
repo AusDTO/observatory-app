@@ -1,10 +1,10 @@
-import React from "react";
-import { Brand, AUHeader, Aubtn } from "../../types/auds";
-import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
+import React from "react";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { LogoutUser } from "../../graphql/LogoutUser";
-import coatOfArms from "./coat-of-arms.svg";
+import { Aubtn, AUHeader, Brand } from "../../types/auds";
 import { ErrorPage } from "../../views/error/error";
+import coatOfArms from "./coat-of-arms.svg";
 
 interface Props extends RouteComponentProps {
   isAdmin?: boolean;
@@ -18,7 +18,7 @@ const Header: React.FC<Props> = ({ isAdmin, history, logoUrl }) => {
     }
   `;
 
-  const [logout, { data, loading, error, client }] = useMutation<LogoutUser>(
+  const [logout, { loading, error, client }] = useMutation<LogoutUser>(
     LOGOUT_MUTATION
   );
   if (error) {
