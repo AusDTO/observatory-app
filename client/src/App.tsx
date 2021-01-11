@@ -14,6 +14,7 @@ import { PasswordResetEmailSent } from "./views/forgotPasswordEmail/forgotPasswo
 import { Home } from "./views/home";
 import { Login } from "./views/login/login";
 import { MePage } from "./views/me/me";
+import { PeakDemand } from "./views/peakDemand/peakDemand";
 import { Register } from "./views/register/register";
 import { ResendConfirmationEmail } from "./views/resendConfirmation/resend-confirmation";
 import { ResetPasswordPage } from "./views/resetPassword/resetPassword";
@@ -60,6 +61,11 @@ const App = (props: any) => {
           path="/service/engagement/:ua_id"
           exact={true}
           component={EngagementUrlController}
+        />
+        <ProtectedRoute
+          path="/service/peak-demand/:ua_id"
+          exact={true}
+          component={PeakDemand}
         />
         <Route
           path="/invalid-confirmation"

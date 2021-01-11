@@ -37,9 +37,11 @@ export const ServiceQuestions: React.FC<Props> = ({ propertyUaId, domain }) => {
                     </Link>
                   </li>
                   <li>
-                    <a href="#" className="disabled-link">
+                    <Link
+                      to={`/service/peak-demand/${propertyUaId}?timePeriod=weekly`}
+                    >
                       Is there a peak demand time for my service?
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </AuCardInner>
