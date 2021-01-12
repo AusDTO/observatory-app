@@ -6,6 +6,40 @@ type PeakDataResult {
   output: String!
 }
 
+type PeakDataTimeSeries {
+  output: [PeakTimeSeries!]!
+}
+
+type PeakData {
+  reg_domain: String!
+  peak_hour: String!
+  pageviews: String!
+  time_on_page: String!
+  sessions: String!
+  pagesPerSession: String!
+  top10: [top10!]!
+  topTraffic: [topTraffic!]!
+}
+
+type top10 {
+  url: String!
+  pageViews: String!
+  pageTitle: String!
+  rank: String!
+}
+
+type topTraffic {
+  traffic_source: String!
+  traffic_count: String!
+  rank: String!
+}
+
+type PeakTimeSeries {
+  hour: String!
+  pageView: String!
+  sessions: String!
+}
+
 union getPeakDataResult =
     FieldErrors
   | Message
