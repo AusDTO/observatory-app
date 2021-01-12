@@ -1,0 +1,14 @@
+type Query {
+  getPeakData(property_ua_id: String!): getPeakDataResult
+}
+
+type PeakDataResult {
+  output: String!
+}
+
+union getPeakDataResult =
+    FieldErrors
+  | Message
+  | Error
+  | InvalidProperty
+  | PeakDataResult
