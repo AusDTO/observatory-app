@@ -1,6 +1,10 @@
 import { ResolverMap } from "../../types/graphql-util";
 import { IGetPeakDataType } from "../../types/schema";
-import { basicApiErrorMessage, bigQuery } from "../../util/constants";
+import {
+  basicApiErrorMessage,
+  bigQuery,
+  REDIS_PEAK_TS_PREFIX,
+} from "../../util/constants";
 import { createMiddleware } from "../../util/createMiddleware";
 import { validatePeakDataRequest } from "./validatePeakDataReq";
 
@@ -14,7 +18,9 @@ export const resolvers: ResolverMap = {
         const { property_ua_id } = args;
         const uaid = property_ua_id.toLowerCase().replace(/-/g, "_");
 
-        const dataExists = await redis_client.get(`peakdata${uaid}`);
+        const dataExists = await redis_client.get(
+          `${REDIS_PEAK_TS_PREFIX}${uaid}`
+        );
 
         if (dataExists) {
           console.log("Fetching data from cache");
@@ -36,7 +42,7 @@ export const resolvers: ResolverMap = {
 
           if (rows.length > 0) {
             await redis_client.set(
-              `peakdata${uaid}`,
+              `${REDIS_PEAK_TS_PREFIX}${uaid}`,
               JSON.stringify(rows),
               "ex",
               60 * 60 * 12
@@ -62,7 +68,7 @@ export const resolvers: ResolverMap = {
       }
     ),
 
-    getPeakData: createMiddleware(
+    getPeakDemandData: createMiddleware(
       validatePeakDataRequest,
       async (_, args: IGetPeakDataType, { session, redis_client }) => {
         //use session data
@@ -70,7 +76,9 @@ export const resolvers: ResolverMap = {
 
         const uaid = property_ua_id.toLowerCase().replace(/-/g, "_");
 
-        const dataCache = await redis_client.get(`peakData:${property_ua_id}`);
+        const dataCache = await redis_client.get(
+          `$"{REDIS_PEAK_TS_PREFIX}"${property_ua_id}`
+        );
 
         if (dataCache) {
           console.log("fetching from cache");
@@ -88,7 +96,7 @@ export const resolvers: ResolverMap = {
         } else {
           const data = "YES VALID";
           await redis_client.setex(
-            `peakData:${property_ua_id}`,
+            `PEAKDATA${property_ua_id}`,
             60 * 60 * 12,
             data
           );
