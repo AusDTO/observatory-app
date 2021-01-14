@@ -1,12 +1,12 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import MetricCard from "../../components/blocks/metric-card";
 import AdminLayout from "../../components/layouts/AdminLayout";
 import SEO from "../seo";
 
 interface Props extends RouteComponentProps {}
 
-export const PeakDemand: React.FC<Props> = ({ history, location }) => {
+const PeakDemand: React.FC<Props> = ({ history, location }) => {
   return (
     <AdminLayout>
       <>
@@ -119,3 +119,4 @@ export const PeakDemand: React.FC<Props> = ({ history, location }) => {
     </AdminLayout>
   );
 };
+export default withRouter(PeakDemand);

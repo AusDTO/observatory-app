@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ProtectedRoute } from "./components/util/protectedRoute";
 import { ChooseServiceController } from "./controller/chooseServiceController/chooseServiceController";
 import { EngagementUrlController } from "./controller/engagementController/engagementcontroller";
+import { PeakDataController } from "./controller/peakDataController/peakDataController";
 import { ServiceLandingController } from "./controller/serviceLandingController/serviceLandingController";
 import { SnapshotController } from "./controller/snapshotController/snapshotcontroller";
 import { Activated } from "./views/activation/activated";
@@ -14,7 +15,6 @@ import { PasswordResetEmailSent } from "./views/forgotPasswordEmail/forgotPasswo
 import { Home } from "./views/home";
 import { Login } from "./views/login/login";
 import { MePage } from "./views/me/me";
-import { PeakDemand } from "./views/peakDemand/peakDemand";
 import { Register } from "./views/register/register";
 import { ResendConfirmationEmail } from "./views/resendConfirmation/resend-confirmation";
 import { ResetPasswordPage } from "./views/resetPassword/resetPassword";
@@ -65,7 +65,7 @@ const App = (props: any) => {
         <ProtectedRoute
           path="/service/peak-demand/:ua_id"
           exact={true}
-          component={PeakDemand}
+          component={PeakDataController}
         />
         <Route
           path="/invalid-confirmation"

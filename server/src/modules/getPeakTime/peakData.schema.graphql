@@ -1,13 +1,26 @@
 type Query {
   getPeakData(property_ua_id: String!): getPeakDataResult
+  getPeakTimeSeriesData(property_ua_id: String!): PeakTimeSeriesResult
+}
+
+union PeakTimeSeriesResult =
+    FieldErrors
+  | Error
+  | InvalidProperty
+  | PeakTimeSeriesData
+
+type PeakTimeSeriesObject {
+  visit_hour: String!
+  pageviews: String!
+  sessions: String!
 }
 
 type PeakDataResult {
-  output: String!
+  output: [PeakTimeSeriesObject!]!
 }
 
-type PeakDataTimeSeries {
-  output: [PeakTimeSeries!]!
+type PeakTimeSeriesData {
+  output: [PeakTimeSeriesObject!]!
 }
 
 type PeakData {
@@ -32,12 +45,6 @@ type topTraffic {
   traffic_source: String!
   traffic_count: String!
   rank: String!
-}
-
-type PeakTimeSeries {
-  hour: String!
-  pageView: String!
-  sessions: String!
 }
 
 union getPeakDataResult =
