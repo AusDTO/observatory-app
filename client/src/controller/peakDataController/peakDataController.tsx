@@ -4,7 +4,9 @@ import { RouteComponentProps } from "react-router-dom";
 import {
   PeakDemandTimeSeries,
   PeakDemandTimeSeriesVariables,
+  PeakDemandTimeSeries_getPeakTimeSeriesData_PeakTimeSeriesData,
 } from "../../graphql/PeakDemandTimeSeries";
+import { NotFound } from "../../views/404-logged-in/404";
 import PeakDemand from "../../views/peakDemand/peakDemand";
 
 interface Props extends RouteComponentProps<{ ua_id: string }> {} // key
@@ -50,9 +52,38 @@ export const PeakDataController: (arg0: Props) => any = ({ match }) => {
     variables: { property_ua_id: ua_id },
   });
 
-  if (!loading) {
-    console.log(data);
+  if (error) {
+    return (
+      <NotFound title="Error with request">
+        <p>There was an unexpected error</p>
+      </NotFound>
+    );
   }
 
-  return <PeakDemand />;
+  if (loading) {
+    return <PeakDemand isLoading={true} />;
+  }
+
+  let isLoading: boolean = true;
+  let peakData:
+    | PeakDemandTimeSeries_getPeakTimeSeriesData_PeakTimeSeriesData
+    | undefined;
+
+  if (data && data.getPeakTimeSeriesData) {
+    const apiResult = data.getPeakTimeSeriesData;
+    const { __typename } = apiResult;
+    isLoading = false;
+
+    switch (__typename) {
+      case "Error":
+        break;
+      case "PeakTimeSeriesData":
+        const data = apiResult as PeakDemandTimeSeries_getPeakTimeSeriesData_PeakTimeSeriesData;
+        peakData = data;
+        break;
+      case "InvalidProperty":
+        break;
+    }
+    return <PeakDemand isLoading={isLoading} peakData={peakData} />;
+  }
 };
