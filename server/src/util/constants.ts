@@ -21,7 +21,8 @@ export const USER_SESSION_PREFIX = "userSessionID:";
 
 export const REDIS_FORGOT_PASSWORD_PREFIX = "forgotPassword:";
 export const REDIS_CONFIRMATION_EMAIL_PREFIX = "confirmEmail:";
-export const REDIS_PEAK_TS_PREFIX = "peakdata:";
+export const REDIS_PEAK_TS_PREFIX = "peakdatats:";
+export const REDIS_PEAK_DATA_PREFIX = "peakdata:";
 
 export const basicApiErrorMessage = (message: string, path: string) => ({
   __typename: "Error",

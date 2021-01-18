@@ -3,6 +3,7 @@ import { IGetPeakDataType } from "../../types/schema";
 import {
   basicApiErrorMessage,
   bigQuery,
+  REDIS_PEAK_DATA_PREFIX,
   REDIS_PEAK_TS_PREFIX,
 } from "../../util/constants";
 import { createMiddleware } from "../../util/createMiddleware";
@@ -19,7 +20,7 @@ export const resolvers: ResolverMap = {
         const uaid = property_ua_id.toLowerCase().replace(/-/g, "_");
 
         const dataExists = await redis_client.get(
-          `${REDIS_PEAK_TS_PREFIX}${uaid}`
+          `${REDIS_PEAK_TS_PREFIX}${property_ua_id}`
         );
 
         if (dataExists) {
@@ -30,7 +31,7 @@ export const resolvers: ResolverMap = {
           };
         }
 
-        const query = `SELECT pageviews,sessions,visit_hour
+        const query = `SELECT visit_hour,pageviews,sessions
         FROM \`dta_customers.${uaid}_peakseries_24hrs_weekly\``;
         try {
           const [job] = await bigQuery.createQueryJob({
@@ -41,8 +42,10 @@ export const resolvers: ResolverMap = {
           const [rows] = await job.getQueryResults();
 
           if (rows.length > 0) {
+            console.log(rows.length);
+
             await redis_client.set(
-              `${REDIS_PEAK_TS_PREFIX}${uaid}`,
+              `${REDIS_PEAK_TS_PREFIX}${property_ua_id}`,
               JSON.stringify(rows),
               "ex",
               60 * 60 * 12
@@ -77,7 +80,7 @@ export const resolvers: ResolverMap = {
         const uaid = property_ua_id.toLowerCase().replace(/-/g, "_");
 
         const dataCache = await redis_client.get(
-          `$"{REDIS_PEAK_TS_PREFIX}"${property_ua_id}`
+          `${REDIS_PEAK_DATA_PREFIX}${property_ua_id}`
         );
 
         if (dataCache) {
@@ -90,21 +93,45 @@ export const resolvers: ResolverMap = {
           }
 
           return {
-            __typename: "PeakDataResult",
+            __typename: "PeakDemandData",
             output: data,
           };
-        } else {
-          const data = "YES VALID";
-          await redis_client.setex(
-            `PEAKDATA${property_ua_id}`,
-            60 * 60 * 12,
-            data
-          );
+        }
+        const query = `SELECT pageviews,sessions,visit_hour, pagesPerSession, aveSessionDuration,time_on_page, last_day
+        FROM \`dta_customers.${uaid}_peakdemand_24hrs_weekly_1\``;
+        try {
+          const [job] = await bigQuery.createQueryJob({
+            query,
+          });
+          console.log(`Job ${job.id} started.`);
 
-          return {
-            __typename: "PeakDataResult",
-            message: data,
-          };
+          const [rows] = await job.getQueryResults();
+
+          if (rows.length > 0) {
+            console.log(rows);
+            await redis_client.set(
+              `${REDIS_PEAK_DATA_PREFIX}${property_ua_id}`,
+              JSON.stringify(rows),
+              "ex",
+              60 * 60 * 12
+            );
+
+            return {
+              __typename: "PeakDemandData",
+              output: rows,
+            };
+          } else {
+            return basicApiErrorMessage(
+              "There was an unexpected error fetching your data",
+              "table"
+            );
+          }
+        } catch (err) {
+          console.error(err.errors);
+          return basicApiErrorMessage(
+            "There was an unexpected error fetching your data",
+            "table"
+          );
         }
       }
     ),

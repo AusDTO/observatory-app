@@ -29,18 +29,18 @@ union PeakDemandResult =
   | PeakDemandData
 
 type PeakDemandData {
-  output: [PeakTimeSeriesObject!]!
+  output: [PeakDataObject!]!
 }
 
-type PeakData {
+type PeakDataObject {
   reg_domain: String!
-  peak_hour: String!
+  visit_hour: String!
   pageviews: String!
   time_on_page: String!
   sessions: String!
+  aveSessionDuration: String!
   pagesPerSession: String!
-  top10: [top10!]!
-  topTraffic: [topTraffic!]!
+  last_day: String!
 }
 
 type top10 {

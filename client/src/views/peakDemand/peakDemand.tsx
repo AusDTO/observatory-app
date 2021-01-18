@@ -3,22 +3,28 @@ import Loader from "react-loader-spinner";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import MetricCard from "../../components/blocks/metric-card";
 import AdminLayout from "../../components/layouts/AdminLayout";
+import { formatHour } from "../../components/recharts/formatters/dateTickFormatter";
 import { ObjectStringToInt } from "../../components/recharts/formatters/stringToNumber";
 import { LineChartVis } from "../../components/recharts/timeSeries";
-import { PeakDemandTimeSeries_getPeakTimeSeriesData_PeakTimeSeriesData } from "../../graphql/PeakDemandTimeSeries";
+import {
+  PeakDemand_getPeakDemandData_PeakDemandData,
+  PeakDemand_getPeakTimeSeriesData_PeakTimeSeriesData,
+} from "../../graphql/PeakDemand";
 import { AuCard, AuCardTitle } from "../../types/auds";
 import SEO from "../seo";
 
 interface Props extends RouteComponentProps {
-  peakData?: PeakDemandTimeSeries_getPeakTimeSeriesData_PeakTimeSeriesData;
+  peakTimeSeriesData?: PeakDemand_getPeakTimeSeriesData_PeakTimeSeriesData;
+  peakDemandData?: PeakDemand_getPeakDemandData_PeakDemandData;
   isLoading?: boolean;
 }
 
-const PeakDemand: React.FC<Props> = ({
+const PeakDemandView: React.FC<Props> = ({
   history,
   location,
   isLoading,
-  peakData,
+  peakTimeSeriesData,
+  peakDemandData,
 }) => {
   return (
     <AdminLayout>
@@ -38,12 +44,24 @@ const PeakDemand: React.FC<Props> = ({
                 timeout={5000} //3 secs
               />
             </div>
-          ) : peakData && peakData.output ? (
+          ) : peakTimeSeriesData &&
+            peakTimeSeriesData.output &&
+            peakDemandData &&
+            peakDemandData.output ? (
             <>
               <h2>Is there a peak?</h2>
               <div className="row mt-1">
                 <div className="col-md-4 col-sm-6 col-xs-12">
-                  <MetricCard level="3" title="Peak Time" metric={"TBA"} />
+                  <MetricCard
+                    level="3"
+                    title="Peak Time"
+                    content={
+                      <>
+                        <p>{peakDemandData.output[0].last_day}</p>
+                        <p>{formatHour(peakDemandData.output[0].visit_hour)}</p>
+                      </>
+                    }
+                  />
                 </div>
                 <div className="col-md-8 col-sm-6 col-xs-12">
                   <MetricCard
@@ -58,7 +76,11 @@ const PeakDemand: React.FC<Props> = ({
               {/* "What does the peak look like?" card section */}
               <div className="row mt-1">
                 <div className="col-md-4 col-sm-6 col-xs-12">
-                  <MetricCard level="3" title="Sessions" metric={"TBA"} />
+                  <MetricCard
+                    level="3"
+                    title="Sessions"
+                    metric={peakDemandData.output[0].sessions}
+                  />
                 </div>
                 <div className="col-md-8 col-sm-6 col-xs-12">
                   <AuCard>
@@ -70,7 +92,7 @@ const PeakDemand: React.FC<Props> = ({
                     </AuCardTitle>
                     <LineChartVis
                       data={ObjectStringToInt(
-                        peakData.output,
+                        peakTimeSeriesData.output,
                         "sessions"
                       ).reverse()}
                       xKey={"visit_hour"}
@@ -81,7 +103,11 @@ const PeakDemand: React.FC<Props> = ({
               </div>
               <div className="row mt-1">
                 <div className="col-md-4 col-sm-6 col-xs-12">
-                  <MetricCard level="3" title="Pageviews" metric={"TBA"} />
+                  <MetricCard
+                    level="3"
+                    title="Pageviews"
+                    metric={peakDemandData.output[0].pageviews}
+                  />
                 </div>
                 <div className="col-md-8 col-sm-6 col-xs-12">
                   <AuCard>
@@ -91,14 +117,14 @@ const PeakDemand: React.FC<Props> = ({
                     >
                       Pageviews
                     </AuCardTitle>
-                    {/* <LineChartVis
+                    <LineChartVis
                       data={ObjectStringToInt(
-                        peakData.output,
+                        peakTimeSeriesData.output,
                         "pageviews"
                       ).reverse()}
                       xKey={"visit_hour"}
                       yKey="pageviews"
-                    ></LineChartVis> */}
+                    ></LineChartVis>
                   </AuCard>
                 </div>
               </div>
@@ -140,7 +166,7 @@ const PeakDemand: React.FC<Props> = ({
                       <MetricCard
                         level="3"
                         title="Pages per Session"
-                        metric={"TBA"}
+                        metric={peakDemandData.output[0].pagesPerSession}
                       />
                     </div>
                   </div>
@@ -149,14 +175,14 @@ const PeakDemand: React.FC<Props> = ({
                       <MetricCard
                         level="3"
                         title="Avg. Session Duration"
-                        metric={"TBA"}
+                        metric={peakDemandData.output[0].aveSessionDuration}
                       />
                     </div>
                     <div className="col-md-6 col-sm-6 col-xs-12">
                       <MetricCard
                         level="3"
                         title="Avg. Time on Page"
-                        metric={"TBA"}
+                        metric={peakDemandData.output[0].time_on_page}
                       />
                     </div>
                   </div>
@@ -171,4 +197,4 @@ const PeakDemand: React.FC<Props> = ({
     </AdminLayout>
   );
 };
-export default withRouter(PeakDemand);
+export default withRouter(PeakDemandView);

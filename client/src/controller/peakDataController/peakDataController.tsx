@@ -2,12 +2,13 @@ import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import {
-  PeakDemandTimeSeries,
-  PeakDemandTimeSeriesVariables,
-  PeakDemandTimeSeries_getPeakTimeSeriesData_PeakTimeSeriesData,
-} from "../../graphql/PeakDemandTimeSeries";
+  PeakDemand,
+  PeakDemandVariables,
+  PeakDemand_getPeakDemandData_PeakDemandData,
+  PeakDemand_getPeakTimeSeriesData_PeakTimeSeriesData,
+} from "../../graphql/PeakDemand";
 import { NotFound } from "../../views/404-logged-in/404";
-import PeakDemand from "../../views/peakDemand/peakDemand";
+import PeakDemandView from "../../views/peakDemand/peakDemand";
 
 interface Props extends RouteComponentProps<{ ua_id: string }> {} // key
 
@@ -15,7 +16,7 @@ export const PeakDataController: (arg0: Props) => any = ({ match }) => {
   const { ua_id } = match.params;
 
   const GET_URL_DATA = gql`
-    query PeakDemandTimeSeries($property_ua_id: String!) {
+    query PeakDemand($property_ua_id: String!) {
       getPeakTimeSeriesData(property_ua_id: $property_ua_id) {
         __typename
 
@@ -42,15 +43,45 @@ export const PeakDataController: (arg0: Props) => any = ({ match }) => {
           }
         }
       }
+      getPeakDemandData(property_ua_id: $property_ua_id) {
+        __typename
+
+        ... on Error {
+          message
+        }
+
+        ... on PeakDemandData {
+          output {
+            visit_hour
+            sessions
+            pageviews
+            time_on_page
+            aveSessionDuration
+            pagesPerSession
+            last_day
+          }
+        }
+
+        ... on InvalidProperty {
+          message
+        }
+
+        ... on FieldErrors {
+          errors {
+            message
+            path
+          }
+        }
+      }
     }
   `;
 
-  const { data, loading, error } = useQuery<
-    PeakDemandTimeSeries,
-    PeakDemandTimeSeriesVariables
-  >(GET_URL_DATA, {
-    variables: { property_ua_id: ua_id },
-  });
+  const { data, loading, error } = useQuery<PeakDemand, PeakDemandVariables>(
+    GET_URL_DATA,
+    {
+      variables: { property_ua_id: ua_id },
+    }
+  );
 
   if (error) {
     return (
@@ -61,15 +92,16 @@ export const PeakDataController: (arg0: Props) => any = ({ match }) => {
   }
 
   if (loading) {
-    return <PeakDemand isLoading={true} />;
+    return <PeakDemandView isLoading={true} />;
   }
 
   let isLoading: boolean = true;
-  let peakData:
-    | PeakDemandTimeSeries_getPeakTimeSeriesData_PeakTimeSeriesData
+  let peakTimeSeriesData:
+    | PeakDemand_getPeakTimeSeriesData_PeakTimeSeriesData
     | undefined;
+  let peakDemandData: PeakDemand_getPeakDemandData_PeakDemandData | undefined;
 
-  if (data && data.getPeakTimeSeriesData) {
+  if (data && data.getPeakTimeSeriesData && data.getPeakDemandData) {
     const apiResult = data.getPeakTimeSeriesData;
     const { __typename } = apiResult;
     isLoading = false;
@@ -78,12 +110,31 @@ export const PeakDataController: (arg0: Props) => any = ({ match }) => {
       case "Error":
         break;
       case "PeakTimeSeriesData":
-        const data = apiResult as PeakDemandTimeSeries_getPeakTimeSeriesData_PeakTimeSeriesData;
-        peakData = data;
+        const data = apiResult as PeakDemand_getPeakTimeSeriesData_PeakTimeSeriesData;
+        peakTimeSeriesData = data;
         break;
       case "InvalidProperty":
         break;
     }
-    return <PeakDemand isLoading={isLoading} peakData={peakData} />;
+
+    const apiResult2 = data.getPeakDemandData;
+    const apiResult2TypeName = apiResult2.__typename;
+    switch (apiResult2TypeName) {
+      case "Error":
+        break;
+      case "PeakDemandData":
+        const data = apiResult2 as PeakDemand_getPeakDemandData_PeakDemandData;
+        peakDemandData = data;
+        break;
+      case "InvalidProperty":
+        break;
+    }
+    return (
+      <PeakDemandView
+        isLoading={isLoading}
+        peakTimeSeriesData={peakTimeSeriesData}
+        peakDemandData={peakDemandData}
+      />
+    );
   }
 };

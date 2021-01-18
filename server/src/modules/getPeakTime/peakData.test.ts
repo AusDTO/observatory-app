@@ -147,6 +147,7 @@ describe("Test caching", () => {
     const apiResponse = result.data.getPeakTimeSeriesData;
 
     const { __typename, output } = apiResponse;
+
     expect(__typename).toEqual("PeakTimeSeriesData");
     expect(output).toHaveLength(24);
     const cached = (await redis_client.get(
