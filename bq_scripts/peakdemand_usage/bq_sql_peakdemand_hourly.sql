@@ -1,11 +1,12 @@
     /*
-      BigQuery script delivering following outputs for analytics prototype tool
-      Basics for executive - weekly, daily, hourly/24hrs
+      BigQuery script delivering following knowledge product #3 outputs for analytics prototype tool
+      Peak hour demand service usage - weekly aggregation
       -pageViews
       -sessions
-      -users
-      -bounce rate
       -time on page
+      -Pages per session
+      -Top ten traffic sources
+      -Top ten pages visited
     */
     BEGIN
 
@@ -15,20 +16,20 @@
           reg_domain,
           pageViews,
           sessions,
-          visitHour,
+          visit_hour,
           dense_rank() over (PARTITION BY reg_domain order by pageViews desc, sessions desc) as peakRank
         from
           (
             select
               reg_domain,
-              visitHour,
+              visit_hour,
               count(*) as pageViews,
               SUM(sessions) AS sessions
             from
             (
               select
               reg_domain,
-              extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+              extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
               sessions
             from 
               (
@@ -115,7 +116,7 @@
           )
           where reg_domain in (select hostname from dta_customers.dta_properties_prototype)
               ))
-          group by  reg_domain, visitHour
+          group by  reg_domain, visit_hour
           )
           -- order by reg_domain, peakRank
         ; 	
@@ -139,13 +140,13 @@ create temp table t_peakhour_weekly_1
            case when sessions > 0 then total_time_on_page/sessions
           else 0
           end as aveSessionDuration,
-          visitHour,
+          visit_hour,
           rank() over (PARTITION BY reg_domain order by reg_domain, pageViews desc, sessions desc) as peakRank
         from
           (
             select
               reg_domain,
-              visitHour,
+              visit_hour,
               COUNT(distinct fullVisitorId) as unique_visitors,
               count(*) as pageViews,
               sum(time_on_page) as total_time_on_page,
@@ -155,7 +156,7 @@ create temp table t_peakhour_weekly_1
             (
               select
               fullVisitorId,
-              visitHour,
+              visit_hour,
               hit_time,
               isExit,
               case
@@ -169,7 +170,7 @@ create temp table t_peakhour_weekly_1
             (
               select
               fullVisitorId,
-              visitHour,
+              visit_hour,
               reg_domain,
               hit_time,
               isExit,
@@ -182,7 +183,7 @@ create temp table t_peakhour_weekly_1
                 select
                   fullVisitorId,
                   visitStartTime,
-                  visitHour,
+                  visit_hour,
                   reg_domain,
                   hit_time,
                   isExit,
@@ -201,7 +202,7 @@ create temp table t_peakhour_weekly_1
                   select
                       fullVisitorId,
                       visitStartTime,
-                      extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+                      extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
                       coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
                       hits.hitNumber,
                       totals.bounces,
@@ -223,7 +224,7 @@ create temp table t_peakhour_weekly_1
                   select
                       fullVisitorId,
                       visitStartTime,
-                      extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+                      extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
                       coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
                       hits.hitNumber,
                       totals.bounces,
@@ -245,7 +246,7 @@ create temp table t_peakhour_weekly_1
                   select
                       fullVisitorId,
                       visitStartTime,
-                      extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+                      extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
                       coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
                       hits.hitNumber,
                       totals.bounces,
@@ -267,7 +268,7 @@ create temp table t_peakhour_weekly_1
                   select
                       fullVisitorId,
                       visitStartTime,
-                      extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+                      extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
                       coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
                       hits.hitNumber,
                       totals.bounces,
@@ -289,7 +290,7 @@ create temp table t_peakhour_weekly_1
                   select
                       fullVisitorId,
                       visitStartTime,
-                      extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+                      extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
                       coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
                       hits.hitNumber,
                       totals.bounces,
@@ -309,29 +310,29 @@ create temp table t_peakhour_weekly_1
                       and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))   
           )
           where reg_domain in (select hostname from dta_customers.dta_properties_prototype)
-          and visitHour in (select visitHour from t_peakseries_kp3_weekly where peakRank = 1)
+          and visit_hour in (select visit_hour from t_peakseries_kp3_weekly where peakRank = 1)
               )))
-    group by  reg_domain, visitHour
+    group by  reg_domain, visit_hour
   )
   -- order by reg_domain, peakRank
   ; 	
 
 
--- peak demand hour traffic source
+-- peak demand hour traffic source for top ten listing
     create temp table t_peakhour_weekly_2
     as
      select 
       reg_domain,
       peakCount,
       peakTraffic,
-      visitHour
+      visit_hour
      from 
      (
      select
         reg_domain,
         count(*) as peakCount,
         CONCAT(traffic_medium, ' | ' ,traffic_source) as peakTraffic,
-         visitHour
+         visit_hour
     from
     (
 /* Start - Datasets of agencies' websites
@@ -339,7 +340,7 @@ create temp table t_peakhour_weekly_1
  */
        select
             fullvisitorId,
-            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             trafficSource.source as traffic_source,
             trafficSource.medium as traffic_medium
@@ -354,7 +355,7 @@ create temp table t_peakhour_weekly_1
         union all
         select
             fullvisitorId,
-            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             trafficSource.source as traffic_source,
             trafficSource.medium as traffic_medium
@@ -369,7 +370,7 @@ create temp table t_peakhour_weekly_1
         union all
         select
             fullvisitorId,
-            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             trafficSource.source as traffic_source,
             trafficSource.medium as traffic_medium
@@ -384,7 +385,7 @@ create temp table t_peakhour_weekly_1
         union all
         select
             fullvisitorId,
-            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             trafficSource.source as traffic_source,
             trafficSource.medium as traffic_medium
@@ -399,7 +400,7 @@ create temp table t_peakhour_weekly_1
         union all
         select
             fullvisitorId,
-            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             trafficSource.source as traffic_source,
             trafficSource.medium as traffic_medium
@@ -413,28 +414,27 @@ create temp table t_peakhour_weekly_1
              and regexp_contains(hits.page.pagePath, 'error|search') = FALSE     
         )
     where reg_domain in (select hostname from dta_customers.dta_properties_prototype)
-    and visitHour in (select visitHour from t_peakseries_kp3_weekly where peakRank = 1)
-    group by reg_domain, visitHour , peakTraffic
+    and visit_hour in (select visit_hour from t_peakseries_kp3_weekly where peakRank = 1)
+    group by reg_domain, visit_hour , peakTraffic
      )
     -- order by peakCount desc
   ;
 
 
--- peak demand hour visited pages
+-- peak demand hour visited pages for top ten listing
 create temp table t_peakhour_weekly_3
     as
     select
       reg_domain,
       peakCount,
       visited_page,
-      visitHour
+      visit_hour
     from (
      select
         reg_domain,
         count(*) as peakCount,
         CONCAT('www.',reg_domain,pagepath) as visited_page,
---         count(fullvisitorid) as visitor_count,
-        visitHour
+        visit_hour
     from
     (
 /* Start - Datasets of agencies' websites
@@ -442,7 +442,7 @@ create temp table t_peakhour_weekly_3
  */
        select
             fullvisitorId,
-            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             hits.page.pagePath as pagepath,
             trafficSource.source as traffic_source,
@@ -458,7 +458,7 @@ create temp table t_peakhour_weekly_3
         union all
         select
             fullvisitorId,
-            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             hits.page.pagePath as pagepath,
             trafficSource.source as traffic_source,
@@ -474,7 +474,7 @@ create temp table t_peakhour_weekly_3
         union all
         select
             fullvisitorId,
-            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             hits.page.pagePath as pagepath,
             trafficSource.source as traffic_source,
@@ -490,7 +490,7 @@ create temp table t_peakhour_weekly_3
         union all
         select
             fullvisitorId,
-            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             hits.page.pagePath as pagepath,
             trafficSource.source as traffic_source,
@@ -506,7 +506,7 @@ create temp table t_peakhour_weekly_3
         union all     
         select
             fullvisitorId,
-            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visitHour,
+            extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             hits.page.pagePath as pagepath,
             trafficSource.source as traffic_source,
@@ -521,13 +521,18 @@ create temp table t_peakhour_weekly_3
              and regexp_contains(hits.page.pagePath, 'error|search') = FALSE
         )
     where reg_domain in (select hostname from dta_customers.dta_properties_prototype)
-    and visitHour in (select visitHour from t_peakseries_kp3_weekly where peakRank = 1)
-    group by reg_domain, pagepath, visitHour 
+    and visit_hour in (select visit_hour from t_peakseries_kp3_weekly where peakRank = 1)
+    group by reg_domain, pagepath, visit_hour 
     )
     -- order by peakCount desc
  ;
 
 
+--
+-- Shaping dataset for web analytics of each property
+--
+
+-- Property 1 dta.gov.au
     create or replace table dta_customers.ua_61222473_1_peakseries_24hrs_weekly
           OPTIONS (
             description = "Weekly 24hr peak series sliced in an hour on daily schedule",
@@ -539,17 +544,14 @@ create temp table t_peakhour_weekly_3
           peak_hr.reg_domain as hostname,
           peak_hr.pageViews,
           peak_hr.sessions,
-          peak_hr.visitHour,
+          peak_hr.visit_hour,
           FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
     from 
        t_peakseries_kp3_weekly peak_hr
     inner join dta_customers.dta_properties_prototype prop 
         on peak_hr.reg_domain = prop.hostname
     where prop.property_id = 'UA-61222473-1'
-    -- and visitHour = (select visitHour from t_peakseries_kp3_weekly where peakRank = 1) 
-    order by pageViews desc, sessions desc, visitHour;
-
-
+    order by pageViews desc, sessions desc, visit_hour;
 
 
     create or replace table dta_customers.ua_61222473_1_peakdemand_24hrs_weekly_1
@@ -561,7 +563,7 @@ create temp table t_peakhour_weekly_3
     select
           property_id as propertyId,
           peak_hr.reg_domain as hostname,
-          peak_hr.visitHour,
+          peak_hr.visit_hour,
           peak_hr.pageViews,
           peak_hr.sessions,
           phw1.timeOnPage,
@@ -574,7 +576,7 @@ create temp table t_peakhour_weekly_3
     inner join dta_customers.dta_properties_prototype prop 
         on peak_hr.reg_domain = prop.hostname
     inner join t_peakhour_weekly_1 phw1
-        on peak_hr.reg_domain = phw1.reg_domain and peak_hr.visitHour = phw1.visitHour
+        on peak_hr.reg_domain = phw1.reg_domain and peak_hr.visit_hour = phw1.visit_hour
     where prop.property_id = 'UA-61222473-1'
     and peak_hr.reg_domain = 'dta.gov.au' and peak_hr.peakRank =1
     ;
@@ -589,7 +591,7 @@ create or replace table dta_customers.ua_61222473_1_peakdemand_24hrs_weekly_2
     select
           property_id as propertyId,
           peak_hr.reg_domain as hostname,
-          peak_hr.visitHour,
+          peak_hr.visit_hour,
           phw2.peakTraffic,
           phw2.peakCount,
           rank() over (PARTITION BY phw2.reg_domain order by phw2.reg_domain, peakCount desc) as peakRank,
@@ -599,7 +601,7 @@ create or replace table dta_customers.ua_61222473_1_peakdemand_24hrs_weekly_2
     inner join dta_customers.dta_properties_prototype prop 
         on peak_hr.reg_domain = prop.hostname
     inner join t_peakhour_weekly_2 phw2
-        on peak_hr.reg_domain = phw2.reg_domain and peak_hr.visitHour = phw2.visitHour
+        on peak_hr.reg_domain = phw2.reg_domain and peak_hr.visit_hour = phw2.visit_hour
     where prop.property_id = 'UA-61222473-1'
     and peak_hr.reg_domain = 'dta.gov.au' and peak_hr.peakRank =1
     and peakRank < 11
@@ -615,7 +617,7 @@ create or replace table dta_customers.ua_61222473_1_peakdemand_24hrs_weekly_3
     select
           property_id as propertyId,
           peak_hr.reg_domain as hostname,
-          peak_hr.visitHour,
+          peak_hr.visit_hour,
           phw3.visited_page as peakPages,
           phw3.peakCount as pageCount,
           rank() over (PARTITION BY phw3.reg_domain order by phw3.reg_domain, peakCount desc) as peakRank,
@@ -625,13 +627,320 @@ create or replace table dta_customers.ua_61222473_1_peakdemand_24hrs_weekly_3
     inner join dta_customers.dta_properties_prototype prop 
         on peak_hr.reg_domain = prop.hostname
     inner join t_peakhour_weekly_3 phw3
-        on peak_hr.reg_domain = phw3.reg_domain and peak_hr.visitHour = phw3.visitHour
+        on peak_hr.reg_domain = phw3.reg_domain and peak_hr.visit_hour = phw3.visit_hour
     where prop.property_id = 'UA-61222473-1'
     and peak_hr.reg_domain = 'dta.gov.au' and peak_hr.peakRank =1
     and peakRank < 11
     order by peakRank
     ;
 
+
+-- Property 2 domainname.gov.au
+    create or replace table dta_customers.ua_61222473_13_peakseries_24hrs_weekly
+          OPTIONS (
+            description = "Weekly 24hr peak series sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.pageViews,
+          peak_hr.sessions,
+          peak_hr.visit_hour,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    where prop.property_id = 'UA-61222473-13'
+    order by pageViews desc, sessions desc, visit_hour;
+
+
+    create or replace table dta_customers.ua_61222473_13_peakdemand_24hrs_weekly_1
+          OPTIONS (
+            description = "Weekly 24hr peak demand dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.visit_hour,
+          peak_hr.pageViews,
+          peak_hr.sessions,
+          phw1.timeOnPage,
+          phw1.aveSession,
+          phw1.pagesPerSession,
+          phw1.aveSessionDuration,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    inner join t_peakhour_weekly_1 phw1
+        on peak_hr.reg_domain = phw1.reg_domain and peak_hr.visit_hour = phw1.visit_hour
+    where prop.property_id = 'UA-61222473-13'
+    and peak_hr.reg_domain = 'domainname.gov.au' and peak_hr.peakRank =1
+    ;
+
+
+create or replace table dta_customers.ua_61222473_13_peakdemand_24hrs_weekly_2
+          OPTIONS (
+            description = "Weekly 24hr peak demand dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.visit_hour,
+          phw2.peakTraffic,
+          phw2.peakCount,
+          rank() over (PARTITION BY phw2.reg_domain order by phw2.reg_domain, peakCount desc) as peakRank,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    inner join t_peakhour_weekly_2 phw2
+        on peak_hr.reg_domain = phw2.reg_domain and peak_hr.visit_hour = phw2.visit_hour
+    where prop.property_id = 'UA-61222473-13'
+    and peak_hr.reg_domain = 'domainname.gov.au' and peak_hr.peakRank =1
+    and peakRank < 11
+    order by peakRank
+    ;
+
+create or replace table dta_customers.ua_61222473_13_peakdemand_24hrs_weekly_3
+          OPTIONS (
+            description = "Weekly 24hr peak demand dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.visit_hour,
+          phw3.visited_page as peakPages,
+          phw3.peakCount as pageCount,
+          rank() over (PARTITION BY phw3.reg_domain order by phw3.reg_domain, peakCount desc) as peakRank,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    inner join t_peakhour_weekly_3 phw3
+        on peak_hr.reg_domain = phw3.reg_domain and peak_hr.visit_hour = phw3.visit_hour
+    where prop.property_id = 'UA-61222473-13'
+    and peak_hr.reg_domain = 'domainname.gov.au' and peak_hr.peakRank =1
+    and peakRank < 11
+    order by peakRank
+    ;
+
+-- Property 3 designsystem.gov.au
+    create or replace table dta_customers.ua_61222473_15_peakseries_24hrs_weekly
+          OPTIONS (
+            description = "Weekly 24hr peak series sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.pageViews,
+          peak_hr.sessions,
+          peak_hr.visit_hour,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    where prop.property_id = 'UA-61222473-15'
+    order by pageViews desc, sessions desc, visit_hour;
+
+
+    create or replace table dta_customers.ua_61222473_15_peakdemand_24hrs_weekly_1
+          OPTIONS (
+            description = "Weekly 24hr peak demand dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.visit_hour,
+          peak_hr.pageViews,
+          peak_hr.sessions,
+          phw1.timeOnPage,
+          phw1.aveSession,
+          phw1.pagesPerSession,
+          phw1.aveSessionDuration,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    inner join t_peakhour_weekly_1 phw1
+        on peak_hr.reg_domain = phw1.reg_domain and peak_hr.visit_hour = phw1.visit_hour
+    where prop.property_id = 'UA-61222473-15'
+    and peak_hr.reg_domain = 'designsystem.gov.au' and peak_hr.peakRank =1
+    ;
+
+
+create or replace table dta_customers.ua_61222473_15_peakdemand_24hrs_weekly_2
+          OPTIONS (
+            description = "Weekly 24hr peak demand dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.visit_hour,
+          phw2.peakTraffic,
+          phw2.peakCount,
+          rank() over (PARTITION BY phw2.reg_domain order by phw2.reg_domain, peakCount desc) as peakRank,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    inner join t_peakhour_weekly_2 phw2
+        on peak_hr.reg_domain = phw2.reg_domain and peak_hr.visit_hour = phw2.visit_hour
+    where prop.property_id = 'UA-61222473-15'
+    and peak_hr.reg_domain = 'designsystem.gov.au' and peak_hr.peakRank =1
+    and peakRank < 11
+    order by peakRank
+    ;
+
+create or replace table dta_customers.ua_61222473_15_peakdemand_24hrs_weekly_3
+          OPTIONS (
+            description = "Weekly 24hr peak demand dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.visit_hour,
+          phw3.visited_page as peakPages,
+          phw3.peakCount as pageCount,
+          rank() over (PARTITION BY phw3.reg_domain order by phw3.reg_domain, peakCount desc) as peakRank,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    inner join t_peakhour_weekly_3 phw3
+        on peak_hr.reg_domain = phw3.reg_domain and peak_hr.visit_hour = phw3.visit_hour
+    where prop.property_id = 'UA-61222473-15'
+    and peak_hr.reg_domain = 'designsystem.gov.au' and peak_hr.peakRank =1
+    and peakRank < 11
+    order by peakRank
+    ;
+
+
+-- Property 4 stylemanual.gov.au
+    create or replace table dta_customers.ua_61222473_33_peakseries_24hrs_weekly
+          OPTIONS (
+            description = "Weekly 24hr peak series sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.pageViews,
+          peak_hr.sessions,
+          peak_hr.visit_hour,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    where prop.property_id = 'UA-61222473-33'
+    order by pageViews desc, sessions desc, visit_hour;
+
+
+    create or replace table dta_customers.ua_61222473_33_peakdemand_24hrs_weekly_1
+          OPTIONS (
+            description = "Weekly 24hr peak demand dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.visit_hour,
+          peak_hr.pageViews,
+          peak_hr.sessions,
+          phw1.timeOnPage,
+          phw1.aveSession,
+          phw1.pagesPerSession,
+          phw1.aveSessionDuration,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    inner join t_peakhour_weekly_1 phw1
+        on peak_hr.reg_domain = phw1.reg_domain and peak_hr.visit_hour = phw1.visit_hour
+    where prop.property_id = 'UA-61222473-33'
+    and peak_hr.reg_domain = 'stylemanual.gov.au' and peak_hr.peakRank =1
+    ;
+
+
+create or replace table dta_customers.ua_61222473_33_peakdemand_24hrs_weekly_2
+          OPTIONS (
+            description = "Weekly 24hr peak demand dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.visit_hour,
+          phw2.peakTraffic,
+          phw2.peakCount,
+          rank() over (PARTITION BY phw2.reg_domain order by phw2.reg_domain, peakCount desc) as peakRank,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    inner join t_peakhour_weekly_2 phw2
+        on peak_hr.reg_domain = phw2.reg_domain and peak_hr.visit_hour = phw2.visit_hour
+    where prop.property_id = 'UA-61222473-33'
+    and peak_hr.reg_domain = 'stylemanual.gov.au' and peak_hr.peakRank =1
+    and peakRank < 11
+    order by peakRank
+    ;
+
+create or replace table dta_customers.ua_61222473_33_peakdemand_24hrs_weekly_3
+          OPTIONS (
+            description = "Weekly 24hr peak demand dimensions sliced in an hour on daily schedule",
+            expiration_timestamp = TIMESTAMP_ADD(current_timestamp, INTERVAL 24 HOUR)
+    )
+    as
+    select
+          property_id as propertyId,
+          peak_hr.reg_domain as hostname,
+          peak_hr.visit_hour,
+          phw3.visited_page as peakPages,
+          phw3.peakCount as pageCount,
+          rank() over (PARTITION BY phw3.reg_domain order by phw3.reg_domain, peakCount desc) as peakRank,
+          FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
+    from 
+       t_peakseries_kp3_weekly peak_hr
+    inner join dta_customers.dta_properties_prototype prop 
+        on peak_hr.reg_domain = prop.hostname
+    inner join t_peakhour_weekly_3 phw3
+        on peak_hr.reg_domain = phw3.reg_domain and peak_hr.visit_hour = phw3.visit_hour
+    where prop.property_id = 'UA-61222473-33'
+    and peak_hr.reg_domain = 'stylemanual.gov.au' and peak_hr.peakRank =1
+    and peakRank < 11
+    order by peakRank
+    ;
 
 END;
     
