@@ -31,7 +31,7 @@ export const resolvers: ResolverMap = {
           };
         }
 
-        const query = `SELECT visit_hour,pageviews,sessions
+        const query = `SELECT visit_hour,pageViews,sessions
         FROM \`dta_customers.${uaid}_peakseries_24hrs_weekly\``;
         try {
           const [job] = await bigQuery.createQueryJob({
@@ -42,8 +42,6 @@ export const resolvers: ResolverMap = {
           const [rows] = await job.getQueryResults();
 
           if (rows.length > 0) {
-            console.log(rows.length);
-
             await redis_client.set(
               `${REDIS_PEAK_TS_PREFIX}${property_ua_id}`,
               JSON.stringify(rows),
@@ -97,7 +95,7 @@ export const resolvers: ResolverMap = {
             output: data,
           };
         }
-        const query = `SELECT pageviews,sessions,visit_hour, pagesPerSession, aveSessionDuration,time_on_page, last_day
+        const query = `SELECT pageViews,sessions,visit_hour, pagesPerSession, aveSessionDuration,timeOnPage, lastDay
         FROM \`dta_customers.${uaid}_peakdemand_24hrs_weekly_1\``;
         try {
           const [job] = await bigQuery.createQueryJob({
@@ -108,7 +106,6 @@ export const resolvers: ResolverMap = {
           const [rows] = await job.getQueryResults();
 
           if (rows.length > 0) {
-            console.log(rows);
             await redis_client.set(
               `${REDIS_PEAK_DATA_PREFIX}${property_ua_id}`,
               JSON.stringify(rows),

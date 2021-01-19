@@ -11,7 +11,7 @@ union PeakTimeSeriesResult =
 
 type PeakTimeSeriesObject {
   visit_hour: String!
-  pageviews: String!
+  pageViews: String!
   sessions: String!
 }
 
@@ -35,12 +35,12 @@ type PeakDemandData {
 type PeakDataObject {
   reg_domain: String!
   visit_hour: String!
-  pageviews: String!
-  time_on_page: String!
+  pageViews: String!
+  timeOnPage: String!
   sessions: String!
   aveSessionDuration: String!
   pagesPerSession: String!
-  last_day: String!
+  lastDay: String!
 }
 
 type top10 {

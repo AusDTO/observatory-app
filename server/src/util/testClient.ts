@@ -37,7 +37,7 @@ export class TestClient {
               output {
                 visit_hour
                 sessions
-                pageviews
+                pageViews
               }
             }
             

@@ -7,6 +7,10 @@ import { formatHour } from "../../components/recharts/formatters/dateTickFormatt
 import { ObjectStringToInt } from "../../components/recharts/formatters/stringToNumber";
 import { LineChartVis } from "../../components/recharts/timeSeries";
 import {
+  roundTwoPlaces,
+  secondsToMinutes,
+} from "../../components/util/numberUtils";
+import {
   PeakDemand_getPeakDemandData_PeakDemandData,
   PeakDemand_getPeakTimeSeriesData_PeakTimeSeriesData,
 } from "../../graphql/PeakDemand";
@@ -57,7 +61,7 @@ const PeakDemandView: React.FC<Props> = ({
                     title="Peak Time"
                     content={
                       <>
-                        <p>{peakDemandData.output[0].last_day}</p>
+                        <p>{peakDemandData.output[0].lastDay}</p>
                         <p>{formatHour(peakDemandData.output[0].visit_hour)}</p>
                       </>
                     }
@@ -95,7 +99,7 @@ const PeakDemandView: React.FC<Props> = ({
                         peakTimeSeriesData.output,
                         "sessions"
                       ).reverse()}
-                      xKey={"visit_hour"}
+                      xKey={"visitHour"}
                       yKey="sessions"
                     ></LineChartVis>
                   </AuCard>
@@ -106,7 +110,7 @@ const PeakDemandView: React.FC<Props> = ({
                   <MetricCard
                     level="3"
                     title="Pageviews"
-                    metric={peakDemandData.output[0].pageviews}
+                    metric={peakDemandData.output[0].pageViews}
                   />
                 </div>
                 <div className="col-md-8 col-sm-6 col-xs-12">
@@ -120,10 +124,10 @@ const PeakDemandView: React.FC<Props> = ({
                     <LineChartVis
                       data={ObjectStringToInt(
                         peakTimeSeriesData.output,
-                        "pageviews"
+                        "pageViews"
                       ).reverse()}
-                      xKey={"visit_hour"}
-                      yKey="pageviews"
+                      xKey={"visitHour"}
+                      yKey="pageViews"
                     ></LineChartVis>
                   </AuCard>
                 </div>
@@ -158,15 +162,19 @@ const PeakDemandView: React.FC<Props> = ({
                     <div className="col-md-6 col-sm-6 col-xs-12">
                       <MetricCard
                         level="3"
-                        title="Avg. Sessions"
-                        metric={"TBA"}
+                        title="Pages per Session"
+                        metric={roundTwoPlaces(
+                          peakDemandData.output[0].pagesPerSession
+                        )}
                       />
                     </div>
                     <div className="col-md-6 col-sm-6 col-xs-12">
                       <MetricCard
                         level="3"
-                        title="Pages per Session"
-                        metric={peakDemandData.output[0].pagesPerSession}
+                        title="Avg. Session Duration"
+                        metric={secondsToMinutes(
+                          peakDemandData.output[0].aveSessionDuration
+                        )}
                       />
                     </div>
                   </div>
@@ -174,15 +182,10 @@ const PeakDemandView: React.FC<Props> = ({
                     <div className="col-md-6 col-sm-6 col-xs-12">
                       <MetricCard
                         level="3"
-                        title="Avg. Session Duration"
-                        metric={peakDemandData.output[0].aveSessionDuration}
-                      />
-                    </div>
-                    <div className="col-md-6 col-sm-6 col-xs-12">
-                      <MetricCard
-                        level="3"
                         title="Avg. Time on Page"
-                        metric={peakDemandData.output[0].time_on_page}
+                        metric={secondsToMinutes(
+                          peakDemandData.output[0].timeOnPage
+                        )}
                       />
                     </div>
                   </div>

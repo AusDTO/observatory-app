@@ -16,7 +16,7 @@ export interface PeakDemand_getPeakTimeSeriesData_PeakTimeSeriesData_output {
   __typename: "PeakTimeSeriesObject";
   visit_hour: string;
   sessions: string;
-  pageviews: string;
+  pageViews: string;
 }
 
 export interface PeakDemand_getPeakTimeSeriesData_PeakTimeSeriesData {
@@ -55,11 +55,11 @@ export interface PeakDemand_getPeakDemandData_PeakDemandData_output {
   __typename: "PeakDataObject";
   visit_hour: string;
   sessions: string;
-  pageviews: string;
-  time_on_page: string;
+  pageViews: string;
+  timeOnPage: string;
   aveSessionDuration: string;
   pagesPerSession: string;
-  last_day: string;
+  lastDay: string;
 }
 
 export interface PeakDemand_getPeakDemandData_PeakDemandData {

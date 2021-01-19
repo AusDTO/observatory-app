@@ -28,7 +28,7 @@ export const PeakDataController: (arg0: Props) => any = ({ match }) => {
           output {
             visit_hour
             sessions
-            pageviews
+            pageViews
           }
         }
 
@@ -54,11 +54,11 @@ export const PeakDataController: (arg0: Props) => any = ({ match }) => {
           output {
             visit_hour
             sessions
-            pageviews
-            time_on_page
+            pageViews
+            timeOnPage
             aveSessionDuration
             pagesPerSession
-            last_day
+            lastDay
           }
         }
 
