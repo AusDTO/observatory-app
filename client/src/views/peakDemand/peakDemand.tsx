@@ -2,6 +2,7 @@ import React from "react";
 import Loader from "react-loader-spinner";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import MetricCard from "../../components/blocks/metric-card";
+import PageAlert from "../../components/blocks/page-alert";
 import { Table } from "../../components/blocks/table/table";
 import { shortenString } from "../../components/blocks/table/utility";
 import AdminLayout from "../../components/layouts/AdminLayout";
@@ -24,12 +25,14 @@ interface Props extends RouteComponentProps {
   peakTimeSeriesData?: PeakDemand_getPeakTimeSeriesData_PeakTimeSeriesData;
   peakDemandData?: PeakDemand_getPeakDemandData_PeakDemandData;
   isLoading?: boolean;
+  errorMessage?: string;
 }
 
 const PeakDemandView: React.FC<Props> = ({
   history,
   location,
   isLoading,
+  errorMessage,
   peakTimeSeriesData,
   peakDemandData,
 }) => {
@@ -41,6 +44,14 @@ const PeakDemandView: React.FC<Props> = ({
           <h1 className="mt-0">Is there a peak demand time for my service?</h1>
 
           {/* "Is there a peak?" card section */}
+          {errorMessage && (
+            <PageAlert type="error" className="max-42">
+              <>
+                <h3>There was an error</h3>
+                <p>{errorMessage}</p>
+              </>
+            </PageAlert>
+          )}
           {isLoading ? (
             <div className="flex flex-jc-center mt-2">
               <Loader
