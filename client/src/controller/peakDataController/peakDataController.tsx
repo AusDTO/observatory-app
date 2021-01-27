@@ -51,14 +51,21 @@ export const PeakDataController: (arg0: Props) => any = ({ match }) => {
         }
 
         ... on PeakDemandData {
-          output {
-            visit_hour
-            sessions
-            pageViews
-            timeOnPage
-            aveSessionDuration
-            pagesPerSession
-            lastDay
+          visit_hour
+          sessions
+          pageViews
+          timeOnPage
+          aveSessionDuration
+          pagesPerSession
+          lastDay
+          top10 {
+            pageCount
+            pageUrl
+            pageTitle
+          }
+          referral {
+            peakTraffic
+            peakCount
           }
         }
 

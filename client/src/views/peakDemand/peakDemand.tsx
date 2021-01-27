@@ -2,10 +2,13 @@ import React from "react";
 import Loader from "react-loader-spinner";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import MetricCard from "../../components/blocks/metric-card";
+import { Table } from "../../components/blocks/table/table";
+import { shortenString } from "../../components/blocks/table/utility";
 import AdminLayout from "../../components/layouts/AdminLayout";
 import { formatHour } from "../../components/recharts/formatters/dateTickFormatter";
 import { ObjectStringToInt } from "../../components/recharts/formatters/stringToNumber";
 import { LineChartVis } from "../../components/recharts/timeSeries";
+import { getDayFromDate } from "../../components/util/dateFormatters";
 import {
   roundTwoPlaces,
   secondsToMinutes,
@@ -14,7 +17,7 @@ import {
   PeakDemand_getPeakDemandData_PeakDemandData,
   PeakDemand_getPeakTimeSeriesData_PeakTimeSeriesData,
 } from "../../graphql/PeakDemand";
-import { AuCard, AuCardTitle } from "../../types/auds";
+import { AuCard, AuCardInner, AuCardTitle } from "../../types/auds";
 import SEO from "../seo";
 
 interface Props extends RouteComponentProps {
@@ -50,10 +53,9 @@ const PeakDemandView: React.FC<Props> = ({
             </div>
           ) : peakTimeSeriesData &&
             peakTimeSeriesData.output &&
-            peakDemandData &&
-            peakDemandData.output ? (
+            peakDemandData ? (
             <>
-              <h2>Is there a peak?</h2>
+              <h2>Is there a peak during the last week?</h2>
               <div className="row mt-1">
                 <div className="col-md-4 col-sm-6 col-xs-12">
                   <MetricCard
@@ -61,19 +63,40 @@ const PeakDemandView: React.FC<Props> = ({
                     title="Peak Time"
                     content={
                       <>
-                        <p>{peakDemandData.output[0].lastDay}</p>
-                        <p>{formatHour(peakDemandData.output[0].visit_hour)}</p>
+                        <p>{getDayFromDate(peakDemandData.lastDay)}</p>
+                        <p>{formatHour(peakDemandData.visit_hour)}</p>
                       </>
                     }
                   />
                 </div>
                 <div className="col-md-8 col-sm-6 col-xs-12">
-                  <MetricCard
-                    level="3"
-                    title="Site Traffic Sources"
-                    leftAlignMetric={true}
-                    content={"TBA"}
-                  />
+                  <AuCard>
+                    <AuCardInner>
+                      <Table
+                        data={peakDemandData.referral}
+                        caption="Site traffic sources"
+                        columns={[
+                          {
+                            Header: "Traffic source",
+                            accessor: "peakTraffic",
+                            disableSortBy: true,
+                            Cell: (props) => {
+                              return <span>{props.value}</span>;
+                            },
+                          },
+                          {
+                            Header: () => (
+                              <span className="align-right">Views</span>
+                            ),
+                            accessor: "peakCount",
+                            Cell: ({ value }) => (
+                              <span className="align-right">{value}</span>
+                            ),
+                          },
+                        ]}
+                      ></Table>
+                    </AuCardInner>
+                  </AuCard>
                 </div>
               </div>
 
@@ -83,7 +106,7 @@ const PeakDemandView: React.FC<Props> = ({
                   <MetricCard
                     level="3"
                     title="Sessions"
-                    metric={peakDemandData.output[0].sessions}
+                    metric={peakDemandData.sessions}
                   />
                 </div>
                 <div className="col-md-8 col-sm-6 col-xs-12">
@@ -98,8 +121,8 @@ const PeakDemandView: React.FC<Props> = ({
                       data={ObjectStringToInt(
                         peakTimeSeriesData.output,
                         "sessions"
-                      ).reverse()}
-                      xKey={"visitHour"}
+                      )}
+                      xKey={"visit_hour"}
                       yKey="sessions"
                     ></LineChartVis>
                   </AuCard>
@@ -110,7 +133,7 @@ const PeakDemandView: React.FC<Props> = ({
                   <MetricCard
                     level="3"
                     title="Pageviews"
-                    metric={peakDemandData.output[0].pageViews}
+                    metric={peakDemandData.pageViews}
                   />
                 </div>
                 <div className="col-md-8 col-sm-6 col-xs-12">
@@ -125,8 +148,8 @@ const PeakDemandView: React.FC<Props> = ({
                       data={ObjectStringToInt(
                         peakTimeSeriesData.output,
                         "pageViews"
-                      ).reverse()}
-                      xKey={"visitHour"}
+                      )}
+                      xKey={"visit_hour"}
                       yKey="pageViews"
                     ></LineChartVis>
                   </AuCard>
@@ -136,36 +159,52 @@ const PeakDemandView: React.FC<Props> = ({
               {/* "What are site visitors doing during the peak period?" card section */}
               <h2>What are site visitors doing during the peak period?</h2>
               <div className="row mt-1">
-                <div className="col-md-4 col-sm-6 col-xs-12">
-                  <MetricCard
-                    level="3"
-                    title="Top Pages Viewed"
-                    content={
-                      <div>
-                        TBA
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                      </div>
-                    }
-                  />
+                <div className="col-md-6 col-sm-6 col-xs-12">
+                  <AuCard>
+                    <AuCardInner>
+                      <Table
+                        data={peakDemandData.top10}
+                        caption="Pages visited during peak"
+                        columns={[
+                          {
+                            Header: "Page url",
+                            accessor: "pageTitle",
+                            disableSortBy: true,
+                            Cell: ({ value, row }) => {
+                              const rowData = row as any;
+                              return (
+                                <a
+                                  href={`${rowData.original.pageUrl}`}
+                                  title={value}
+                                  target="blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {shortenString(value, 35)}
+                                </a>
+                              );
+                            },
+                          },
+                          {
+                            Header: () => (
+                              <span className="align-right">Views</span>
+                            ),
+                            accessor: "pageCount",
+                            Cell: ({ value }) => (
+                              <span className="align-right">{value}</span>
+                            ),
+                          },
+                        ]}
+                      ></Table>
+                    </AuCardInner>
+                  </AuCard>
                 </div>
-                <div className="col-md-8 col-sm-6 col-xs-12">
+                <div className="col-md-6 col-sm-6 col-xs-12">
                   <div className="row">
                     <div className="col-md-6 col-sm-6 col-xs-12">
                       <MetricCard
                         level="3"
                         title="Pages per Session"
-                        metric={roundTwoPlaces(
-                          peakDemandData.output[0].pagesPerSession
-                        )}
+                        metric={roundTwoPlaces(peakDemandData.pagesPerSession)}
                       />
                     </div>
                     <div className="col-md-6 col-sm-6 col-xs-12">
@@ -173,7 +212,7 @@ const PeakDemandView: React.FC<Props> = ({
                         level="3"
                         title="Avg. Session Duration"
                         metric={secondsToMinutes(
-                          peakDemandData.output[0].aveSessionDuration
+                          peakDemandData.aveSessionDuration
                         )}
                       />
                     </div>
@@ -183,9 +222,7 @@ const PeakDemandView: React.FC<Props> = ({
                       <MetricCard
                         level="3"
                         title="Avg. Time on Page"
-                        metric={secondsToMinutes(
-                          peakDemandData.output[0].timeOnPage
-                        )}
+                        metric={secondsToMinutes(peakDemandData.timeOnPage)}
                       />
                     </div>
                   </div>

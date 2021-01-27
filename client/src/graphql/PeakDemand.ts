@@ -51,8 +51,21 @@ export interface PeakDemand_getPeakDemandData_Error {
   message: string;
 }
 
-export interface PeakDemand_getPeakDemandData_PeakDemandData_output {
-  __typename: "PeakDataObject";
+export interface PeakDemand_getPeakDemandData_PeakDemandData_top10 {
+  __typename: "topTen";
+  pageCount: string;
+  pageUrl: string;
+  pageTitle: string;
+}
+
+export interface PeakDemand_getPeakDemandData_PeakDemandData_referral {
+  __typename: "topTraffic";
+  peakTraffic: string;
+  peakCount: string;
+}
+
+export interface PeakDemand_getPeakDemandData_PeakDemandData {
+  __typename: "PeakDemandData";
   visit_hour: string;
   sessions: string;
   pageViews: string;
@@ -60,11 +73,8 @@ export interface PeakDemand_getPeakDemandData_PeakDemandData_output {
   aveSessionDuration: string;
   pagesPerSession: string;
   lastDay: string;
-}
-
-export interface PeakDemand_getPeakDemandData_PeakDemandData {
-  __typename: "PeakDemandData";
-  output: PeakDemand_getPeakDemandData_PeakDemandData_output[];
+  top10: PeakDemand_getPeakDemandData_PeakDemandData_top10[];
+  referral: PeakDemand_getPeakDemandData_PeakDemandData_referral[];
 }
 
 export interface PeakDemand_getPeakDemandData_InvalidProperty {
