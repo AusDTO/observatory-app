@@ -1,0 +1,53 @@
+type Query {
+  getPeakDemandData(property_ua_id: String!): PeakDemandResult
+  getPeakTimeSeriesData(property_ua_id: String!): PeakTimeSeriesResult
+}
+
+union PeakTimeSeriesResult =
+    FieldErrors
+  | Error
+  | InvalidProperty
+  | PeakTimeSeriesData
+
+type PeakTimeSeriesObject {
+  visit_hour: String!
+  pageViews: String!
+  sessions: String!
+}
+
+type PeakTimeSeriesData {
+  output: [PeakTimeSeriesObject!]!
+}
+
+##PEAK DEMAND
+
+union PeakDemandResult =
+    FieldErrors
+  | Message
+  | Error
+  | InvalidProperty
+  | PeakDemandData
+
+type PeakDemandData {
+  reg_domain: String!
+  visit_hour: String!
+  pageViews: String!
+  timeOnPage: String!
+  sessions: String!
+  aveSessionDuration: String!
+  pagesPerSession: String!
+  lastDay: String!
+  top10: [topTen!]!
+  referral: [topTraffic!]!
+}
+
+type topTen {
+  pageUrl: String!
+  pageTitle: String!
+  pageCount: String!
+}
+
+type topTraffic {
+  peakCount: String!
+  peakTraffic: String!
+}
