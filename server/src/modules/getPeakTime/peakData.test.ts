@@ -156,7 +156,9 @@ describe("Test caching", () => {
     console.log(cached);
     const redis_output = JSON.parse(cached);
 
-    expect(redis_output[0].sessions as string).toEqual(output[0].sessions);
+    expect(redis_output[0].sessions as string).toEqual(
+      output[0].sessions as string
+    );
     await client.logout();
   });
 });
