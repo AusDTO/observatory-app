@@ -7,6 +7,8 @@
       -Pages per session
       -Top ten traffic sources
       -Top ten pages visited
+
+      BigQuery schedule: kp3_peakhour_demand_usage_weekly
     */
     BEGIN
 
@@ -428,12 +430,14 @@ create temp table t_peakhour_weekly_3
       reg_domain,
       peakCount,
       visited_page,
+      pageTitle,
       visit_hour
     from (
      select
         reg_domain,
         count(*) as peakCount,
-        CONCAT('www.',reg_domain,pagepath) as visited_page,
+        pageTitle,
+        CONCAT('https://www.',reg_domain,pagepath) as visited_page,
         visit_hour
     from
     (
@@ -445,8 +449,7 @@ create temp table t_peakhour_weekly_3
             extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             hits.page.pagePath as pagepath,
-            trafficSource.source as traffic_source,
-            trafficSource.medium as traffic_medium
+            hits.page.pagetitle as pageTitle
             from
               `99993137.ga_sessions_*` AS GA,
               UNNEST(GA.hits) AS hits
@@ -461,8 +464,7 @@ create temp table t_peakhour_weekly_3
             extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             hits.page.pagePath as pagepath,
-            trafficSource.source as traffic_source,
-            trafficSource.medium as traffic_medium
+            hits.page.pagetitle as pageTitle
             from
               `222282547.ga_sessions_*` AS GA,
               UNNEST(GA.hits) AS hits
@@ -477,8 +479,7 @@ create temp table t_peakhour_weekly_3
             extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             hits.page.pagePath as pagepath,
-            trafficSource.source as traffic_source,
-            trafficSource.medium as traffic_medium
+            hits.page.pagetitle as pageTitle
             from
               `170387771.ga_sessions_*` AS GA,
               UNNEST(GA.hits) AS hits
@@ -493,8 +494,7 @@ create temp table t_peakhour_weekly_3
             extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             hits.page.pagePath as pagepath,
-            trafficSource.source as traffic_source,
-            trafficSource.medium as traffic_medium
+            hits.page.pagetitle as pageTitle
             from
               `169220999.ga_sessions_*` AS GA,
               UNNEST(GA.hits) AS hits
@@ -509,8 +509,7 @@ create temp table t_peakhour_weekly_3
             extract(HOUR from timestamp_seconds(visitStartTime) at Time Zone 'Australia/Sydney') as visit_hour,
             coalesce(net.reg_domain(hits.page.hostname),'') as reg_domain,
             hits.page.pagePath as pagepath,
-            trafficSource.source as traffic_source,
-            trafficSource.medium as traffic_medium
+            hits.page.pagetitle as pageTitle
             from
               `225103137.ga_sessions_*` AS GA,
               UNNEST(GA.hits) AS hits
@@ -522,7 +521,7 @@ create temp table t_peakhour_weekly_3
         )
     where reg_domain in (select hostname from dta_customers.dta_properties_prototype)
     and visit_hour in (select visit_hour from t_peakseries_kp3_weekly where peakRank = 1)
-    group by reg_domain, pagepath, visit_hour 
+    group by reg_domain, pagepath, visit_hour, pageTitle
     )
     -- order by peakCount desc
  ;
@@ -551,7 +550,7 @@ create temp table t_peakhour_weekly_3
     inner join dta_customers.dta_properties_prototype prop 
         on peak_hr.reg_domain = prop.hostname
     where prop.property_id = 'UA-61222473-1'
-    order by pageViews desc, sessions desc, visit_hour;
+    order by visit_hour;
 
 
     create or replace table dta_customers.ua_61222473_1_peakdemand_24hrs_weekly_1
@@ -618,7 +617,8 @@ create or replace table dta_customers.ua_61222473_1_peakdemand_24hrs_weekly_3
           property_id as propertyId,
           peak_hr.reg_domain as hostname,
           peak_hr.visit_hour,
-          phw3.visited_page as peakPages,
+          phw3.pageTitle,
+          phw3.visited_page as pageUrl,
           phw3.peakCount as pageCount,
           rank() over (PARTITION BY phw3.reg_domain order by phw3.reg_domain, peakCount desc) as peakRank,
           FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
@@ -654,7 +654,7 @@ create or replace table dta_customers.ua_61222473_1_peakdemand_24hrs_weekly_3
     inner join dta_customers.dta_properties_prototype prop 
         on peak_hr.reg_domain = prop.hostname
     where prop.property_id = 'UA-61222473-13'
-    order by pageViews desc, sessions desc, visit_hour;
+    order by visit_hour;
 
 
     create or replace table dta_customers.ua_61222473_13_peakdemand_24hrs_weekly_1
@@ -721,7 +721,8 @@ create or replace table dta_customers.ua_61222473_13_peakdemand_24hrs_weekly_3
           property_id as propertyId,
           peak_hr.reg_domain as hostname,
           peak_hr.visit_hour,
-          phw3.visited_page as peakPages,
+          phw3.pageTitle,
+          phw3.visited_page as pageUrl,          
           phw3.peakCount as pageCount,
           rank() over (PARTITION BY phw3.reg_domain order by phw3.reg_domain, peakCount desc) as peakRank,
           FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
@@ -756,7 +757,7 @@ create or replace table dta_customers.ua_61222473_13_peakdemand_24hrs_weekly_3
     inner join dta_customers.dta_properties_prototype prop 
         on peak_hr.reg_domain = prop.hostname
     where prop.property_id = 'UA-61222473-15'
-    order by pageViews desc, sessions desc, visit_hour;
+    order by visit_hour;
 
 
     create or replace table dta_customers.ua_61222473_15_peakdemand_24hrs_weekly_1
@@ -823,7 +824,8 @@ create or replace table dta_customers.ua_61222473_15_peakdemand_24hrs_weekly_3
           property_id as propertyId,
           peak_hr.reg_domain as hostname,
           peak_hr.visit_hour,
-          phw3.visited_page as peakPages,
+          phw3.pageTitle,
+          phw3.visited_page as pageUrl,          
           phw3.peakCount as pageCount,
           rank() over (PARTITION BY phw3.reg_domain order by phw3.reg_domain, peakCount desc) as peakRank,
           FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
@@ -859,7 +861,7 @@ create or replace table dta_customers.ua_61222473_15_peakdemand_24hrs_weekly_3
     inner join dta_customers.dta_properties_prototype prop 
         on peak_hr.reg_domain = prop.hostname
     where prop.property_id = 'UA-61222473-33'
-    order by pageViews desc, sessions desc, visit_hour;
+    order by visit_hour;
 
 
     create or replace table dta_customers.ua_61222473_33_peakdemand_24hrs_weekly_1
@@ -926,7 +928,8 @@ create or replace table dta_customers.ua_61222473_33_peakdemand_24hrs_weekly_3
           property_id as propertyId,
           peak_hr.reg_domain as hostname,
           peak_hr.visit_hour,
-          phw3.visited_page as peakPages,
+          phw3.pageTitle,
+          phw3.visited_page as pageUrl,          
           phw3.peakCount as pageCount,
           rank() over (PARTITION BY phw3.reg_domain order by phw3.reg_domain, peakCount desc) as peakRank,
           FORMAT_DATE('%m-%d-%Y',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)) as lastDay
