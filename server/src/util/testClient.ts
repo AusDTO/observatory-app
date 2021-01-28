@@ -1,6 +1,6 @@
 import request from "graphql-request";
-import * as rp from "request-promise";
 import node_fetch from "node-fetch";
+import * as rp from "request-promise";
 import { DataOutputType } from "../types/schema";
 
 //Test client class for graphql requests
@@ -18,6 +18,44 @@ export class TestClient {
       jar: rp.jar(),
       withCredentials: true,
     };
+  }
+
+  async getPeakDataTimeSeries(property_ua_id: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `
+        query {
+          getPeakTimeSeriesData(property_ua_id: "${property_ua_id}"){
+            __typename
+            
+            ...on Error {
+              message
+            }
+            
+            ...on PeakTimeSeriesData {
+              output {
+                visit_hour
+                sessions
+                pageViews
+              }
+            }
+            
+            ...on InvalidProperty {
+              message
+            }
+            
+            ...on FieldErrors {
+              errors{
+                message
+                path
+              }
+            }
+          }
+        }
+        `,
+      },
+    });
   }
 
   async getDataFromUrl(property_ua_id: string, url: string, dateType: string) {

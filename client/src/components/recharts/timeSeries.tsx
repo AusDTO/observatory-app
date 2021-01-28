@@ -9,7 +9,10 @@ import {
   YAxis,
 } from "recharts";
 import { formatDate, formatHour } from "./formatters/dateTickFormatter";
-import { PageViewsTooltip } from "./formatters/tooltipFormatters";
+import {
+  PageViewsTooltip,
+  SessionsTooltip,
+} from "./formatters/tooltipFormatters";
 
 interface Props {
   data?: any;
@@ -54,7 +57,11 @@ export const LineChartVis: React.FC<Props> = ({ data, xKey, yKey }) => {
             },
           ]}
         />
-        <Tooltip content={<PageViewsTooltip />} />
+        <Tooltip
+          content={
+            yKey === "sessions" ? <SessionsTooltip /> : <PageViewsTooltip />
+          }
+        />
 
         <Line type="linear" dataKey={yKey} stroke="#008568" strokeWidth="3" />
       </LineChart>

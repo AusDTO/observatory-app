@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ProtectedRoute } from "./components/util/protectedRoute";
 import { ChooseServiceController } from "./controller/chooseServiceController/chooseServiceController";
 import { EngagementUrlController } from "./controller/engagementController/engagementcontroller";
+import { PeakDataController } from "./controller/peakDataController/peakDataController";
 import { ServiceLandingController } from "./controller/serviceLandingController/serviceLandingController";
 import { SnapshotController } from "./controller/snapshotController/snapshotcontroller";
 import { Activated } from "./views/activation/activated";
@@ -60,6 +61,11 @@ const App = (props: any) => {
           path="/service/engagement/:ua_id"
           exact={true}
           component={EngagementUrlController}
+        />
+        <ProtectedRoute
+          path="/service/peak-demand/:ua_id"
+          exact={true}
+          component={PeakDataController}
         />
         <Route
           path="/invalid-confirmation"

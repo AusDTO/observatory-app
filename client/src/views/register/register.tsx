@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import { Formik, Form } from "formik";
-import DefaultLayout from "../../components/layouts/DefaultLayout";
-import TextField from "../../components/form/TextField";
-import { Aubtn, AuFormGroup } from "../../types/auds";
-import {
-  InitialValues,
-  validationSchema,
-  REGISTER_SCHEMA,
-} from "./register_schema";
-import PageAlert from "../../components/blocks/page-alert";
 import { useMutation } from "@apollo/client";
+import { Form, Formik } from "formik";
+import React, { useState } from "react";
+import { Link, RouteComponentProps } from "react-router-dom";
+import PageAlert from "../../components/blocks/page-alert";
+import PasswordField from "../../components/form/PasswordField";
+import TextField from "../../components/form/TextField";
+import DefaultLayout from "../../components/layouts/DefaultLayout";
+import { formatApiError } from "../../components/util/formatError";
 import {
   RegisterUser,
   RegisterUserVariables,
-  RegisterUser_register_UserAlreadyExistsError,
   RegisterUser_register_FieldErrors,
+  RegisterUser_register_UserAlreadyExistsError,
 } from "../../graphql/RegisterUser";
-import { Link, RouteComponentProps } from "react-router-dom";
-import { formatApiError } from "../../components/util/formatError";
-import SEO from "../seo";
+import { Aubtn, AuFormGroup } from "../../types/auds";
 import {
+  ApiError,
   FormSubmitState,
   RegisterData,
-  ApiError,
   RegisterErrorName,
 } from "../../types/types";
-import PasswordField from "../../components/form/PasswordField";
+import SEO from "../seo";
+import {
+  InitialValues,
+  REGISTER_SCHEMA,
+  validationSchema,
+} from "./register_schema";
 
 interface Props extends RouteComponentProps {}
 export const Register: React.FC<Props> = ({ history }) => {
@@ -103,18 +103,18 @@ export const Register: React.FC<Props> = ({ history }) => {
         <SEO title="Register" />
         <div className="container-fluid au-body">
           <div>
-            <h2>Create your observatory reports account</h2>
+            <h2>Create your Observatory Reports account</h2>
 
             <p>
               This tool is currently in its Alpha phase, meaning access is
-              limited to agencies with Observatory subscriptions only
+              limited to agencies with Observatory subscriptions only.
             </p>
             <p>
-              To connect your Google Analytics account to the Observatory please
-              contact us at observatory@dta.gov.au.
+              To connect your Google Analytics account to the Observatory,
+              please contact us at observatory@dta.gov.au.
             </p>
             <p>
-              Already have an account? <Link to="/login">Sign in</Link>
+              Already have an account? <Link to="/login">Sign in</Link>.
             </p>
           </div>
           <Formik
@@ -124,7 +124,14 @@ export const Register: React.FC<Props> = ({ history }) => {
               handleRegisterUser(data);
             }}
           >
-            {({ values, errors, touched, handleSubmit, submitForm }) => (
+            {({
+              values,
+              errors,
+              touched,
+              isSubmitting,
+              handleSubmit,
+              submitForm,
+            }) => (
               <Form
                 noValidate
                 className="mb-2"
@@ -201,8 +208,12 @@ export const Register: React.FC<Props> = ({ history }) => {
                 />
 
                 <AuFormGroup>
-                  <Aubtn type="submit" onClick={submitForm} disabled={saving}>
-                    {saving ? "Submitting" : "Subscribe"}
+                  <Aubtn
+                    type="submit"
+                    onClick={submitForm}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Submitting" : "Subscribe"}
                   </Aubtn>
                 </AuFormGroup>
               </Form>

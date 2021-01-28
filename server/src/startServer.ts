@@ -1,34 +1,33 @@
-import "reflect-metadata";
-import * as express from "express";
-import { ApolloServer, makeExecutableSchema } from "apollo-server-express";
-import { connection } from "./util/createConnection";
 import { loadFilesSync } from "@graphql-tools/load-files";
-import * as path from "path";
-import { mergeTypeDefs, mergeResolvers } from "@graphql-tools/merge";
-import { DocumentNode } from "graphql";
-import Redis from "ioredis";
-import { confirmEmail } from "./routes/confirmEmail";
-import * as session from "express-session";
+import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
+import { ApolloServer, makeExecutableSchema } from "apollo-server-express";
+import * as bodyParser from "body-parser";
 import * as connect_redis from "connect-redis";
 import "dotenv/config";
+import * as express from "express";
+import * as session from "express-session";
+import { DocumentNode } from "graphql";
+import Redis from "ioredis";
+import * as path from "path";
+import "reflect-metadata";
+import * as swaggerUi from "swagger-ui-express";
+import loginAdminRouter from "./routes/adminLogin/loginAdmin";
+import agencyRouter from "./routes/agency/agencyRoutes";
+import { confirmEmail } from "./routes/confirmEmail";
+import dataOutputRouter from "./routes/dataOutputs/dataRoutes";
+import propertyRouter from "./routes/properties/propertyRoutes";
 import {
+  CORS_OPTIONS,
+  ENVIRONMENT,
   REDIS_PREFIX,
   RESOLVER_FILE_TYPE,
-  ENVIRONMENT,
-  CORS_OPTIONS,
   sessionSecret,
   swaggerOptions,
 } from "./util/constants";
-var cfenv = require("cfenv");
-import * as bodyParser from "body-parser";
-import loginAdminRouter from "./routes/adminLogin/loginAdmin";
-import * as swaggerUi from "swagger-ui-express";
-const swaggerDocument = require("./swagger.json");
-
-import agencyRouter from "./routes/agency/agencyRoutes";
+import { connection } from "./util/createConnection";
 import { verifyToken } from "./util/verifyToken/verifyToken";
-import propertyRouter from "./routes/properties/propertyRoutes";
-import dataOutputRouter from "./routes/dataOutputs/dataRoutes";
+var cfenv = require("cfenv");
+const swaggerDocument = require("./swagger.json");
 
 const PORT = process.env.PORT || 4000;
 const REDIS_PORT = 6379;

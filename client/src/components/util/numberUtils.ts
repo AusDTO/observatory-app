@@ -25,5 +25,7 @@ export const secondsToMinutes = (sec: string) => {
       .toString()
       .padStart(2, "0");
 
-  return m + "mins " + s + " secs";
+  return (
+    m + (m === "1" ? " min " : " mins ") + s + (s === "1" ? " sec" : " secs")
+  );
 };

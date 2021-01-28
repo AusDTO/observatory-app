@@ -1,7 +1,5 @@
 import { ResolverMap } from "../../types/graphql-util";
-
 import { IGetOutputDataType } from "../../types/schema";
-
 import { validateRequestAndFetchData } from "./fetchData";
 
 export const resolvers: ResolverMap = {
