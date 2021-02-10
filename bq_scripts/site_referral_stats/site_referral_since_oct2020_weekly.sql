@@ -1,7 +1,8 @@
 /*
 Dimensions: Top 100 referral sources to gov.au domains
 Metrics: users
-Time period: weekly since last year October
+Time period: weekly since last year October 2020
+Day: Thursday 1st October 2020
 Data automatically gathered on a weekly basis
 */
 
@@ -14,7 +15,7 @@ select
   traffic_referral,
   total_visitors,
   unique_visitors,
-  visit_week,
+  visit_week_thr as visit_week,
   visit_month,
   visit_year
 from (
@@ -24,8 +25,7 @@ from (
         sum(hit_count) as total_hits,
         traffic_referral,
         extract(WEEK(THURSDAY) FROM date(timestamp_seconds(visitStartTime))) as visit_week_thr,
-        format_date("%W", date(timestamp_seconds(visitStartTime), 'Australia/Sydney')) as visit_week,
-        format_date("%b", date(timestamp_seconds(visitStartTime), 'Australia/Sydney')) as visit_month,
+        format_date("%m", date(timestamp_seconds(visitStartTime), 'Australia/Sydney')) as visit_month,
         format_date("%Y", date(timestamp_seconds(visitStartTime), 'Australia/Sydney')) as visit_year
     from
     (
@@ -1588,7 +1588,7 @@ select
 /* End - Datasets of Interest websites */
     )
      where traffic_referral in (select traffic_referral from dta_customers.site_referral_oct_2020_firstweek where peak_traffic_source <= 100)
-     group by traffic_referral, visit_week, visit_month, visit_year
+     group by traffic_referral, visit_week_thr, visit_month, visit_year
   )
-    order by traffic_referral, visit_year, visit_week
+    order by traffic_referral, visit_year, visit_month ,visit_week
 ;
