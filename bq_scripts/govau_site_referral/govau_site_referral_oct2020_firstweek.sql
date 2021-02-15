@@ -1,23 +1,23 @@
 /*
 Dimensions: Top 100 referral sources to gov.au domains
 Metrics: users
-Time period: weekly since last year October 2020
-Day: Thursday 1st October 2020
-Incremental Data automatically gathered on a weekly basis
-
-Google scheduler: govau_site_referral_statistics_oct2020_delta
+Time period: First week of October 2020
+Data automatically gathered on a weekly basis
 */
 
-Begin
-
-insert dta_customers.site_referral_since_oct_2020_weekly
+create or replace table dta_customers.govau_site_referral_oct_2020_firstweek
+          OPTIONS (
+            description = "Top ten weekly site referral in first week of October 2020 for whole of government"
+    )
+as
 select 
   traffic_referral,
   total_visitors,
   unique_visitors,
   visit_week_iso as visit_week,
   visit_month,
-  visit_year
+  visit_year,
+  rank() over (partition by visit_month order by total_visitors desc) as peak_traffic_source
 from (
   select
         COUNT(fullVisitorId) as total_visitors,
@@ -25,7 +25,7 @@ from (
         sum(hit_count) as total_hits,
         traffic_referral,
         extract(ISOWEEK FROM date(timestamp_seconds(visitStartTime))) as visit_week_iso,
-        format_date("%m", date(timestamp_seconds(visitStartTime), 'Australia/Sydney')) as visit_month,
+        format_date("%b", date(timestamp_seconds(visitStartTime), 'Australia/Sydney')) as visit_month,
         format_date("%Y", date(timestamp_seconds(visitStartTime), 'Australia/Sydney')) as visit_year
     from
     (
@@ -44,7 +44,7 @@ from (
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** trove.nla.gov.au ***/
 select
@@ -58,7 +58,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** designsystem.gov.au ***/
 select
@@ -72,7 +72,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** jobsearch.gov.au ***/
 select
@@ -86,7 +86,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** https://www.idpwd.com.au/ ***/
 select
@@ -100,7 +100,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** mychild.gov.au ***/
 select
@@ -114,7 +114,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.jobjumpstart.gov.au ***/
 select
@@ -128,7 +128,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** igt.gov.au ***/
 select
@@ -142,7 +142,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** whatsnext.employment.gov.au ***/
 select
@@ -156,7 +156,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** ebs.tga.gov.au ***/
 select
@@ -170,7 +170,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.employment.gov.au ***/
 select
@@ -184,7 +184,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.fsc.gov.au ***/
 select
@@ -198,7 +198,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** data.wgea.gov.au ***/
 select
@@ -212,7 +212,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** army.gov.au ***/
 select
@@ -226,7 +226,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** osb.homeaffairs.gov.au ***/
 select
@@ -240,7 +240,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** Australia.gov.au ***/
 select
@@ -254,7 +254,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** data.gov.au - all data ***/
 select
@@ -268,7 +268,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** abs.gov.au ***/
 select
@@ -282,7 +282,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** disabilityadvocacyfinder.dss.gov.au ***/
 select
@@ -296,7 +296,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** domainname.gov.au ***/
 select
@@ -310,7 +310,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** asic.gov.au ***/
 select
@@ -324,7 +324,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** onlineservices.ato.gov.au ***/
 select
@@ -338,7 +338,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.dta.gov.au ***/
 select
@@ -352,7 +352,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** [STRUCT(dta, )] ***/
 select
@@ -366,7 +366,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** health.gov.au ***/
 select
@@ -380,7 +380,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.asd.gov.au ***/
 select
@@ -394,7 +394,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** familyrelationships.gov.au ***/
 select
@@ -408,7 +408,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** webarchive.nla.gov.au ***/
 select
@@ -422,7 +422,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** trove.nla.gov.au ***/
 select
@@ -436,7 +436,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** ga.gov.au ***/
 select
@@ -450,7 +450,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** ato.gov.au ***/
 select
@@ -464,7 +464,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** ABRWeb ***/
 select
@@ -478,7 +478,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** catologue.nla.gov.au ***/
 select
@@ -492,7 +492,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.aqf.edu.au ***/
 select
@@ -506,7 +506,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** cd.defence.gov.au ***/
 select
@@ -520,7 +520,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.studentsfirst.gov.au ***/
 select
@@ -534,7 +534,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** consultation.business.gov.au ***/
 select
@@ -548,7 +548,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** https://serviceproviders.dss.gov.au/ ***/
 select
@@ -562,7 +562,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** australianjobs.employment.gov.au ***/
 select
@@ -576,7 +576,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** engage.dss.gov.au ***/
 select
@@ -590,7 +590,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.ihpa.gov.au ***/
 select
@@ -604,7 +604,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** nla.gov.au ***/
 select
@@ -618,7 +618,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.learningpotential.gov.au ***/
 select
@@ -632,7 +632,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** safeworkaustralia.gov.au ***/
 select
@@ -646,7 +646,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** beta.abs.gov.au ***/
 select
@@ -660,7 +660,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.artc.com.au\nAustralian Rail Track Corporation ***/
 select
@@ -674,7 +674,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** [STRUCT(agency, artc)] ***/
 select
@@ -688,7 +688,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.studyassist.gov.au ***/
 select
@@ -702,7 +702,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** govdex.gov.au ***/
 select
@@ -716,7 +716,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** covid19inlanguage.homeaffairs.gov.au (UA-61305954-25) – (View ID: 215803896) ***/
 select
@@ -730,7 +730,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** maps.inlandrail.com.au/b2g-dec-2018#/\ninland rail map ***/
 select
@@ -744,7 +744,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** [STRUCT(agency, inland_rail_map)] ***/
 select
@@ -758,7 +758,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** airforce.gov.au ***/
 select
@@ -772,7 +772,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.tradesrecognitionaustralia.gov.au ***/
 select
@@ -786,7 +786,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** abcc.gov.au ***/
 select
@@ -800,7 +800,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** docs.education.gov.au ***/
 select
@@ -814,7 +814,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** jobaccess.gov.au ***/
 select
@@ -828,7 +828,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** eduportal.education.gov.au ***/
 select
@@ -842,7 +842,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** joboutlook.gov.au ***/
 select
@@ -856,7 +856,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** intercountryadoption.gov.au ***/
 select
@@ -870,7 +870,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** moneysmart.gov.au ***/
 select
@@ -884,7 +884,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** defence.gov.au ***/
 select
@@ -898,7 +898,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.education.gov.au ***/
 select
@@ -912,7 +912,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** ablis.business.gov.au ***/
 select
@@ -926,7 +926,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** defenceindustry.gov.au ***/
 select
@@ -940,7 +940,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** https://formerministers.dss.gov.au/ ***/
 select
@@ -954,7 +954,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** communitybusinesspartnership.gov.au ***/
 select
@@ -968,7 +968,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** afsa.gov.au ***/
 select
@@ -982,7 +982,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** minister.homeaffairs.gov.au ***/
 select
@@ -996,7 +996,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** govcms ***/
 select
@@ -1010,7 +1010,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** eduportal.education.gov.au ***/
 select
@@ -1024,7 +1024,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** video defence.gov.au ***/
 select
@@ -1038,7 +1038,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** m.directory.gov.au ***/
 select
@@ -1052,7 +1052,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** scamwatch.gov.au ***/
 select
@@ -1066,7 +1066,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** immi.homeaffairs.gov.au ***/
 select
@@ -1080,7 +1080,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** api.gov.au ***/
 select
@@ -1094,7 +1094,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** FWBC On Site ***/
 select
@@ -1108,7 +1108,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** industry.gov.au ***/
 select
@@ -1122,7 +1122,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** http://www.companioncard.gov.au/ ***/
 select
@@ -1136,7 +1136,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** humanservices.gov.au ***/
 select
@@ -1150,7 +1150,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** abr.business.gov.au ***/
 select
@@ -1164,7 +1164,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** librariesaustralia.nla.gov.au ***/
 select
@@ -1178,7 +1178,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** business.dmz.test.tga.gov.au ***/
 select
@@ -1192,7 +1192,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** myato ***/
 select
@@ -1206,7 +1206,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** https://plan4womenssafety.dss.gov.au/ ***/
 select
@@ -1220,7 +1220,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** news.defence.gov.au ***/
 select
@@ -1234,7 +1234,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** abf.gov.au ***/
 select
@@ -1248,7 +1248,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** Homeaffairs.gov.au ***/
 select
@@ -1262,7 +1262,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** betterschools.gov.au ***/
 select
@@ -1276,7 +1276,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.asbfeo.gov.au ***/
 select
@@ -1290,7 +1290,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** Style Manual ***/
 select
@@ -1304,7 +1304,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** humanservices.gov.au ***/
 select
@@ -1318,7 +1318,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** superfundlookup.gov.au ***/
 select
@@ -1332,7 +1332,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** rba.gov.au ***/
 select
@@ -1346,7 +1346,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** covid19.homeaffairs.gov.au ***/
 select
@@ -1360,7 +1360,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** dss.gov.au ***/
 select
@@ -1374,7 +1374,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** immi.gov.au ***/
 select
@@ -1388,7 +1388,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** minister.defence.gov.au ***/
 select
@@ -1402,7 +1402,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** guides.dss.gov.au ***/
 select
@@ -1416,7 +1416,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** data.wgea.gov.au ***/
 select
@@ -1430,7 +1430,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** tga.gov.au ***/
 select
@@ -1444,7 +1444,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** banknotes.rba.gov.au ***/
 select
@@ -1458,7 +1458,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** innovation.govspace.gov.au ***/
 select
@@ -1472,7 +1472,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** business.dmz.development.tga.gov.au ***/
 select
@@ -1486,7 +1486,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** business.tga.gov.au ***/
 select
@@ -1500,7 +1500,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** myGov_beta ***/
 select
@@ -1514,7 +1514,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.business.gov.au ***/
 select
@@ -1528,7 +1528,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** Career Pathways ***/
 select
@@ -1542,7 +1542,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** www.tisnational.gov.au ***/
 select
@@ -1556,7 +1556,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** atrc.com.au ***/
 select
@@ -1570,7 +1570,7 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
             union all
 /*** marketplace.service.gov.au ***/
 select
@@ -1584,13 +1584,12 @@ select
             where regexp_contains( hits.page.hostname, "^.*.gov.au$") = TRUE
             and    type = 'PAGE'
             and   totals.visits = 1
-            and _table_suffix between FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)) and FORMAT_DATE('%Y%m%d',DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY))
+            and _table_suffix between '20201001' and '20201007'
 /* End - Datasets of Interest websites */
     )
-     where traffic_referral in (select traffic_referral from dta_customers.site_referral_oct_2020_firstweek where peak_traffic_source <= 100)
-     group by traffic_referral, visit_week_iso, visit_month, visit_year
+     group by traffic_referral,visit_week_iso,visit_month,visit_year
   )
-    order by traffic_referral, visit_year, visit_month ,visit_week
+    order by peak_traffic_source, visit_year, visit_week
 ;
 
-End;
+
