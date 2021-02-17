@@ -44,6 +44,10 @@ export interface IGetDataFromUrlType {
   dateType: string;
 }
 
+export interface IGetPeakDataType {
+  property_ua_id: string;
+}
+
 export interface IGetOutputDataType {
   type: DataOutputType;
   property_ua_id: string;

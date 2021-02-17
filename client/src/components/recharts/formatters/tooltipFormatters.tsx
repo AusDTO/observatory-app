@@ -55,3 +55,27 @@ export const PageViewsTooltip: (props: Props) => JSX.Element = ({
     </>
   );
 };
+
+export const SessionsTooltip: (props: Props) => JSX.Element = ({
+  active,
+  payload,
+}) => {
+  let totalVal: string | number = "";
+  let date = "";
+
+  if (payload && payload[0]) {
+    totalVal = payload[0].payload.sessions;
+    date = formatHour(payload[0].payload.visit_hour);
+  }
+
+  return (
+    <>
+      {active && (
+        <div className="custom-tooltip au-body">
+          <p>{date}</p>
+          <p>{`${totalVal.toLocaleString()} sessions`}</p>
+        </div>
+      )}
+    </>
+  );
+};
