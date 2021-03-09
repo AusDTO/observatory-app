@@ -16,31 +16,31 @@ jobs:
           name: Restore node_modules from cache
           keys:
             - v3-dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: get directory
-          command: |
-            . ./deploy.sh
-            cat .env
-      - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-client-9.6
-      - run:
-          name: install dockerize
-          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-          environment:
-            DOCKERIZE_VERSION: v0.3.0
-      - run:
-          name: Wait for db
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run:
-          name: Set up test database
-          command: |
-            psql -c 'create database "observatory-test"' -U postgres -h localhost -p 5432
-            psql -c "\l"  -U postgres -h localhost -p 5432
+      # - run:
+      #     name: get directory
+      #     command: |
+      #       . ./deploy.sh
+      #       cat .env
+      # - run: sudo apt-get update
+      # - run: sudo apt-get install postgresql-client-9.6
+      # - run:
+      #     name: install dockerize
+      #     command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+      #     environment:
+      #       DOCKERIZE_VERSION: v0.3.0
+      # - run:
+      #     name: Wait for db
+      #     command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      # - run:
+      #     name: Set up test database
+      #     command: |
+      #       psql -c 'create database "observatory-test"' -U postgres -h localhost -p 5432
+      #       psql -c "\l"  -U postgres -h localhost -p 5432
       - run:
           name: Install dependencies, run tests
           command: |
             npm i
-            npm run test
+#            npm run test
             npm run build
       - save_cache:
           name: Save node_modules to cache
@@ -123,17 +123,16 @@ workflows:
   build-and-deploy:
     jobs:
       - build-and-test-server
-      - deploy-server-staging:
-          requires:
-            - build-and-test-server
-          filters:
-            branches:
-              only: develop
-
+      # - deploy-server-staging:
+      #     requires:
+      #       - build-and-test-server
+      #     filters:
+      #       branches:
+      #         only: develop
       - build-and-test-front-end
-      - deploy-front-end-staging:
-          requires:
-            - build-and-test-front-end
-          filters:
-            branches:
-              only: develop
+      # - deploy-front-end-staging:
+      #     requires:
+      #       - build-and-test-front-end
+      #     filters:
+      #       branches:
+      #         only: develop
